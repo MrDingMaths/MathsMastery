@@ -1,0 +1,318 @@
+// algebra-modules/gameController.js
+import { CONFIG } from './config.js';
+import { GameState } from './gameState.js';
+import { UI } from './ui.js';
+import { Timer } from '../../shared/timer.js';
+import { QuestionGenerator } from './questionGenerator.js';
+import { Confetti } from '../../shared/confetti.js';
+import { AlgebraMasteryTracker } from './algebraMasteryTracker.js';
+import { StorageManager } from './storage.js';
+import { RatingUtils } from '../../shared/ratingUtils.js';
+
+// Make RatingUtils globally available for progress tracking modules
+window.RatingUtils = RatingUtils;
+
+export class GameController {
+    constructor() {
+        this.state = new GameState();
+        this.ui = new UI();
+        this.timer = new Timer(this.ui.elements.timer);
+        this.questionGen = new QuestionGenerator();
+        this.algebraEngine = new AlgebraEngine();
+        this.confetti = new Confetti('confetti-canvas');
+        this.algebraMasteryTracker = new AlgebraMasteryTracker();
+        this.isChecking = false;
+        this.answerSubmitted = false;
+        
+        // Initialize MathQuill after DOM is ready
+        this.ui.initializeMathQuill();
+        
+        this.setupEventListeners();
+        this.initializeProgressTracking();
+        this.initializeLearningPath();
+    }
+
+    initializeProgressTracking() {
+        // Only initialize if not already initialized
+        if (!window.progressUI) {
+            // progressTracker is already instantiated by the per-app wrapper script
+            window.progressChart = new ProgressChart('progress-chart', window.progressTracker);
+            window.progressShare = new ProgressShare(window.progressTracker, window.progressChart, 'Algebra Challenge');
+            window.progressUI = new ProgressUI(window.progressTracker, window.progressChart, window.progressShare);
+        }
+    }
+
+    initializeLearningPath() {
+        // Set up success screen callbacks (Enter = replay, Escape = back to levels)
+        this.ui.setSuccessScreenCallbacks(
+            () => this.replayCurrentLevel(),
+            () => this.quitGame()
+        );
+
+        // Initialize the learning path interface
+        this.updateLearningPathInterface();
+    }
+
+    setupEventListeners() {
+        // Quit button (game screen)
+        this.ui.elements.quitBtn.addEventListener('click', () => this.quitGame());
+
+        // Listen for Enter key from MathQuill
+        document.addEventListener('mathquill-enter', () => {
+            if (!this.isChecking && !this.answerSubmitted) {
+                this.checkAnswer();
+            }
+        });
+
+        // Game screen ESC handler (success screen shortcuts handled by BaseUI.setupSuccessScreenButtons)
+        this.handleGlobalKeys = (e) => {
+            if (!this.ui.elements.gameScreen.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    this.quitGame();
+                }
+            }
+        };
+        document.addEventListener('keydown', this.handleGlobalKeys);
+    }
+
+    startGame(level) {
+        this.state.setLevel(level);
+        this.ui.showScreen('game');
+        this.ui.updateStreak(0);
+        this.ui.updateLevelName(level.name);
+        this.timer.start();
+        this.generateQuestion();
+    }
+
+    generateQuestion() {
+        this.ui.clearFeedback();
+        this.ui.clearInputFeedback();
+        this.ui.hideTimerPausedMessage();
+        this.answerSubmitted = false;
+
+        // Reset incorrect count when moving to new question
+        this.state.resetIncorrectCount();
+        
+        const question = this.questionGen.generateQuestion(this.state.currentLevel.key);
+        if (!question) {
+            console.error("Failed to generate question");
+            return;
+        }
+        
+        this.state.currentQuestion = question;
+        this.state.currentAnswer = question.answer;
+        this.ui.displayQuestion(question);
+        this.ui.updateTestAnswer(question.answer);
+    }
+
+    checkAnswer() {
+        if (this.isChecking || this.answerSubmitted) return;
+        this.answerSubmitted = true;
+        this.isChecking = true;
+
+        const userAnswer = this.ui.getAnswerFromUI();
+        
+        if (!userAnswer || userAnswer.trim() === '') {
+            this.ui.showFeedback(false, 'Please enter an answer');
+            this.answerSubmitted = false;
+            this.isChecking = false;
+            return;
+        }
+
+        this.state.incrementQuestionsAttempted();
+
+        const correctAnswer = this.state.currentAnswer;
+        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer, this.state.currentLevel.value);
+
+        if (isCorrect) {
+            // Reset incorrect count on correct answer
+            this.state.resetIncorrectCount();
+            
+            const newStreak = this.state.incrementStreak();
+            this.ui.updateStreak(newStreak);
+            this.ui.showInputFeedback(true);
+            this.ui.showFeedback(true, CONFIG.POSITIVE_FEEDBACK[Math.floor(Math.random() * CONFIG.POSITIVE_FEEDBACK.length)]);
+            this.confetti.trigger(CONFIG.CONFETTI.CORRECT);
+            
+            if (this.state.isComplete()) {
+                setTimeout(() => this.showSuccess(), 500);
+            } else {
+                setTimeout(() => { 
+                    this.answerSubmitted = false;
+                    this.generateQuestion(); 
+                    this.isChecking = false; 
+                }, CONFIG.FEEDBACK_DELAY_CORRECT);
+            }
+        } else {
+            // Increment incorrect count
+            const incorrectCount = this.state.incrementIncorrectCount();
+
+            if (this.state.isSecondIncorrectAttempt()) {
+                // Second incorrect attempt - reset streak, show correct answer with question, persist until user input
+                this.state.resetStreak();
+                this.ui.updateStreak(0);
+                this.ui.showInputFeedback(false);
+                this.ui.showFeedback(false, null, correctAnswer, this.state.currentQuestion.problem);
+                this.ui.showTimerPausedMessage();
+                this.timer.reset();
+
+                // Record the mistake
+                this.recordMistake(userAnswer, correctAnswer);
+
+                // Clear the answer field but keep feedback visible
+                this.ui.clearAnswer();
+
+                // Set up one-time listener for when user presses any key to move to next question
+                const moveToNextQuestion = (e) => {
+                    // Only respond to actual key presses (not meta keys like Shift, Ctrl, etc.)
+                    if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape') {
+                        // Remove this listener
+                        document.removeEventListener('keydown', moveToNextQuestion);
+
+                        // If Escape was pressed, don't advance to next question - let global handler quit the game
+                        if (e.key === 'Escape') {
+                            return;
+                        }
+
+                        // Move to next question (only for non-Escape keys)
+                        this.ui.hideTimerPausedMessage();
+                        this.answerSubmitted = false;
+                        this.generateQuestion();
+                        this.timer.start();
+                        this.isChecking = false;
+                    }
+                };
+
+                // Add the keydown listener (50ms delay prevents same keystroke from double-firing)
+                setTimeout(() => {
+                    document.addEventListener('keydown', moveToNextQuestion);
+                }, 50);
+            } else {
+                // First incorrect attempt - give second chance
+                this.ui.showInputFeedback(false);
+                this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
+
+                setTimeout(() => {
+                    this.ui.clearFeedback();
+                    this.ui.clearInputFeedback();
+                    this.answerSubmitted = false;
+                    this.isChecking = false;
+
+                    // Refocus the input field for second attempt
+                    if (this.ui.mathField) {
+                        this.ui.mathField.focus();
+                    }
+                }, CONFIG.FEEDBACK_DELAY_INCORRECT);
+            }
+        }
+    }
+
+    showSuccess() {
+        this.timer.stop();
+        const time = this.timer.getSeconds();
+        const previousBest = StorageManager.getBestTime(this.state.currentLevel.key);
+        const isNewBest = !previousBest || time < previousBest;
+        
+        if (isNewBest) {
+            StorageManager.saveBestTime(this.state.currentLevel.key, time);
+            this.confetti.trigger(CONFIG.CONFETTI.SUCCESS);
+        }
+        
+        // Add progress tracking
+        try {
+            if (window.progressTracker) {
+                console.log('Recording progress for:', this.state.currentLevel.key, 'Time:', time);
+                window.progressTracker.recordProgress(
+                    this.state.currentLevel.key,
+                    time,
+                    CONFIG.REQUIRED_STREAK,
+                    this.state.questionsAttempted
+                );
+            }
+        } catch (error) {
+            console.error('Error recording progress (non-blocking):', error);
+        }
+        
+        const rating = StorageManager.getRating(time, this.state.currentLevel.key);
+        
+        // Update mastery tracking
+        try {
+            this.algebraMasteryTracker.updateMasteryProgress(this.state.currentLevel.key, rating);
+        } catch (error) {
+            console.error('Error updating mastery progress (non-blocking):', error);
+        }
+        
+        try {
+            this.ui.showSuccess(
+                this.state.currentLevel.name,
+                time,
+                rating,
+                isNewBest,
+                previousBest,
+                this.state.currentLevel.key,
+                CONFIG.REQUIRED_STREAK
+            );
+        } catch (error) {
+            console.error('Error showing success screen:', error);
+        }
+        
+        this.isChecking = false;
+    }
+
+    recordMistake(studentAnswer, correctAnswer) {
+        // Record mistake for progress tracking
+        try {
+            if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
+                console.log('Recording mistake for:', this.state.currentLevel.key);
+                window.progressTracker.recordMistake(
+                    this.state.currentLevel.key,
+                    this.state.currentLevel.name,
+                    this.state.currentQuestion.problem,
+                    correctAnswer,
+                    studentAnswer
+                );
+            }
+        } catch (error) {
+            console.error('Error recording mistake (non-blocking):', error);
+        }
+    }
+
+    quitGame() {
+        this.timer.stop(); 
+        this.state.reset();
+        this.isChecking = false;
+        this.answerSubmitted = false;
+        this.updateLearningPathInterface();
+        this.ui.showScreen('settings');
+    }
+
+    // --- Learning Path Methods ---
+
+    updateLearningPathInterface() {
+        // Calculate mastery progress
+        const masteryProgress = this.algebraMasteryTracker.calculateMasteryProgress();
+        const masteryData = this.algebraMasteryTracker.getTopicProgressData();
+
+        // Update the UI with both skill path and mastery progress
+        this.ui.updateLevelsInterface(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), masteryData);
+    }
+
+    continueToNextChallenge() {
+        const nextLevel = this.algebraMasteryTracker.getNextAvailableLevel();
+        if (nextLevel) {
+            this.startGame(nextLevel);
+        } else {
+            // All levels completed, return to learning path
+            this.ui.showScreen('settings');
+            this.updateLearningPathInterface();
+        }
+    }
+
+    replayCurrentLevel() {
+        if (this.state.currentLevel) {
+            this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+}

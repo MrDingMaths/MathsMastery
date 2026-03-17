@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>Trig Skills</title>
+
+    <!-- Dark mode (must load before CSS to avoid flash) -->
+    <script src="../shared/darkMode.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared/darkMode.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Local MathQuill CSS -->
+    <link rel="stylesheet" href="../shared/lib/mathquill/mathquill.css">
+
+    <!-- jQuery (required by MathQuill) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../shared/lib/math.js"></script>
+    <script src="../shared/lib/mathquill/mathquill.js"></script>
+
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="../shared/common.css">
+    <link rel="stylesheet" href="../shared/progressStyles.css">
+
+    <!-- Custom TrigFacts Styling -->
+    <link rel="stylesheet" href="trig-style/trig-style.css">
+
+    <!-- Navigation buttons styles -->
+    <link rel="stylesheet" href="../shared/navigationButtons.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container mx-auto text-center">
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="card mx-auto">
+            <h1 class="text-3xl md:text-3xl font-bold text-gray-800 mb-2">Trig Skills</h1>
+            <p class="text-gray-600 mb-4">Answer 10 in a row quickly to achieve mastery</p>
+            <div id="mastery-progress-section"></div>
+            <div id="skill-path-container" class="mb-6">
+                <div id="level-selection-container"></div>
+            </div>
+            <p class="text-xs text-gray-300 mt-6 text-center">Found a bug? Email jding@plc.nsw.edu.au</p>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="card mx-auto hidden">
+            <div class="flex justify-between items-center mb-6 text-lg">
+                <div class="font-semibold text-gray-700">
+                    Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥
+                </div>
+                <div class="font-semibold text-gray-700">
+                    Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span>
+                </div>
+            </div>
+
+            <!-- Level Name Display -->
+            <div id="level-name" class="text-center text-gray-700 text-xl mb-4"></div>
+
+            <!-- Timer Paused Message -->
+            <div id="timer-paused-message" class="hidden font-semibold text-orange-600">
+                Timer will reset
+            </div>
+
+            <!-- Quadrant Diagram Container -->
+            <div id="diagram-container" class="diagram-container my-4 hidden">
+                <canvas id="quadrant-diagram" width="300" height="300"
+                        class="mx-auto bg-white rounded-lg shadow-inner border border-gray-200"></canvas>
+            </div>
+
+            <!-- Question Display -->
+            <div id="question-container" class="my-8 min-h-[60px] flex items-center justify-center">
+                <div id="question-text" class="question-text"></div>
+            </div>
+
+            <!-- Input Container -->
+            <div id="input-container" class="flex flex-col items-center my-6">
+                <div id="mathquill-input" class="mathquill-input"></div>
+            </div>
+
+            <!-- Feedback Message -->
+            <div id="feedback-message" class="feedback mb-6"></div>
+
+            <!-- Quit Button -->
+            <button id="quit-btn" class="mt-6 text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span>
+                Back to Levels
+            </button>
+        </div>
+
+        <!-- Success Screen -->
+        <div id="success-screen" class="card mx-auto hidden text-center">
+            <h2 class="text-2xl font-bold text-green-500 mb-1">🎉 Challenge Complete!</h2>
+            <p class="text-gray-500 text-base mb-6">
+                <span id="completed-level" class="font-semibold text-gray-700"></span>
+            </p>
+
+            <!-- Rating hero -->
+            <div class="mb-6">
+                <div id="rating-emoji" class="text-5xl mb-2"></div>
+                <p id="final-rating" class="text-3xl font-bold text-yellow-500 mb-3"></p>
+                <p class="text-gray-700 text-lg">
+                    Your time: <span id="final-time" class="font-bold text-blue-600"></span>
+                </p>
+                <p id="best-time-message" class="text-gray-500 text-sm mt-1"></p>
+                <p id="rating-explanation" class="text-xs text-gray-400 mt-2"></p>
+            </div>
+
+            <button id="replay-level-btn" class="btn btn-primary w-full max-w-xs mx-auto text-base mb-4 flex items-center justify-center gap-2">
+                <span class="dcg">Enter</span><span>Replay Level</span>
+            </button>
+            <div class="flex gap-4 justify-center">
+                <button id="play-again-btn" class="text-gray-500 hover:text-gray-700 font-medium text-sm flex items-center gap-1">
+                    <span class="dcg">Esc</span><span>Back to Levels</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== App Entry Point ===== -->
+    <script type="module" src="trig-modules/app.js"></script>
+
+    <!-- Navigation buttons module -->
+	<script src="../shared/navigationButtons.js"></script>
+
+	<!-- Progress tracking modules (shared class + per-app wrapper) -->
+	<script src="../shared/progressTracker.js"></script>
+	<script src="progress-tracking/progressTracker.js"></script>
+	<script src="../shared/progressChart.js"></script>
+	<script src="../shared/progressShare.js"></script>
+	<script src="../shared/progressUI.js"></script>
+
+</body>
+</html>

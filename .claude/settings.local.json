@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/*/algebra-modules/*.js /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/*/*.js)",
+      "Bash(du -sh \"/c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery\"/*/)",
+      "Bash(find /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery -type f \\\\\\(-name *.js -o -name *.html -o -name *.css \\\\\\) ! -path */node_modules/*)",
+      "Bash(mkdir -p shared/lib)",
+      "Bash(cp algebra/lib/math.js shared/lib/math.js)",
+      "Bash(cp -r algebra/lib/mathquill shared/lib/mathquill)",
+      "Bash(node convert-levels.js)",
+      "Bash(find /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/trigfacts -maxdepth 2 -name *.js -type f)"
+    ]
+  }
+}
