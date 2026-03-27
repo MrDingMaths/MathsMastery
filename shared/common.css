@@ -401,3 +401,23 @@ div:has(> #timer) {
         left: -0.75rem;
     }
 }
+
+/* Quit confirmation toast */
+.quit-toast {
+    position: fixed;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.quit-toast.visible {
+    opacity: 1;
+}
+

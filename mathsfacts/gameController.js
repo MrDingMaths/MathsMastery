@@ -78,7 +78,7 @@ export class GameController {
     }
 
     setupEventListeners() {
-        this.ui.elements.quitBtn.addEventListener('click', () => this.quitGame());
+        this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
         // playAgainBtn (Back to Levels on success screen) is handled by BaseUI.setupSuccessScreenButtons via setSuccessScreenCallbacks
 
         // Handle Enter key on game screen - works for both text inputs and unit conversions
@@ -106,7 +106,7 @@ export class GameController {
             if (e.key === 'Escape') {
                 // Only quit if we're in the game screen
                 if (!this.ui.elements.gameScreen.classList.contains('hidden')) {
-                    this.quitGame();
+                    this.confirmQuit();
                 }
             }
         };
@@ -345,10 +345,11 @@ export class GameController {
                 // Add a small delay before attaching the listener to prevent the current keystroke from triggering it
                 setTimeout(() => {
                     // Setup keystroke listener for advancing to next question
-                    const moveToNextQuestion = (e) => {
+                    this._moveToNextQuestion = (e) => {
                         // Handle Escape specially - clear the listener but let normal Escape handler run
                         if (e.key === 'Escape') {
-                            document.removeEventListener('keydown', moveToNextQuestion);
+                            document.removeEventListener('keydown', this._moveToNextQuestion);
+                            this._moveToNextQuestion = null;
                             this.isWaitingForKeystroke = false;
                             this.ui.hideTimerPausedMessage();
                             // Don't preventDefault - let Escape handler quit the game
@@ -365,7 +366,8 @@ export class GameController {
                             e.stopPropagation();  // Stop event from propagating
 
                             // Remove listener immediately (one-time use)
-                            document.removeEventListener('keydown', moveToNextQuestion);
+                            document.removeEventListener('keydown', this._moveToNextQuestion);
+                            this._moveToNextQuestion = null;
 
                             // Reset waiting flag
                             this.isWaitingForKeystroke = false;
@@ -380,7 +382,7 @@ export class GameController {
                     };
 
                     // Attach listener
-                    document.addEventListener('keydown', moveToNextQuestion);
+                    document.addEventListener('keydown', this._moveToNextQuestion);
                 }, 50);  // 50ms delay to prevent the same keystroke from triggering the listener
             }
             // SUB-BRANCH: First Incorrect Attempt (show encouragement and allow retry)
@@ -411,11 +413,34 @@ export class GameController {
     }
 
 
+    confirmQuit() {
+        if (this._quitPending && this._quitAcceptSecond) {
+            clearTimeout(this._quitPendingTimeout);
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+            this.quitGame();
+            return;
+        }
+        if (this._quitPending) return; // within 200ms delay, ignore
+        this._quitPending = true;
+        this._quitAcceptSecond = false;
+        this.ui.showToast('Keep going!');
+        setTimeout(() => { this._quitAcceptSecond = true; }, 200);
+        this._quitPendingTimeout = setTimeout(() => {
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+        }, 2000);
+    }
+
     quitGame() {
         this.timer.stop();
         this.state.reset();
         this.isChecking = false;
         this.isWaitingForKeystroke = false;
+        if (this._moveToNextQuestion) {
+            document.removeEventListener('keydown', this._moveToNextQuestion);
+            this._moveToNextQuestion = null;
+        }
         try { this.updateLearningPathInterface(); } catch (e) { console.error('updateLearningPath error:', e); }
         if (window.progressUI) window.progressUI.updateContent();
         this.ui.showScreen('settings');

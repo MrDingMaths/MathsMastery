@@ -47,7 +47,7 @@ export class TrigGameController {
 
     setupEventListeners() {
         // Button listeners
-        this.ui.elements.quitBtn.addEventListener('click', () => this.quitGame());
+        this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
         // playAgainBtn (Back to Levels on success screen) is handled by BaseUI.setupSuccessScreenButtons via setSuccessScreenCallbacks
 
         // Keyboard listeners
@@ -62,7 +62,7 @@ export class TrigGameController {
 
         // Escape key to quit
         if (e.key === 'Escape') {
-            this.quitGame();
+            this.confirmQuit();
             return;
         }
 
@@ -178,13 +178,14 @@ export class TrigGameController {
             this.ui.clearAnswer();
 
             // Setup keystroke listener for advancing
-            const moveToNextQuestion = (e) => {
+            this._moveToNextQuestion = (e) => {
                 // Filter for valid keys (not meta/modifier keys)
                 if (e.key.length === 1 || e.key === 'Enter' ||
                     e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape') {
 
                     // Remove listener immediately (one-time use)
-                    document.removeEventListener('keydown', moveToNextQuestion);
+                    document.removeEventListener('keydown', this._moveToNextQuestion);
+                    this._moveToNextQuestion = null;
 
                     // If Escape, let the main handler deal with it (don't advance question)
                     if (e.key === 'Escape') {
@@ -201,7 +202,7 @@ export class TrigGameController {
 
             // Attach listener to document (50ms delay prevents same keystroke from double-firing)
             setTimeout(() => {
-                document.addEventListener('keydown', moveToNextQuestion);
+                document.addEventListener('keydown', this._moveToNextQuestion);
             }, 50);
         } else {
             // First incorrect attempt - show hint and let user try again
@@ -253,9 +254,32 @@ export class TrigGameController {
         }
     }
 
+    confirmQuit() {
+        if (this._quitPending && this._quitAcceptSecond) {
+            clearTimeout(this._quitPendingTimeout);
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+            this.quitGame();
+            return;
+        }
+        if (this._quitPending) return; // within 200ms delay, ignore
+        this._quitPending = true;
+        this._quitAcceptSecond = false;
+        this.ui.showToast('Keep going!');
+        setTimeout(() => { this._quitAcceptSecond = true; }, 200);
+        this._quitPendingTimeout = setTimeout(() => {
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+        }, 2000);
+    }
+
     quitGame() {
         this.timer.stop();
         this.state.reset();
+        if (this._moveToNextQuestion) {
+            document.removeEventListener('keydown', this._moveToNextQuestion);
+            this._moveToNextQuestion = null;
+        }
         this.ui.hideTimerPausedMessage();
         this.initialize();
     }

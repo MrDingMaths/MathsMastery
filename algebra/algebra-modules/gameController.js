@@ -55,7 +55,7 @@ export class GameController {
 
     setupEventListeners() {
         // Quit button (game screen)
-        this.ui.elements.quitBtn.addEventListener('click', () => this.quitGame());
+        this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
 
         // Listen for Enter key from MathQuill
         document.addEventListener('mathquill-enter', () => {
@@ -68,7 +68,7 @@ export class GameController {
         this.handleGlobalKeys = (e) => {
             if (!this.ui.elements.gameScreen.classList.contains('hidden')) {
                 if (e.key === 'Escape') {
-                    this.quitGame();
+                    this.confirmQuit();
                 }
             }
         };
@@ -163,11 +163,12 @@ export class GameController {
                 this.ui.clearAnswer();
 
                 // Set up one-time listener for when user presses any key to move to next question
-                const moveToNextQuestion = (e) => {
+                this._moveToNextQuestion = (e) => {
                     // Only respond to actual key presses (not meta keys like Shift, Ctrl, etc.)
                     if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape') {
                         // Remove this listener
-                        document.removeEventListener('keydown', moveToNextQuestion);
+                        document.removeEventListener('keydown', this._moveToNextQuestion);
+                        this._moveToNextQuestion = null;
 
                         // If Escape was pressed, don't advance to next question - let global handler quit the game
                         if (e.key === 'Escape') {
@@ -185,7 +186,7 @@ export class GameController {
 
                 // Add the keydown listener (50ms delay prevents same keystroke from double-firing)
                 setTimeout(() => {
-                    document.addEventListener('keydown', moveToNextQuestion);
+                    document.addEventListener('keydown', this._moveToNextQuestion);
                 }, 50);
             } else {
                 // First incorrect attempt - give second chance
@@ -277,11 +278,34 @@ export class GameController {
         }
     }
 
+    confirmQuit() {
+        if (this._quitPending && this._quitAcceptSecond) {
+            clearTimeout(this._quitPendingTimeout);
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+            this.quitGame();
+            return;
+        }
+        if (this._quitPending) return; // within 200ms delay, ignore
+        this._quitPending = true;
+        this._quitAcceptSecond = false;
+        this.ui.showToast('Keep going!');
+        setTimeout(() => { this._quitAcceptSecond = true; }, 200);
+        this._quitPendingTimeout = setTimeout(() => {
+            this._quitPending = false;
+            this._quitAcceptSecond = false;
+        }, 2000);
+    }
+
     quitGame() {
-        this.timer.stop(); 
+        this.timer.stop();
         this.state.reset();
         this.isChecking = false;
         this.answerSubmitted = false;
+        if (this._moveToNextQuestion) {
+            document.removeEventListener('keydown', this._moveToNextQuestion);
+            this._moveToNextQuestion = null;
+        }
         this.updateLearningPathInterface();
         this.ui.showScreen('settings');
     }

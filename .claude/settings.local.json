@@ -8,7 +8,8 @@
       "Bash(cp algebra/lib/math.js shared/lib/math.js)",
       "Bash(cp -r algebra/lib/mathquill shared/lib/mathquill)",
       "Bash(node convert-levels.js)",
-      "Bash(find /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/trigfacts -maxdepth 2 -name *.js -type f)"
+      "Bash(find /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/trigfacts -maxdepth 2 -name *.js -type f)",
+      "Bash(git -C /c/Users/james/OneDrive/Admin/WebApps/MathsMastery log --oneline -10)"
     ]
   }
 }

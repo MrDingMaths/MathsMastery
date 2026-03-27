@@ -281,6 +281,31 @@ export class BaseUI {
         }
     }
 
+    // --- Toast notification ---
+
+    showToast(message) {
+        if (!this._toastEl) {
+            this._toastEl = document.createElement('div');
+            this._toastEl.className = 'quit-toast';
+            document.body.appendChild(this._toastEl);
+        }
+        this._toastEl.textContent = message;
+
+        // Anchor just below the input area, using the feedback element as reference
+        const anchor = this.elements.feedbackMessage;
+        if (anchor) {
+            const rect = anchor.getBoundingClientRect();
+            this._toastEl.style.top = `${rect.top + rect.height / 2}px`;
+            this._toastEl.style.left = `${rect.left + rect.width / 2}px`;
+        }
+
+        clearTimeout(this._toastHideTimeout);
+        this._toastEl.classList.add('visible');
+        this._toastHideTimeout = setTimeout(() => {
+            this._toastEl.classList.remove('visible');
+        }, 1400);
+    }
+
     updateLevelsInterface(levelGroups, onSelect, masteryData) {
         if (masteryData) {
             this.renderMasteryProgressBars(masteryData);
