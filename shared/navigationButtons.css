@@ -10,7 +10,6 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0 1.5rem;
     z-index: 1000;
     font-family: 'Inter', sans-serif;
@@ -22,7 +21,7 @@
     color: #1f2937;
     text-decoration: none;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex: 1;
 }
 
 .site-header-brand:hover {
@@ -74,6 +73,14 @@
     line-height: 1;
 }
 
+.site-header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    justify-content: flex-end;
+}
+
 /* Dark mode toggle button */
 .dark-mode-toggle {
     background: none;
@@ -85,7 +92,6 @@
     line-height: 1;
     flex-shrink: 0;
     transition: background 0.15s ease;
-    margin-left: 0.25rem;
 }
 
 .dark-mode-toggle:hover {
@@ -98,7 +104,6 @@
     align-items: center;
     flex-shrink: 0;
     position: relative;
-    margin-left: 0.25rem;
 }
 
 .auth-sign-in-btn {

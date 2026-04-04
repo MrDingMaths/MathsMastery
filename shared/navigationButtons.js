@@ -140,10 +140,14 @@ class SiteHeader {
 
         document.addEventListener('supabase-auth-change', (e) => updateAuthButton(e.detail));
 
+        const right = document.createElement('div');
+        right.className = 'site-header-right';
+        right.appendChild(darkToggle);
+        right.appendChild(authContainer);
+
         header.appendChild(brand);
         header.appendChild(nav);
-        header.appendChild(darkToggle);
-        header.appendChild(authContainer);
+        header.appendChild(right);
 
         document.body.insertBefore(header, document.body.firstChild);
 
