@@ -257,6 +257,7 @@
 
             const result = {
                 version:      MIN_SCHEMA_VERSION,
+                timeUnit:     'ms',
                 sessions:     mergedSessions,
                 drillHistory: mergedDrillHistory
             };
