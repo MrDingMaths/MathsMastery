@@ -79,15 +79,86 @@ class SiteHeader {
         darkToggle.innerHTML = '<span class="dark-mode-toggle-icon">🌙</span>';
         darkToggle.addEventListener('click', () => DarkMode.toggle());
 
+        // Auth button (hidden until supabase-auth-change fires)
+        const authContainer = document.createElement('div');
+        authContainer.className = 'site-header-auth';
+        authContainer.style.display = 'none';
+
+        const updateAuthButton = ({ user }) => {
+            authContainer.style.display = '';
+            authContainer.innerHTML = '';
+            if (user) {
+                const pill = document.createElement('button');
+                pill.className = 'auth-user-pill';
+                pill.setAttribute('aria-label', 'Account menu');
+                const firstName = (user.user_metadata?.full_name || user.user_metadata?.name || '').split(' ')[0] || 'Account';
+                const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+                pill.innerHTML = avatarUrl
+                    ? `<img class="auth-avatar" src="${avatarUrl}" alt="${_escapeAttr(firstName)}">`
+                    : `<span class="auth-avatar auth-avatar-initial">${_escapeAttr(firstName[0].toUpperCase())}</span>`;
+                pill.innerHTML += `<span class="auth-user-name">${_escapeHtmlNav(firstName)}</span>`;
+
+                let dropdownOpen = false;
+                pill.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdownOpen = !dropdownOpen;
+                    let dropdown = authContainer.querySelector('.auth-dropdown');
+                    if (dropdownOpen) {
+                        if (!dropdown) {
+                            dropdown = document.createElement('div');
+                            dropdown.className = 'auth-dropdown';
+                            dropdown.innerHTML = '<button class="auth-signout-btn">Sign out</button>';
+                            dropdown.querySelector('.auth-signout-btn').addEventListener('click', () => {
+                                if (window.supabaseClient) window.supabaseClient.auth.signOut();
+                            });
+                            authContainer.appendChild(dropdown);
+                        }
+                        dropdown.classList.add('open');
+                    } else if (dropdown) {
+                        dropdown.classList.remove('open');
+                    }
+                });
+                document.addEventListener('click', () => {
+                    dropdownOpen = false;
+                    const dropdown = authContainer.querySelector('.auth-dropdown');
+                    if (dropdown) dropdown.classList.remove('open');
+                }, { once: true });
+
+                authContainer.appendChild(pill);
+            } else {
+                const btn = document.createElement('button');
+                btn.className = 'auth-sign-in-btn';
+                btn.textContent = 'Sign in';
+                btn.addEventListener('click', () => {
+                    if (window.supabaseClient) {
+                        window.supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+                    }
+                });
+                authContainer.appendChild(btn);
+            }
+        };
+
+        document.addEventListener('supabase-auth-change', (e) => updateAuthButton(e.detail));
+
         header.appendChild(brand);
         header.appendChild(nav);
         header.appendChild(darkToggle);
+        header.appendChild(authContainer);
 
         document.body.insertBefore(header, document.body.firstChild);
 
         // Push body content below the fixed header
         document.body.style.paddingTop = '56px';
     }
+}
+
+function _escapeHtmlNav(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+function _escapeAttr(str) {
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 // Initialize on DOM ready

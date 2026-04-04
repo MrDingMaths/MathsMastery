@@ -244,6 +244,15 @@ export class TrigGameController {
             this.state.currentLevel.key,
             CONFIG.REQUIRED_STREAK
         );
+
+        if (isNewBest && window.supabaseUser && typeof Leaderboard !== 'undefined') {
+            Leaderboard.submitEntry('trigfacts', this.state.currentLevel.key, time, rating)
+                .catch(err => console.error('Leaderboard submit error:', err));
+        }
+        if (typeof Leaderboard !== 'undefined') {
+            Leaderboard.renderOnSuccessScreen('trigfacts', this.state.currentLevel.key, window.supabaseUser?.id || null)
+                .catch(err => console.error('Leaderboard render error:', err));
+        }
     }
 
     replayCurrentLevel() {

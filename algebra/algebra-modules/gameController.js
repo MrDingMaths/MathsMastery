@@ -256,7 +256,16 @@ export class GameController {
         } catch (error) {
             console.error('Error showing success screen:', error);
         }
-        
+
+        if (isNewBest && window.supabaseUser && typeof Leaderboard !== 'undefined') {
+            Leaderboard.submitEntry('algebra', this.state.currentLevel.key, time, rating)
+                .catch(err => console.error('Leaderboard submit error:', err));
+        }
+        if (typeof Leaderboard !== 'undefined') {
+            Leaderboard.renderOnSuccessScreen('algebra', this.state.currentLevel.key, window.supabaseUser?.id || null)
+                .catch(err => console.error('Leaderboard render error:', err));
+        }
+
         this.isChecking = false;
     }
 
