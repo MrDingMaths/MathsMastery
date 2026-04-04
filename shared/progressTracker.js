@@ -3,7 +3,7 @@
 class ProgressTracker {
     constructor(storageKey, options = {}) {
         this.STORAGE_KEY = storageKey;
-        this.SCHEMA_VERSION = 4;
+        this.SCHEMA_VERSION = 5;
         this.MAX_ENTRIES_PER_DRILL = 500;
         this.MAX_MISTAKES_PER_LEVEL = 100;
         this.enableMistakes = options.enableMistakes || false;

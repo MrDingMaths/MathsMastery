@@ -7,6 +7,5 @@ window.CONFIG = CONFIG;
 window.StorageManager = StorageManager;
 
 document.addEventListener('DOMContentLoaded', () => {
-    StorageManager.migrateKeys();
     window.gameController = new GameController();
 });
