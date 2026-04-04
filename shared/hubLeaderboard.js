@@ -322,10 +322,15 @@ class HubLeaderboard {
     }
 }
 
-function _hubFormatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? `${mins}:${String(secs).padStart(2, '0')}` : `${secs}s`;
+function _hubFormatTime(ms) {
+    if (!ms || ms < 0) ms = 0;
+    const totalSeconds = Math.floor(ms / 1000);
+    const tenths = Math.floor((ms % 1000) / 100);
+    const minutes = Math.floor(totalSeconds / 60);
+    const secs = (totalSeconds % 60).toString().padStart(2, '0');
+    return minutes > 0
+        ? `${minutes}:${secs}.${tenths}`
+        : `${secs}.${tenths}s`;
 }
 
 function _hubEscape(str) {

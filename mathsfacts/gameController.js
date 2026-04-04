@@ -479,7 +479,7 @@ export class GameController {
     // Update showSuccess to include mastery tracking
     showSuccess() {
         this.timer.stop();
-        const time = this.timer.getSeconds();
+        const time = this.timer.getMs();
         const previousBest = StorageManager.getBestTime(this.state.currentLevel.key);
         const isNewBest = !previousBest || time < previousBest;
 

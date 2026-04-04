@@ -8,7 +8,7 @@ class Leaderboard {
      * Upsert the signed-in user's best time for a level.
      * @param {string} app - 'algebra' | 'mathsfacts' | 'trigfacts'
      * @param {string} levelKey
-     * @param {number} bestTime - seconds
+     * @param {number} bestTime - milliseconds
      * @param {Object} rating - { key, name } from StorageManager.getRating()
      */
     static async submitEntry(app, levelKey, bestTime, rating) {
@@ -125,10 +125,15 @@ class Leaderboard {
     }
 }
 
-function _leaderboardFormatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? `${mins}:${String(secs).padStart(2, '0')}` : `${secs}s`;
+function _leaderboardFormatTime(ms) {
+    if (!ms || ms < 0) ms = 0;
+    const totalSeconds = Math.floor(ms / 1000);
+    const tenths = Math.floor((ms % 1000) / 100);
+    const minutes = Math.floor(totalSeconds / 60);
+    const secs = (totalSeconds % 60).toString().padStart(2, '0');
+    return minutes > 0
+        ? `${minutes}:${secs}.${tenths}`
+        : `${secs}.${tenths}s`;
 }
 
 function _leaderboardEscapeHtml(str) {

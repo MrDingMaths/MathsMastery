@@ -285,7 +285,7 @@ export class TrigUI extends BaseUI {
             const multiplier = CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey]
                 || CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS['default']
                 || 1.0;
-            const threshold = new Timer().formatTime(rating.maxAvg * multiplier * CONFIG.REQUIRED_STREAK);
+            const threshold = new Timer().formatTime(rating.maxAvg * multiplier * CONFIG.REQUIRED_STREAK * 1000);
             this.elements.ratingExplanation.textContent =
                 `You beat the threshold of ${threshold} for ${rating.name}`;
         }

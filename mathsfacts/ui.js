@@ -413,7 +413,7 @@ export class UI extends BaseUI {
             const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, questionCount, CONFIG);
 
             if (nextTarget) {
-                const targetTimeFormatted = new Timer().formatTime(Math.round(nextTarget.targetTime * 10) / 10);
+                const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime);
                 this.elements.ratingExplanation.textContent =
                     `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}.`;
             } else if (rating.key === 'true-mastery') {
@@ -421,7 +421,7 @@ export class UI extends BaseUI {
                 const difficultyMultiplier = (levelKey && CONFIG && CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS)
                     ? (CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey] || 1.0)
                     : 1.0;
-                const maxTime = threshold * difficultyMultiplier * questionCount;
+                const maxTime = threshold * difficultyMultiplier * questionCount * 1000;
                 const maxTimeFormatted = new Timer().formatTime(maxTime);
                 this.elements.ratingExplanation.textContent =
                     `You completed this level in under ${maxTimeFormatted}.`;

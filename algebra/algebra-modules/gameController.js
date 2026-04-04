@@ -210,7 +210,7 @@ export class GameController {
 
     showSuccess() {
         this.timer.stop();
-        const time = this.timer.getSeconds();
+        const time = this.timer.getMs();
         const previousBest = StorageManager.getBestTime(this.state.currentLevel.key);
         const isNewBest = !previousBest || time < previousBest;
         

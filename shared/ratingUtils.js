@@ -26,8 +26,8 @@ export class RatingUtils {
             questionCount = config.REQUIRED_STREAK || 15;
         }
 
-        // Calculate average time per question
-        let avgTime = totalTime / questionCount;
+        // Calculate average time per question (totalTime is in ms; convert to seconds for threshold comparison)
+        let avgTime = (totalTime / 1000) / questionCount;
 
         // Get difficulty multiplier for adjusting avgTime
         let difficultyMultiplier = 1.0;
@@ -139,7 +139,8 @@ export class RatingUtils {
             ? (config.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey] || config.LEVEL_DIFFICULTY_MULTIPLIERS.default || 1.0)
             : 1.0;
 
-        const targetTime = nextRating.maxAvg * difficultyMultiplier * questionCount;
+        // Return target time in ms (maxAvg is seconds/question; multiply by 1000 to convert)
+        const targetTime = nextRating.maxAvg * difficultyMultiplier * questionCount * 1000;
 
         return {
             nextRating: nextRating,

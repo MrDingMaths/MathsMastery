@@ -5,3 +5,4 @@ window.progressTracker = new ProgressTracker('tf_progress_data_v1', {
     oldVersionKeys: []
 });
 window.progressTracker.migrateIndividualBestTimeKeys('tf_bestTime_v5_');
+window.progressTracker.migrateTimesToMs();

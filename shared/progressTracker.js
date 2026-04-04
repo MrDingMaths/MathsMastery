@@ -503,6 +503,48 @@ class ProgressTracker {
         localStorage.setItem(flagKey, 'true');
     }
 
+    migrateTimesToMs() {
+        const data = this.loadData();
+        if (!data) return;
+        if (data.timeUnit === 'ms') return;
+
+        if (data.drillHistory) {
+            Object.keys(data.drillHistory).forEach(levelKey => {
+                const drill = data.drillHistory[levelKey];
+                if (drill.bestTime != null) drill.bestTime = drill.bestTime * 1000;
+                if (drill.firstAttemptTime != null) drill.firstAttemptTime = drill.firstAttemptTime * 1000;
+                if (drill.averageTime != null) drill.averageTime = drill.averageTime * 1000;
+                if (Array.isArray(drill.attempts)) {
+                    drill.attempts = drill.attempts.map(a => ({
+                        ...a,
+                        time: a.time != null ? a.time * 1000 : a.time
+                    }));
+                }
+                if (Array.isArray(drill.improvements)) {
+                    drill.improvements = drill.improvements.map(imp => ({
+                        ...imp,
+                        previousBest: imp.previousBest != null ? imp.previousBest * 1000 : imp.previousBest,
+                        newBest: imp.newBest != null ? imp.newBest * 1000 : imp.newBest,
+                        improvement: imp.improvement != null ? imp.improvement * 1000 : imp.improvement
+                    }));
+                }
+            });
+        }
+
+        if (Array.isArray(data.sessions)) {
+            data.sessions = data.sessions.map(s => ({
+                ...s,
+                time: s.time != null ? s.time * 1000 : s.time,
+                averageTimePerQuestion: s.averageTimePerQuestion != null
+                    ? s.averageTimePerQuestion * 1000
+                    : s.averageTimePerQuestion
+            }));
+        }
+
+        data.timeUnit = 'ms';
+        this.saveData(data);
+    }
+
     cleanupOldData() {
         const data = this.loadData();
         if (!data) return;

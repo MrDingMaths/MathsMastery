@@ -11,3 +11,4 @@ window.progressTracker = new ProgressTracker('mf_progress_data_v4', {
 });
 window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v1_');
 window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v5_');
+window.progressTracker.migrateTimesToMs();
