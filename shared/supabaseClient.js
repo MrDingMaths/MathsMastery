@@ -51,13 +51,13 @@ async function syncBestTimesOnFirstSignIn(user) {
     let app, storageKey;
     if (path.includes('/algebra')) {
         app = 'algebra';
-        storageKey = 'algebra_progress_data_v4';
+        storageKey = 'algebra_progress_data_v5';
     } else if (path.includes('/mathsfacts')) {
         app = 'mathsfacts';
-        storageKey = 'mf_progress_data_v4';
+        storageKey = 'mf_progress_data_v5';
     } else if (path.includes('/trigfacts')) {
         app = 'trigfacts';
-        storageKey = 'tf_progress_data_v1';
+        storageKey = 'tf_progress_data_v5';
     } else {
         return; // Landing page — nothing to sync
     }
