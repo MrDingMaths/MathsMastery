@@ -5,15 +5,15 @@
 
 (function () {
     const APP_CONFIG = {
-        mathsfacts: { storageKey: 'mf_progress_data_v4' },
-        algebra:    { storageKey: 'algebra_progress_data_v4' },
-        trigfacts:  { storageKey: 'tf_progress_data_v1' }
+        mathsfacts: { storageKey: 'mf_progress_data_v5' },
+        algebra:    { storageKey: 'algebra_progress_data_v5' },
+        trigfacts:  { storageKey: 'tf_progress_data_v5' }
     };
 
     const MAX_SESSIONS     = 1000;
     const MAX_ATTEMPTS     = 500;
     const MAX_MISTAKES     = 100;
-    const MIN_SCHEMA_VERSION = 4;
+    const MIN_SCHEMA_VERSION = 5;
 
     window.ProgressSync = {
         _syncedUserId: null,
@@ -256,7 +256,7 @@
             }
 
             const result = {
-                version:      MIN_SCHEMA_VERSION,
+                version:      5,
                 timeUnit:     'ms',
                 sessions:     mergedSessions,
                 drillHistory: mergedDrillHistory
