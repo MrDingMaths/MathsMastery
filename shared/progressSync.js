@@ -5,9 +5,9 @@
 
 (function () {
     const APP_CONFIG = {
-        mathsfacts: { storageKey: 'mf_progress_data_v4' },
-        algebra:    { storageKey: 'algebra_progress_data_v4' },
-        trigfacts:  { storageKey: 'tf_progress_data_v1' }
+        mathsfacts: { storageKey: 'mf_progress_data_v4',     bestTimePrefix: 'mf_bestTime_v5_' },
+        algebra:    { storageKey: 'algebra_progress_data_v4', bestTimePrefix: 'algebra_bestTime_v1_' },
+        trigfacts:  { storageKey: 'tf_progress_data_v1',      bestTimePrefix: 'tf_bestTime_v5_' }
     };
 
     const MAX_SESSIONS     = 1000;
@@ -264,23 +264,39 @@
             return result;
         },
 
+        // Write bestTime values from drillHistory into the individual StorageManager keys
+        // so that level card colours and best-time labels reflect the synced data.
+        _syncBestTimeKeys(drillHistory, bestTimePrefix) {
+            if (!drillHistory || !bestTimePrefix) return;
+            for (const [levelKey, drill] of Object.entries(drillHistory)) {
+                if (drill.bestTime !== null && drill.bestTime !== undefined) {
+                    try {
+                        localStorage.setItem(bestTimePrefix + levelKey, drill.bestTime);
+                    } catch (e) {
+                        console.warn('[ProgressSync] Could not write bestTime key:', e);
+                    }
+                }
+            }
+        },
+
         async syncOnSignIn(userId, app) {
             if (this._syncedUserId === userId) return;
             this._syncedUserId = userId;
 
-            const storageKey = APP_CONFIG[app]?.storageKey;
-            if (!storageKey) return;
+            const config = APP_CONFIG[app];
+            if (!config) return;
 
             try {
                 const [localData, cloudData] = await Promise.all([
-                    Promise.resolve(this._loadLocal(storageKey)),
+                    Promise.resolve(this._loadLocal(config.storageKey)),
                     this._fetchCloud(userId, app)
                 ]);
 
                 const merged = this._mergeProgressData(localData, cloudData);
                 if (!merged) return;
 
-                this._saveLocal(storageKey, merged);
+                this._saveLocal(config.storageKey, merged);
+                this._syncBestTimeKeys(merged.drillHistory, config.bestTimePrefix);
                 await this._pushCloud(userId, app, merged);
 
                 console.log('[ProgressSync] Sync complete for', app);
