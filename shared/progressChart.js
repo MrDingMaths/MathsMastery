@@ -268,10 +268,11 @@ class ProgressChart {
                                     return `📚 Attempt #${context[0].parsed.x}`;
                                 },
                                 label: function(context) {
-                                    const time = context.parsed.y;
-                                    const minutes = Math.floor(time / 60);
-                                    const seconds = time % 60;
-                                    const timePerQuestion = time / (window.CONFIG?.REQUIRED_STREAK || 15);
+                                    const timeMs = context.parsed.y;
+                                    const timeSec = timeMs / 1000;
+                                    const minutes = Math.floor(timeSec / 60);
+                                    const seconds = Math.floor(timeSec % 60);
+                                    const timePerQuestion = timeSec / (window.CONFIG?.REQUIRED_STREAK || 15);
                                     const zone = context.raw.zone || 'Unknown';
                                     return [
                                         `${context.dataset.label}: ${minutes}:${seconds.toString().padStart(2, '0')}`,
@@ -301,7 +302,7 @@ class ProgressChart {
                                                 const percentImprovement = ((improvement / previousBest) * 100).toFixed(1);
 
                                                 // Also show cumulative improvement from baseline
-                                                let tooltip = `Improved by ${improvement}s (${percentImprovement}%)`;
+                                                let tooltip = `Improved by ${(improvement / 1000).toFixed(1)}s (${percentImprovement}%)`;
                                                 if (drillData.firstAttemptTime) {
                                                     const cumulativeImprovement = ((drillData.firstAttemptTime - currentTime) / drillData.firstAttemptTime * 100).toFixed(1);
                                                     tooltip += ` | ${cumulativeImprovement}% faster overall`;
@@ -330,12 +331,13 @@ class ProgressChart {
                         y: {
                             title: {
                                 display: true,
-                                text: 'Time (seconds)'
+                                text: 'Time'
                             },
                             ticks: {
-                                callback: function(value) {
-                                    const minutes = Math.floor(value / 60);
-                                    const seconds = value % 60;
+                                callback: function(valueMs) {
+                                    const valueSec = valueMs / 1000;
+                                    const minutes = Math.floor(valueSec / 60);
+                                    const seconds = Math.floor(valueSec % 60);
                                     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
                                 }
                             },

@@ -390,7 +390,7 @@ export class UI extends BaseUI {
 
     showSuccess(levelName, time, rating, isNewBest, previousBest, levelKey, questionCount) {
         this.elements.completedLevel.textContent = levelName;
-        this.elements.finalTime.textContent = new Timer().formatTime(time);
+        this.elements.finalTime.textContent = new Timer().formatTime(time, 2);
         const ratingEmojis = {
             'true-mastery': '💖',
             'mastery': '🏆',
@@ -403,17 +403,17 @@ export class UI extends BaseUI {
 
         if (isNewBest) {
             this.elements.bestTimeMessage.textContent = previousBest
-                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest)}.`
+                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest, 2)}.`
                 : `You've set your first record!`;
         } else {
-            this.elements.bestTimeMessage.textContent = `Your best time is still ${new Timer().formatTime(previousBest)}.`;
+            this.elements.bestTimeMessage.textContent = `Your best time is still ${new Timer().formatTime(previousBest, 2)}.`;
         }
 
         try {
             const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, questionCount, CONFIG);
 
             if (nextTarget) {
-                const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime);
+                const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime, 2);
                 this.elements.ratingExplanation.textContent =
                     `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}.`;
             } else if (rating.key === 'true-mastery') {
@@ -422,7 +422,7 @@ export class UI extends BaseUI {
                     ? (CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey] || 1.0)
                     : 1.0;
                 const maxTime = threshold * difficultyMultiplier * questionCount * 1000;
-                const maxTimeFormatted = new Timer().formatTime(maxTime);
+                const maxTimeFormatted = new Timer().formatTime(maxTime, 2);
                 this.elements.ratingExplanation.textContent =
                     `You completed this level in under ${maxTimeFormatted}.`;
             }

@@ -617,7 +617,7 @@ class ProgressUI {
                     `<td class="date-column">${date.toLocaleString()}</td>` +
                     `<td class="drill-column">${this.progressChart.getLevelNameFromKey(session.levelKey)}</td>` +
                     `<td class="time-column">${this.progressShare.formatTime(session.time)}</td>` +
-                    `<td class="performance-column">${isBest ? '⭐ Personal Best!' : `${session.averageTimePerQuestion.toFixed(1)}s/question`}</td>` +
+                    `<td class="performance-column">${isBest ? '⭐ Personal Best!' : `${(session.averageTimePerQuestion / 1000).toFixed(1)}s/question`}</td>` +
                     `</tr>`;
             }).join('');
 

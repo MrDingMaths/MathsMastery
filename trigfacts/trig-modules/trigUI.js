@@ -263,7 +263,7 @@ export class TrigUI extends BaseUI {
 
     showSuccess(levelName, time, rating, isNewBest, previousBest, levelKey, requiredStreak) {
         this.elements.completedLevel.textContent = levelName;
-        this.elements.finalTime.textContent = new Timer().formatTime(time);
+        this.elements.finalTime.textContent = new Timer().formatTime(time, 2);
         const ratingEmojis = {
             'true-mastery': '💖',
             'mastery': '🏆',
@@ -278,25 +278,25 @@ export class TrigUI extends BaseUI {
         const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, CONFIG.REQUIRED_STREAK, CONFIG);
 
         if (nextTarget) {
-            const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime);
+            const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime, 2);
             this.elements.ratingExplanation.textContent =
                 `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}`;
         } else {
             const multiplier = CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey]
                 || CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS['default']
                 || 1.0;
-            const threshold = new Timer().formatTime(rating.maxAvg * multiplier * CONFIG.REQUIRED_STREAK * 1000);
+            const threshold = new Timer().formatTime(rating.maxAvg * multiplier * CONFIG.REQUIRED_STREAK * 1000, 2);
             this.elements.ratingExplanation.textContent =
                 `You beat the threshold of ${threshold} for ${rating.name}`;
         }
 
         if (isNewBest) {
             this.elements.bestTimeMessage.textContent = previousBest
-                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest)}.`
+                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest, 2)}.`
                 : `You've set your first record!`;
         } else {
             this.elements.bestTimeMessage.textContent =
-                `Your best time is still ${new Timer().formatTime(previousBest)}.`;
+                `Your best time is still ${new Timer().formatTime(previousBest, 2)}.`;
         }
 
         this.showScreen('success');

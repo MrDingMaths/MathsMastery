@@ -73,16 +73,19 @@ export class Timer {
         return this.ms;
     }
 
-    // Accepts milliseconds, displays as M:SS.t or SS.ts (tenths of a second)
-    formatTime(ms) {
+    // Accepts milliseconds. precision: 0=whole seconds (default), 1=tenths, 2=hundredths
+    formatTime(ms, precision = 0) {
         if (isNaN(ms) || ms < 0) ms = 0;
         const totalSeconds = Math.floor(ms / 1000);
-        const tenths = Math.floor((ms % 1000) / 100);
         const minutes = Math.floor(totalSeconds / 60);
         const secs = (totalSeconds % 60).toString().padStart(2, '0');
-        if (minutes > 0) {
-            return `${minutes}:${secs}.${tenths}`;
+        if (precision === 2) {
+            const cs = Math.floor((ms % 1000) / 10).toString().padStart(2, '0');
+            return minutes > 0 ? `${minutes}:${secs}.${cs}` : `${secs}.${cs}s`;
+        } else if (precision === 1) {
+            const tenths = Math.floor((ms % 1000) / 100);
+            return minutes > 0 ? `${minutes}:${secs}.${tenths}` : `${secs}.${tenths}s`;
         }
-        return `${secs}.${tenths}s`;
+        return minutes > 0 ? `${minutes}:${secs}` : `${secs}s`;
     }
 }
