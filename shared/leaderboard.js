@@ -56,11 +56,23 @@ class Leaderboard {
     /**
      * Render the leaderboard into the success screen.
      * Idempotent — removes any previous leaderboard container first.
-     * Inserts after the rating-explanation parent div, before the replay button.
+     * If submitParams is provided, awaits the upsert before fetching so the
+     * current user's new record is included in the results.
+     * @param {string} app
+     * @param {string} levelKey
+     * @param {string|null} currentUserId
+     * @param {{ bestTime: number, rating: Object }|null} submitParams
      */
-    static async renderOnSuccessScreen(app, levelKey, currentUserId) {
-        const existing = document.getElementById('leaderboard-container');
-        if (existing) existing.remove();
+    static async renderOnSuccessScreen(app, levelKey, currentUserId, submitParams = null) {
+        if (submitParams) {
+            await this.submitEntry(app, levelKey, submitParams.bestTime, submitParams.rating)
+                .catch(err => console.error('Leaderboard submit error:', err));
+        }
+        const existing = document.getElementById('leaderboard-card');
+        if (existing) {
+            existing.parentElement?.classList.remove('success-layout');
+            existing.remove();
+        }
 
         const entries = await this.fetchTop10(app, levelKey);
 
@@ -99,13 +111,16 @@ class Leaderboard {
             container.innerHTML = html;
         }
 
-        // Insert after the rating-explanation's parent container, before the replay button
-        const ratingExplanation = document.getElementById('rating-explanation');
-        if (ratingExplanation) {
-            ratingExplanation.parentNode.after(container);
-        } else {
-            const replayBtn = document.getElementById('replay-level-btn');
-            if (replayBtn) replayBtn.before(container);
+        // Wrap in a card and insert as a sibling after the success screen
+        const card = document.createElement('div');
+        card.id = 'leaderboard-card';
+        card.className = 'leaderboard-card';
+        card.appendChild(container);
+
+        const successScreen = document.getElementById('success-screen');
+        if (successScreen) {
+            successScreen.after(card);
+            successScreen.parentElement.classList.add('success-layout');
         }
     }
 }

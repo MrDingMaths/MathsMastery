@@ -131,7 +131,10 @@ class SiteHeader {
                 btn.textContent = 'Sign in';
                 btn.addEventListener('click', () => {
                     if (window.supabaseClient) {
-                        window.supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+                        window.supabaseClient.auth.signInWithOAuth({
+                                provider: 'google',
+                                options: { redirectTo: window.location.origin + window.location.pathname }
+                            });
                     }
                 });
                 authContainer.appendChild(btn);
@@ -139,6 +142,10 @@ class SiteHeader {
         };
 
         document.addEventListener('supabase-auth-change', (e) => updateAuthButton(e.detail));
+        // If supabase-auth-change already fired before this listener registered, call directly
+        if (typeof window.supabaseUser !== 'undefined') {
+            updateAuthButton({ user: window.supabaseUser });
+        }
 
         const right = document.createElement('div');
         right.className = 'site-header-right';

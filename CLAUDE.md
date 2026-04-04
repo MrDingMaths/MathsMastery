@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step, no backend, no auth. All state persisted in browser localStorage.
+Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step. Supabase backend for Google OAuth and leaderboards. Local progress still persisted in browser localStorage; Supabase is additive (app works fully offline).
 
-**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), jQuery (CDN), MathQuill (local), Math.js v15 (local bundle), Inter font (Google Fonts).
+**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), jQuery (CDN), MathQuill (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
 
 ## Directory Structure
 
@@ -28,6 +28,7 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 - **Global window objects used for cross-module access:**
   - `window.gameController`, `window.CONFIG`, `window.StorageManager`
   - `window.progressTracker`, `window.progressUI`, `window.RatingUtils`
+  - `window.supabaseClient`, `window.supabaseUser` (auth/leaderboard)
 
 ## Shared Infrastructure (`shared/`)
 
@@ -41,7 +42,12 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 | `timer.js` | Game timer with pause/resume |
 | `darkMode.js` | Theme toggle; persists to localStorage; `data-theme` attribute |
 | `confetti.js` | Canvas confetti (40 particles correct, 150 level complete) |
-| `navigationButtons.js` | Shared back/home navigation UI |
+| `navigationButtons.js` | Shared site header: back/home nav + auth button (sign-in/user pill) |
+| `supabaseClient.js` | Supabase init, auth state management, first-sign-in best-time sync |
+| `leaderboard.js` | Leaderboard class: submit scores, fetch top 10, render on success screen |
+| `hubLeaderboard.js` | Hub-page modal: browse leaderboards across all apps/levels |
+| `leaderboard.css` | Leaderboard component styles (light + dark mode) |
+| `navigationButtons.css` | Header and auth button styles |
 | `progressChart.js` | Chart.js wrapper for progress visualisation |
 | `progressUI.js` | Progress modal UI components |
 | `progressShare.js` | Export/share progress summary |
@@ -125,6 +131,70 @@ mf_darkMode / tf_darkMode / algebra_darkMode
 ```
 
 Progress schema v4 shape: `{ version, sessions[], drillHistory{}, mistakes{} }`
+
+## Auth & Leaderboard (Supabase)
+
+**Supabase project:** `gaolhotbierqivrvixdu` (hosted Supabase).
+
+**Auth provider:** Google OAuth only, handled via `supabase.auth.signInWithOAuth()`. Redirects back to the same page after sign-in. Auth state communicated across modules via a custom `supabase-auth-change` DOM event on `document`.
+
+**Offline-first design:** localStorage remains the primary store for all progress/history. Supabase is used only for leaderboards. The app functions identically when signed out or when Supabase is unavailable — all Supabase calls are wrapped in `.catch()` and never block gameplay.
+
+### Script Loading Order (all pages)
+
+```
+supabaseClient.js → leaderboard.js → [hubLeaderboard.js on landing page only] → navigationButtons.js → app modules
+```
+
+All loaded as plain scripts (not ES modules) so they set globals. Order matters: each depends on the previous.
+
+### Auth Flow
+
+1. `supabaseClient.js` initialises the Supabase client and sets `window.supabaseClient` / `window.supabaseUser`
+2. `supabase.auth.onAuthStateChange()` dispatches `supabase-auth-change` custom event with `{ event, session, user }`
+3. `navigationButtons.js` (`SiteHeader` class) listens for this event and toggles between "Sign in" button and avatar pill with sign-out dropdown
+4. On first sign-in per user, `syncBestTimesOnFirstSignIn()` uploads existing localStorage best times to `leaderboard_entries` (one-time, flagged by `leaderboard_synced_{userId}` in localStorage)
+
+### Leaderboard Integration
+
+Each app's `gameController.js` calls in `showSuccess()`:
+- `Leaderboard.submitEntry(app, levelKey, bestTime, rating)` — only when signed in AND new personal best
+- `Leaderboard.renderOnSuccessScreen(app, levelKey, userId)` — always (shows leaderboard between rating and replay button)
+
+Both calls are fire-and-forget (non-blocking).
+
+The landing page (`index.html`) has a hub leaderboard modal (`HubLeaderboard` class) for browsing top-10 leaderboards across all apps and levels.
+
+### Database Schema
+
+**Table: `profiles`** (RLS enabled)
+| Column | Type | Notes |
+|--------|------|-------|
+| `user_id` | UUID PK | FK → `auth.users.id` |
+| `display_name` | TEXT | From Google metadata |
+| `avatar_url` | TEXT | Google profile picture URL |
+| `created_at` | TIMESTAMPTZ | Default `now()` |
+| `updated_at` | TIMESTAMPTZ | Default `now()` |
+
+**Table: `leaderboard_entries`** (RLS enabled)
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | Default `gen_random_uuid()` |
+| `user_id` | UUID | FK → `profiles.user_id` |
+| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, or `trigfacts` |
+| `level_key` | TEXT | Matches config level keys |
+| `best_time` | INTEGER | Seconds |
+| `rating_key` | TEXT | e.g. `mastery`, `expert` |
+| `rating_name` | TEXT | Display name for rating |
+| `display_name` | TEXT | Denormalised from profile for fast reads |
+| `updated_at` | TIMESTAMPTZ | Default `now()` |
+
+**Unique constraint:** `(user_id, app, level_key)` — upsert on conflict.
+**Performance index:** `(app, level_key, best_time)` — powers top-10 queries.
+
+**RLS policies (both tables):** Public SELECT; INSERT/UPDATE restricted to `auth.uid() = user_id`.
+
+**Trigger:** `on_auth_user_created` on `auth.users` INSERT → calls `handle_new_user()` which auto-creates a `profiles` row from Google metadata (`full_name`, `avatar_url`).
 
 ## Math Notation Guide
 

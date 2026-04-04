@@ -27,6 +27,13 @@ export class BaseUI {
         ['settings', 'game', 'success'].forEach(s => {
             this.elements[`${s}Screen`].classList.toggle('hidden', s !== screenName);
         });
+        // Clean up leaderboard side-card when leaving success screen
+        if (screenName !== 'success') {
+            const container = this.elements.successScreen?.parentElement;
+            if (container) container.classList.remove('success-layout');
+            const lbCard = document.getElementById('leaderboard-card');
+            if (lbCard) lbCard.remove();
+        }
     }
 
     // --- Game HUD ---
