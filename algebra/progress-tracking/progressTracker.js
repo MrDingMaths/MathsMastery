@@ -9,5 +9,7 @@ window.progressTracker = new ProgressTracker('algebra_progress_data_v4', {
         'algebra_progress_data'
     ]
 });
-window.progressTracker.migrateIndividualBestTimeKeys('algebra_bestTime_v1_');
-window.progressTracker.migrateTimesToMs();
+for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('algebra_bestTime_v1_')) localStorage.removeItem(key);
+}

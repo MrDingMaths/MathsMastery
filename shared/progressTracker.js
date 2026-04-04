@@ -12,43 +12,14 @@ class ProgressTracker {
         this.initializeStorage();
     }
 
-    // Initialize and migrate storage if needed
+    // Initialize storage, clearing any old version data
     initializeStorage() {
-        let storedData = this.loadData();
-
-        // If no data found with current key, check for older storage keys
-        if (!storedData) {
-            storedData = this.loadDataFromOldKeys();
-        }
-
-        if (!storedData || storedData.version < this.SCHEMA_VERSION) {
-            this.migrateData(storedData);
-        }
-    }
-
-    // Check for data in older storage keys
-    loadDataFromOldKeys() {
         for (const oldKey of this.oldVersionKeys) {
-            try {
-                const stored = localStorage.getItem(oldKey);
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    console.log(`Found old progress data in ${oldKey}, migrating...`);
-                    console.log('Old data structure:', {
-                        version: data.version,
-                        sessions: data.sessions?.length || 0,
-                        drillHistory: Object.keys(data.drillHistory || {}).length,
-                        hasTimestamps: data.sessions?.some(s => s.timestamp) || false
-                    });
-                    return data;
-                }
-            } catch (error) {
-                console.warn(`Error loading data from ${oldKey}:`, error);
-            }
+            localStorage.removeItem(oldKey);
         }
-
-        console.log('No old progress data found in localStorage');
-        return null;
+        if (!this.loadData()) {
+            this.resetData();
+        }
     }
 
     // Create default data structure
@@ -62,90 +33,6 @@ class ProgressTracker {
             data.mistakes = {};
         }
         return data;
-    }
-
-    // Data migration system
-    migrateData(oldData) {
-        console.log('Migrating progress data to version', this.SCHEMA_VERSION);
-
-        let newData = this._createDefaultData();
-
-        if (oldData) {
-            console.log('Migrating from version', oldData.version, 'to version', this.SCHEMA_VERSION);
-        } else {
-            console.log('Creating new progress data structure');
-        }
-
-        if (oldData) {
-            // Migrate from v1 to v2
-            if (oldData.version === 1) {
-                if (oldData.sessions) {
-                    newData.sessions = oldData.sessions.map(session => ({
-                        ...session,
-                        timestamp: session.date || session.timestamp,
-                        deviceInfo: this.getDeviceInfo()
-                    }));
-                }
-                if (oldData.drillHistory) {
-                    newData.drillHistory = oldData.drillHistory;
-                }
-            }
-            // Migrate from v2 to v3
-            else if (oldData.version === 2) {
-                newData.sessions = oldData.sessions || [];
-                newData.drillHistory = oldData.drillHistory || {};
-                if (this.enableMistakes) {
-                    newData.mistakes = {};
-                }
-            }
-            // Migrate from v3 to v4 - add baseline tracking for cumulative improvement
-            else if (oldData.version === 3) {
-                newData.sessions = oldData.sessions || [];
-                newData.drillHistory = this.addBaselineTracking(oldData.drillHistory || {});
-                if (this.enableMistakes) {
-                    newData.mistakes = oldData.mistakes || {};
-                }
-            }
-            // For any version, preserve existing data
-            else {
-                if (oldData.sessions) {
-                    newData.sessions = oldData.sessions;
-                }
-                if (oldData.drillHistory) {
-                    newData.drillHistory = oldData.drillHistory;
-                }
-                if (this.enableMistakes && oldData.mistakes) {
-                    newData.mistakes = oldData.mistakes;
-                }
-            }
-        }
-
-        this.saveData(newData);
-    }
-
-    // Add baseline tracking to existing drill history (for v3→v4 migration)
-    addBaselineTracking(drillHistory) {
-        const updated = {};
-        Object.keys(drillHistory).forEach(key => {
-            const drill = drillHistory[key];
-            updated[key] = {
-                ...drill,
-                firstAttemptTime: drill.attempts && drill.attempts.length > 0
-                    ? drill.attempts[0].time
-                    : drill.bestTime,
-                firstAttemptDate: drill.attempts && drill.attempts.length > 0
-                    ? drill.attempts[0].timestamp
-                    : drill.bestTimeDate
-            };
-
-            if (updated[key].improvements && updated[key].firstAttemptTime) {
-                updated[key].improvements = updated[key].improvements.map(imp => ({
-                    ...imp,
-                    percentImprovementFromBaseline: ((updated[key].firstAttemptTime - imp.newBest) / updated[key].firstAttemptTime * 100).toFixed(1)
-                }));
-            }
-        });
-        return updated;
     }
 
     // Save progress data with validation
@@ -464,85 +351,6 @@ class ProgressTracker {
     getBestTime(levelKey) {
         const data = this.loadData();
         return data?.drillHistory?.[levelKey]?.bestTime ?? null;
-    }
-
-    migrateIndividualBestTimeKeys(bestTimePrefix) {
-        const flagKey = this.STORAGE_KEY + '_migrated_' + bestTimePrefix;
-        if (localStorage.getItem(flagKey)) return;
-
-        const keysToMigrate = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith(bestTimePrefix)) keysToMigrate.push(key);
-        }
-        if (keysToMigrate.length === 0) {
-            localStorage.setItem(flagKey, 'true');
-            return;
-        }
-
-        let data = this.loadData();
-        if (!data) data = this._createDefaultData();
-        if (!data.drillHistory) data.drillHistory = {};
-
-        for (const storageKey of keysToMigrate) {
-            const levelKey = storageKey.slice(bestTimePrefix.length);
-            const raw = localStorage.getItem(storageKey);
-            const t = parseInt(raw, 10);
-            if (!levelKey || !t || t <= 0) continue;
-
-            if (!data.drillHistory[levelKey]) {
-                data.drillHistory[levelKey] = { bestTime: t, firstAttemptTime: t, attempts: [] };
-            } else {
-                const existing = data.drillHistory[levelKey].bestTime;
-                if (!existing || t < existing) data.drillHistory[levelKey].bestTime = t;
-            }
-        }
-
-        this.saveData(data);
-        keysToMigrate.forEach(k => localStorage.removeItem(k));
-        localStorage.setItem(flagKey, 'true');
-    }
-
-    migrateTimesToMs() {
-        const data = this.loadData();
-        if (!data) return;
-        if (data.timeUnit === 'ms') return;
-
-        if (data.drillHistory) {
-            Object.keys(data.drillHistory).forEach(levelKey => {
-                const drill = data.drillHistory[levelKey];
-                if (drill.bestTime != null) drill.bestTime = drill.bestTime * 1000;
-                if (drill.firstAttemptTime != null) drill.firstAttemptTime = drill.firstAttemptTime * 1000;
-                if (drill.averageTime != null) drill.averageTime = drill.averageTime * 1000;
-                if (Array.isArray(drill.attempts)) {
-                    drill.attempts = drill.attempts.map(a => ({
-                        ...a,
-                        time: a.time != null ? a.time * 1000 : a.time
-                    }));
-                }
-                if (Array.isArray(drill.improvements)) {
-                    drill.improvements = drill.improvements.map(imp => ({
-                        ...imp,
-                        previousBest: imp.previousBest != null ? imp.previousBest * 1000 : imp.previousBest,
-                        newBest: imp.newBest != null ? imp.newBest * 1000 : imp.newBest,
-                        improvement: imp.improvement != null ? imp.improvement * 1000 : imp.improvement
-                    }));
-                }
-            });
-        }
-
-        if (Array.isArray(data.sessions)) {
-            data.sessions = data.sessions.map(s => ({
-                ...s,
-                time: s.time != null ? s.time * 1000 : s.time,
-                averageTimePerQuestion: s.averageTimePerQuestion != null
-                    ? s.averageTimePerQuestion * 1000
-                    : s.averageTimePerQuestion
-            }));
-        }
-
-        data.timeUnit = 'ms';
-        this.saveData(data);
     }
 
     cleanupOldData() {

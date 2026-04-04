@@ -9,6 +9,9 @@ window.progressTracker = new ProgressTracker('mf_progress_data_v4', {
         'mf_progress_data'
     ]
 });
-window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v1_');
-window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v5_');
-window.progressTracker.migrateTimesToMs();
+for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key && (key.startsWith('mf_bestTime_v1_') || key.startsWith('mf_bestTime_v5_'))) {
+        localStorage.removeItem(key);
+    }
+}
