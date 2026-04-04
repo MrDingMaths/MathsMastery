@@ -46,18 +46,18 @@ async function syncBestTimesOnFirstSignIn(user) {
     const syncKey = `leaderboard_synced_${user.id}`;
     if (localStorage.getItem(syncKey)) return;
 
-    // Determine which app we're in and its localStorage key prefix
+    // Determine which app we're in and its progress blob key
     const path = window.location.pathname;
-    let app, prefix;
+    let app, storageKey;
     if (path.includes('/algebra')) {
         app = 'algebra';
-        prefix = 'algebra_bestTime_v1_';
+        storageKey = 'algebra_progress_data_v4';
     } else if (path.includes('/mathsfacts')) {
         app = 'mathsfacts';
-        prefix = 'mf_bestTime_v5_';
+        storageKey = 'mf_progress_data_v4';
     } else if (path.includes('/trigfacts')) {
         app = 'trigfacts';
-        prefix = 'tf_bestTime_v5_';
+        storageKey = 'tf_progress_data_v1';
     } else {
         return; // Landing page — nothing to sync
     }
@@ -79,12 +79,16 @@ async function syncBestTimesOnFirstSignIn(user) {
     const displayName = user.user_metadata?.full_name || user.user_metadata?.name || 'Anonymous';
     const entries = [];
 
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (!key || !key.startsWith(prefix)) continue;
-        const levelKey = key.slice(prefix.length);
-        const bestTime = parseInt(localStorage.getItem(key), 10);
-        if (isNaN(bestTime) || bestTime <= 0) continue;
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) { localStorage.setItem(syncKey, Date.now().toString()); return; }
+
+    let progressData;
+    try { progressData = JSON.parse(raw); } catch { localStorage.setItem(syncKey, Date.now().toString()); return; }
+
+    const drillHistory = progressData?.drillHistory || {};
+    for (const [levelKey, drill] of Object.entries(drillHistory)) {
+        const bestTime = drill.bestTime;
+        if (!bestTime || bestTime <= 0) continue;
         try {
             const rating = window.RatingUtils.getRating(bestTime, levelKey);
             entries.push({

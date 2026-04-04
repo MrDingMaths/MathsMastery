@@ -1,9 +1,6 @@
 // algebra-modules/storage.js
 import { CONFIG } from './config.js';
 import { RatingUtils } from '../../shared/ratingUtils.js';
-import { StorageManager as BaseStorageManager } from '../../shared/storageManager.js';
-
-const _sm = new BaseStorageManager(CONFIG.STORAGE_PREFIX);
 
 export class StorageManager {
     static migrateKeys() {
@@ -129,11 +126,11 @@ export class StorageManager {
     }
 
     static saveBestTime(levelKey, time) {
-        _sm.saveBestTime(levelKey, time);
+        // No-op: recordProgress() in progressTracker handles bestTime updates.
     }
 
     static getBestTime(levelKey) {
-        return _sm.getBestTime(levelKey);
+        return window.progressTracker?.getBestTime(levelKey) ?? null;
     }
 
     static getRating(time, levelKey) {

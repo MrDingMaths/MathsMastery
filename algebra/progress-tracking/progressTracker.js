@@ -9,3 +9,4 @@ window.progressTracker = new ProgressTracker('algebra_progress_data_v4', {
         'algebra_progress_data'
     ]
 });
+window.progressTracker.migrateIndividualBestTimeKeys('algebra_bestTime_v1_');

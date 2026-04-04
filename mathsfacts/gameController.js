@@ -484,7 +484,6 @@ export class GameController {
         const isNewBest = !previousBest || time < previousBest;
 
         if (isNewBest) {
-            StorageManager.saveBestTime(this.state.currentLevel.key, time);
             this.confetti.trigger(CONFIG.CONFETTI.SUCCESS);
         }
 

@@ -638,16 +638,8 @@ class ProgressUI {
     }
 
     clearBestTimes() {
-        const prefix = window.CONFIG?.STORAGE_PREFIX || '';
-        const keys = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && prefix && key.startsWith(prefix)) {
-                keys.push(key);
-            }
-        }
-        keys.forEach(key => localStorage.removeItem(key));
-        console.log(`Cleared ${keys.length} best time records`);
+        // Individual bestTime keys no longer exist.
+        // Blob is cleared by progressTracker.resetData() in confirmClearData().
     }
 
     // --- Mistakes methods (only called when enableMistakes is true) ---

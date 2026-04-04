@@ -9,3 +9,5 @@ window.progressTracker = new ProgressTracker('mf_progress_data_v4', {
         'mf_progress_data'
     ]
 });
+window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v1_');
+window.progressTracker.migrateIndividualBestTimeKeys('mf_bestTime_v5_');

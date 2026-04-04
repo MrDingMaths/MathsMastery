@@ -2,6 +2,10 @@
  * shared/storageManager.js
  * Base localStorage interface parameterised by storage prefix.
  * Each app instantiates this with its own STORAGE_PREFIX.
+ *
+ * DEPRECATED: BaseStorageManager is no longer used by any app wrapper.
+ * Per-app StorageManagers now delegate to window.progressTracker.
+ * Kept for safety; can be deleted in a follow-up PR.
  */
 export class StorageManager {
     /**

@@ -8,6 +8,7 @@ class ProgressTracker {
         this.MAX_MISTAKES_PER_LEVEL = 100;
         this.enableMistakes = options.enableMistakes || false;
         this.oldVersionKeys = options.oldVersionKeys || [];
+        this._cache = null;
         this.initializeStorage();
     }
 
@@ -420,6 +421,7 @@ class ProgressTracker {
     }
 
     loadData() {
+        if (this._cache) return this._cache;
         try {
             const stored = localStorage.getItem(this.STORAGE_KEY);
             if (!stored) return null;
@@ -428,6 +430,7 @@ class ProgressTracker {
             if (!this.validateData(data)) {
                 throw new Error('Invalid data structure');
             }
+            this._cache = data;
             return data;
         } catch (error) {
             console.error('Error loading progress data:', error);
@@ -437,18 +440,67 @@ class ProgressTracker {
 
     saveData(data) {
         try {
+            this._cache = data;
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
         } catch (error) {
             console.error('Error saving progress data:', error);
+            this._cache = null;
             if (error.name === 'QuotaExceededError') {
                 this.cleanupOldData();
                 try {
                     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+                    this._cache = data;
                 } catch (retryError) {
                     console.error('Failed to save after cleanup:', retryError);
                 }
             }
         }
+    }
+
+    invalidateCache() {
+        this._cache = null;
+    }
+
+    getBestTime(levelKey) {
+        const data = this.loadData();
+        return data?.drillHistory?.[levelKey]?.bestTime ?? null;
+    }
+
+    migrateIndividualBestTimeKeys(bestTimePrefix) {
+        const flagKey = this.STORAGE_KEY + '_migrated_' + bestTimePrefix;
+        if (localStorage.getItem(flagKey)) return;
+
+        const keysToMigrate = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(bestTimePrefix)) keysToMigrate.push(key);
+        }
+        if (keysToMigrate.length === 0) {
+            localStorage.setItem(flagKey, 'true');
+            return;
+        }
+
+        let data = this.loadData();
+        if (!data) data = this._createDefaultData();
+        if (!data.drillHistory) data.drillHistory = {};
+
+        for (const storageKey of keysToMigrate) {
+            const levelKey = storageKey.slice(bestTimePrefix.length);
+            const raw = localStorage.getItem(storageKey);
+            const t = parseInt(raw, 10);
+            if (!levelKey || !t || t <= 0) continue;
+
+            if (!data.drillHistory[levelKey]) {
+                data.drillHistory[levelKey] = { bestTime: t, firstAttemptTime: t, attempts: [] };
+            } else {
+                const existing = data.drillHistory[levelKey].bestTime;
+                if (!existing || t < existing) data.drillHistory[levelKey].bestTime = t;
+            }
+        }
+
+        this.saveData(data);
+        keysToMigrate.forEach(k => localStorage.removeItem(k));
+        localStorage.setItem(flagKey, 'true');
     }
 
     cleanupOldData() {
