@@ -120,20 +120,20 @@ export const CONFIG = {
         // Number Bonds - foundational skills, students should achieve fluency
         'bonds10': 1,           // Very basic, Year 8s should be fast
         'bonds20': 1,           // Still basic
-        'mixed10-20': 1.0,        // Mixed requires more thinking
-        'bonds100': 1.2,          // Common benchmark, standard speed
+        'mixed10-20': 1.2,        // Mixed requires more thinking
+        'bonds100': 1.4,          // Common benchmark, standard speed
         'bonds-10': 1.5,          // Negative numbers add complexity
         'bonds-20': 1.5,          // More negative complexity
 
         // Multiplication & Division - essential facts requiring memorization
         'group245': 1,          // Easy tables (2,4,5,10)
-        'group369': 1,          // Medium tables (3,6,9)
-        'multall': 1,           // Full tables (2-12), more variety
-        'mixed-negative-mult': 1.5, // Negatives add significant complexity
-        'multiplyDivideBy100': 1.5, // Focused on single power, pattern-based
+        'group369': 1.2,          // Medium tables (3,6,9)
+        'multall': 1.2,           // Full tables (2-12), more variety
+        'mixed-negative-mult': 1.8, // Negatives add significant complexity
+        'multiplyDivideBy100': 1.8, // Focused on single power, pattern-based
         'powersOf10': 2,        // Pattern-based, should be quick
         'double100': 1.5,         // Doubling is systematic
-        'squares': 1,           // Need memorization but predictable
+        'squares': 1.2,           // Need memorization but predictable
         'unitConversions': 5,   // Requires knowledge + calculation
 
         // Fractions Decimals Percentages - complex multi-step calculations

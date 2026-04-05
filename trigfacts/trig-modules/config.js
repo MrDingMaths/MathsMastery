@@ -35,18 +35,18 @@ export const CONFIG = {
     STORAGE_PREFIX: 'tf_bestTime_v5_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 },
     LEVEL_DIFFICULTY_MULTIPLIERS: {
-        'simplify_fractions': 1.0,   // Pure arithmetic
+        'simplify_fractions': 1.8,   // Pure arithmetic
         'exact_deg_mixed': 1,      // Basic recall (degrees)
-        'deg_to_rad': 2.0,           // Conversion formula
-        'rad_to_deg': 2.0,           // Conversion formula
-        'conv_mixed': 2.5,           // Mixed direction conversion
+        'deg_to_rad': 1.8,           // Conversion formula
+        'rad_to_deg': 1.8,           // Conversion formula
+        'conv_mixed': 2,           // Mixed direction conversion
         'reference_angles': 1.0,     // Reference angles (degrees)
-        'exact_rad_mixed': 1.5,      // Exact values in radians
+        'exact_rad_mixed': 1.8,      // Exact values in radians
         'reference_angles_rad': 1, // Reference angles (radians)
-        'quad_deg': 4.0,             // All quadrants (degrees)
-        'equiv_deg': 2,            // Equivalent ratios (degrees)
-        'quad_rad': 5.0,             // All quadrants (radians)
-        'equiv_rad': 2.5,            // Equivalent ratios (radians)
+        'quad_deg': 2.2,             // All quadrants (degrees)
+        'equiv_deg': 1.6,            // Equivalent ratios (degrees)
+        'quad_rad': 3.4,             // All quadrants (radians)
+        'equiv_rad': 2.2,            // Equivalent ratios (radians)
         'default': 1.0
     }
 };
