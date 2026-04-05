@@ -137,12 +137,12 @@ body {
 }
 
 /* Rating color system */
-.rating-queen { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; }
-.rating-true-mastery { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; }
-.rating-mastery { background: linear-gradient(135deg, #fefbeb, #fbbf24); color: #a16207; }
-.rating-expert { background: linear-gradient(135deg, #ecfdf5, #34d399); color: #065f46; }
-.rating-developing { background: linear-gradient(135deg, #dcfce7, #4ade80); color: #047857; }
-.rating-beginner { background: linear-gradient(135deg, #f8fafc, #94a3b8); color: #1e293b; }
+.rating-queen { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; border-color: #f472b6; }
+.rating-true-mastery { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; border-color: #f472b6; }
+.rating-mastery { background: linear-gradient(135deg, #fefbeb, #fbbf24); color: #a16207; border-color: #f59e0b; }
+.rating-expert { background: linear-gradient(135deg, #ecfdf5, #34d399); color: #065f46; border-color: #34d399; }
+.rating-developing { background: linear-gradient(135deg, #dcfce7, #4ade80); color: #047857; border-color: #6ee7b7; }
+.rating-beginner { background: linear-gradient(135deg, #f8fafc, #94a3b8); color: #1e293b; border-color: #94a3b8; }
 .rating-none { background: #f3f4f6; color: #374151; }
 
 #confetti-canvas {

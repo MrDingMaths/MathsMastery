@@ -23,6 +23,9 @@ export class AnswerChecker {
                 questionType === 'equivalent' || questionType === 'quadrant' ||
                 questionType === 'simplify_fractions' || questionType === 'reference_angles' ||
                 questionType === 'reference_angles_rad') {
+                if (questionType === 'simplify_fractions' && !this._isFractionSimplified(userLatex)) {
+                    return false;
+                }
                 const result = this.compareExact(userValue, correctValue, userLatex, correctAnswer);
                 return result;
             }
@@ -181,4 +184,13 @@ export class AnswerChecker {
 
         return false;
     }
+
+    _isFractionSimplified(latex) {
+        const match = latex.replace(/\s/g, '').match(/^\\frac\{(\d+)\}\{(\d+)\}$/);
+        if (!match) return true; // not a fraction form — let compareExact handle it
+        const n = parseInt(match[1]), d = parseInt(match[2]);
+        return this._gcd(n, d) === 1;
+    }
+
+    _gcd(a, b) { return b === 0 ? a : this._gcd(b, a % b); }
 }

@@ -56,8 +56,8 @@ export function generateFDPConversionsMultiples(inputPlaceholder) {
     } else {
         conversion = {
             f_n: f_n, f_d: f_d,
-            d: f_n / f_d,
-            p: (f_n / f_d) * 100
+            d: parseFloat((f_n / f_d).toPrecision(14)),
+            p: parseFloat(((f_n / f_d) * 100).toPrecision(14))
         };
     }
 

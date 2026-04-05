@@ -11,7 +11,8 @@
       "Bash(find /c/Users/james/OneDrive/Admin/WebApps/MathsMastery/MathsMastery/trigfacts -maxdepth 2 -name *.js -type f)",
       "Bash(git -C /c/Users/james/OneDrive/Admin/WebApps/MathsMastery log --oneline -10)",
       "mcp__claude_ai_Supabase__list_tables",
-      "mcp__claude_ai_Supabase__apply_migration"
+      "mcp__claude_ai_Supabase__apply_migration",
+      "Bash(bash /tmp/analyze_pow10.js)"
     ]
   }
 }

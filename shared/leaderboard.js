@@ -128,12 +128,12 @@ class Leaderboard {
 function _leaderboardFormatTime(ms) {
     if (!ms || ms < 0) ms = 0;
     const totalSeconds = Math.floor(ms / 1000);
-    const tenths = Math.floor((ms % 1000) / 100);
+    const cs = Math.floor((ms % 1000) / 10).toString().padStart(2, '0');
     const minutes = Math.floor(totalSeconds / 60);
     const secs = (totalSeconds % 60).toString().padStart(2, '0');
     return minutes > 0
-        ? `${minutes}:${secs}.${tenths}`
-        : `${secs}.${tenths}s`;
+        ? `${minutes}:${secs}.${cs}`
+        : `${secs}.${cs}s`;
 }
 
 function _leaderboardEscapeHtml(str) {

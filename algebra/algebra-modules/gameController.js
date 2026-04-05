@@ -23,6 +23,7 @@ export class GameController {
         this.algebraMasteryTracker = new AlgebraMasteryTracker();
         this.isChecking = false;
         this.answerSubmitted = false;
+        this.lastQuestionProblem = null;
         
         // Initialize MathQuill after DOM is ready
         this.ui.initializeMathQuill();
@@ -93,7 +94,11 @@ export class GameController {
         // Reset incorrect count when moving to new question
         this.state.resetIncorrectCount();
         
-        const question = this.questionGen.generateQuestion(this.state.currentLevel.key);
+        let question = this.questionGen.generateQuestion(this.state.currentLevel.key);
+        for (let i = 0; i < 5 && this.lastQuestionProblem && question.problem === this.lastQuestionProblem; i++) {
+            question = this.questionGen.generateQuestion(this.state.currentLevel.key);
+        }
+        this.lastQuestionProblem = question.problem;
         if (!question) {
             console.error("Failed to generate question");
             return;

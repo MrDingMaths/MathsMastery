@@ -166,7 +166,11 @@ export class GameController {
             }
         }
 
-        const q = generatorFn();
+        let q = generatorFn();
+        const lastFormat = this.state.lastQuestionFormat;
+        for (let i = 0; i < 5 && lastFormat && q.format === lastFormat; i++) {
+            q = generatorFn();
+        }
         if (!q) {
             console.error("Failed to generate question");
             this.quitGame();

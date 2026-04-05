@@ -7,11 +7,12 @@
     grid-template-columns: 1fr auto 1fr;
     align-items: start;
     justify-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .container.success-layout #success-screen {
     grid-column: 2;
+    min-width: 460px;
 }
 
 /* --- Leaderboard card (right column) --- */
@@ -24,7 +25,7 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
     padding: 1.25rem;
     box-shadow: var(--shadow-card);
-    width: 280px;
+    width: 340px;
     text-align: left;
     margin-top: 0;
 }

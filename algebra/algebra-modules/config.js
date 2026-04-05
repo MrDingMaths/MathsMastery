@@ -151,19 +151,19 @@ export const CONFIG = {
     ],
     LEVEL_DIFFICULTY_MULTIPLIERS: {
         // Foundational Skills - Add Subtract Terms
-        'addSubtractTermsEasy': 1.5,
-        'addSubtractTermsMedium': 2.0,
-        'addSubtractTermsHard': 4.0,
+        'addSubtractTermsEasy': 1.8,
+        'addSubtractTermsMedium': 2.6,
+        'addSubtractTermsHard': 4.2,
         
         // Foundational Skills - Multiply Terms
         'multiplyTermsEasy': 1.5,
-        'multiplyTermsMedium': 2.0,
+        'multiplyTermsMedium': 2.2,
         'multiplyTermsHard': 4.0,
         
         // Foundational Skills - Divide Terms
-        'divideTermsEasy': 1.5,
-        'divideTermsMedium': 2.0,
-        'divideTermsHard': 4.5,
+        'divideTermsEasy': 1.8,
+        'divideTermsMedium': 3,
+        'divideTermsHard': 4.2,
         
         // Foundational Skills - Mixed Simplification
         'mixedSimplificationEasy': 1.5,
@@ -171,39 +171,39 @@ export const CONFIG = {
         'mixedSimplificationHard': 4,
         
         // Foundational Skills - Expand Single Brackets
-        'expandSingleBracketsEasy': 1.5,
-        'expandSingleBracketsMedium': 2,
+        'expandSingleBracketsEasy': 1.8,
+        'expandSingleBracketsMedium': 2.4,
         'expandSingleBracketsHard': 5,
         
         // Foundational Skills - Multiplication Index Law
         'multiplicationIndexLawEasy': 2,
-        'multiplicationIndexLawMedium': 3,
-        'multiplicationIndexLawHard': 4,
+        'multiplicationIndexLawMedium': 3.4,
+        'multiplicationIndexLawHard': 5.5,
         
         // Foundational Skills - Division Index Law
         'divisionIndexLawEasy': 2,
-        'divisionIndexLawMedium': 3,
-        'divisionIndexLawHard': 4,
+        'divisionIndexLawMedium': 4,
+        'divisionIndexLawHard': 4.5,
         
         // Foundational Skills - Power of Power & Zero Power
         'powerOfPowerAndZeroPowerEasy': 1.5,
-        'powerOfPowerAndZeroPowerMedium': 2,
+        'powerOfPowerAndZeroPowerMedium': 2.5,
         'powerOfPowerAndZeroPowerHard': 6,
         
         // Foundational Skills - Mixed Index Laws
-        'mixedIndexLawsEasy': 1.5,
+        'mixedIndexLawsEasy': 1.8,
         'mixedIndexLawsMedium': 3,
-        'mixedIndexLawsHard': 13,
+        'mixedIndexLawsHard': 11,
         
         // Foundational Skills - Order of Operations
         'orderOfOperationsEasy': 2,
-        'orderOfOperationsMedium': 3.5,
-        'orderOfOperationsHard': 8,
+        'orderOfOperationsMedium': 3.8,
+        'orderOfOperationsHard': 8.3,
         
         // Foundational Skills - Factorise into Single Brackets
-        'factoriseIntoSingleBracketsEasy': 3,
-        'factoriseIntoSingleBracketsMedium': 4,
-        'factoriseIntoSingleBracketsHard': 7,
+        'factoriseIntoSingleBracketsEasy': 2.5,
+        'factoriseIntoSingleBracketsMedium': 5,
+        'factoriseIntoSingleBracketsHard': 6,
         
         // Intermediate Skills - Expand & Simplify
         'expandAndSimplifyEasy': 3,

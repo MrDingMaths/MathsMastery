@@ -22,6 +22,7 @@ export class TrigGameController {
         this.questionGen = new TrigQuestionGenerator();
         this.confetti = new Confetti('confetti-canvas');
         this.answerChecker = new AnswerChecker();
+        this.lastQuestionFormat = null;
 
         this.setupEventListeners();
         this.initialize();
@@ -88,7 +89,11 @@ export class TrigGameController {
         this.state.setAnswering(false);
 
         try {
-            const question = this.questionGen.generate(this.state.currentLevel);
+            let question = this.questionGen.generate(this.state.currentLevel);
+            for (let i = 0; i < 5 && this.lastQuestionFormat && question.format === this.lastQuestionFormat; i++) {
+                question = this.questionGen.generate(this.state.currentLevel);
+            }
+            this.lastQuestionFormat = question.format;
 
             if (question.error) {
                 console.error('Question generation failed');

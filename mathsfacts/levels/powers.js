@@ -23,7 +23,7 @@ export function generatePerfectSquares(inputPlaceholder) {
 export function generatePowersOf10(inputPlaceholder) {
     const power = [10, 100, 1000][Math.floor(Math.random() * 3)];
     const isMultiplication = Math.random() < 0.5;
-    const num = (Math.floor(Math.random() * 99) + 1) / ([1, 10, 100, 1000][Math.floor(Math.random() * 5)]);
+    const num = (Math.floor(Math.random() * 99) + 1) / ([1, 10, 100, 1000][Math.floor(Math.random() * 4)]);
     if (isMultiplication) {
         return { format: `${num} \\times ${power} = ${inputPlaceholder}`, answer: parseFloat((num * power).toPrecision(15)) };
     } else {

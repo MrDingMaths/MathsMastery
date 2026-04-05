@@ -126,7 +126,7 @@ export class BaseUI {
                 const levelTitle = createEl('div', { className: 'level-title', innerHTML: level.name });
                 const bestTimeText = createEl('div', {
                     className: 'best-time',
-                    textContent: bestTime ? `Best: ${new Timer().formatTime(bestTime)}` : 'No time set'
+                    textContent: bestTime ? `Best: ${new Timer().formatTime(bestTime, 2)}` : 'No time set'
                 });
 
                 btn.append(levelTitle, bestTimeText);
@@ -209,7 +209,7 @@ export class BaseUI {
         const label = createEl('div', { className: 'skill-path-label', innerHTML: level.name });
         const timeDisplay = createEl('div', {
             className: 'skill-path-time',
-            textContent: bestTime ? `Best: ${new Timer().formatTime(bestTime)}` : 'Not attempted'
+            textContent: bestTime ? `Best: ${new Timer().formatTime(bestTime, 2)}` : 'Not attempted'
         });
         node.append(label, timeDisplay);
         return node;
