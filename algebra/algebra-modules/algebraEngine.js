@@ -762,6 +762,41 @@ class AlgebraEngine {
     _canonicalizeAddOrMultiply(node) {
         let terms = this.flatten(node, node.fn);
 
+        // For additions, expand -1*(sum) terms back into individual negated terms.
+        // This prevents inconsistencies from premature all-negative factoring in sub-expressions
+        // e.g. -1*(25x^2 + 30x) → (-25x^2) + (-30x)
+        if (node.fn === 'add') {
+            let expandedTerms = [];
+            let didExpand = false;
+            for (const term of terms) {
+                if (term.isOperatorNode && term.fn === 'multiply') {
+                    const factors = this.flatten(term, 'multiply');
+                    const negOneFactors = factors.filter(f => f.isConstantNode && f.value === -1);
+                    const addFactors = factors.filter(f => f.isOperatorNode && f.fn === 'add');
+                    const otherFactors = factors.filter(f =>
+                        !(f.isConstantNode && f.value === -1) &&
+                        !(f.isOperatorNode && f.fn === 'add'));
+
+                    if (negOneFactors.length === 1 && addFactors.length === 1 && otherFactors.length === 0) {
+                        this.log(`[TRANSFORM] Expanding -1*(sum) back into individual negated terms.`);
+                        const innerTerms = this.flatten(addFactors[0], 'add');
+                        for (const inner of innerTerms) {
+                            let negated = new this.math.OperatorNode('multiply', 'multiply',
+                                [new this.math.ConstantNode(-1), inner]);
+                            negated = this._canonicalizeAddOrMultiply(negated);
+                            expandedTerms.push(negated);
+                        }
+                        didExpand = true;
+                        continue;
+                    }
+                }
+                expandedTerms.push(term);
+            }
+            if (didExpand) {
+                terms = expandedTerms;
+            }
+        }
+
         // For addition nodes, apply binary difference canonicalization if it's a binary difference
         // But only when sign flip isn't needed (sign=1), to avoid double negation
         if (node.fn === 'add' && terms.length === 2) {
