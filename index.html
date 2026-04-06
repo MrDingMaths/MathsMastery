@@ -5,28 +5,341 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maths Mastery</title>
     <script src="shared/darkMode.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="shared/darkMode.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="shared/navigationButtons.css">
     <link rel="stylesheet" href="shared/leaderboard.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .app-card {
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .app-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        /* ===== RESET ===== */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { overflow: hidden; }
+
+        /* ===== CUSTOM PROPERTIES ===== */
+        :root {
+            /* Whiteboard: light background, dark text */
+            --chalk-bg: #f0eff2;
+            --chalk-surface: #ffffff;
+            --chalk-heading: #1e1c2a;
+            --chalk-body: #6b6475;
+            --card-heading: #1e1c2a;
+            --card-body: #6b6475;
         }
 
-        /* Hub leaderboard modal */
+        [data-theme="dark"] {
+            /* Blackboard: dark green background, chalk text */
+            --chalk-bg: #1a271a;
+            --chalk-surface: #243024;
+            --chalk-heading: #e8e4da;
+            --chalk-body: #a8b4a8;
+            --card-heading: #f0ebe4;
+            --card-body: #9ca89c;
+        }
+
+        /* ===== WHITEBOARD / BLACKBOARD BODY ===== */
+        body.chalkboard {
+            font-family: 'Source Sans 3', sans-serif;
+            min-height: 100vh;
+            background-color: var(--chalk-bg);
+            /* Whiteboard: clean surface with very faint grid */
+            background-image:
+                radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.9) 0%, transparent 55%),
+                radial-gradient(ellipse at 72% 78%, rgba(210,208,220,0.35) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 29px,
+                    rgba(0,0,0,0.04) 29px,
+                    rgba(0,0,0,0.04) 30px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 29px,
+                    rgba(0,0,0,0.04) 29px,
+                    rgba(0,0,0,0.04) 30px
+                );
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            overflow-x: hidden;
+        }
+
+        /* Blackboard: dark green with faint chalk streaks */
+        [data-theme="dark"] body.chalkboard {
+            background-image:
+                radial-gradient(ellipse at 25% 15%, rgba(255,255,255,0.03) 0%, transparent 55%),
+                radial-gradient(ellipse at 78% 82%, rgba(255,255,255,0.02) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 59px,
+                    rgba(255,255,255,0.015) 59px,
+                    rgba(255,255,255,0.015) 60px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 59px,
+                    rgba(255,255,255,0.012) 59px,
+                    rgba(255,255,255,0.012) 60px
+                );
+        }
+
+        /* ===== FLOATING MATH SYMBOLS ===== */
+        .chalk-symbols {
+            display: none;
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @media (min-width: 640px) {
+            .chalk-symbols { display: block; }
+        }
+
+        .chalk-symbols span {
+            position: absolute;
+            color: var(--chalk-heading);
+            opacity: 0.04;
+            font-family: 'Bitter', serif;
+            animation: chalk-float 8s ease-in-out infinite;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .chalk-symbols span:nth-child(1) { top: 8%;  left: 5%;   font-size: 5rem;   animation-delay: 0s; }
+        .chalk-symbols span:nth-child(2) { top: 15%; right: 8%;  font-size: 3.5rem; animation-delay: 1s; }
+        .chalk-symbols span:nth-child(3) { top: 45%; left: 3%;   font-size: 4.5rem; animation-delay: 2s; }
+        .chalk-symbols span:nth-child(4) { top: 68%; left: 8%;   font-size: 3rem;   animation-delay: 0.5s; }
+        .chalk-symbols span:nth-child(5) { top: 30%; right: 5%;  font-size: 4rem;   animation-delay: 1.5s; }
+        .chalk-symbols span:nth-child(6) { top: 60%; right: 6%;  font-size: 3.5rem; animation-delay: 3s; }
+        .chalk-symbols span:nth-child(7) { bottom: 14%; left: 12%;  font-size: 3rem; animation-delay: 2.5s; }
+        .chalk-symbols span:nth-child(8) { bottom: 18%; right: 10%; font-size: 4rem; animation-delay: 4s; }
+
+        @keyframes chalk-float {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50%       { transform: translateY(-12px) rotate(2deg); }
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .chalk-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 48rem;
+            text-align: center;
+        }
+
+        /* ===== TITLE & SUBTITLE ===== */
+        .chalk-title {
+            font-family: 'Bitter', serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--chalk-heading);
+            letter-spacing: -0.02em;
+            margin: 0 0 0.4rem;
+            animation: fade-up 0.6s ease both;
+            animation-delay: 0s;
+        }
+
+        @media (min-width: 640px) {
+            .chalk-title { font-size: 3rem; }
+        }
+
+        .chalk-subtitle {
+            color: var(--chalk-body);
+            font-size: 1rem;
+            font-weight: 400;
+            margin: 0 0 1.75rem;
+            animation: fade-up 0.6s ease both;
+            animation-delay: 0.1s;
+        }
+
+        /* ===== LEADERBOARD BUTTON ===== */
+        .chalk-lb-wrap {
+            margin-bottom: 1.5rem;
+            animation: fade-up 0.6s ease both;
+            animation-delay: 0.2s;
+        }
+
+        #hub-lb-open-btn {
+            background-color: #F59E0B;
+            color: #1a1200;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Source Sans 3', sans-serif;
+            border: none;
+            border-radius: 9999px;
+            padding: 0.7rem 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(245,158,11,0.4);
+            transition: box-shadow 0.15s, transform 0.15s;
+            letter-spacing: 0.01em;
+        }
+        #hub-lb-open-btn:hover {
+            box-shadow: 0 6px 24px rgba(245,158,11,0.55);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SIGN-IN BANNER ===== */
+        #signin-banner {
+            text-align: center;
+            margin-bottom: 1.75rem;
+            animation: fade-up 0.6s ease both;
+            animation-delay: 0.25s;
+        }
+        #signin-banner p {
+            color: var(--chalk-body);
+            font-size: 0.875rem;
+            margin: 0 0 0.875rem;
+        }
+        #signin-banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
+            background: #4285F4;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: 'Source Sans 3', sans-serif;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.65rem 1.375rem 0.65rem 1rem;
+            cursor: pointer;
+            transition: box-shadow 0.15s, opacity 0.15s;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.4), 0 0 0 2px rgba(66,133,244,0.15);
+        }
+        #signin-banner-btn:hover {
+            opacity: 0.92;
+            box-shadow: 0 4px 16px rgba(66,133,244,0.55), 0 0 0 2px rgba(66,133,244,0.2);
+        }
+        #signin-banner-btn svg { flex-shrink: 0; }
+        .signin-banner-hidden { display: none !important; }
+
+        /* ===== APP CARDS ===== */
+        .chalk-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 640px) {
+            .chalk-cards { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        }
+
+        .app-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 1rem;
+            padding: 1.75rem 1.25rem 1.5rem;
+            overflow: hidden;
+            background-color: var(--chalk-surface);
+            /* Whiteboard cards: faint grid lines on white */
+            background-image:
+                linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--card-accent);
+        }
+
+        /* Blackboard cards: faint chalk lines on dark green */
+        [data-theme="dark"] .app-card {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 20px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        [data-theme="dark"] .app-card:hover {
+            box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+        }
+
+        .card-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-family: 'Bitter', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--card-heading);
+            margin: 0 0 0.75rem;
+        }
+
+        .card-cta {
+            display: inline-block;
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-desc {
+            color: var(--card-body);
+            font-size: 0.875rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Card entrance animations */
+        .app-card:nth-child(1) { animation: fade-up 0.6s ease both; animation-delay: 0.3s; }
+        .app-card:nth-child(2) { animation: fade-up 0.6s ease both; animation-delay: 0.45s; }
+        .app-card:nth-child(3) { animation: fade-up 0.6s ease both; animation-delay: 0.6s; }
+
+        /* ===== ENTRANCE ANIMATIONS ===== */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .chalk-title, .chalk-subtitle, .chalk-lb-wrap, #signin-banner,
+            .app-card:nth-child(1), .app-card:nth-child(2), .app-card:nth-child(3) {
+                animation: none;
+            }
+            .chalk-symbols span { animation: none; }
+        }
+
+        /* ===== HUB LEADERBOARD MODAL ===== */
         .hub-lb-hidden { display: none !important; }
 
         #hub-lb-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.45);
+            background: rgba(0,0,0,0.55);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -35,14 +348,14 @@
         }
 
         #hub-lb-modal {
-            background: #fff;
+            background: var(--chalk-surface);
             border-radius: 1rem;
             width: 100%;
             max-width: 560px;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.3);
             overflow: hidden;
         }
 
@@ -58,7 +371,7 @@
         .hub-lb-header h2 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #111827;
+            color: var(--card-heading);
             margin: 0;
         }
 
@@ -67,12 +380,12 @@
             border: none;
             font-size: 1.4rem;
             line-height: 1;
-            color: #6b7280;
+            color: var(--card-body);
             cursor: pointer;
             padding: 0.25rem 0.375rem;
             border-radius: 0.375rem;
         }
-        #hub-lb-close:hover { background: rgba(0,0,0,0.06); color: #111827; }
+        #hub-lb-close:hover { background: rgba(0,0,0,0.06); color: var(--card-heading); }
 
         .hub-lb-tabs {
             display: flex;
@@ -88,13 +401,13 @@
             padding: 0.7rem 0.5rem;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #6b7280;
+            color: var(--card-body);
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: color 0.15s, border-color 0.15s;
             font-family: inherit;
         }
-        .hub-lb-tab:hover { color: #374151; }
+        .hub-lb-tab:hover { color: var(--card-heading); }
         .hub-lb-tab-active {
             color: #3b82f6;
             border-bottom-color: #3b82f6;
@@ -115,7 +428,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: #9ca3af;
+            color: var(--card-body);
             padding: 0.625rem 0.25rem 0.375rem;
         }
 
@@ -127,7 +440,7 @@
             border-radius: 0.5rem;
             cursor: pointer;
             font-size: 0.875rem;
-            color: #374151;
+            color: var(--card-heading);
             transition: background 0.1s;
         }
         .hub-lb-level-row:hover { background: rgba(0,0,0,0.04); }
@@ -137,7 +450,7 @@
 
         .hub-lb-chevron {
             font-size: 1.1rem;
-            color: #9ca3af;
+            color: var(--card-body);
             transition: transform 0.2s;
             line-height: 1;
             margin-left: 0.5rem;
@@ -151,104 +464,42 @@
         .hub-lb-loading {
             text-align: center;
             font-size: 0.825rem;
-            color: #9ca3af;
+            color: var(--card-body);
             padding: 0.75rem 0;
         }
 
-        /* Sign-in banner */
-        #signin-banner {
-            text-align: center;
-            margin-top: 2rem;
-        }
-        #signin-banner p {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin: 0 0 0.875rem;
-        }
-        #signin-banner-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.625rem;
-            background: #4285F4;
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            font-family: inherit;
-            border: none;
-            border-radius: 0.5rem;
-            padding: 0.65rem 1.375rem 0.65rem 1rem;
-            cursor: pointer;
-            transition: box-shadow 0.15s, opacity 0.15s;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.35);
-        }
-        #signin-banner-btn:hover { opacity: 0.92; box-shadow: 0 4px 14px rgba(66,133,244,0.45); }
-        #signin-banner-btn svg { flex-shrink: 0; }
-        .signin-banner-hidden { display: none !important; }
-        [data-theme="dark"] #signin-banner p { color: #9ca3af; }
-
-        /* Dark mode */
-        [data-theme="dark"] #hub-lb-modal {
-            background: #1f2937;
-        }
-        [data-theme="dark"] .hub-lb-header {
-            border-bottom-color: rgba(255,255,255,0.1);
-        }
-        [data-theme="dark"] .hub-lb-header h2 { color: #f3f4f6; }
-        [data-theme="dark"] #hub-lb-close { color: #9ca3af; }
-        [data-theme="dark"] #hub-lb-close:hover { background: rgba(255,255,255,0.08); color: #f3f4f6; }
-        [data-theme="dark"] .hub-lb-tabs { border-bottom-color: rgba(255,255,255,0.1); }
-        [data-theme="dark"] .hub-lb-tab { color: #6b7280; }
-        [data-theme="dark"] .hub-lb-tab:hover { color: #d1d5db; }
+        /* Modal dark mode */
+        [data-theme="dark"] .hub-lb-header { border-bottom-color: rgba(255,255,255,0.1); }
+        [data-theme="dark"] .hub-lb-tabs   { border-bottom-color: rgba(255,255,255,0.1); }
         [data-theme="dark"] .hub-lb-tab-active { color: #60a5fa; border-bottom-color: #60a5fa; }
-        [data-theme="dark"] .hub-lb-level-row { color: #d1d5db; }
         [data-theme="dark"] .hub-lb-level-row:hover { background: rgba(255,255,255,0.05); }
-        [data-theme="dark"] .hub-lb-level-row-open { background: rgba(59,130,246,0.15); color: #93c5fd; }
+        [data-theme="dark"] .hub-lb-level-row-open  { background: rgba(59,130,246,0.15); color: #93c5fd; }
         [data-theme="dark"] .hub-lb-level-row-open .hub-lb-chevron { color: #60a5fa; }
+        [data-theme="dark"] #hub-lb-close:hover { background: rgba(255,255,255,0.08); }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
+<body class="chalkboard">
 
-    <div class="max-w-3xl w-full">
+    <!-- Floating math symbols (desktop only) -->
+    <div class="chalk-symbols" aria-hidden="true">
+        <span>∫</span>
+        <span>π</span>
+        <span>Σ</span>
+        <span>√</span>
+        <span>∞</span>
+        <span>Δ</span>
+        <span>≈</span>
+        <span>∂</span>
+    </div>
 
-        <!-- Header -->
-        <div class="text-center mb-10">
-            <h1 class="text-5xl font-black text-gray-800 mb-2" style="font-size: 3rem;">Maths Mastery</h1>
-            <p class="text-gray-500 text-lg">Choose a topic to practise</p>
-        </div>
+    <div class="chalk-container">
 
-        <!-- App cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <h1 class="chalk-title">Maths Mastery</h1>
+        <p class="chalk-subtitle">Choose a topic to practise</p>
 
-            <!-- Maths Facts -->
-            <a href="./mathsfacts/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #3DBD6B;">
-                    ±
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Number Skills</h2>
-                <span class="mt-5 mb-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #3DBD6B;">Start →</span>
-                <p class="text-gray-500 text-sm leading-relaxed">Number bonds, multiplication facts, fractions, decimals, percentages</p>
-            </a>
-
-            <!-- Algebra Mastery -->
-            <a href="./algebra/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #4A7CF7;">
-                    𝑥
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Algebra Skills</h2>
-                <span class="mt-5 mb-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #4A7CF7;">Start →</span>
-                <p class="text-gray-500 text-sm leading-relaxed">Expanding, factorising, surds, indices, algebraic fractions</p>
-            </a>
-
-            <!-- Trig Facts -->
-            <a href="./trigfacts/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #F0697A;">
-                    θ
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Trig Skills</h2>
-                <span class="mt-5 mb-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #F0697A;">Start →</span>
-                <p class="text-gray-500 text-sm leading-relaxed">Exact values, quadrant angles, degree &amp; radian conversions</p>
-            </a>
-
+        <!-- Leaderboard button -->
+        <div class="chalk-lb-wrap">
+            <button id="hub-lb-open-btn">🏆 Leaderboard</button>
         </div>
 
         <!-- Sign-in banner (hidden once signed in) -->
@@ -267,12 +518,35 @@
             </button>
         </div>
 
-        <!-- Leaderboard button -->
-        <div class="text-center mt-8">
-            <button id="hub-lb-open-btn" class="px-5 py-2.5 rounded-full text-sm font-semibold text-gray-600 bg-white shadow-sm border border-gray-200 hover:border-gray-300 hover:shadow transition-all" style="cursor:pointer;">
-                🏅 Leaderboard
-            </button>
+        <!-- App cards -->
+        <div class="chalk-cards">
+
+            <!-- Number Skills -->
+            <a href="./mathsfacts/" class="app-card" style="--card-accent: #3DBD6B;">
+                <div class="card-icon" style="background-color: #3DBD6B;">±</div>
+                <h2 class="card-title">Number Skills</h2>
+                <span class="card-cta" style="background-color: #3DBD6B;">Start →</span>
+                <p class="card-desc">Number bonds, multiplication facts, fractions, decimals, percentages</p>
+            </a>
+
+            <!-- Algebra Skills -->
+            <a href="./algebra/" class="app-card" style="--card-accent: #4A7CF7;">
+                <div class="card-icon" style="background-color: #4A7CF7;">𝑥</div>
+                <h2 class="card-title">Algebra Skills</h2>
+                <span class="card-cta" style="background-color: #4A7CF7;">Start →</span>
+                <p class="card-desc">Expanding, factorising, surds, indices, algebraic fractions</p>
+            </a>
+
+            <!-- Trig Skills -->
+            <a href="./trigfacts/" class="app-card" style="--card-accent: #F0697A;">
+                <div class="card-icon" style="background-color: #F0697A;">θ</div>
+                <h2 class="card-title">Trig Skills</h2>
+                <span class="card-cta" style="background-color: #F0697A;">Start →</span>
+                <p class="card-desc">Exact values, quadrant angles, degree &amp; radian conversions</p>
+            </a>
+
         </div>
+
     </div>
 
     <!-- Hub leaderboard modal -->
