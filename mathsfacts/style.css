@@ -1,3 +1,7 @@
+:root {
+    --app-accent: #3DBD6B; /* Green — matches landing page number card */
+}
+
 /* MathsFacts-specific question sizing */
 .question-text {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -192,47 +196,3 @@ div[class*="level-btn"] {
     background-color: rgba(239, 68, 68, 0.08);
 }
 
-/* MathsFacts skill-path overrides */
-.skill-path-inner {
-    gap: 1rem;
-}
-
-.skill-path-inner::before {
-    right: -10rem;
-}
-
-.skill-path-node.rating-none {
-    background: #f3f4f6;
-    color: #374151;
-    border-color: #d1d5db;
-}
-
-.skill-path-node.rating-true-mastery {
-    background: linear-gradient(135deg, #fef7f0, #f9a8d4);
-    color: #9d174d;
-    border-color: #f9a8d4;
-}
-
-.skill-path-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 120px;
-    text-align: center;
-    margin: 0 1rem;
-    position: relative;
-    z-index: 2;
-}
-
-.skill-path-section-title {
-    font-size: 0.8rem;
-    max-width: 150px;
-    word-wrap: break-word;
-    text-align: center;
-    white-space: normal;
-}
-
-.skill-path-label {
-    hyphens: none;
-}

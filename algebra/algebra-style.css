@@ -1,3 +1,7 @@
+:root {
+    --app-accent: #4A7CF7; /* Blue — matches landing page algebra card */
+}
+
 /* Algebra-specific question sizing */
 .question-text {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
