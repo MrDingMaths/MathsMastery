@@ -48,7 +48,7 @@ class AlgebraEngine {
 
     log(message, ...args) {
         const depth = Math.max(0, this.logDepth); // Prevent negative depth
-        console.log(`${'  '.repeat(depth)}${message}`, ...args);
+        // console.log(`${'  '.repeat(depth)}${message}`, ...args);
     }
 
     // ==================== MODULE 1: LATEX PARSER ====================

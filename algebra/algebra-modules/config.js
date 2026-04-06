@@ -212,8 +212,8 @@ export const CONFIG = {
         
         // Intermediate Skills - Expand Binomial Products
         'expandBinomialProductsEasy': 3,
-        'expandBinomialProductsMedium': 5.5,
-        'expandBinomialProductsHard': 12,
+        'expandBinomialProductsMedium': 7,
+        'expandBinomialProductsHard': 15,
         
         // Intermediate Skills - Power of Products and Quotients
         'powerOfProductsAndQuotientsEasy': 2.5,
