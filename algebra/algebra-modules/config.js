@@ -213,7 +213,7 @@ export const CONFIG = {
         // Intermediate Skills - Expand Binomial Products
         'expandBinomialProductsEasy': 3,
         'expandBinomialProductsMedium': 7,
-        'expandBinomialProductsHard': 15,
+        'expandBinomialProductsHard': 24,
         
         // Intermediate Skills - Power of Products and Quotients
         'powerOfProductsAndQuotientsEasy': 2.5,
@@ -222,13 +222,13 @@ export const CONFIG = {
         
         // Intermediate Skills - Add Subtract Algebraic Fractions
         'addSubtractAlgebraicFractionsEasy': 2,
-        'addSubtractAlgebraicFractionsMedium': 6,
+        'addSubtractAlgebraicFractionsMedium': 7,
         'addSubtractAlgebraicFractionsHard': 10,
         
         // Intermediate Skills - Multiply Divide Algebraic Fractions
         'multiplyDivideAlgebraicFractionsEasy': 4,
         'multiplyDivideAlgebraicFractionsMedium': 8,
-        'multiplyDivideAlgebraicFractionsHard': 22,
+        'multiplyDivideAlgebraicFractionsHard': 24,
         
         // Intermediate Skills - Negative Indices
         'negativeIndicesEasy': 2,
@@ -236,9 +236,9 @@ export const CONFIG = {
         'negativeIndicesHard': 20,
         
         // Intermediate Skills - Factorise Monic Quadratic Trinomials
-        'factoriseMonicQuadraticTrinomialsEasy': 4,
+        'factoriseMonicQuadraticTrinomialsEasy': 3,
         'factoriseMonicQuadraticTrinomialsMedium': 5,
-        'factoriseMonicQuadraticTrinomialsHard': 10,
+        'factoriseMonicQuadraticTrinomialsHard': 8,
         
         
         // Advanced Skills - Add Subtract Fractions with Binomial Numerator

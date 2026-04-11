@@ -310,9 +310,15 @@ class HubLeaderboard {
             const rank = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
             const youClass = isYou ? ' leaderboard-entry-you' : '';
             const youBadge = isYou ? ' <span class="leaderboard-you-badge">you</span>' : '';
+            const avatarUrl = entry.profiles?.avatar_url;
+            const avatarHtml = avatarUrl
+                ? `<img class="leaderboard-avatar" src="${_hubEscape(avatarUrl)}" alt="" loading="lazy">`
+                : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_hubEscape((entry.display_name || 'A')[0].toUpperCase())}</span>`;
+
             html += `<li class="leaderboard-entry${youClass}">
                 <span class="leaderboard-rank">${rank}</span>
-                <span class="leaderboard-name">${_hubEscape(entry.display_name)}${youBadge}</span>
+                ${avatarHtml}
+                <span class="leaderboard-name">${_hubAbbreviateName(entry.display_name)}${youBadge}</span>
                 <span class="leaderboard-time">${time}</span>
                 <span class="leaderboard-rating-emoji">${emoji}</span>
             </li>`;
@@ -331,6 +337,13 @@ function _hubFormatTime(ms) {
     return minutes > 0
         ? `${minutes}:${secs}.${tenths}`
         : `${secs}.${tenths}s`;
+}
+
+function _hubAbbreviateName(name) {
+    if (!name) return 'Anonymous';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return _hubEscape(parts[0]);
+    return _hubEscape(parts[0]) + ' ' + _hubEscape(parts[parts.length - 1][0]);
 }
 
 function _hubEscape(str) {

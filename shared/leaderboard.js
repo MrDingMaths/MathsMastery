@@ -40,7 +40,7 @@ class Leaderboard {
 
         const { data, error } = await window.supabaseClient
             .from('leaderboard_entries')
-            .select('display_name, best_time, rating_key, rating_name, user_id')
+            .select('display_name, best_time, rating_key, rating_name, user_id, profiles(avatar_url)')
             .eq('app', app)
             .eq('level_key', levelKey)
             .order('best_time', { ascending: true })
@@ -100,9 +100,15 @@ class Leaderboard {
                 const highlightClass = isCurrentUser ? ' leaderboard-entry-you' : '';
                 const rankLabel = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
 
+                const avatarUrl = entry.profiles?.avatar_url;
+                const avatarHtml = avatarUrl
+                    ? `<img class="leaderboard-avatar" src="${_leaderboardEscapeHtml(avatarUrl)}" alt="" loading="lazy">`
+                    : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_leaderboardEscapeHtml((entry.display_name || 'A')[0].toUpperCase())}</span>`;
+
                 html += `<li class="leaderboard-entry${highlightClass}">
                     <span class="leaderboard-rank">${rankLabel}</span>
-                    <span class="leaderboard-name">${_leaderboardEscapeHtml(entry.display_name)}${isCurrentUser ? ' <span class="leaderboard-you-badge">you</span>' : ''}</span>
+                    ${avatarHtml}
+                    <span class="leaderboard-name">${_leaderboardAbbreviateName(entry.display_name)}${isCurrentUser ? ' <span class="leaderboard-you-badge">you</span>' : ''}</span>
                     <span class="leaderboard-time">${timeFormatted}</span>
                     <span class="leaderboard-rating-emoji">${emoji}</span>
                 </li>`;
@@ -140,4 +146,11 @@ function _leaderboardEscapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+}
+
+function _leaderboardAbbreviateName(name) {
+    if (!name) return 'Anonymous';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return _leaderboardEscapeHtml(parts[0]);
+    return _leaderboardEscapeHtml(parts[0]) + ' ' + _leaderboardEscapeHtml(parts[parts.length - 1][0]);
 }
