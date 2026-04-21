@@ -248,18 +248,18 @@ export const CONFIG = {
         
         // Advanced Skills - Expand Perfect Squares
         'expandPerfectSquaresEasy': 3,
-        'expandPerfectSquaresMedium': 6,
-        'expandPerfectSquaresHard': 12,
+        'expandPerfectSquaresMedium': 5,
+        'expandPerfectSquaresHard': 8,
         
         // Advanced Skills - Expand Difference of Two Squares
         'expandDifferenceOfTwoSquaresEasy': 2,
-        'expandDifferenceOfTwoSquaresMedium': 4,
-        'expandDifferenceOfTwoSquaresHard': 6,
+        'expandDifferenceOfTwoSquaresMedium': 3,
+        'expandDifferenceOfTwoSquaresHard': 5,
         
         // Advanced Skills - Factorise Difference of Two Squares
         'factoriseDifferenceOfTwoSquaresEasy': 4,
-        'factoriseDifferenceOfTwoSquaresMedium': 10,
-        'factoriseDifferenceOfTwoSquaresHard': 10,
+        'factoriseDifferenceOfTwoSquaresMedium': 7,
+        'factoriseDifferenceOfTwoSquaresHard': 12,
         
         // Advanced Skills - Factorise Perfect Squares
         'factorisePerfectSquaresEasy': 2,
@@ -269,11 +269,11 @@ export const CONFIG = {
         // Advanced Skills - Mixed Expansion
         'mixedExpansionEasy': 3,
         'mixedExpansionMedium': 8,
-        'mixedExpansionHard': 16,
+        'mixedExpansionHard': 8,
         
         // Advanced Skills - Notice Binomial Factors
         'noticeBinomialFactorsEasy': 3,
-        'noticeBinomialFactorsMedium': 6,
+        'noticeBinomialFactorsMedium': 4,
         'noticeBinomialFactorsHard': 30,
         
         // Advanced Skills - Group in Pairs

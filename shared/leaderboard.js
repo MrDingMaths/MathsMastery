@@ -117,6 +117,10 @@ class Leaderboard {
             container.innerHTML = html;
         }
 
+        if (!currentUserId) {
+            container.innerHTML += '<p class="leaderboard-login-note">You must be logged in to submit your best time to the leaderboard.</p>';
+        }
+
         // Wrap in a card and insert as a sibling after the success screen
         const card = document.createElement('div');
         card.id = 'leaderboard-card';

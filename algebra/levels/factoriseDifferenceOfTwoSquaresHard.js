@@ -6,7 +6,6 @@ window.AlgebraLevels.factoriseDifferenceOfTwoSquaresHard = new BaseLevel(
     [
 
             // Fractional expressions with surds
-            {problem: "\\frac{5x^2}{9} - \\frac{5}{4}", answer: "\\frac{5}{36}(2x - 3)(2x + 3)"},
             {problem: "x^2 - \\frac{3}{4}", answer: "(x - \\frac{\\sqrt{3}}{2})(x + \\frac{\\sqrt{3}}{2})"},
             {problem: "x^2 - \\frac{7}{16}", answer: "(x - \\frac{\\sqrt{7}}{4})(x + \\frac{\\sqrt{7}}{4})"},
             {problem: "x^2 - \\frac{5}{16}", answer: "(x - \\frac{\\sqrt{5}}{4})(x + \\frac{\\sqrt{5}}{4})"},
