@@ -40,7 +40,7 @@ window.AlgebraLevels.noticeBinomialFactorsHard = new BaseLevel(
             {problem: "42x(x - 5) - 28(x - 5)^2", answer: "14(x - 5)(x + 10)"},
             {problem: "54x(x + 8)^3 - 36(x + 8)^2", answer: "18(x + 8)^2(3x^2 + 24x - 2)"},
             {problem: "11yx(2x + 3)^3 - 7y(2x + 3)^2", answer: "y(2x + 3)^2(22x^2 + 33x - 7)"},
-            {problem: "6x\\sqrt{2x - 1} + 9\\sqrt{2x - 1}", answer: "(6x + 9)\\sqrt{2x - 1}"},
+            {problem: "6x\\sqrt{2x - 1} + 9\\sqrt{2x - 1}", answer: "3(2x + 3)\\sqrt{2x - 1}"},
             {problem: "12x(2x + 1)^2 - 15x(1 + 2x)", answer: "3x(2x + 1)(8x - 1)"},
             {problem: "13x(4x + 7)^2 + 8(4x + 7)", answer: "(4x + 7)(52x^2 + 91x + 8)"},
             {problem: "9x(x - 8)^2 - 5(x - 8)", answer: "(x - 8)(9x^2 - 72x - 5)"},

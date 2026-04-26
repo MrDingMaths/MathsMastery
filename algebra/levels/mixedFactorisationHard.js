@@ -117,13 +117,7 @@ window.AlgebraLevels.mixedFactorisationHard = new BaseLevel(
             {problem: "bx^2 + abx + yx + ay", answer: "(bx+y)(x+a)"},
             {problem: "yx^2 + ayx + bx + ab", answer: "(yx+b)(x+a)"},
             {problem: "yx^2 - ayx + bx - ab", answer: "(yx+b)(x-a)"},
-            
-            // Fractional coefficients
-            {problem: "\\frac{1}{2}x^2 + \\frac{a}{2}x + bx + ab", answer: "(\\frac{1}{2}x+b)(x+a)"},
-            {problem: "\\frac{1}{3}x^2 + \\frac{a}{3}x + bx + \\frac{ab}{3}", answer: "\\frac{1}{3}x^2 + \\frac{a}{3}x + bx + \\frac{ab}{3}"},
-            {problem: "\\frac{2}{3}x^2 + \\frac{2a}{3}x + bx + \\frac{ab}{3}", answer: "\\frac{2}{3}x^2 + \\frac{2a}{3}x + bx + \\frac{ab}{3}"},
-            {problem: "\\frac{3}{4}x^2 - \\frac{3a}{4}x + bx - \\frac{ab}{4}", answer: "\\frac{3}{4}x^2 - \\frac{3a}{4}x + bx - \\frac{ab}{4}"},
-            
+                        
             // Complex rearrangement needed
             {problem: "ab + x^2 + ax + bx", answer: "(x+a)(x+b)"},
             {problem: "ab - x^2 + ax - bx", answer: "(a-x)(x+b)"},
@@ -161,7 +155,7 @@ window.AlgebraLevels.mixedFactorisationHard = new BaseLevel(
             {problem: "5ax(2x + 1)^3 - 3a(2x + 1)^2", answer: "a(2x + 1)^2(10x^2 + 5x - 3)"},
             {problem: "5x\\sqrt{2x + 1} - 3\\sqrt{2x + 1}", answer: "(5x - 3)\\sqrt{2x + 1}"},
             {problem: "5x(2x - 1)^2 - 3x(1 - 2x)", answer: "2x(2x - 1)(5x - 1)"},
-            {problem: "5x(2x + 1)(5x - 2) - 3(2x + 1)^2(5x - 2)^2", answer: "(2x + 1)(5x - 2)(-30x^2 + 2x + 6)"},
+            {problem: "5x(2x + 1)(5x - 2) - 3(2x + 1)^2(5x - 2)^2", answer: "-2(2x + 1)(5x - 2)(15x^2 - 2x - 3)"},
             
             // Additional generated questions for variety and complexity
             {problem: "4x(3x + 1)^2 - 3(3x + 1)", answer: "(3x + 1)(12x^2 + 4x - 3)"},

@@ -274,30 +274,30 @@ export const CONFIG = {
         // Advanced Skills - Notice Binomial Factors
         'noticeBinomialFactorsEasy': 3,
         'noticeBinomialFactorsMedium': 4,
-        'noticeBinomialFactorsHard': 30,
+        'noticeBinomialFactorsHard': 33,
         
         // Advanced Skills - Group in Pairs
         'groupInPairsEasy': 8,
         'groupInPairsMedium': 10,
-        'groupInPairsHard': 18,
+        'groupInPairsHard': 20,
         
         // Advanced Skills - Factorise Non-monic Quadratic Trinomials
-        'factoriseNonMonicQuadraticTrinomialsEasy': 14,
-        'factoriseNonMonicQuadraticTrinomialsMedium': 22,
+        'factoriseNonMonicQuadraticTrinomialsEasy': 10,
+        'factoriseNonMonicQuadraticTrinomialsMedium': 24,
         'factoriseNonMonicQuadraticTrinomialsHard': 40,
         
         // Advanced Skills - Mixed Factorisation
         'mixedFactorisationEasy': 5,
-        'mixedFactorisationMedium': 15,
-        'mixedFactorisationHard': 30,
+        'mixedFactorisationMedium': 20,
+        'mixedFactorisationHard': 38,
         
         // Advanced Skills - Finish Factorising
         'finishFactorisingEasy': 4,
-        'finishFactorisingMedium': 7,
-        'finishFactorisingHard': 13,
+        'finishFactorisingMedium': 6,
+        'finishFactorisingHard': 10,
         
         // Advanced Skills - Simplify Algebraic Fractions by Factorising
-        'simplifyAlgebraicFractionsByFactorisingEasy': 5,
+        'simplifyAlgebraicFractionsByFactorisingEasy': 4,
         'simplifyAlgebraicFractionsByFactorisingMedium': 6,
         'simplifyAlgebraicFractionsByFactorisingHard': 12,
         
