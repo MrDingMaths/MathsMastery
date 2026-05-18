@@ -290,6 +290,11 @@ class HubLeaderboard {
         panel.classList.remove('hub-lb-hidden');
         rowEl.classList.add('hub-lb-level-row-open');
         rowEl.setAttribute('aria-expanded', 'true');
+        if (!window.supabaseUser) {
+            panel.innerHTML = '<p class="leaderboard-login-note">Log in to see who is on the leaderboard.</p>';
+            return;
+        }
+
         panel.innerHTML = '<div class="hub-lb-loading">Loading…</div>';
 
         const entries = await Leaderboard.fetchTop10(app, levelKey);

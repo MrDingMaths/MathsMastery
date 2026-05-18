@@ -74,51 +74,51 @@ class Leaderboard {
             existing.remove();
         }
 
-        const entries = await this.fetchTop10(app, levelKey);
-
         const container = document.createElement('div');
         container.id = 'leaderboard-container';
         container.className = 'leaderboard-container';
 
-        if (entries.length === 0) {
-            container.innerHTML = '<p class="leaderboard-empty">Sign in to be the first on the leaderboard!</p>';
-        } else {
-            const ratingEmojis = {
-                'true-mastery': '💖',
-                'mastery': '🏆',
-                'expert': '⭐',
-                'developing': '🎯',
-                'beginner': '🌱'
-            };
-
-            let html = '<h3 class="leaderboard-title">🏅 Top 10</h3>';
-            html += '<ol class="leaderboard-list">';
-            entries.forEach((entry, i) => {
-                const isCurrentUser = currentUserId && entry.user_id === currentUserId;
-                const emoji = ratingEmojis[entry.rating_key] || '📚';
-                const timeFormatted = _leaderboardFormatTime(entry.best_time);
-                const highlightClass = isCurrentUser ? ' leaderboard-entry-you' : '';
-                const rankLabel = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
-
-                const avatarUrl = entry.profiles?.avatar_url;
-                const avatarHtml = avatarUrl
-                    ? `<img class="leaderboard-avatar" src="${_leaderboardEscapeHtml(avatarUrl)}" alt="" loading="lazy">`
-                    : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_leaderboardEscapeHtml((entry.display_name || 'A')[0].toUpperCase())}</span>`;
-
-                html += `<li class="leaderboard-entry${highlightClass}">
-                    <span class="leaderboard-rank">${rankLabel}</span>
-                    ${avatarHtml}
-                    <span class="leaderboard-name">${_leaderboardAbbreviateName(entry.display_name)}${isCurrentUser ? ' <span class="leaderboard-you-badge">you</span>' : ''}</span>
-                    <span class="leaderboard-time">${timeFormatted}</span>
-                    <span class="leaderboard-rating-emoji">${emoji}</span>
-                </li>`;
-            });
-            html += '</ol>';
-            container.innerHTML = html;
-        }
-
         if (!currentUserId) {
-            container.innerHTML += '<p class="leaderboard-login-note">You must be logged in to submit your best time to the leaderboard.</p>';
+            container.innerHTML = '<p class="leaderboard-login-note">Log in to see who is on the leaderboard.</p>';
+        } else {
+            const entries = await this.fetchTop10(app, levelKey);
+
+            if (entries.length === 0) {
+                container.innerHTML = '<p class="leaderboard-empty">Sign in to be the first on the leaderboard!</p>';
+            } else {
+                const ratingEmojis = {
+                    'true-mastery': '💖',
+                    'mastery': '🏆',
+                    'expert': '⭐',
+                    'developing': '🎯',
+                    'beginner': '🌱'
+                };
+
+                let html = '<h3 class="leaderboard-title">🏅 Top 10</h3>';
+                html += '<ol class="leaderboard-list">';
+                entries.forEach((entry, i) => {
+                    const isCurrentUser = currentUserId && entry.user_id === currentUserId;
+                    const emoji = ratingEmojis[entry.rating_key] || '📚';
+                    const timeFormatted = _leaderboardFormatTime(entry.best_time);
+                    const highlightClass = isCurrentUser ? ' leaderboard-entry-you' : '';
+                    const rankLabel = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+
+                    const avatarUrl = entry.profiles?.avatar_url;
+                    const avatarHtml = avatarUrl
+                        ? `<img class="leaderboard-avatar" src="${_leaderboardEscapeHtml(avatarUrl)}" alt="" loading="lazy">`
+                        : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_leaderboardEscapeHtml((entry.display_name || 'A')[0].toUpperCase())}</span>`;
+
+                    html += `<li class="leaderboard-entry${highlightClass}">
+                        <span class="leaderboard-rank">${rankLabel}</span>
+                        ${avatarHtml}
+                        <span class="leaderboard-name">${_leaderboardAbbreviateName(entry.display_name)}${isCurrentUser ? ' <span class="leaderboard-you-badge">you</span>' : ''}</span>
+                        <span class="leaderboard-time">${timeFormatted}</span>
+                        <span class="leaderboard-rating-emoji">${emoji}</span>
+                    </li>`;
+                });
+                html += '</ol>';
+                container.innerHTML = html;
+            }
         }
 
         // Wrap in a card and insert as a sibling after the success screen
