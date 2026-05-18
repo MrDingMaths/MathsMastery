@@ -303,31 +303,31 @@ export const CONFIG = {
         
         // Advanced Skills - Multiply Divide Algebraic Fractions by Factorising
         'multiplyDivideAlgebraicFractionsByFactorisingEasy': 5,
-        'multiplyDivideAlgebraicFractionsByFactorisingMedium': 7,
-        'multiplyDivideAlgebraicFractionsByFactorisingHard': 25,
+        'multiplyDivideAlgebraicFractionsByFactorisingMedium': 17,
+        'multiplyDivideAlgebraicFractionsByFactorisingHard': 37,
         
         // Advanced Skills - Add Subtract Fractions by Factorising Denominator
-        'addSubtractFractionsByFactorisingDenominatorEasy': 9,
-        'addSubtractFractionsByFactorisingDenominatorMedium': 22,
-        'addSubtractFractionsByFactorisingDenominatorHard': 46,
+        'addSubtractFractionsByFactorisingDenominatorEasy': 15,
+        'addSubtractFractionsByFactorisingDenominatorMedium': 18,
+        'addSubtractFractionsByFactorisingDenominatorHard': 30,
         
         // Advanced Skills - Compound Fractions
         'compoundFractionsEasy': 5,
-        'compoundFractionsMedium': 9,
+        'compoundFractionsMedium': 8,
         'compoundFractionsHard': 30,
         
         // Advanced Skills - Simplify Surds
         'simplifySurdsEasy': 3,
-        'simplifySurdsMedium': 6,
-        'simplifySurdsHard': 7,
+        'simplifySurdsMedium': 5,
+        'simplifySurdsHard': 6,
         
         // Advanced Skills - Add Subtract Surds
-        'addSubtractSurdsEasy': 2,
-        'addSubtractSurdsMedium': 12,
-        'addSubtractSurdsHard': 16,
+        'addSubtractSurdsEasy': 4,
+        'addSubtractSurdsMedium': 10,
+        'addSubtractSurdsHard': 13,
         
         // Advanced Skills - Multiply Divide Surds
-        'multiplyDivideSurdsEasy': 5,
+        'multiplyDivideSurdsEasy': 4,
         'multiplyDivideSurdsMedium': 8,
         'multiplyDivideSurdsHard': 34,
         

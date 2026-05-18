@@ -11,8 +11,7 @@ window.AlgebraLevels.multiplyDivideAlgebraicFractionsByFactorisingHard = new Bas
             {problem: "\\frac{a^2+2ab+b^2}{a(a+b)} \\div \\frac{a^2-b^2}{a^2-2ab+b^2}", answer: "\\frac{a-b}{a}"},
             {problem: "\\frac{a^2-2ab+b^2}{a^2-b^2} \\div \\frac{a^2-b^2}{a^2+2ab+b^2}", answer: "1"},
             {problem: "\\frac{a^2-b^2}{a^2-2ab+b^2} \\div \\frac{a^2-b^2}{a^2+2ab+b^2}", answer: "\\frac{(a+b)^2}{(a-b)^2}"},
-            {problem: "\\frac{a^2+2ab+b^2}{a(a+b)} \\div \\frac{a(a-b)}{a^2-2ab+b^2}", answer: "\\frac{a^2-b^2}{a^2}"},
-            {problem: "\\frac{100x^2-25}{2x^2-9x-5} \\div \\frac{5x^2+10x-75}{2x^2-5x-3}", answer: "\\frac{5(4x^2-1)}{x^2-25}"},
+            {problem: "\\frac{a^2+2ab+b^2}{a(a+b)} \\div \\frac{a(a-b)}{a^2-2ab+b^2}", answer: "\\frac{(a-b)(a+b)}{a^2}"},
             {problem: "\\frac{3x^2-12}{30x+15} \\div \\frac{2x^2-3x-2}{4x^2+4x+1}", answer: "\\frac{x+2}{5}"},
         
             // Additional hard questions with complex factorisation and multiple steps

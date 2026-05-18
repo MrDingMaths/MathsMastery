@@ -51,11 +51,7 @@ window.AlgebraLevels.addSubtractSurdsHard = new BaseLevel(
             // Algebraic manipulation with surds
             {problem: "\\frac{\\sqrt{a^2 \\times 3}}{a} + \\frac{2\\sqrt{3a^2}}{3a}", answer: "\\frac{5\\sqrt{3}}{3}"},
             {problem: "\\sqrt{\\frac{x^2}{4}} + \\frac{\\sqrt{4x^2}}{2}", answer: "\\frac{3x}{2}"},
-                        
-            // Mixed rational and irrational with fractions
-            {problem: "\\frac{\\sqrt{64}}{4} + \\frac{2\\sqrt{7}}{3} - \\frac{1}{2}", answer: "\\frac{3}{2} + \\frac{2\\sqrt{7}}{3}"},
-            {problem: "\\frac{\\sqrt{144}}{6} - \\frac{\\sqrt{5}}{2} + \\frac{3}{4}", answer: "\\frac{11}{4} - \\frac{\\sqrt{5}}{2}"},
-            
+                                  
             // Advanced simplification patterns
             {problem: "\\frac{\\sqrt{150} + \\sqrt{54}}{6}", answer: "\\frac{4\\sqrt{6}}{3}"},
             {problem: "\\frac{2\\sqrt{72} - \\sqrt{32}}{4}", answer: "2\\sqrt{2}"},
