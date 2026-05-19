@@ -298,10 +298,18 @@ class HubLeaderboard {
         panel.innerHTML = '<div class="hub-lb-loading">Loading…</div>';
 
         const entries = await Leaderboard.fetchTop10(app, levelKey);
-        panel.innerHTML = this._renderEntries(entries);
+        const userId = window.supabaseUser?.id ?? null;
+        let userEntry = null, userRank = null;
+        if (userId && !entries.some(e => e.user_id === userId)) {
+            userEntry = await Leaderboard.fetchUserEntry(app, levelKey, userId);
+            if (userEntry) {
+                userRank = await Leaderboard.fetchUserRank(app, levelKey, userEntry.best_time);
+            }
+        }
+        panel.innerHTML = this._renderEntries(entries, userEntry, userRank);
     }
 
-    _renderEntries(entries) {
+    _renderEntries(entries, userEntry = null, userRank = null) {
         if (entries.length === 0) {
             return '<p class="leaderboard-empty">No entries yet — be the first!</p>';
         }
@@ -328,6 +336,22 @@ class HubLeaderboard {
                 <span class="leaderboard-rating-emoji">${emoji}</span>
             </li>`;
         });
+        if (userEntry) {
+            const rankLabel = userRank !== null ? `${userRank}.` : '–';
+            const emoji = RATING_EMOJIS[userEntry.rating_key] || '📚';
+            const avatarUrl = userEntry.profiles?.avatar_url;
+            const avatarHtml = avatarUrl
+                ? `<img class="leaderboard-avatar" src="${_hubEscape(avatarUrl)}" alt="" loading="lazy">`
+                : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_hubEscape((userEntry.display_name || 'A')[0].toUpperCase())}</span>`;
+            html += `<li class="leaderboard-separator">· · ·</li>`;
+            html += `<li class="leaderboard-entry leaderboard-entry-you">
+                <span class="leaderboard-rank">${rankLabel}</span>
+                ${avatarHtml}
+                <span class="leaderboard-name">${_hubAbbreviateName(userEntry.display_name)} <span class="leaderboard-you-badge">you</span></span>
+                <span class="leaderboard-time">${_hubFormatTime(userEntry.best_time)}</span>
+                <span class="leaderboard-rating-emoji">${emoji}</span>
+            </li>`;
+        }
         html += '</ol>';
         return html;
     }

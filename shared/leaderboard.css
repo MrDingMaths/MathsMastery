@@ -135,6 +135,15 @@
     padding: 0.5rem 0;
 }
 
+.leaderboard-separator {
+    list-style: none;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    padding: 0.125rem 0;
+    letter-spacing: 0.2em;
+}
+
 .leaderboard-login-note {
     text-align: center;
     font-size: 0.75rem;
@@ -200,4 +209,8 @@
 
 [data-theme="dark"] .leaderboard-empty {
     color: #6b7280;
+}
+
+[data-theme="dark"] .leaderboard-separator {
+    color: #4b5563;
 }

@@ -53,6 +53,29 @@ class Leaderboard {
         return data || [];
     }
 
+    static async fetchUserEntry(app, levelKey, userId) {
+        if (!window.supabaseClient || !userId) return null;
+        const { data } = await window.supabaseClient
+            .from('leaderboard_entries')
+            .select('display_name, best_time, rating_key, rating_name, user_id, profiles(avatar_url)')
+            .eq('app', app)
+            .eq('level_key', levelKey)
+            .eq('user_id', userId)
+            .maybeSingle();
+        return data || null;
+    }
+
+    static async fetchUserRank(app, levelKey, bestTime) {
+        if (!window.supabaseClient) return null;
+        const { count } = await window.supabaseClient
+            .from('leaderboard_entries')
+            .select('*', { count: 'exact', head: true })
+            .eq('app', app)
+            .eq('level_key', levelKey)
+            .lt('best_time', bestTime);
+        return typeof count === 'number' ? count + 1 : null;
+    }
+
     /**
      * Render the leaderboard into the success screen.
      * Idempotent — removes any previous leaderboard container first.
@@ -116,6 +139,29 @@ class Leaderboard {
                         <span class="leaderboard-rating-emoji">${emoji}</span>
                     </li>`;
                 });
+
+                const userInTop10 = entries.some(e => e.user_id === currentUserId);
+                if (!userInTop10) {
+                    const userEntry = await this.fetchUserEntry(app, levelKey, currentUserId);
+                    if (userEntry) {
+                        const userRank = await this.fetchUserRank(app, levelKey, userEntry.best_time);
+                        const rankLabel = userRank !== null ? `${userRank}.` : '–';
+                        const emoji = ratingEmojis[userEntry.rating_key] || '📚';
+                        const avatarUrl = userEntry.profiles?.avatar_url;
+                        const avatarHtml = avatarUrl
+                            ? `<img class="leaderboard-avatar" src="${_leaderboardEscapeHtml(avatarUrl)}" alt="" loading="lazy">`
+                            : `<span class="leaderboard-avatar leaderboard-avatar-fallback">${_leaderboardEscapeHtml((userEntry.display_name || 'A')[0].toUpperCase())}</span>`;
+                        html += `<li class="leaderboard-separator">· · ·</li>`;
+                        html += `<li class="leaderboard-entry leaderboard-entry-you">
+                            <span class="leaderboard-rank">${rankLabel}</span>
+                            ${avatarHtml}
+                            <span class="leaderboard-name">${_leaderboardAbbreviateName(userEntry.display_name)} <span class="leaderboard-you-badge">you</span></span>
+                            <span class="leaderboard-time">${_leaderboardFormatTime(userEntry.best_time)}</span>
+                            <span class="leaderboard-rating-emoji">${emoji}</span>
+                        </li>`;
+                    }
+                }
+
                 html += '</ol>';
                 container.innerHTML = html;
             }
