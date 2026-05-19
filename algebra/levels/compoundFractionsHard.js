@@ -28,6 +28,5 @@ window.AlgebraLevels.compoundFractionsHard = new BaseLevel(
             {problem: "\\frac{\\frac{5}{x+3}-\\frac{1}{x-2}}{\\frac{2}{x+3}+\\frac{3}{x-2}}", answer: "\\frac{4x-13}{5x+5}"},
             {problem: "\\frac{\\frac{2}{x}+\\frac{3}{x+4}}{\\frac{1}{x}-\\frac{2}{x+4}}", answer: "\\frac{5x+8}{4-x}"},
             {problem: "(x^{-3}-y^{-3})^{-1}", answer: "\\frac{x^3y^3}{y^3-x^3}"},
-            {problem: "\\frac{(x^3-1)^{-1}}{(x-1)^{-1}}", answer: "\\frac{1}{x^2+x+1}"}
         ]
 );

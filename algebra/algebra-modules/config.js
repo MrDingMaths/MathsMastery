@@ -347,7 +347,7 @@ export const CONFIG = {
         'rationaliseBinomialDenominatorHard': 46,
         
         // Advanced Skills - Evaluate Fractional Indices
-        'evaluateFractionalIndicesEasy': 1,
+        'evaluateFractionalIndicesEasy': 1.5,
         'evaluateFractionalIndicesMedium': 4,
         'evaluateFractionalIndicesHard': 6,
         
