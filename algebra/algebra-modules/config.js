@@ -358,7 +358,7 @@ export const CONFIG = {
         
         // Advanced Skills - Index Form to Surd Form
         'indexFormToSurdFormEasy': 4,
-        'indexFormToSurdFormMedium': 15,
+        'indexFormToSurdFormMedium': 8,
         'indexFormToSurdFormHard': 15,
     },
     STORAGE_PREFIX: 'algebra_bestTime_v1_',

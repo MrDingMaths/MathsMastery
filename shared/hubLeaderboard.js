@@ -381,6 +381,168 @@ function _hubEscape(str) {
     return div.innerHTML;
 }
 
+class HubPanels {
+    constructor() {
+        this._recentEl = document.getElementById('panel-recent');
+        this._hofEl    = document.getElementById('panel-hof');
+        this._hofApp   = 'mathsfacts';
+    }
+
+    init() {
+        if (!this._hofEl) return;
+        this._hofEl.querySelectorAll('.panel-hof-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this._hofApp = btn.dataset.app;
+                this._hofEl.querySelectorAll('.panel-hof-tab').forEach(b =>
+                    b.classList.toggle('panel-hof-tab-active', b === btn)
+                );
+                this._loadHof(this._hofApp);
+            });
+        });
+    }
+
+    show(user) {
+        if (!user) return;
+        const row = document.querySelector('.chalk-main-row');
+        if (row) row.classList.add('panels-visible');
+        if (this._recentEl) this._recentEl.classList.add('panel-visible');
+        if (this._hofEl)    this._hofEl.classList.add('panel-visible');
+        this._loadRecent();
+        this._loadHof(this._hofApp);
+    }
+
+    hide() {
+        const row = document.querySelector('.chalk-main-row');
+        if (row) row.classList.remove('panels-visible');
+        if (this._recentEl) this._recentEl.classList.remove('panel-visible');
+        if (this._hofEl)    this._hofEl.classList.remove('panel-visible');
+    }
+
+    async _loadRecent() {
+        const body = this._recentEl && this._recentEl.querySelector('.panel-body');
+        if (!body || !window.supabaseClient) return;
+        body.innerHTML = '<div class="panel-loading">Loading…</div>';
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('leaderboard_entries')
+                .select('display_name, app, level_key, rating_key, rating_name, updated_at')
+                .in('rating_key', ['mastery', 'true-mastery'])
+                .order('updated_at', { ascending: false })
+                .limit(20);
+            if (error || !data) { body.innerHTML = '<div class="panel-empty">Could not load.</div>'; return; }
+            this._renderRecent(data, body);
+        } catch (e) {
+            body.innerHTML = '<div class="panel-empty">Could not load.</div>';
+        }
+    }
+
+    async _loadHof(app) {
+        const body = this._hofEl && this._hofEl.querySelector('.panel-body');
+        if (!body || !window.supabaseClient) return;
+        body.innerHTML = '<div class="panel-loading">Loading…</div>';
+        try {
+            const { data, error } = await window.supabaseClient
+                .from('leaderboard_entries')
+                .select('user_id, display_name, rating_key, profiles(avatar_url)')
+                .eq('app', app)
+                .limit(500);
+            if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
+
+            const map = new Map();
+            for (const e of data) {
+                if (!map.has(e.user_id)) {
+                    map.set(e.user_id, { display_name: e.display_name, avatar_url: e.profiles?.avatar_url || null, queen: 0, mastery: 0, expert: 0, developing: 0, beginner: 0, total: 0 });
+                }
+                const u = map.get(e.user_id);
+                u.total++;
+                if      (e.rating_key === 'true-mastery') u.queen++;
+                else if (e.rating_key === 'mastery')      u.mastery++;
+                else if (e.rating_key === 'expert')       u.expert++;
+                else if (e.rating_key === 'developing')   u.developing++;
+                else if (e.rating_key === 'beginner')     u.beginner++;
+            }
+
+            const tally = [...map.values()]
+                .sort((a, b) => b.queen - a.queen || b.mastery - a.mastery || b.expert - a.expert || b.total - a.total)
+                .slice(0, 10);
+
+            this._renderHof(tally, body);
+        } catch (e) {
+            body.innerHTML = '<div class="panel-empty">No data yet.</div>';
+        }
+    }
+
+    _renderRecent(entries, body) {
+        if (!entries.length) { body.innerHTML = '<div class="panel-empty">No activity yet.</div>'; return; }
+        let html = '';
+        for (const e of entries) {
+            const badge     = this._appBadge(e.app);
+            const emoji     = RATING_EMOJIS[e.rating_key] || '';
+            const levelName = _hubEscape(this._lookupLevelName(e.level_key));
+            html += `<div class="panel-entry">
+                <span class="panel-badge panel-badge-${_hubEscape(e.app)}">${badge}</span>
+                <div class="panel-entry-body">
+                    <span class="panel-entry-name">${_hubAbbreviateName(e.display_name)}</span>
+                    <span class="panel-entry-detail">${emoji} ${levelName}</span>
+                    <span class="panel-entry-time">${this._timeAgo(e.updated_at)}</span>
+                </div>
+            </div>`;
+        }
+        body.innerHTML = html;
+    }
+
+    _renderHof(tally, body) {
+        if (!tally.length) { body.innerHTML = '<div class="panel-empty">No entries yet.</div>'; return; }
+        let html = '';
+        tally.forEach((u, i) => {
+            const rank    = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+            const initial = _hubEscape((u.display_name || 'A')[0].toUpperCase());
+            const avatarHtml = u.avatar_url
+                ? `<img class="panel-hof-avatar panel-hof-avatar-img" src="${_hubEscape(u.avatar_url)}" alt="" loading="lazy">`
+                : `<span class="panel-hof-avatar">${initial}</span>`;
+            let medals = '';
+            if (u.queen)     medals += `<span class="panel-medal">💖${u.queen}</span>`;
+            if (u.mastery)   medals += `<span class="panel-medal">🏆${u.mastery}</span>`;
+            if (u.expert)    medals += `<span class="panel-medal">⭐${u.expert}</span>`;
+            if (u.developing) medals += `<span class="panel-medal">🎯${u.developing}</span>`;
+            if (u.beginner)  medals += `<span class="panel-medal">🌱${u.beginner}</span>`;
+            html += `<div class="panel-hof-entry">
+                <span class="panel-hof-rank">${rank}</span>
+                ${avatarHtml}
+                <div class="panel-hof-info">
+                    <span class="panel-hof-name">${_hubAbbreviateName(u.display_name)}</span>
+                    <span class="panel-hof-medals">${medals}</span>
+                </div>
+            </div>`;
+        });
+        body.innerHTML = html;
+    }
+
+    _lookupLevelName(levelKey) {
+        for (const app of Object.values(HUB_LEVELS)) {
+            for (const levels of Object.values(app.groups)) {
+                const found = levels.find(l => l.key === levelKey);
+                if (found) return found.name.replace(/\s+[🥇🥈🥉]$/, '');
+            }
+        }
+        return levelKey;
+    }
+
+    _timeAgo(iso) {
+        if (!iso) return '';
+        const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+        if (mins < 1)  return 'just now';
+        if (mins < 60) return `${mins}m ago`;
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return `${hours}h ago`;
+        return `${Math.floor(hours / 24)}d ago`;
+    }
+
+    _appBadge(app) {
+        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ' }[app] || app;
+    }
+}
+
 // Initialise after DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     const hub = new HubLeaderboard();
@@ -399,4 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.hub-lb-tab').forEach(btn => {
         btn.addEventListener('click', () => hub.switchTab(btn.dataset.app));
     });
+
+    window.hubPanels = new HubPanels();
+    window.hubPanels.init();
 });
