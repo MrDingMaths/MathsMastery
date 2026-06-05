@@ -12,7 +12,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../shared/darkMode.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;900&family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
 
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -35,6 +35,7 @@
     <!-- Navigation buttons styles -->
     <link rel="stylesheet" href="../shared/navigationButtons.css">
     <link rel="stylesheet" href="../shared/leaderboard.css">
+    <link rel="stylesheet" href="../shared/levelSelect.css">
 </head>
 <body class="chalkboard flex items-center justify-center min-h-screen p-4">
 
@@ -43,15 +44,7 @@
     <div class="container mx-auto text-center">
 
         <!-- Settings Screen -->
-        <div id="settings-screen" class="card mx-auto">
-            <h1 class="text-3xl md:text-3xl font-bold text-gray-800 mb-2">Trig Skills</h1>
-            <p class="text-gray-600 mb-4">Answer 10 in a row quickly to achieve mastery</p>
-            <div id="mastery-progress-section"></div>
-            <div id="skill-path-container" class="mb-6">
-                <div id="level-selection-container"></div>
-            </div>
-            <p class="text-xs text-gray-300 mt-6 text-center">Found a bug? Email jding@plc.nsw.edu.au</p>
-        </div>
+        <div id="settings-screen"></div>
 
         <!-- Game Screen -->
         <div id="game-screen" class="card mx-auto hidden">

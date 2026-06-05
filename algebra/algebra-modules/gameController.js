@@ -327,12 +327,29 @@ export class GameController {
     // --- Learning Path Methods ---
 
     updateLearningPathInterface() {
-        // Calculate mastery progress
-        const masteryProgress = this.algebraMasteryTracker.calculateMasteryProgress();
-        const masteryData = this.algebraMasteryTracker.getTopicProgressData();
-
-        // Update the UI with both skill path and mastery progress
-        this.ui.updateLevelsInterface(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), masteryData);
+        const keyboardTableHTML = `<table>
+            <tr>
+                <td><span class="mathquill-static" id="power-example">a^n</span></td>
+                <td><span class="dcg">^</span> (<span class="dcg">shift</span><span class="dcg">6</span>)</td>
+                <td><span class="mathquill-static" id="fraction-example">\\frac{a}{b}</span></td>
+                <td><span class="dcg">a</span><span class="dcg">/</span><span class="dcg">b</span></td>
+            </tr>
+            <tr>
+                <td><span class="mathquill-static" id="sqrt-example">\\sqrt{a}</span></td>
+                <td><span class="dcg">s</span><span class="dcg">q</span><span class="dcg">r</span><span class="dcg">t</span></td>
+                <td><span class="mathquill-static" id="nthroot-example">\\sqrt[n]{a}</span></td>
+                <td><span class="dcg">n</span><span class="dcg">t</span><span class="dcg">h</span><span class="dcg">r</span><span class="dcg">o</span><span class="dcg">o</span><span class="dcg">t</span></td>
+            </tr>
+        </table>`;
+        this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
+            subjectName: 'Algebra Skills',
+            subjectSubtitle: 'Expand, simplify & factorise',
+            subjectIcon: '𝑥',
+            subjectIconItalic: true,
+            accentColor: '#4A7CF7',
+            singleLevel: false,
+            keyboardTableHTML,
+        });
     }
 
     continueToNextChallenge() {

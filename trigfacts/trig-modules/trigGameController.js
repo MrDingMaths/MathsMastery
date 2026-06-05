@@ -38,7 +38,13 @@ export class TrigGameController {
     }
 
     initialize() {
-        this.ui.renderLevelGrid(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level));
+        this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
+            subjectName: 'Trig Skills',
+            subjectSubtitle: 'Exact values, radians & degrees',
+            subjectIcon: 'θ',
+            accentColor: '#F0697A',
+            singleLevel: true,
+        });
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
             () => this.quitGame()

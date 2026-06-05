@@ -58,6 +58,12 @@ export class UI extends BaseUI {
         }
     }
 
+    // --- Settings rendered hook ---
+
+    _onSettingsRendered() {
+        this.initializeMathQuill();
+    }
+
     // --- MathQuill / mobile keyboard setup ---
 
     initializeMathQuill() {

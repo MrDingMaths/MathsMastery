@@ -453,12 +453,13 @@ export class GameController {
     // --- Learning Path Methods ---
 
     updateLearningPathInterface() {
-        // Calculate mastery progress
-        const masteryProgress = this.masteryTracker.calculateMasteryProgress();
-        const masteryData = this.masteryTracker.getTopicProgressData();
-
-        // Update the UI with both skill path and mastery progress
-        this.ui.updateLevelsInterface(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), masteryData);
+        this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
+            subjectName: 'Number Skills',
+            subjectSubtitle: 'Bonds, multiplication & fractions',
+            subjectIcon: '±',
+            accentColor: '#3DBD6B',
+            singleLevel: true,
+        });
     }
 
     continueToNextChallenge() {

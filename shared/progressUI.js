@@ -13,7 +13,6 @@ class ProgressUI {
 
     init() {
         this.createProgressModal();
-        this.createProgressButton();
         this.attachEventListeners();
         // Only init MathQuill if mistakes are enabled (needed for rendering LaTeX in mistakes table)
         if (this.progressTracker.enableMistakes && typeof MathQuill !== 'undefined') {
