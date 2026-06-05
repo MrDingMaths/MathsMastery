@@ -28,8 +28,8 @@ export class GameController {
         this.setupEventListeners();
         this.setupArrowKeyNavigation();
         this.initializeQuestionGenerators();
+        this.initializeProgressTracking();
         this.initializeLearningPath();
-		setTimeout(() => this.initializeProgressTracking(), 100);
     }
 
     initializeProgressTracking() {
@@ -538,6 +538,10 @@ export class GameController {
             const submitParams = (isNewBest && window.supabaseUser) ? { bestTime: time, rating } : null;
             Leaderboard.renderOnSuccessScreen('mathsfacts', this.state.currentLevel.key, window.supabaseUser?.id || null, submitParams)
                 .catch(err => console.error('Leaderboard error:', err));
+        }
+
+        if (typeof renderProgressChartOnSuccessScreen === 'function') {
+            renderProgressChartOnSuccessScreen(this.state.currentLevel.key, this.state.currentLevel.name);
         }
 
         this.isChecking = false;

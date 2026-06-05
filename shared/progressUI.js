@@ -6,7 +6,7 @@ class ProgressUI {
         this.progressChart = progressChart;
         this.progressShare = progressShare;
         this.isVisible = false;
-        this.currentView = 'overview';
+        this.currentView = 'drills';
         this.MQ = null;
         this.init();
     }
@@ -144,15 +144,15 @@ class ProgressUI {
                 </div>
 
                 <div class="progress-tabs">
-                    <button class="tab-btn active" data-view="overview">Overview</button>
-                    <button class="tab-btn" data-view="drills">Improvement</button>
+                    <button class="tab-btn" data-view="overview">Overview</button>
+                    <button class="tab-btn active" data-view="drills">Improvement</button>
                     <button class="tab-btn" data-view="history">History</button>
                     ${mistakesTabBtn}
                 </div>
 
                 <div class="progress-content">
                     <!-- Overview Tab -->
-                    <div id="overview-content" class="tab-content active">
+                    <div id="overview-content" class="tab-content">
                         <div class="summary-cards">
                             <div class="summary-card">
                                 <div class="card-icon">📚</div>
@@ -183,7 +183,7 @@ class ProgressUI {
                     </div>
 
                     <!-- Drill Progress Tab -->
-                    <div id="drills-content" class="tab-content">
+                    <div id="drills-content" class="tab-content active">
                         <div class="drill-layout">
                             <div class="drill-sidebar" id="drill-sidebar">
                                 <div class="sidebar-header">
@@ -312,6 +312,7 @@ class ProgressUI {
         this.isVisible = true;
         this.updateContent();
         this.populateSelectors();
+        this.switchTab(this.currentView);
     }
 
     hide() {

@@ -267,6 +267,10 @@ export class GameController {
                 .catch(err => console.error('Leaderboard error:', err));
         }
 
+        if (typeof renderProgressChartOnSuccessScreen === 'function') {
+            renderProgressChartOnSuccessScreen(this.state.currentLevel.key, this.state.currentLevel.name);
+        }
+
         this.isChecking = false;
 
         if (window.ProgressSync && window.supabaseUser) {
@@ -345,7 +349,6 @@ export class GameController {
             subjectName: 'Algebra Skills',
             subjectSubtitle: 'Expand, simplify & factorise',
             subjectIcon: '𝑥',
-            subjectIconItalic: true,
             accentColor: '#4A7CF7',
             singleLevel: false,
             keyboardTableHTML,

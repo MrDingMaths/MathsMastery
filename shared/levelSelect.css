@@ -105,7 +105,7 @@
 
 .ls-group-btn {
     padding: 9px 10px;
-    border-radius: 9px;
+    border-radius: var(--radius-btn);
     text-align: left;
     border: 1.5px solid #e5e7eb;
     background: transparent;
@@ -181,7 +181,7 @@
 .ls-quick-card {
     flex: 1;
     background: #ffffff;
-    border-radius: 13px;
+    border-radius: var(--radius-card-sm);
     box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.09);
     border: 1px solid #e5e7eb;
     padding: 13px 16px;
@@ -235,7 +235,7 @@
 
 .ls-quick-start-btn {
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-chip);
     padding: 7px 15px;
     font-size: 13px;
     font-weight: 600;
@@ -328,7 +328,7 @@
     flex: 1;
     height: 66px;
     min-width: 0;
-    border-radius: 10px;
+    border-radius: var(--radius-btn);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -394,7 +394,7 @@
 .ls-level-tile {
     width: 150px;
     min-height: 88px;
-    border-radius: 12px;
+    border-radius: var(--radius-btn);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -470,7 +470,7 @@
 .ls-progress-btn {
     width: 100%;
     padding: 9px 0;
-    border-radius: 9px;
+    border-radius: var(--radius-btn);
     background: transparent;
     font-size: 13px;
     font-weight: 600;
@@ -714,3 +714,121 @@
 [data-theme="dark"] .ls-level-tile.rating-none .ls-tile-name { color: #d1d5db; }
 [data-theme="dark"] .ls-level-tile.rating-none .ls-tile-time { color: #6b7280; }
 [data-theme="dark"] .ls-hybrid-tile.rating-none .ls-hybrid-tile-time { color: #6b7280 !important; }
+
+/* ── Mobile / tablet (≤ 768px) ────────────────────────────────── */
+@media (max-width: 768px) {
+    #settings-screen {
+        position: fixed;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ls-body {
+        flex-direction: column;
+        overflow: visible;
+        zoom: 1;
+        flex: none;
+    }
+
+    /* Left sidebar → full-width section on top */
+    .ls-left {
+        width: auto;
+        flex-shrink: 1;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 14px 14px 10px;
+        overflow-y: visible;
+    }
+
+    .ls-subject-badge {
+        margin-bottom: 12px;
+    }
+
+    .ls-group-btns {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .ls-group-btn {
+        flex: 1 1 calc(50% - 3px);
+        min-width: 140px;
+    }
+
+    .ls-footer {
+        display: none;
+    }
+
+    /* Main content */
+    .ls-main {
+        padding: 14px;
+        overflow-y: visible;
+        flex: none;
+    }
+
+    .ls-quick-cards {
+        flex-direction: column;
+        max-width: none;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .ls-quick-card {
+        max-width: none;
+    }
+
+    /* Algebra hybrid rows: topic label above tiles */
+    .ls-hybrid-row {
+        flex-wrap: wrap;
+        max-width: none;
+        gap: 8px;
+    }
+
+    .ls-hybrid-topic {
+        width: 100%;
+    }
+
+    .ls-hybrid-tiles {
+        width: 100%;
+    }
+
+    /* MathsFacts / TrigFacts: 2-column tile grid */
+    .ls-level-tile {
+        width: calc(50% - 5px);
+        min-width: 0;
+    }
+
+    /* Right sidebar → full-width section at bottom */
+    .ls-right {
+        width: auto;
+        flex-shrink: 1;
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+        padding: 14px;
+        overflow-y: visible;
+    }
+
+    /* Algebra keyboard table */
+    .ls-keyboard-table table {
+        max-width: none;
+    }
+
+    /* Dark mode borders on stacked sidebars */
+    [data-theme="dark"] .ls-left {
+        border-bottom-color: #374151;
+    }
+    [data-theme="dark"] .ls-right {
+        border-top-color: #374151;
+    }
+}
+
+/* ── Narrow phones (≤ 420px): single-column tiles ─────────────── */
+@media (max-width: 420px) {
+    .ls-level-tile {
+        width: 100%;
+    }
+
+    .ls-group-btn {
+        flex: 1 1 100%;
+    }
+}

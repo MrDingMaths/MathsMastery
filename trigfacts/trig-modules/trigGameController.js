@@ -25,8 +25,8 @@ export class TrigGameController {
         this.lastQuestionFormat = null;
 
         this.setupEventListeners();
+        this.initializeProgressTracking();
         this.initialize();
-        setTimeout(() => this.initializeProgressTracking(), 100);
     }
 
     initializeProgressTracking() {
@@ -259,6 +259,10 @@ export class TrigGameController {
             const submitParams = (isNewBest && window.supabaseUser) ? { bestTime: time, rating } : null;
             Leaderboard.renderOnSuccessScreen('trigfacts', this.state.currentLevel.key, window.supabaseUser?.id || null, submitParams)
                 .catch(err => console.error('Leaderboard error:', err));
+        }
+
+        if (typeof renderProgressChartOnSuccessScreen === 'function') {
+            renderProgressChartOnSuccessScreen(this.state.currentLevel.key, this.state.currentLevel.name);
         }
 
         if (window.ProgressSync && window.supabaseUser) {

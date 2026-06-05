@@ -204,3 +204,31 @@ function _leaderboardAbbreviateName(name) {
     if (parts.length === 1) return _leaderboardEscapeHtml(parts[0]);
     return _leaderboardEscapeHtml(parts[0]) + ' ' + _leaderboardEscapeHtml(parts[parts.length - 1][0]);
 }
+
+function renderProgressChartOnSuccessScreen(levelKey, levelName) {
+    if (typeof ProgressChart === 'undefined' || !window.progressTracker) return;
+
+    const existing = document.getElementById('success-progress-chart-card');
+    if (existing) existing.remove();
+
+    const card = document.createElement('div');
+    card.id = 'success-progress-chart-card';
+    card.className = 'success-progress-chart-card';
+
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'success-progress-chart-container';
+    const canvas = document.createElement('canvas');
+    canvas.id = 'success-progress-chart';
+    chartContainer.appendChild(canvas);
+    card.appendChild(chartContainer);
+
+    const successScreen = document.getElementById('success-screen');
+    if (!successScreen) return;
+    successScreen.before(card);
+    successScreen.parentElement.classList.add('success-layout');
+
+    const chart = new ProgressChart('success-progress-chart', window.progressTracker);
+    chart.canvas = canvas;
+    chart.ctx = canvas.getContext('2d');
+    chart.initChart(levelKey, levelName);
+}

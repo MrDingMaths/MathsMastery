@@ -46,7 +46,7 @@
 
 .progress-modal-content {
     background: white;
-    border-radius: 20px;
+    border-radius: var(--radius-card);
     width: 90%;
     max-width: 1200px;
     max-height: 90vh;
@@ -160,7 +160,7 @@
 
 .summary-card {
     background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
     text-align: center;
     border: 1px solid #e5e7eb;
@@ -219,7 +219,7 @@
 /* Recent Activity */
 .recent-activity {
     background: #f9fafb;
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
 }
 
@@ -235,7 +235,7 @@
     gap: 10px;
     padding: 10px;
     background: white;
-    border-radius: 8px;
+    border-radius: var(--radius-chip);
     margin-bottom: 10px;
     border: 1px solid #e5e7eb;
 }
@@ -261,7 +261,7 @@
 /* Chart Container */
 .chart-container {
     background: white;
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
     border: 1px solid #e5e7eb;
     min-height: 300px;

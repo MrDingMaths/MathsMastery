@@ -7,35 +7,25 @@
     <script src="shared/darkMode.js"></script>
     <link rel="stylesheet" href="shared/darkMode.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/common.css">
     <link rel="stylesheet" href="shared/navigationButtons.css">
     <link rel="stylesheet" href="shared/leaderboard.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
-        /* ===== DESIGN TOKENS ===== */
+        /* ===== LANDING-PAGE-ONLY TOKENS (shared tokens come from common.css) ===== */
         :root {
-            --font-display: 'Fredoka', sans-serif;
-            --font-ui: 'Nunito', system-ui, sans-serif;
-            --c-green: #2fa45a;
-            --c-blue:  #3a6fe0;
-            --c-red:   #ee5d6e;
-            --ink:      #1d2230;
-            --ink-soft: #6b7280;
-            --ink-faint:#9aa1ad;
-            --bg:   #eef1f7;
-            --card: #ffffff;
+            --c-green: #3DBD6B;
+            --c-blue:  #4A7CF7;
+            --c-red:   #F0697A;
+            --ink-faint: #9aa1ad;
             --line: #e7eaf1;
             --shadow-card: 0 14px 34px -16px rgba(34,42,66,.32), 0 2px 6px rgba(34,42,66,.05);
             --shadow-rail: 0 8px 22px -14px rgba(34,42,66,.22), 0 1px 3px rgba(34,42,66,.05);
-            --radius: 24px;
         }
 
         [data-theme="dark"] {
-            --ink:      #e8e4da;
-            --ink-soft: #9ca3af;
-            --ink-faint:#6b7280;
-            --bg:   #111827;
-            --card: #1f2937;
+            --ink-faint: #6b7280;
             --line: rgba(255,255,255,.1);
         }
 
@@ -44,8 +34,8 @@
 
         body {
             font-family: var(--font-ui);
-            color: var(--ink);
-            background: var(--bg);
+            color: var(--chalk-heading);
+            background: var(--chalk-bg);
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
             margin: 0;
@@ -78,13 +68,13 @@
             line-height: 1.02;
             margin: 0;
             letter-spacing: -.5px;
-            color: var(--ink);
+            color: var(--chalk-heading);
         }
 
         .mm-hero p {
             margin: 10px 0 0;
             font-size: 20px;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             font-weight: 600;
         }
 
@@ -97,8 +87,8 @@
 
         .mm-card {
             position: relative;
-            background: var(--card);
-            border-radius: var(--radius);
+            background: var(--chalk-surface);
+            border-radius: var(--radius-card);
             box-shadow: var(--shadow-card);
             padding: 34px 30px 32px;
             display: flex;
@@ -152,7 +142,7 @@
             font-weight: 600;
             font-size: 27px;
             margin: 0 0 14px;
-            color: var(--ink);
+            color: var(--chalk-heading);
         }
 
         .mm-start {
@@ -187,7 +177,7 @@
         }
 
         .mm-panel {
-            background: var(--card);
+            background: var(--chalk-surface);
             border-radius: 20px;
             box-shadow: var(--shadow-rail);
             border: 1px solid var(--line);
@@ -210,7 +200,7 @@
             font-family: var(--font-display);
             font-weight: 600;
             font-size: 19px;
-            color: var(--ink);
+            color: var(--chalk-heading);
         }
 
         .mm-sublabel {
@@ -283,8 +273,8 @@
         [data-theme="dark"] .panel-badge-trigfacts  { background: rgba(190,24,93,.2);  color: #f9a8d4; }
 
         .panel-entry-body { display: flex; flex-direction: column; gap: .05rem; min-width: 0; flex: 1; }
-        .panel-entry-name   { font-size: .85rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .panel-entry-detail { font-size: .78rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-entry-name   { font-size: .85rem; font-weight: 700; color: var(--chalk-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-entry-detail { font-size: .78rem; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .panel-entry-time   { font-size: .72rem; color: var(--ink-faint); }
 
         /* ===== HALL OF FAME TABS (class names kept for hubLeaderboard.js) ===== */
@@ -303,21 +293,21 @@
             flex: 1;
             border: none;
             background: transparent;
-            border-radius: 9px;
+            border-radius: 8px;
             padding: 9px 4px;
             font-weight: 700;
             font-size: 16px;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             cursor: pointer;
             transition: all .14s;
             font-family: var(--font-ui);
         }
 
-        .panel-hof-tab:hover { color: var(--ink); }
+        .panel-hof-tab:hover { color: var(--chalk-heading); }
 
         .panel-hof-tab.panel-hof-tab-active {
-            background: var(--card);
-            color: var(--ink);
+            background: var(--chalk-surface);
+            color: var(--chalk-heading);
             box-shadow: 0 2px 6px rgba(34,42,66,.12);
         }
 
@@ -358,7 +348,7 @@
         .panel-hof-avatar.panel-hof-avatar-img { background: none; object-fit: cover; }
 
         .panel-hof-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
-        .panel-hof-name { font-size: .85rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-hof-name { font-size: .85rem; font-weight: 700; color: var(--chalk-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .panel-hof-medals { display: flex; flex-wrap: wrap; gap: .2rem; }
 
         .panel-medal {
@@ -366,14 +356,14 @@
             background: rgba(0,0,0,.05);
             border-radius: .3rem;
             padding: .05rem .25rem;
-            color: var(--ink);
+            color: var(--chalk-heading);
             line-height: 1.5;
         }
         [data-theme="dark"] .panel-medal { background: rgba(255,255,255,.08); }
 
         .panel-loading, .panel-empty {
             font-size: .85rem;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             padding: .875rem .5rem;
             text-align: center;
         }
@@ -391,7 +381,7 @@
         .mm-signin-prompt p {
             margin: 0;
             font-size: 14px;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             font-weight: 600;
         }
 
@@ -432,8 +422,8 @@
         }
 
         #hub-lb-modal {
-            background: var(--card);
-            border-radius: 1rem;
+            background: var(--chalk-surface);
+            border-radius: 1.25rem;
             width: 100%;
             max-width: 560px;
             max-height: 85vh;
@@ -455,7 +445,7 @@
         .hub-lb-header h2 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--ink);
+            color: var(--chalk-heading);
             margin: 0;
         }
 
@@ -464,12 +454,12 @@
             border: none;
             font-size: 1.4rem;
             line-height: 1;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             cursor: pointer;
             padding: .25rem .375rem;
             border-radius: .375rem;
         }
-        #hub-lb-close:hover { background: rgba(0,0,0,.06); color: var(--ink); }
+        #hub-lb-close:hover { background: rgba(0,0,0,.06); color: var(--chalk-heading); }
         [data-theme="dark"] #hub-lb-close:hover { background: rgba(255,255,255,.08); }
 
         .hub-lb-tabs {
@@ -486,13 +476,13 @@
             padding: .7rem .5rem;
             font-size: .8rem;
             font-weight: 600;
-            color: var(--ink-soft);
+            color: var(--color-text-muted);
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: color .15s, border-color .15s;
             font-family: inherit;
         }
-        .hub-lb-tab:hover { color: var(--ink); }
+        .hub-lb-tab:hover { color: var(--chalk-heading); }
         .hub-lb-tab-active { color: #3b82f6; border-bottom-color: #3b82f6; }
         [data-theme="dark"] .hub-lb-tab-active { color: #60a5fa; border-bottom-color: #60a5fa; }
 
@@ -521,7 +511,7 @@
             border-radius: .5rem;
             cursor: pointer;
             font-size: .875rem;
-            color: var(--ink);
+            color: var(--chalk-heading);
             transition: background .1s;
         }
         .hub-lb-level-row:hover { background: rgba(0,0,0,.04); }
@@ -530,12 +520,12 @@
         [data-theme="dark"] .hub-lb-level-row-open { background: rgba(59,130,246,.15); color: #93c5fd; }
 
         .hub-lb-level-name { flex: 1; }
-        .hub-lb-chevron { font-size: 1.1rem; color: var(--ink-soft); transition: transform .2s; line-height: 1; margin-left: .5rem; }
+        .hub-lb-chevron { font-size: 1.1rem; color: var(--color-text-muted); transition: transform .2s; line-height: 1; margin-left: .5rem; }
         .hub-lb-level-row-open .hub-lb-chevron { transform: rotate(90deg); color: #3b82f6; }
         [data-theme="dark"] .hub-lb-level-row-open .hub-lb-chevron { color: #60a5fa; }
 
         .hub-lb-level-panel { padding: .375rem .625rem .75rem; }
-        .hub-lb-loading { text-align: center; font-size: .825rem; color: var(--ink-soft); padding: .75rem 0; }
+        .hub-lb-loading { text-align: center; font-size: .825rem; color: var(--color-text-muted); padding: .75rem 0; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
@@ -620,7 +610,7 @@
     </div>
 
     <footer style="position:fixed;bottom:1rem;left:1rem;right:0;text-align:left;z-index:1;">
-        <a href="/privacy-policy.html" style="font-size:.75rem;color:var(--ink-soft);text-decoration:none;opacity:.6;transition:opacity .15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">Privacy Policy</a>
+        <a href="/privacy-policy.html" style="font-size:.75rem;color:var(--color-text-muted);text-decoration:none;opacity:.6;transition:opacity .15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">Privacy Policy</a>
     </footer>
 
     <!-- Hub leaderboard modal -->

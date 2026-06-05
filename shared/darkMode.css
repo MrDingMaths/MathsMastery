@@ -550,3 +550,27 @@ html[data-theme="dark"] .mastery-progress-bar {
 html[data-theme="dark"] .mastery-progress-stats {
     color: #9ca3af;
 }
+
+/* === Success screen redesign — dark mode === */
+html[data-theme="dark"] .success-rating-name { color: #f9fafb; }
+html[data-theme="dark"] .success-level-name { color: #9ca3af; }
+html[data-theme="dark"] .success-time-card { background: rgba(16,185,129,0.08); }
+html[data-theme="dark"] .success-new-best { background: var(--color-surface); border-color: rgba(255,255,255,0.1); color: #d1d5db; }
+html[data-theme="dark"] .success-prev-time { color: #9ca3af; }
+html[data-theme="dark"] .success-timeline-node { background: #374151; border-color: #4b5563; }
+html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
+html[data-theme="dark"] .success-timeline-connector { background: #4b5563; }
+html[data-theme="dark"] .success-timeline-connector.achieved { background: #10b981; }
+html[data-theme="dark"] .success-timeline-label { color: #6b7280; }
+html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-label,
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #9ca3af; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #f9fafb; }
+html[data-theme="dark"] .success-rating-hint { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.2); color: #d1d5db; }
+html[data-theme="dark"] .success-back-btn { color: #9ca3af; }
+html[data-theme="dark"] .success-back-btn:hover { color: #d1d5db; }
+html[data-theme="dark"] .success-icon-circle.rating-beginner   { background: rgba(148,163,184,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-developing { background: rgba(96,165,250,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-expert     { background: rgba(16,185,129,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-mastery    { background: rgba(245,158,11,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-queen      { background: rgba(236,72,153,0.15); }

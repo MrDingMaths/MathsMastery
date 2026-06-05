@@ -27,8 +27,13 @@ export class UI extends BaseUI {
             finalTime: document.getElementById('final-time'),
             ratingEmoji: document.getElementById('rating-emoji'),
             finalRating: document.getElementById('final-rating'),
-            bestTimeMessage: document.getElementById('best-time-message'),
-            ratingExplanation: document.getElementById('rating-explanation'),
+            ratingIconCircle: document.getElementById('rating-icon-circle'),
+            newBestBadge: document.getElementById('new-best-badge'),
+            previousBestSection: document.getElementById('previous-best-section'),
+            previousBestTime: document.getElementById('previous-best-time'),
+            ratingTimeline: document.getElementById('rating-timeline'),
+            ratingHint: document.getElementById('rating-hint'),
+            ratingHintText: document.getElementById('rating-hint-text'),
             skillPathContainer: document.getElementById('skill-path-container'),
             masteryProgressBars: document.getElementById('mastery-progress-bars'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
@@ -245,8 +250,6 @@ export class UI extends BaseUI {
     // --- Success screen ---
 
     showSuccess(levelName, time, rating, isNewBest, previousBest, levelKey, questionCount) {
-        this.elements.completedLevel.innerHTML = levelName;
-        this.elements.finalTime.textContent = new Timer().formatTime(time, 2);
         const ratingEmojis = {
             'true-mastery': '💖',
             'mastery': '🏆',
@@ -254,39 +257,47 @@ export class UI extends BaseUI {
             'developing': '🎯',
             'beginner': '🌱',
         };
-        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
-        this.elements.finalRating.textContent = rating.name;
 
-        if (isNewBest) {
-            this.elements.bestTimeMessage.textContent = previousBest
-                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest, 2)}.`
-                : `You've set your first record!`;
+        // Header
+        this.elements.completedLevel.innerHTML = levelName;
+        this.elements.finalRating.textContent = rating.name;
+        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
+        this.elements.ratingIconCircle.className = `success-icon-circle rating-${this._getRatingClass(rating.key)}`;
+
+        // Time
+        const timer = new Timer();
+        this.elements.finalTime.textContent = timer.formatTime(time, 2);
+
+        // New best badge
+        this.elements.newBestBadge.classList.toggle('hidden', !isNewBest);
+
+        // Previous best
+        if (previousBest) {
+            this.elements.previousBestSection.classList.remove('hidden');
+            this.elements.previousBestTime.textContent = timer.formatTime(previousBest, 2);
         } else {
-            this.elements.bestTimeMessage.textContent = `Your best time is still ${new Timer().formatTime(previousBest, 2)}.`;
+            this.elements.previousBestSection.classList.add('hidden');
         }
 
+        // Rating timeline
+        this._renderRatingTimeline(this.elements.ratingTimeline, rating.key);
+
+        // Next rating hint
         try {
             const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, questionCount, CONFIG);
-
             if (nextTarget) {
-                const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime, 2);
-                this.elements.ratingExplanation.textContent =
-                    `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}.`;
-            } else if (rating.key === 'true-mastery') {
-                const threshold = 1.5;
-                const difficultyMultiplier = (levelKey && CONFIG && CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS)
-                    ? (CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey] || 1.0)
-                    : 1.0;
-                const maxTime = threshold * difficultyMultiplier * questionCount * 1000;
-                const maxTimeFormatted = new Timer().formatTime(maxTime, 2);
-                this.elements.ratingExplanation.textContent =
-                    `You completed this level in under ${maxTimeFormatted}.`;
+                const t = timer.formatTime(nextTarget.targetTime, 2);
+                this.elements.ratingHintText.innerHTML =
+                    `Finish in <strong class="success-hint-time">${t}</strong> or faster to unlock <strong class="success-hint-rating">${nextTarget.nextRating.name}</strong>`;
+                this.elements.ratingHint.querySelector('.success-hint-icon').textContent =
+                    ratingEmojis[nextTarget.nextRating.key] || '🏆';
+                this.elements.ratingHint.classList.remove('hidden');
             } else {
-                this.elements.ratingExplanation.textContent = '';
+                this.elements.ratingHint.classList.add('hidden');
             }
         } catch (error) {
-            console.error('Failed to set rating explanation:', error);
-            this.elements.ratingExplanation.textContent = '';
+            console.error('Failed to set rating hint:', error);
+            this.elements.ratingHint.classList.add('hidden');
         }
 
         this.showScreen('success');

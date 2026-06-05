@@ -92,6 +92,37 @@ export class BaseUI {
         document.addEventListener('keydown', this.handleSuccessScreenKey);
     }
 
+    _renderRatingTimeline(container, currentRatingKey) {
+        const ratings = [
+            { key: 'beginner',     name: 'Beginner',    emoji: '🌱' },
+            { key: 'developing',   name: 'Developing',  emoji: '🎯' },
+            { key: 'expert',       name: 'Expert',      emoji: '⭐' },
+            { key: 'mastery',      name: 'Mastery',     emoji: '🏆' },
+            { key: 'true-mastery', name: 'Maths Queen', emoji: '💖' },
+        ];
+        const currentIndex = ratings.findIndex(r => r.key === currentRatingKey);
+        container.innerHTML = '';
+
+        ratings.forEach((rating, i) => {
+            const isAchieved = i < currentIndex;
+            const isCurrent  = i === currentIndex;
+            const cls = `success-timeline-item${isAchieved ? ' achieved' : ''}${isCurrent ? ' current' : ''}`;
+            const item  = createEl('div', { className: cls });
+            const node  = createEl('div', { className: 'success-timeline-node', textContent: rating.emoji });
+            const label = createEl('div', { className: 'success-timeline-label', textContent: rating.name });
+            item.appendChild(node);
+            item.appendChild(label);
+            container.appendChild(item);
+
+            if (i < ratings.length - 1) {
+                const connector = createEl('div', {
+                    className: `success-timeline-connector${isAchieved ? ' achieved' : ''}`
+                });
+                container.appendChild(connector);
+            }
+        });
+    }
+
     // --- Level grid ---
 
     renderLevelGrid(levelGroups, onSelect) {
@@ -690,7 +721,7 @@ export class BaseUI {
                 }
             }
             info.appendChild(titleEl);
-            const playBtn = createEl('button', { className: 'ls-quick-start-btn', textContent: 'Play →' });
+            const playBtn = createEl('button', { className: 'ls-quick-start-btn', textContent: 'Start →' });
             playBtn.style.background = color;
             playBtn.addEventListener('click', () => onSelect(lastPlayed.level));
             card.append(info, playBtn);

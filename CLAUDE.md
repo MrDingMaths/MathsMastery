@@ -36,7 +36,6 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 |------|---------|
 | `baseGameState.js` | Base class: streak, level, answer, questionsAttempted |
 | `baseUI.js` | Base class: level grid rendering, screen transitions |
-| `storageManager.js` | localStorage wrapper with prefix isolation |
 | `progressTracker.js` | v4 schema: session history, drill attempts, migration |
 | `ratingUtils.js` | Authoritative rating calculation (shared across all apps) |
 | `timer.js` | Game timer with pause/resume |

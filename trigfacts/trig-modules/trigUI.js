@@ -32,8 +32,13 @@ export class TrigUI extends BaseUI {
             finalTime: document.getElementById('final-time'),
             ratingEmoji: document.getElementById('rating-emoji'),
             finalRating: document.getElementById('final-rating'),
-            bestTimeMessage: document.getElementById('best-time-message'),
-            ratingExplanation: document.getElementById('rating-explanation'),
+            ratingIconCircle: document.getElementById('rating-icon-circle'),
+            newBestBadge: document.getElementById('new-best-badge'),
+            previousBestSection: document.getElementById('previous-best-section'),
+            previousBestTime: document.getElementById('previous-best-time'),
+            ratingTimeline: document.getElementById('rating-timeline'),
+            ratingHint: document.getElementById('rating-hint'),
+            ratingHintText: document.getElementById('rating-hint-text'),
             levelName: document.getElementById('level-name'),
         };
 
@@ -262,8 +267,6 @@ export class TrigUI extends BaseUI {
     // --- Success screen ---
 
     showSuccess(levelName, time, rating, isNewBest, previousBest, levelKey, requiredStreak) {
-        this.elements.completedLevel.textContent = levelName;
-        this.elements.finalTime.textContent = new Timer().formatTime(time, 2);
         const ratingEmojis = {
             'true-mastery': '💖',
             'mastery': '🏆',
@@ -271,32 +274,47 @@ export class TrigUI extends BaseUI {
             'developing': '🎯',
             'beginner': '🌱',
         };
-        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
+
+        // Header
+        this.elements.completedLevel.textContent = levelName;
         this.elements.finalRating.textContent = rating.name;
+        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
+        this.elements.ratingIconCircle.className = `success-icon-circle rating-${this._getRatingClass(rating.key)}`;
 
-        // Fixed: pass full rating object (not rating.key) to match shared RatingUtils API
-        const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, CONFIG.REQUIRED_STREAK, CONFIG);
+        // Time
+        const timer = new Timer();
+        this.elements.finalTime.textContent = timer.formatTime(time, 2);
 
-        if (nextTarget) {
-            const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime, 2);
-            this.elements.ratingExplanation.textContent =
-                `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}`;
+        // New best badge
+        this.elements.newBestBadge.classList.toggle('hidden', !isNewBest);
+
+        // Previous best
+        if (previousBest) {
+            this.elements.previousBestSection.classList.remove('hidden');
+            this.elements.previousBestTime.textContent = timer.formatTime(previousBest, 2);
         } else {
-            const multiplier = CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey]
-                || CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS['default']
-                || 1.0;
-            const threshold = new Timer().formatTime(rating.maxAvg * multiplier * CONFIG.REQUIRED_STREAK * 1000, 2);
-            this.elements.ratingExplanation.textContent =
-                `You beat the threshold of ${threshold} for ${rating.name}`;
+            this.elements.previousBestSection.classList.add('hidden');
         }
 
-        if (isNewBest) {
-            this.elements.bestTimeMessage.textContent = previousBest
-                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest, 2)}.`
-                : `You've set your first record!`;
-        } else {
-            this.elements.bestTimeMessage.textContent =
-                `Your best time is still ${new Timer().formatTime(previousBest, 2)}.`;
+        // Rating timeline
+        this._renderRatingTimeline(this.elements.ratingTimeline, rating.key);
+
+        // Next rating hint
+        try {
+            const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, CONFIG.REQUIRED_STREAK, CONFIG);
+            if (nextTarget) {
+                const t = timer.formatTime(nextTarget.targetTime, 2);
+                this.elements.ratingHintText.innerHTML =
+                    `Finish in <strong class="success-hint-time">${t}</strong> or faster to unlock <strong class="success-hint-rating">${nextTarget.nextRating.name}</strong>`;
+                this.elements.ratingHint.querySelector('.success-hint-icon').textContent =
+                    ratingEmojis[nextTarget.nextRating.key] || '🏆';
+                this.elements.ratingHint.classList.remove('hidden');
+            } else {
+                this.elements.ratingHint.classList.add('hidden');
+            }
+        } catch (error) {
+            console.error('Failed to set rating hint:', error);
+            this.elements.ratingHint.classList.add('hidden');
         }
 
         this.showScreen('success');
