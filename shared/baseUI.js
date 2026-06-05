@@ -33,6 +33,8 @@ export class BaseUI {
             if (container) container.classList.remove('success-layout');
             const lbCard = document.getElementById('leaderboard-card');
             if (lbCard) lbCard.remove();
+            const chartCard = document.getElementById('success-progress-chart-card');
+            if (chartCard) chartCard.remove();
         }
     }
 

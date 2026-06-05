@@ -233,7 +233,7 @@ class ProgressChart {
                     plugins: {
                         title: {
                             display: true,
-                            text: `Progress: ${chartData.levelName}`,
+                            text: `Progress: ${chartData.levelName}`.split(/<br\s*\/?>/i),
                             font: {
                                 size: 16,
                                 weight: 'bold'
