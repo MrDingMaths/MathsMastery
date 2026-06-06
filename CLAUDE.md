@@ -76,7 +76,6 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 | `algebra-modules/ui.js` | MathQuill input management |
 | `algebra-modules/questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
 | `algebra-modules/algebraEngine.js` | Expression comparison engine (see below) |
-| `algebra-modules/algebraMasteryTracker.js` | Topic-based mastery tracking |
 | `levels/BaseLevel.js` | Level template class |
 | `levels/*.js` | 115+ individual level files |
 | `mobile-keyboard/` | Custom on-screen keyboard for algebra input |
@@ -89,7 +88,6 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 | `main.js` | Entry module |
 | `gameController.js` | Main orchestrator |
 | `questionGenerator.js` | Dynamic generation for each level type |
-| `masteryTracker.js` | Skill-group mastery (Number Bonds, Multiplication, Fractions) |
 | `levels/*.js` | Question banks: bonds, multiplication, fractionDecimals, percentages, powers, unitConversions |
 
 ### TrigFacts (`trigfacts/`)

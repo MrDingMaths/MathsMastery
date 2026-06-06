@@ -5,7 +5,6 @@ import { UI } from './ui.js';
 import { Timer } from '../shared/timer.js';
 import { QuestionGenerator } from './questionGenerator.js';
 import { Confetti } from '../shared/confetti.js';
-import { AlgebraMasteryTracker } from './algebraMasteryTracker.js';
 import { StorageManager } from './storage.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
 
@@ -20,7 +19,6 @@ export class GameController {
         this.questionGen = new QuestionGenerator();
         this.algebraEngine = new AlgebraEngine();
         this.confetti = new Confetti('confetti-canvas');
-        this.algebraMasteryTracker = new AlgebraMasteryTracker();
         this.isChecking = false;
         this.answerSubmitted = false;
         this.lastQuestionProblem = null;
@@ -239,14 +237,7 @@ export class GameController {
         }
         
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
-        
-        // Update mastery tracking
-        try {
-            this.algebraMasteryTracker.updateMasteryProgress(this.state.currentLevel.key, rating);
-        } catch (error) {
-            console.error('Error updating mastery progress (non-blocking):', error);
-        }
-        
+
         try {
             this.ui.showSuccess(
                 this.state.currentLevel.name,
@@ -353,17 +344,6 @@ export class GameController {
             singleLevel: false,
             keyboardTableHTML,
         });
-    }
-
-    continueToNextChallenge() {
-        const nextLevel = this.algebraMasteryTracker.getNextAvailableLevel();
-        if (nextLevel) {
-            this.startGame(nextLevel);
-        } else {
-            // All levels completed, return to learning path
-            this.ui.showScreen('settings');
-            this.updateLearningPathInterface();
-        }
     }
 
     replayCurrentLevel() {

@@ -4,7 +4,6 @@ import { GameState, Timer, StorageManager } from './gameState.js';
 import { UI } from './ui.js';
 import { QuestionGenerator } from './questionGenerator.js';
 import { Confetti } from './effects.js';
-import { MasteryTracker } from './masteryTracker.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
 import * as ConfigUtils from './configUtils.js';
 
@@ -21,7 +20,6 @@ export class GameController {
         this.timer = new Timer(this.ui.elements.timer);
         this.questionGen = new QuestionGenerator();
         this.confetti = new Confetti('confetti-canvas');
-        this.masteryTracker = new MasteryTracker();
         this.isChecking = false;
         this.answerSubmitted = false;
         this.isWaitingForKeystroke = false;  // Flag to block normal input while waiting for keystroke after second mistake
@@ -462,17 +460,6 @@ export class GameController {
         });
     }
 
-    continueToNextChallenge() {
-        const nextLevel = this.masteryTracker.getNextAvailableLevel();
-        if (nextLevel) {
-            this.startGame(nextLevel);
-        } else {
-            // All levels completed, return to learning path
-            this.ui.showScreen('settings');
-            this.updateLearningPathInterface();
-        }
-    }
-
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
@@ -510,14 +497,7 @@ export class GameController {
         // Update inline summary cards immediately so they're current when user returns to settings
         if (window.progressUI) window.progressUI.updateContent();
 
-        // Update mastery tracking
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
-        try {
-            // Update mastery progress tracking
-            this.masteryTracker.updateMasteryProgress(this.state.currentLevel.key, rating);
-        } catch (error) {
-            console.error('Error updating mastery progress (non-blocking):', error);
-        }
 
         // Show success screen
         try {
