@@ -50,18 +50,6 @@ export class TrigUI extends BaseUI {
         this.setupSuccessScreenButtons();
     }
 
-    // --- Trig-specific override: pulse animation on streak milestones ---
-
-    updateStreak(streak) {
-        this.elements.streakCounter.textContent = streak;
-        if (streak > 0 && streak % 5 === 0) {
-            this.elements.streakCounter.parentElement.style.animation = 'pulse 0.5s ease-in-out';
-            setTimeout(() => {
-                this.elements.streakCounter.parentElement.style.animation = '';
-            }, 500);
-        }
-    }
-
     // --- Question display ---
 
     displayQuestion(question, levelType) {

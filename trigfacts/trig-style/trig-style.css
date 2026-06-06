@@ -186,12 +186,6 @@ body {
     border-radius: 0.75rem;
 }
 
-/* Animation */
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
     .card {

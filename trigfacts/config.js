@@ -4,8 +4,8 @@
 export const CONFIG = {
     LEVEL_GROUPS: window.LevelRegistry.trigfacts.LEVEL_GROUPS,
     REQUIRED_STREAK: 10,
-    FEEDBACK_DELAY_CORRECT: 400,
-    FEEDBACK_DELAY_INCORRECT: 1500,
+    FEEDBACK_DELAY_CORRECT: 300,
+    FEEDBACK_DELAY_INCORRECT: 1000,
     POSITIVE_FEEDBACK: ["Correct!", "Excellent!", "Nice one!", "Perfect!", "You know it!", "Awesome!", "Great!"],
     SECOND_CHANCE_FEEDBACK: ["Try again", "Not quite right", "Have another go!", "Take another shot at it!"],
     RATING_THRESHOLDS: [
