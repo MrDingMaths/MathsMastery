@@ -6,13 +6,8 @@
     --color-primary-dark: #2563eb;
     --color-success: #10b981;
     --color-error: #ef4444;
-    --color-gray-100: #f3f4f6;
-    --color-gray-300: #d1d5db;
-    --color-gray-500: #6b7280;
-    --color-gray-700: #374151;
     --color-gray-900: #1f2937;
     --shadow-card: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.08);
-    --transition-base: all 0.2s ease;
 }
 
 * {
@@ -60,17 +55,6 @@ body {
 
 #timer-paused-message.hidden {
     display: none;
-}
-
-/* Trig rating extras */
-.rating-pro {
-    background: linear-gradient(135deg, #dcfce7, #4ade80);
-    color: #047857;
-}
-
-.rating-apprentice {
-    background: linear-gradient(135deg, #f8fafc, #94a3b8);
-    color: #1e293b;
 }
 
 /* Selectively reset Tailwind preflight styles inside MathQuill containers */

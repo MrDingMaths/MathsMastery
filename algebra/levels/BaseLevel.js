@@ -23,8 +23,4 @@
         this.usedQuestionIndices.add(questionIndex);
         return this.questions[questionIndex];
     }
-
-    getQuestions() {
-        return this.questions;
-    }
 }

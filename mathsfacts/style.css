@@ -97,7 +97,6 @@ div[class*="level-btn"] {
 .rating-developing { background: linear-gradient(145deg, #dcfce7, #4ade80); color: #047857; border-color: #6ee7b7; }
 .rating-expert { background: linear-gradient(145deg, #ecfdf5, #34d399); color: #065f46; border-color: #34d399; }
 .rating-mastery { background: linear-gradient(145deg, #fefbeb, #fbbf24); color: #a16207; border-color: #f59e0b; }
-.rating-true-mastery { background: linear-gradient(145deg, #fef7f0, #f9a8d4); color: #9d174d; border-color: #f472b6; }
 
 /* Styles for HTML-based fractions */
 .fraction-container {

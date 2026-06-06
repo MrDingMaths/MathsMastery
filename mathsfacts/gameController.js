@@ -5,15 +5,13 @@ import { UI } from './ui.js';
 import { QuestionGenerator } from './questionGenerator.js';
 import { Confetti } from './effects.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
-import * as ConfigUtils from './configUtils.js';
 
 export class GameController {
     constructor() {
-        // Make CONFIG, StorageManager, RatingUtils, and ConfigUtils globally available for progress tracking modules
+        // Make CONFIG, StorageManager, and RatingUtils globally available for progress tracking modules
         window.CONFIG = CONFIG;
         window.StorageManager = StorageManager;
         window.RatingUtils = RatingUtils;
-        window.ConfigUtils = ConfigUtils;
         
         this.state = new GameState();
         this.ui = new UI();
