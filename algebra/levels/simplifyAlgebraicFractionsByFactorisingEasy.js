@@ -1,6 +1,6 @@
 // levels/simplifyAlgebraicFractionsByFactorisingEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'simplifyAlgebraicFractionsByFactorisingEasy',
     'Simplifying Algebraic Fractions by Factorising (Easy)',
     [

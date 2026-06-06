@@ -1,6 +1,6 @@
 // levels/powerOfPowerAndZeroPowerMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfPowerAndZeroPowerMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfPowerAndZeroPowerMedium',
     'Power of a Power & Zero Laws (Medium)',
     [

@@ -1,6 +1,6 @@
 // levels/rationaliseTheDenominatorHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseTheDenominatorHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseTheDenominatorHard',
     'Rationalising the Denominator (Hard)',
     [

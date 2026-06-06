@@ -1,6 +1,6 @@
 // levels/negativeIndicesMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.negativeIndicesMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'negativeIndicesMedium',
     'Negative Indices (Medium)',
     [

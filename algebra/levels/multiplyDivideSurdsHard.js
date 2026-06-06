@@ -1,6 +1,6 @@
 // levels/multiplyDivideSurdsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyDivideSurdsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplyDivideSurdsHard',
     'Multiplying Dividing Surds (Hard)',
     [

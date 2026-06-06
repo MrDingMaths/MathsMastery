@@ -1,6 +1,6 @@
 // levels/addSubtractFractionsWithBinomialNumeratorMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractFractionsWithBinomialNumeratorMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractFractionsWithBinomialNumeratorMedium',
     'Adding Subtracting Fractions with Binomial Numerator (Medium)',
     [

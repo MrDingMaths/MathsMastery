@@ -112,141 +112,17 @@
 
     </div>
 
-    <!-- Load modular scripts -->
+    <!-- Single source of truth for level metadata (consumed by config.js) -->
+    <script src="../shared/levelRegistry.js"></script>
+
+    <!-- Classic-script helpers -->
     <script src="algebra-modules/algebraEngine.js"></script>
     <script src="mobile-keyboard/mobileKeyboard.js"></script>
-    
-    <!-- Load individual level modules -->
-    <script src="levels/BaseLevel.js"></script>
-    <script src="levels/orderOfOperationsEasy.js"></script>
-    <script src="levels/orderOfOperationsMedium.js"></script>
-    <script src="levels/orderOfOperationsHard.js"></script>
-    <script src="levels/addSubtractTermsEasy.js"></script>
-    <script src="levels/addSubtractTermsMedium.js"></script>
-    <script src="levels/addSubtractTermsHard.js"></script>
-    <script src="levels/multiplyTermsEasy.js"></script>
-    <script src="levels/multiplyTermsMedium.js"></script>
-    <script src="levels/multiplyTermsHard.js"></script>
-    <script src="levels/divideTermsEasy.js"></script>
-    <script src="levels/divideTermsMedium.js"></script>
-    <script src="levels/divideTermsHard.js"></script>
-    <script src="levels/multiplicationIndexLawEasy.js"></script>
-    <script src="levels/multiplicationIndexLawMedium.js"></script>
-    <script src="levels/multiplicationIndexLawHard.js"></script>
-    <script src="levels/divisionIndexLawEasy.js"></script>
-    <script src="levels/divisionIndexLawMedium.js"></script>
-    <script src="levels/divisionIndexLawHard.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerEasy.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerMedium.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerHard.js"></script>
-    <script src="levels/mixedIndexLawsEasy.js"></script>
-    <script src="levels/mixedIndexLawsMedium.js"></script>
-    <script src="levels/mixedIndexLawsHard.js"></script>
-    <script src="levels/expandSingleBracketsEasy.js"></script>
-    <script src="levels/expandSingleBracketsMedium.js"></script>
-    <script src="levels/expandSingleBracketsHard.js"></script>
-    <script src="levels/expandBinomialProductsEasy.js"></script>
-    <script src="levels/expandBinomialProductsMedium.js"></script>
-    <script src="levels/expandBinomialProductsHard.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsEasy.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsMedium.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsHard.js"></script>
-    <script src="levels/mixedSimplificationEasy.js"></script>
-    <script src="levels/mixedSimplificationMedium.js"></script>
-    <script src="levels/mixedSimplificationHard.js"></script>
-    <script src="levels/expandAndSimplifyEasy.js"></script>
-    <script src="levels/expandAndSimplifyMedium.js"></script>
-    <script src="levels/expandAndSimplifyHard.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsEasy.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsMedium.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsHard.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsEasy.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsMedium.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsHard.js"></script>
-    <script src="levels/negativeIndicesEasy.js"></script>
-    <script src="levels/negativeIndicesMedium.js"></script>
-    <script src="levels/negativeIndicesHard.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsEasy.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsMedium.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsHard.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsEasy.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsMedium.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsHard.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorEasy.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorMedium.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorHard.js"></script>
-    <script src="levels/expandPerfectSquaresEasy.js"></script>
-    <script src="levels/expandPerfectSquaresMedium.js"></script>
-    <script src="levels/expandPerfectSquaresHard.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresEasy.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresMedium.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresHard.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresEasy.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresMedium.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresHard.js"></script>
-    <script src="levels/factorisePerfectSquaresEasy.js"></script>
-    <script src="levels/factorisePerfectSquaresMedium.js"></script>
-    <script src="levels/factorisePerfectSquaresHard.js"></script>
-    <script src="levels/mixedExpansionEasy.js"></script>
-    <script src="levels/mixedExpansionMedium.js"></script>
-    <script src="levels/mixedExpansionHard.js"></script>
-    <script src="levels/noticeBinomialFactorsEasy.js"></script>
-    <script src="levels/noticeBinomialFactorsMedium.js"></script>
-    <script src="levels/noticeBinomialFactorsHard.js"></script>
-    <script src="levels/groupInPairsEasy.js"></script>
-    <script src="levels/groupInPairsMedium.js"></script>
-    <script src="levels/groupInPairsHard.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsEasy.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsMedium.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsHard.js"></script>
-    <script src="levels/mixedFactorisationEasy.js"></script>
-    <script src="levels/mixedFactorisationMedium.js"></script>
-    <script src="levels/mixedFactorisationHard.js"></script>
-    <script src="levels/finishFactorisingEasy.js"></script>
-    <script src="levels/finishFactorisingMedium.js"></script>
-    <script src="levels/finishFactorisingHard.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingEasy.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingMedium.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingHard.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingEasy.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingMedium.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingHard.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorEasy.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorMedium.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorHard.js"></script>
-    <script src="levels/compoundFractionsEasy.js"></script>
-    <script src="levels/compoundFractionsMedium.js"></script>
-    <script src="levels/compoundFractionsHard.js"></script>
-    <script src="levels/simplifySurdsEasy.js"></script>
-    <script src="levels/simplifySurdsMedium.js"></script>
-    <script src="levels/simplifySurdsHard.js"></script>
-    <script src="levels/addSubtractSurdsEasy.js"></script>
-    <script src="levels/addSubtractSurdsMedium.js"></script>
-    <script src="levels/addSubtractSurdsHard.js"></script>
-    <script src="levels/multiplyDivideSurdsEasy.js"></script>
-    <script src="levels/multiplyDivideSurdsMedium.js"></script>
-    <script src="levels/multiplyDivideSurdsHard.js"></script>
-    <script src="levels/expandBracketsWithSurdsEasy.js"></script>
-    <script src="levels/expandBracketsWithSurdsMedium.js"></script>
-    <script src="levels/expandBracketsWithSurdsHard.js"></script>
-    <script src="levels/rationaliseTheDenominatorEasy.js"></script>
-    <script src="levels/rationaliseTheDenominatorMedium.js"></script>
-    <script src="levels/rationaliseTheDenominatorHard.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorEasy.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorMedium.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorHard.js"></script>
-    <script src="levels/evaluateFractionalIndicesEasy.js"></script>
-    <script src="levels/evaluateFractionalIndicesMedium.js"></script>
-    <script src="levels/evaluateFractionalIndicesHard.js"></script>
-    <script src="levels/surdFormToIndexFormEasy.js"></script>
-    <script src="levels/surdFormToIndexFormMedium.js"></script>
-    <script src="levels/surdFormToIndexFormHard.js"></script>
-    <script src="levels/indexFormToSurdFormEasy.js"></script>
-    <script src="levels/indexFormToSurdFormMedium.js"></script>
-    <script src="levels/indexFormToSurdFormHard.js"></script>
-    
+
+    <!-- App entry: imports config.js + levels barrel + game modules -->
     <script type="module" src="algebra-modules/app.js"></script>
-    
+
+
     <!-- Supabase auth + leaderboard -->
     <script src="../shared/supabaseClient.js"></script>
     <script src="../shared/leaderboard.js"></script>

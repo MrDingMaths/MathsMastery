@@ -1,6 +1,6 @@
 // levels/expandDifferenceOfTwoSquaresEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandDifferenceOfTwoSquaresEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandDifferenceOfTwoSquaresEasy',
     'Expanding Difference of Two Squares (Easy)',
     [

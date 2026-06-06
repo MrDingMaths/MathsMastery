@@ -1,6 +1,6 @@
 // levels/addSubtractFractionsWithBinomialNumeratorHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractFractionsWithBinomialNumeratorHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractFractionsWithBinomialNumeratorHard',
     'Adding Subtracting Fractions with Binomial Numerator (Hard)',
     [

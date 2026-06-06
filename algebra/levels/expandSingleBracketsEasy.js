@@ -1,6 +1,6 @@
 // levels/expandSingleBracketsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandSingleBracketsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandSingleBracketsEasy',
     'Expanding Brackets (Easy)',
     [

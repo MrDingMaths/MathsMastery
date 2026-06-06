@@ -1,6 +1,6 @@
 // levels/addSubtractTermsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractTermsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractTermsEasy',
     'Like Terms (Easy)',
     [

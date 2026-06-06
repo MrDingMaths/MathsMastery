@@ -1,6 +1,6 @@
 // levels/factoriseDifferenceOfTwoSquaresHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseDifferenceOfTwoSquaresHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseDifferenceOfTwoSquaresHard',
     'Difference of Two Squares Factorisation (Hard)',
     [

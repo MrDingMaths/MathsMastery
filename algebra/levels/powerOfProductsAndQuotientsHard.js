@@ -1,6 +1,6 @@
 // levels/powerOfProductsAndQuotientsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfProductsAndQuotientsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfProductsAndQuotientsHard',
     'Power of a Product and Quotient (Hard)',
     [

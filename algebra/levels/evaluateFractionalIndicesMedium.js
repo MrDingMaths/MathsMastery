@@ -1,6 +1,6 @@
 // levels/evaluateFractionalIndicesMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.evaluateFractionalIndicesMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'evaluateFractionalIndicesMedium',
     'Fractional Indices (Medium)',
     [

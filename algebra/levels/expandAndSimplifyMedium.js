@@ -1,6 +1,6 @@
 // levels/expandAndSimplifyMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandAndSimplifyMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandAndSimplifyMedium',
     'Expanding & Simplifying (Medium)',
     [

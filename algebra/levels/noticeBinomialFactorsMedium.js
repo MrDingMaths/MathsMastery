@@ -1,6 +1,6 @@
 // levels/noticeBinomialFactorsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.noticeBinomialFactorsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'noticeBinomialFactorsMedium',
     'Noticing Binomial Factors (Medium)',
     [

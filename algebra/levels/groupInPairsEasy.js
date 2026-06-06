@@ -1,6 +1,6 @@
 // levels/groupInPairsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.groupInPairsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'groupInPairsEasy',
     'Grouping in Pairs (Easy)',
     [

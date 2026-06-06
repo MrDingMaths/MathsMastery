@@ -1,6 +1,6 @@
 // levels/addSubtractAlgebraicFractionsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractAlgebraicFractionsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractAlgebraicFractionsMedium',
     'Adding Subtracting Algebraic Fractions (Medium)',
     [

@@ -1,6 +1,6 @@
 // levels/factorisePerfectSquaresMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factorisePerfectSquaresMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factorisePerfectSquaresMedium',
     'Perfect Square Factorisation (Medium)',
     [

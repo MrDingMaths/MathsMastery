@@ -1,6 +1,6 @@
 // levels/finishFactorisingMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.finishFactorisingMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'finishFactorisingMedium',
     'Finish Factorising (Medium)',
     [

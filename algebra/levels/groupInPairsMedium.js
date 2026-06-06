@@ -1,6 +1,6 @@
 // levels/groupInPairsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.groupInPairsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'groupInPairsMedium',
     'Grouping in Pairs (Medium)',
     [

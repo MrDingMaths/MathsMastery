@@ -1,4 +1,5 @@
 // levels/divideTermsEasy.js
+import { BaseLevel } from './BaseLevel.js';
 // Custom generateQuestion: converts division (÷) notation to fraction notation 95% of the time
 class DivideTermsEasyLevel extends BaseLevel {
     constructor() {
@@ -75,5 +76,4 @@ class DivideTermsEasyLevel extends BaseLevel {
     }
 }
 
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.divideTermsEasy = new DivideTermsEasyLevel();
+export default new DivideTermsEasyLevel();

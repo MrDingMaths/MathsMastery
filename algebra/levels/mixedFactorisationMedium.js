@@ -1,6 +1,6 @@
 // levels/mixedFactorisationMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedFactorisationMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedFactorisationMedium',
     'Mixed Factorisation (Medium)',
     [

@@ -1,6 +1,6 @@
 // levels/factorisePerfectSquaresHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factorisePerfectSquaresHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factorisePerfectSquaresHard',
     'Perfect Square Factorisation (Hard)',
     [

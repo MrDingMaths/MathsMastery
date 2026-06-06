@@ -1,6 +1,6 @@
 // levels/expandPerfectSquaresHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandPerfectSquaresHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandPerfectSquaresHard',
     'Expanding Perfect Squares (Hard)',
     [

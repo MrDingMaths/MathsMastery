@@ -1,6 +1,6 @@
 // levels/addSubtractFractionsByFactorisingDenominatorHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractFractionsByFactorisingDenominatorHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractFractionsByFactorisingDenominatorHard',
     'Adding/Subtracting Fractions by Factorising Denominator (Hard)',
     [

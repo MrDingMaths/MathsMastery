@@ -1,4 +1,5 @@
 // levels/multiplyTermsEasy.js
+import { BaseLevel } from './BaseLevel.js';
 // Custom generateQuestion: 30% chance to convert \times to implied multiplication
 class MultiplyTermsEasyLevel extends BaseLevel {
     constructor() {
@@ -81,5 +82,4 @@ class MultiplyTermsEasyLevel extends BaseLevel {
     }
 }
 
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyTermsEasy = new MultiplyTermsEasyLevel();
+export default new MultiplyTermsEasyLevel();

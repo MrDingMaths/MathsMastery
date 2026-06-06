@@ -1,6 +1,6 @@
 // levels/addSubtractAlgebraicFractionsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractAlgebraicFractionsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractAlgebraicFractionsHard',
     'Adding Subtracting Algebraic Fractions (Hard)',
     [

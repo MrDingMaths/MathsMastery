@@ -1,6 +1,6 @@
 // levels/rationaliseTheDenominatorEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseTheDenominatorEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseTheDenominatorEasy',
     'Rationalising the Denominator (Easy)',
     [

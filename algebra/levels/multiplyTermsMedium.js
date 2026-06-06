@@ -1,4 +1,5 @@
 // levels/multiplyTermsMedium.js
+import { BaseLevel } from './BaseLevel.js';
 // Custom generateQuestion: 70% chance to convert \times to implied multiplication
 class MultiplyTermsMediumLevel extends BaseLevel {
     constructor() {
@@ -56,5 +57,4 @@ class MultiplyTermsMediumLevel extends BaseLevel {
     }
 }
 
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyTermsMedium = new MultiplyTermsMediumLevel();
+export default new MultiplyTermsMediumLevel();

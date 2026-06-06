@@ -1,6 +1,6 @@
 // levels/compoundFractionsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.compoundFractionsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'compoundFractionsHard',
     'Compound Fractions (Hard)',
     [

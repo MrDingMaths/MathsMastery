@@ -1,6 +1,5 @@
-// progressTracker.js - Maths Facts wrapper
-// Instantiates shared ProgressTracker with MathsFacts-specific config
-window.progressTracker = new ProgressTracker('mf_progress_data_v5', {
+// MathsFacts progress-tracker wrapper — see shared/progressTracker.js for the factory.
+window.initProgressTracker('mathsfacts', {
     enableMistakes: false,
     oldVersionKeys: [
         'mf_progress_data_v4',
@@ -10,9 +9,3 @@ window.progressTracker = new ProgressTracker('mf_progress_data_v5', {
         'mf_progress_data'
     ]
 });
-for (let i = localStorage.length - 1; i >= 0; i--) {
-    const key = localStorage.key(i);
-    if (key && (key.startsWith('mf_bestTime_v1_') || key.startsWith('mf_bestTime_v5_'))) {
-        localStorage.removeItem(key);
-    }
-}

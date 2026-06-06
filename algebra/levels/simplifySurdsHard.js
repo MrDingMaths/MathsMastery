@@ -1,6 +1,6 @@
 // levels/simplifySurdsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.simplifySurdsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'simplifySurdsHard',
     'Surd Simplification (Hard)',
     [

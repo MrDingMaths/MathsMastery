@@ -1,6 +1,6 @@
 // levels/rationaliseBinomialDenominatorHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseBinomialDenominatorHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseBinomialDenominatorHard',
     'Further Rationalising the Denominator (Hard)',
     [

@@ -1,6 +1,6 @@
 // levels/factoriseNonMonicQuadraticTrinomialsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseNonMonicQuadraticTrinomialsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseNonMonicQuadraticTrinomialsEasy',
     'Factorising Non-monic Quadratic Trinomials (Easy)',
     [

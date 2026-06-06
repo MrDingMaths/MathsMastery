@@ -1,25 +1,8 @@
 // Configuration
+// Level metadata lives in shared/levelRegistry.js (loaded as a classic script
+// before this module). Edit it there to add or rename levels.
 export const CONFIG = {
-    LEVEL_GROUPS: {
-        "Working in Degrees": [
-            { key: 'exact_deg_mixed', name: 'Exact Values', type: 'exact', unit: 'deg' },
-            { key: 'reference_angles', name: 'Reference Angles', type: 'reference_angles' },
-            { key: 'equiv_deg', name: 'Equivalent Ratios', type: 'equivalent', unit: 'deg' },
-            { key: 'quad_deg', name: 'Exact Values in all Quadrants', type: 'quadrant', unit: 'deg' },
-        ],
-        "Degree and Radian Conversion": [
-            { key: 'simplify_fractions', name: 'Simplify Fractions<br>over 180', type: 'simplify_fractions' },
-            { key: 'deg_to_rad', name: 'Degrees to Radians', type: 'conversion', direction: 'd2r' },
-            { key: 'rad_to_deg', name: 'Radians to Degrees', type: 'conversion', direction: 'r2d' },
-            { key: 'conv_mixed', name: 'Mixed Conversion', type: 'conversion', direction: 'mixed' },
-        ],
-        "Working in Radians": [
-            { key: 'exact_rad_mixed', name: 'Exact Values', type: 'exact', unit: 'rad' },
-            { key: 'reference_angles_rad', name: 'Reference Angles', type: 'reference_angles_rad' },
-            { key: 'equiv_rad', name: 'Equivalent Ratios', type: 'equivalent', unit: 'rad' },
-            { key: 'quad_rad', name: 'Exact Values in all Quadrants', type: 'quadrant', unit: 'rad' },
-        ],
-    },
+    LEVEL_GROUPS: window.LevelRegistry.trigfacts.LEVEL_GROUPS,
     REQUIRED_STREAK: 10,
     FEEDBACK_DELAY_CORRECT: 400,
     FEEDBACK_DELAY_INCORRECT: 1500,

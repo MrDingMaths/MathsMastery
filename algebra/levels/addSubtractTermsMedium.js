@@ -1,6 +1,6 @@
 // levels/addSubtractTermsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractTermsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractTermsMedium',
     'Like Terms (Medium)',
     [

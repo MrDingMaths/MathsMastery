@@ -1,6 +1,6 @@
 // levels/evaluateFractionalIndicesHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.evaluateFractionalIndicesHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'evaluateFractionalIndicesHard',
     'Fractional Indices (Hard)',
     [

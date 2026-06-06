@@ -1,6 +1,6 @@
 // levels/expandBinomialProductsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandBinomialProductsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandBinomialProductsHard',
     'Expanding Double Brackets (Hard)',
     [

@@ -1,6 +1,6 @@
 // levels/multiplicationIndexLawEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplicationIndexLawEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplicationIndexLawEasy',
     'Index Law Multiplication (Easy)',
     [

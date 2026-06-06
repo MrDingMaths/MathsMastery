@@ -1,6 +1,6 @@
 // levels/factoriseMonicQuadraticTrinomialsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseMonicQuadraticTrinomialsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseMonicQuadraticTrinomialsHard',
     'Factorising Monic Quadratic Trinomials (Hard)',
     [

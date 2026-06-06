@@ -1,6 +1,6 @@
 // levels/mixedExpansionEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedExpansionEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedExpansionEasy',
     'Mixed Expansion (Easy)',
     [

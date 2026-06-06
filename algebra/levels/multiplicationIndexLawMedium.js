@@ -1,6 +1,6 @@
 // levels/multiplicationIndexLawMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplicationIndexLawMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplicationIndexLawMedium',
     'Index Law Multiplication (Medium)',
     [

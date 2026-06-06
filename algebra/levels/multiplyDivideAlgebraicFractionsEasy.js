@@ -1,6 +1,6 @@
 // levels/multiplyDivideAlgebraicFractionsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyDivideAlgebraicFractionsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplyDivideAlgebraicFractionsEasy',
     'Multiply Divide Algebraic Fractions (Easy)',
     [

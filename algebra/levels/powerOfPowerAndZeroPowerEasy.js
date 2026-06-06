@@ -1,6 +1,6 @@
 // levels/powerOfPowerAndZeroPowerEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfPowerAndZeroPowerEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfPowerAndZeroPowerEasy',
     'Power of a Power & Zero Laws (Easy)',
     [

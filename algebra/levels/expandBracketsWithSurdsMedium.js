@@ -1,6 +1,6 @@
 // levels/expandBracketsWithSurdsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandBracketsWithSurdsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandBracketsWithSurdsMedium',
     'Expanding Surds (Medium)',
     [

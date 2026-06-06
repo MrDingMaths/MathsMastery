@@ -1,6 +1,6 @@
 // levels/powerOfProductsAndQuotientsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfProductsAndQuotientsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfProductsAndQuotientsMedium',
     'Power of a Product and Quotient (Medium)',
     [

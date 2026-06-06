@@ -1,6 +1,6 @@
 // levels/compoundFractionsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.compoundFractionsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'compoundFractionsMedium',
     'Compound Fractions (Medium)',
     [

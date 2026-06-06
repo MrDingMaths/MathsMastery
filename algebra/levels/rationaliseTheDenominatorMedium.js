@@ -1,6 +1,6 @@
 // levels/rationaliseTheDenominatorMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseTheDenominatorMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseTheDenominatorMedium',
     'Rationalising the Denominator (Medium)',
     [

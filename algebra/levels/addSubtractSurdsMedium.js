@@ -1,6 +1,6 @@
 // levels/addSubtractSurdsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractSurdsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractSurdsMedium',
     'Adding/Subtracting Surds (Medium)',
     [

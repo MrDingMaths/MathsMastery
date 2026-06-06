@@ -1,6 +1,6 @@
 // levels/divisionIndexLawMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.divisionIndexLawMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'divisionIndexLawMedium',
     'Index Laws Division (Medium)',
     [

@@ -1,6 +1,6 @@
 // levels/noticeBinomialFactorsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.noticeBinomialFactorsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'noticeBinomialFactorsEasy',
     'Noticing Binomial Factors (Easy)',
     [

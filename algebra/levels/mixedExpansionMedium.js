@@ -1,6 +1,6 @@
 // levels/mixedExpansionMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedExpansionMedium',
     'Mixed Expansion (Medium)',
     [

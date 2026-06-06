@@ -1,6 +1,6 @@
 // levels/divisionIndexLawHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.divisionIndexLawHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'divisionIndexLawHard',
     'Index Laws Division (Hard)',
     [
