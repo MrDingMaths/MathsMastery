@@ -1,6 +1,6 @@
-// algebra-modules/gameState.js
+// gameState.js
 import { CONFIG } from './config.js';
-import { BaseGameState } from '../../shared/baseGameState.js';
+import { BaseGameState } from '../shared/baseGameState.js';
 
 export class GameState extends BaseGameState {
     constructor() {

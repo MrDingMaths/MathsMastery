@@ -1,9 +1,9 @@
 import { CONFIG } from './config.js';
-import { Timer } from '../../shared/timer.js';
+import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storageManager.js';
-import { RatingUtils } from '../../shared/ratingUtils.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 import { QuadrantDiagramRenderer } from './quadrantDiagramRenderer.js';
-import { BaseUI } from '../../shared/baseUI.js';
+import { BaseUI } from '../shared/baseUI.js';
 
 /**
  * TrigUI - Handles all UI rendering, MathQuill initialization, and user feedback display

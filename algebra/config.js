@@ -1,4 +1,4 @@
-// algebra-modules/config.js
+// config.js
 // Level metadata lives in shared/levelRegistry.js (loaded as a classic script
 // before this module). Edit it there to add or rename levels.
 export const CONFIG = {

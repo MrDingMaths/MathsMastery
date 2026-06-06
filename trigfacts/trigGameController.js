@@ -1,8 +1,8 @@
 import { CONFIG } from './config.js';
 import { GameState } from './trigGameState.js';
 import { TrigUI } from './trigUI.js';
-import { Timer } from '../../shared/timer.js';
-import { Confetti } from '../../shared/confetti.js';
+import { Timer } from '../shared/timer.js';
+import { Confetti } from '../shared/confetti.js';
 import { AnswerChecker } from './trigAnswerChecker.js';
 import { StorageManager } from './storageManager.js';
 import { TrigQuestionGenerator } from './questions/trigQuestionGenerator.js';

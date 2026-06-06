@@ -1,6 +1,6 @@
-// algebra-modules/storage.js
+// storage.js
 import { CONFIG } from './config.js';
-import { RatingUtils } from '../../shared/ratingUtils.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 
 export class StorageManager {
     static saveBestTime(levelKey, time) {

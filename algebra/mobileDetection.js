@@ -1,4 +1,4 @@
-// algebra-modules/mobileDetection.js
+// mobileDetection.js
 export class MobileDetection {
     static isMobileDevice() {
         // Check for touch capability and mobile user agents

@@ -1,13 +1,13 @@
-// algebra-modules/gameController.js
+// gameController.js
 import { CONFIG } from './config.js';
 import { GameState } from './gameState.js';
 import { UI } from './ui.js';
-import { Timer } from '../../shared/timer.js';
+import { Timer } from '../shared/timer.js';
 import { QuestionGenerator } from './questionGenerator.js';
-import { Confetti } from '../../shared/confetti.js';
+import { Confetti } from '../shared/confetti.js';
 import { AlgebraMasteryTracker } from './algebraMasteryTracker.js';
 import { StorageManager } from './storage.js';
-import { RatingUtils } from '../../shared/ratingUtils.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 
 // Make RatingUtils globally available for progress tracking modules
 window.RatingUtils = RatingUtils;

@@ -1,5 +1,5 @@
 import { CONFIG } from './config.js';
-import { BaseGameState } from '../../shared/baseGameState.js';
+import { BaseGameState } from '../shared/baseGameState.js';
 
 /**
  * GameState - Manages trig game state with question tracking and answering guard

@@ -1,10 +1,10 @@
-// algebra-modules/ui.js
+// ui.js
 import { CONFIG } from './config.js';
-import { createEl } from '../../shared/createEl.js';
-import { Timer } from '../../shared/timer.js';
+import { createEl } from '../shared/createEl.js';
+import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storage.js';
 import { MobileDetection } from './mobileDetection.js';
-import { BaseUI } from '../../shared/baseUI.js';
+import { BaseUI } from '../shared/baseUI.js';
 
 export class UI extends BaseUI {
     constructor() {

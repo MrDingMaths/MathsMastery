@@ -1,5 +1,5 @@
 import { CONFIG } from './config.js';
-import { RatingUtils } from '../../shared/ratingUtils.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 
 export const StorageManager = {
     saveBestTime: (levelKey, time) => { /* no-op */ },

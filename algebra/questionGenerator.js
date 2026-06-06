@@ -1,5 +1,5 @@
-// algebra-modules/questionGenerator.js
-import * as Levels from '../levels/index.js';
+// questionGenerator.js
+import * as Levels from './levels/index.js';
 
 export class QuestionGenerator {
     constructor() {
