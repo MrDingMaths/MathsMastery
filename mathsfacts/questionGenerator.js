@@ -177,4 +177,24 @@ export class QuestionGenerator {
     generateUnitConversions() {
         return levels.generateUnitConversions(this.inputPlaceholder);
     }
+
+    // ========== INTEGER OPERATIONS ==========
+
+    /**
+     * Generate mixed directed-number questions: add/subtract, multiply/divide,
+     * powers (-3² vs (-3)²), and order of operations including brackets.
+     * @returns {Object} Question object with small-integer answer
+     */
+    generateIntegerOperations() {
+        return levels.generateIntegerOperations(this.inputPlaceholder);
+    }
+
+    /**
+     * Generate rounding questions: a number with 5 decimal places followed by
+     * an ellipsis, rounded to the nearest whole, 1 d.p., 2 d.p., or 3 d.p.
+     * @returns {Object} Question object with decimal answer
+     */
+    generateRoundingDecimals() {
+        return levels.generateRoundingDecimals(this.inputPlaceholder);
+    }
 }

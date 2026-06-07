@@ -3,7 +3,7 @@ import { CONFIG } from './config.js';
 import { GameState, Timer, StorageManager } from './gameState.js';
 import { UI } from './ui.js';
 import { QuestionGenerator } from './questionGenerator.js';
-import { Confetti } from './effects.js';
+import { Confetti } from '../shared/confetti.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
 
 export class GameController {
@@ -69,6 +69,8 @@ export class GameController {
             'multiplyDivideBy100': () => this.questionGen.generateMultiplyDivideBy100(),
             'powersOf10': () => this.questionGen.generatePowersOf10(),
             'unitConversions': () => this.questionGen.generateUnitConversions(),
+            'integerOperations': () => this.questionGen.generateIntegerOperations(),
+            'roundingDecimals': () => this.questionGen.generateRoundingDecimals(),
             'bonds': (level) => this.questionGen.generateBonds(level.value, level.customMixedRange)
         };
     }

@@ -27,6 +27,7 @@ export const CONFIG = {
         '× 3 6 9': { text: '\\times 3', useKaTeX: true },
         '× 2 to 12': { text: '\\times 12', useKaTeX: true },
         '× Negatives': { text: '\\times -', useKaTeX: true },
+        'Integer Operations': { text: '-3^2', useKaTeX: true },
         '×÷ 100': { text: '\\times 100', useKaTeX: true },
         '×÷ Powers of 10': { text: '10^n', useKaTeX: true },
         'Doubling': { text: '\\times 2', useKaTeX: true },
@@ -40,6 +41,7 @@ export const CONFIG = {
         'Simplifying Fractions': { text: '\\frac{\\div n}{\\div n}', useKaTeX: true },
         'Common FDP Equivalences': { text: '\\frac{1}{2} = 0.5', useKaTeX: true },
         'FDP Conversions': { text: '\\frac{a}{b} \\leftrightarrow \\%', useKaTeX: true },
+        'Rounding Decimals': { text: '2.7\\ldots', useKaTeX: true },
         'Fraction of a Quantity': { text: '\\frac{1}{2} \\times n', useKaTeX: true },
         'Percentage of a Quantity': { text: '\\% \\times n', useKaTeX: true },
         'Increase Decrease by Percentage': { text: '\\% \\pm', useKaTeX: true }
@@ -94,6 +96,7 @@ export const CONFIG = {
         'group369': 1.2,          // Medium tables (3,6,9)
         'multall': 1.2,           // Full tables (2-12), more variety
         'mixed-negative-mult': 1.8, // Negatives add significant complexity
+        'integerOperations': 2.5, // Mixed directed-number ops with order of operations
         'multiplyDivideBy100': 1.8, // Focused on single power, pattern-based
         'powersOf10': 2,        // Pattern-based, should be quick
         'double100': 1.5,         // Doubling is systematic
@@ -107,6 +110,7 @@ export const CONFIG = {
         'simplifyFractions': 2.8, // Two inputs, division/factoring
         'fdpConversions': 2,    // Multiple inputs (3-4 fields), complex
         'fdpConversionsMultiples': 2.5, // Even more complex calculations
+        'roundingDecimals': 2, // Single-step decision based on the next digit
         'fractionOfQuantity': 2, // Multiplication + fractions
         'percentageOfQuantity': 2, // Percentage calculations
         'increaseDecreasePercentage': 2.5, // Increase/decrease operations with percentage of questions

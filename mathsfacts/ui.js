@@ -68,24 +68,31 @@ export class UI extends BaseUI {
         const parts = question.format.split('{{INPUT}}');
         const frag = document.createDocumentFragment();
 
-        if (parts[0]) {
-            const part1El = createEl('span');
-            katex.render(parts[0], part1El, { throwOnError: false });
-            frag.append(part1El);
-        }
+        const appendKatexWithBreaks = (latex) => {
+            const lines = latex.split('\n');
+            lines.forEach((line, i) => {
+                if (i > 0) {
+                    // .question-text is a flex-wrap container, so a <br> won't
+                    // force a line break. A full-width zero-height div does.
+                    frag.append(createEl('div', { style: { flexBasis: '100%', height: '0' } }));
+                }
+                if (line === '') return;
+                const el = createEl('span');
+                katex.render(line, el, { throwOnError: false });
+                frag.append(el);
+            });
+        };
+
+        if (parts[0]) appendKatexWithBreaks(parts[0]);
 
         const inputOptions = { type: 'number', className: 'inline-input', step: 'any', autocomplete: 'off' };
-        if (levelKey === 'powersOf10' || levelKey === 'unitConversions' || levelKey === 'multiplyDivideBy100') {
+        if (levelKey === 'powersOf10' || levelKey === 'unitConversions' || levelKey === 'multiplyDivideBy100' || levelKey === 'integerOperations' || levelKey === 'roundingDecimals') {
             inputOptions.style = { width: '12rem' };
         }
         const inputEl = createEl('input', inputOptions);
         frag.append(inputEl);
 
-        if (parts[1]) {
-            const part2El = createEl('span');
-            katex.render(parts[1], part2El, { throwOnError: false });
-            frag.append(part2El);
-        }
+        if (parts[1]) appendKatexWithBreaks(parts[1]);
         this.elements.questionText.append(frag);
     }
 

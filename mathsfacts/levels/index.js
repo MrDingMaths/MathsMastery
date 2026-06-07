@@ -21,3 +21,5 @@ export {
 export { generateBonds } from './numberBonds.js';
 export { generatePerfectSquares, generatePowersOf10, generateMultiplyDivideBy100 } from './powers.js';
 export { generateUnitConversions } from './unitConversions.js';
+export { generateIntegerOperations } from './integerOperations.js';
+export { generateRoundingDecimals } from './roundingDecimals.js';

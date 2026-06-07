@@ -750,10 +750,12 @@ export class BaseUI {
         const diff = this._lsDiffInfo(level.key);
         const bestMs = this._lsLevelBestMs(level.key);
 
+        const showCurrentStyle = isCurrent && !bestMs;
+
         const tile = createEl('button', { className: `ls-hybrid-tile${isCurrent ? ' ls-current' : ''}` });
         tile.classList.add(`rating-${rk}`);
-        tile.style.background = isCurrent ? 'rgba(59,130,246,0.04)' : (rv.grad || rv.bg);
-        tile.style.borderColor = isCurrent ? '#3b82f6' : rv.bc;
+        tile.style.background = showCurrentStyle ? 'rgba(59,130,246,0.04)' : (rv.grad || rv.bg);
+        tile.style.borderColor = showCurrentStyle ? '#3b82f6' : rv.bc;
 
         const top = createEl('div', { className: 'ls-hybrid-tile-top' });
         const diffLabel = createEl('div', { className: 'ls-diff-label' });
@@ -767,10 +769,10 @@ export class BaseUI {
         top.append(diffLabel, ratingIcon);
 
         const timeEl = createEl('div', { className: 'ls-hybrid-tile-time' });
-        timeEl.style.color = isCurrent ? '#2563eb' : (bestMs ? rv.tc : '#d1d5db');
-        timeEl.style.fontSize = isCurrent ? '11px' : (bestMs ? '13px' : '11px');
-        timeEl.style.fontWeight = isCurrent ? '600' : (bestMs ? '700' : '400');
-        timeEl.textContent = isCurrent ? 'Start here' : (bestMs ? this._lsFmtMs(bestMs) : '—');
+        timeEl.style.color = showCurrentStyle ? '#2563eb' : (bestMs ? rv.tc : '#d1d5db');
+        timeEl.style.fontSize = showCurrentStyle ? '11px' : (bestMs ? '13px' : '11px');
+        timeEl.style.fontWeight = showCurrentStyle ? '600' : (bestMs ? '700' : '400');
+        timeEl.textContent = showCurrentStyle ? 'Start here' : (bestMs ? this._lsFmtMs(bestMs) : '—');
 
         tile.append(top, timeEl);
         tile.addEventListener('click', () => onSelect(level));
@@ -783,25 +785,27 @@ export class BaseUI {
         const bestMs = this._lsLevelBestMs(level.key);
         const topicName = level.name.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
 
+        const showCurrentStyle = isCurrent && !bestMs;
+
         const tile = createEl('button', { className: `ls-level-tile${isCurrent ? ' ls-current' : ''}` });
         tile.classList.add(`rating-${rk}`);
-        tile.style.background = isCurrent ? 'rgba(59,130,246,0.04)' : (rv.grad || rv.bg);
-        tile.style.borderColor = isCurrent ? '#3b82f6' : rv.bc;
+        tile.style.background = showCurrentStyle ? 'rgba(59,130,246,0.04)' : (rv.grad || rv.bg);
+        tile.style.borderColor = showCurrentStyle ? '#3b82f6' : rv.bc;
 
         const top = createEl('div', { className: 'ls-tile-top' });
         top.appendChild(createEl('span', { className: 'ls-tile-next-badge', textContent: isCurrent ? '▶ Next up' : '' }));
         const emojiEl = createEl('span');
         emojiEl.style.fontSize = '15px'; emojiEl.style.lineHeight = '1';
-        emojiEl.textContent = isCurrent ? '' : (rv.emoji || '');
+        emojiEl.textContent = showCurrentStyle ? '' : (rv.emoji || '');
         top.appendChild(emojiEl);
 
         const nameEl = createEl('div', { className: 'ls-tile-name', textContent: topicName });
-        nameEl.style.color = isCurrent ? '#1d4ed8' : (bestMs ? rv.tc : '#1f2937');
+        nameEl.style.color = showCurrentStyle ? '#1d4ed8' : (bestMs ? rv.tc : '#1f2937');
 
         const timeEl = createEl('div', { className: 'ls-tile-time' });
-        timeEl.style.color = isCurrent ? '#2563eb' : (bestMs ? rv.tc : '#6b7280');
+        timeEl.style.color = showCurrentStyle ? '#2563eb' : (bestMs ? rv.tc : '#6b7280');
         timeEl.style.fontWeight = (isCurrent || bestMs) ? '600' : '400';
-        timeEl.textContent = isCurrent ? 'Start here' : (bestMs ? this._lsFmtMs(bestMs) : 'Not attempted');
+        timeEl.textContent = showCurrentStyle ? 'Start here' : (bestMs ? this._lsFmtMs(bestMs) : 'Not attempted');
 
         tile.append(top, nameEl, timeEl);
         tile.addEventListener('click', () => onSelect(level));
