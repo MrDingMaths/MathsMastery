@@ -7,18 +7,27 @@ class ProgressUI {
         this.progressShare = progressShare;
         this.isVisible = false;
         this.currentView = 'drills';
-        this.MQ = null;
         this.init();
     }
 
     init() {
         this.createProgressModal();
         this.attachEventListeners();
-        // Only init MathQuill if mistakes are enabled (needed for rendering LaTeX in mistakes table)
-        if (this.progressTracker.enableMistakes && typeof MathQuill !== 'undefined') {
-            this.MQ = MathQuill.getInterface(2);
-        }
         this.updateContent();
+    }
+
+    _renderStaticLatex(element, latex) {
+        if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
+            element.innerHTML = window.MathLive.convertLatexToMarkup(latex);
+            return true;
+        }
+        if (typeof MathQuill !== 'undefined') {
+            const MQ = MathQuill.getInterface(2);
+            element.textContent = '';
+            MQ.StaticMath(element).latex(latex);
+            return true;
+        }
+        return false;
     }
 
     // Create progress button that appears on the main screen
@@ -688,15 +697,11 @@ class ProgressUI {
     }
 
     renderMistakesMath() {
-        if (!this.MQ) return;
-
         document.querySelectorAll('#mistakes-tbody .math-display').forEach(element => {
             try {
                 let latex = element.getAttribute('data-latex');
                 if (!latex) latex = element.textContent.trim();
-                element.textContent = '';
-                const staticMath = this.MQ.StaticMath(element);
-                staticMath.latex(latex);
+                this._renderStaticLatex(element, latex);
             } catch (error) {
                 console.warn('Error rendering math:', error);
             }

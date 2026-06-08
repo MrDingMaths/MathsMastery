@@ -3,8 +3,37 @@ import { CONFIG } from './config.js';
 import { createEl } from '../shared/createEl.js';
 import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storage.js';
-import { MobileDetection } from './mobileDetection.js';
 import { BaseUI } from '../shared/baseUI.js';
+
+const INLINE_SHORTCUTS = {
+    pi: '\\pi',
+    theta: '\\theta',
+    sqrt: '\\sqrt{#?}',
+    nthroot: '\\sqrt[#?]{#?}',
+};
+
+let mathliveGlobalsConfigured = false;
+function configureMathLiveGlobals() {
+    if (mathliveGlobalsConfigured) return;
+    if (typeof window.MathfieldElement === 'undefined') return;
+    window.MathfieldElement.soundsDirectory = null;
+    window.MathfieldElement.fontsDirectory = null;
+    mathliveGlobalsConfigured = true;
+}
+
+function renderStaticLatex(container, latex) {
+    container.innerHTML = '';
+    if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
+        container.innerHTML = window.MathLive.convertLatexToMarkup(latex);
+        return;
+    }
+    const field = document.createElement('math-field');
+    field.setAttribute('read-only', '');
+    field.style.border = 'none';
+    field.style.background = 'transparent';
+    field.value = latex;
+    container.appendChild(field);
+}
 
 export class UI extends BaseUI {
     constructor() {
@@ -40,27 +69,14 @@ export class UI extends BaseUI {
         };
         this.storage = StorageManager;
         this.mathField = null;
-        this.MQ = null;
         this.currentView = 'grid';
-        this.mobileKeyboard = null;
-        this.isMobile = MobileDetection.isMobileDevice();
         this.setupSuccessScreenButtons();
-        this.initializeMobileKeyboard();
     }
 
     // --- Algebra-specific overrides ---
 
-    // Algebra uses 'queen' CSS class for true-mastery rating
     _getRatingClass(ratingKey) {
         return ratingKey === 'true-mastery' ? 'queen' : ratingKey;
-    }
-
-    // Hide mobile keyboard when leaving game screen
-    showScreen(screenName) {
-        super.showScreen(screenName);
-        if (this.mobileKeyboard && screenName !== 'game') {
-            this.mobileKeyboard.hide();
-        }
     }
 
     // --- Settings rendered hook ---
@@ -69,31 +85,23 @@ export class UI extends BaseUI {
         this.initializeMathQuill();
     }
 
-    // --- MathQuill / mobile keyboard setup ---
+    // --- Static math examples on the level select screen ---
 
     initializeMathQuill() {
-        this.MQ = MathQuill.getInterface(2);
-
+        configureMathLiveGlobals();
         const staticExamples = [
             'power-example',
             'fraction-example',
             'sqrt-example',
-            'nthroot-example'
+            'nthroot-example',
         ];
-
         staticExamples.forEach(id => {
             const element = document.getElementById(id);
             if (element) {
-                this.MQ.StaticMath(element);
+                const latex = element.textContent.trim();
+                renderStaticLatex(element, latex);
             }
         });
-    }
-
-    initializeMobileKeyboard() {
-        if (typeof MobileKeyboard !== 'undefined') {
-            this.mobileKeyboard = new MobileKeyboard();
-            this.mobileKeyboard.initialize();
-        }
     }
 
     // --- Question display ---
@@ -106,9 +114,7 @@ export class UI extends BaseUI {
 
         const problemContainer = createEl('span');
         problemLineContainer.appendChild(problemContainer);
-
-        const problemMath = this.MQ.StaticMath(problemContainer);
-        problemMath.latex(question.problem);
+        renderStaticLatex(problemContainer, question.problem);
 
         const answerLineContainer = createEl('div', { className: 'answer-line' });
         this.elements.questionText.appendChild(answerLineContainer);
@@ -119,82 +125,60 @@ export class UI extends BaseUI {
         });
         answerLineContainer.appendChild(equalsSign);
 
-        const answerContainer = createEl('span', {
-            className: 'mathquill-editable'
-        });
-        answerLineContainer.appendChild(answerContainer);
+        const answerField = document.createElement('math-field');
+        answerField.classList.add('mathquill-editable');
+        answerLineContainer.appendChild(answerField);
 
         const toggleBtn = createEl('button', {
             id: 'toggle-keyboard-btn',
-            textContent: '⌨️'
+            textContent: '⌨️',
         });
         answerLineContainer.appendChild(toggleBtn);
 
-        const mathFieldConfig = {
-            spaceBehavesLikeTab: true,
-            leftRightIntoCmdGoes: 'up',
-            restrictMismatchedBrackets: true,
-            supSubsRequireOperand: true,
-            charsThatBreakOutOfSupSub: '+-=<>',
-            autoSubscriptNumerals: false,
-            autoCommands: 'pi theta sqrt nthroot',
-            handlers: {
-                enter: () => {
-                    const event = new CustomEvent('mathquill-enter');
-                    document.dispatchEvent(event);
-                }
-            }
-        };
+        configureMathLiveGlobals();
 
-        if (this.isMobile) {
-            mathFieldConfig.substituteTextarea = MobileKeyboard.createSubstituteTextarea;
-            mathFieldConfig.handlers.edit = () => {
-                if (this.mobileKeyboard && !this.mobileKeyboard.isVisible) {
-                    this.mobileKeyboard.show();
-                }
-            };
-        }
+        answerField.mathVirtualKeyboardPolicy = 'manual';
+        answerField.inlineShortcuts = { ...answerField.inlineShortcuts, ...INLINE_SHORTCUTS };
+        answerField.menuItems = [];
 
-        this.mathField = this.MQ.MathField(answerContainer, mathFieldConfig);
-
-        if (this.mobileKeyboard) {
-            this.mobileKeyboard.setMathField(this.mathField);
-        }
-
-        if (this.isMobile && this.mobileKeyboard) {
-            answerContainer.addEventListener('click', () => {
-                this.mobileKeyboard.show();
-            });
-        }
-
-        if (!this.isMobile && this.mobileKeyboard) {
-            toggleBtn.addEventListener('click', (e) => {
+        answerField.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
                 e.preventDefault();
-                if (this.mobileKeyboard.isVisible) {
-                    this.mobileKeyboard.hide();
-                } else {
-                    this.mobileKeyboard.show();
-                    this.mathField.focus();
-                }
-            });
-        }
+                document.dispatchEvent(new CustomEvent('math-enter'));
+            }
+        });
+
+        answerField.addEventListener('pointerdown', (e) => {
+            if (e.target === answerField) answerField.focus();
+        });
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const vk = window.mathVirtualKeyboard;
+            if (!vk) return;
+            if (vk.visible) {
+                vk.hide();
+            } else {
+                vk.show();
+                answerField.focus();
+            }
+        });
+
+        this.mathField = answerField;
 
         setTimeout(() => {
-            this.mathField.focus();
-            if (this.isMobile && this.mobileKeyboard) {
-                this.mobileKeyboard.show();
-            }
+            answerField.focus();
         }, 100);
     }
 
     getAnswerFromUI() {
         if (!this.mathField) return null;
-        return this.mathField.latex();
+        return this.mathField.value;
     }
 
     clearAnswer() {
         if (this.mathField) {
-            this.mathField.latex('');
+            this.mathField.value = '';
             this.mathField.focus();
         }
     }
@@ -207,14 +191,10 @@ export class UI extends BaseUI {
 
         if (!isCorrect && correctAnswer) {
             const answerLine = createEl('div');
-
             const answerSpan = createEl('span', { className: 'inline-block' });
             answerLine.appendChild(answerSpan);
-
             this.elements.feedbackMessage.appendChild(answerLine);
-
-            const staticMath = this.MQ.StaticMath(answerSpan);
-            staticMath.latex(correctAnswer);
+            renderStaticLatex(answerSpan, correctAnswer);
         } else {
             this.elements.feedbackMessage.textContent = message;
         }
@@ -226,24 +206,20 @@ export class UI extends BaseUI {
 
     updateTestAnswer(answer) {
         if (this.elements.testAnswerContent) {
-            this.elements.testAnswerContent.innerHTML = '';
-            const staticMath = this.MQ.StaticMath(this.elements.testAnswerContent);
-            staticMath.latex(answer);
+            renderStaticLatex(this.elements.testAnswerContent, answer);
         }
     }
 
     showInputFeedback(isCorrect) {
-        const mathQuillEl = this.elements.questionText.querySelector('.mq-editable-field');
-        if (mathQuillEl) {
-            mathQuillEl.classList.remove('correct', 'incorrect');
-            mathQuillEl.classList.add(isCorrect ? 'correct' : 'incorrect');
+        if (this.mathField) {
+            this.mathField.classList.remove('correct', 'incorrect');
+            this.mathField.classList.add(isCorrect ? 'correct' : 'incorrect');
         }
     }
 
     clearInputFeedback() {
-        const mathQuillEl = this.elements.questionText.querySelector('.mq-editable-field');
-        if (mathQuillEl) {
-            mathQuillEl.classList.remove('correct', 'incorrect');
+        if (this.mathField) {
+            this.mathField.classList.remove('correct', 'incorrect');
         }
     }
 

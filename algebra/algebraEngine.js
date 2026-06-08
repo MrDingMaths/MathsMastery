@@ -69,8 +69,12 @@ class AlgebraEngine {
             expr = expr.replace(new RegExp(unicode, 'g'), replacement);
         }
 
-        // Remove \left and \right
-        expr = expr.replace(/\\left|\\right/g, '');
+        // Remove \left and \right (MathQuill) and \mleft / \mright (MathLive)
+        expr = expr.replace(/\\left|\\right|\\mleft|\\mright/g, '');
+
+        // Strip MathLive \placeholder{...} tokens
+        expr = expr.replace(/\\placeholder\{[^}]*\}/g, '');
+        expr = expr.replace(/\\placeholder/g, '');
 
         // Convert multiplication operators
         expr = expr.replace(/\\times|\\cdot|×/g, '*');

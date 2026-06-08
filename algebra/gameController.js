@@ -56,8 +56,8 @@ export class GameController {
         // Quit button (game screen)
         this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
 
-        // Listen for Enter key from MathQuill
-        document.addEventListener('mathquill-enter', () => {
+        // Listen for Enter key from the math field
+        document.addEventListener('math-enter', () => {
             if (!this.isChecking && !this.answerSubmitted) {
                 this.checkAnswer();
             }
