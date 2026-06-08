@@ -212,5 +212,20 @@ window.LevelRegistry = {
                 { key: 'quad_rad', name: 'Exact Values in all Quadrants', type: 'quadrant', unit: 'rad' },
             ],
         }
+    },
+
+    equations: {
+        appLabel: 'Equation Solving',
+        LEVEL_GROUPS: {
+            "Linear Equations": [
+                { key: 'linearTwoStepEasy', name: 'Two-Step Linear<br>🥉', value: 'linear-easy' },
+            ],
+            "Quadratic Equations": [
+                { key: 'quadraticFactorisableEasy', name: 'Factorisable Quadratic<br>🥉', value: 'quadratic-easy' },
+            ],
+            "Simultaneous Equations": [
+                { key: 'simultaneousLinearEasy', name: 'Simultaneous Linear<br>🥉', value: 'simultaneous-easy' },
+            ],
+        }
     }
 };

@@ -5,9 +5,37 @@ import { RatingUtils } from '../shared/ratingUtils.js';
 import { QuadrantDiagramRenderer } from './quadrantDiagramRenderer.js';
 import { BaseUI } from '../shared/baseUI.js';
 
-/**
- * TrigUI - Handles all UI rendering, MathQuill initialization, and user feedback display
- */
+const INLINE_SHORTCUTS = {
+    pi: '\\pi', theta: '\\theta', alpha: '\\alpha', beta: '\\beta',
+    gamma: '\\gamma', delta: '\\delta', epsilon: '\\epsilon', zeta: '\\zeta',
+    eta: '\\eta', mu: '\\mu', nu: '\\nu', xi: '\\xi', rho: '\\rho',
+    sigma: '\\sigma', tau: '\\tau', phi: '\\phi', chi: '\\chi', psi: '\\psi',
+    omega: '\\omega',
+};
+
+let mathliveGlobalsConfigured = false;
+function configureMathLiveGlobals() {
+    if (mathliveGlobalsConfigured) return;
+    if (typeof window.MathfieldElement === 'undefined') return;
+    window.MathfieldElement.soundsDirectory = null;
+    window.MathfieldElement.fontsDirectory = null;
+    mathliveGlobalsConfigured = true;
+}
+
+function renderStaticLatex(container, latex) {
+    container.innerHTML = '';
+    if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
+        container.innerHTML = window.MathLive.convertLatexToMarkup(latex);
+        return;
+    }
+    const field = document.createElement('math-field');
+    field.setAttribute('read-only', '');
+    field.style.border = 'none';
+    field.style.background = 'transparent';
+    field.value = latex;
+    container.appendChild(field);
+}
+
 export class TrigUI extends BaseUI {
     constructor() {
         super();
@@ -44,7 +72,8 @@ export class TrigUI extends BaseUI {
 
         this.storage = StorageManager;
         this.diagramRenderer = new QuadrantDiagramRenderer(this.elements.diagramCanvas);
-        this.mathField = null;
+        this.mathField = this.elements.mathquillInput;
+        this.mathFieldConfigured = false;
         this.onReplayLevel = null;
         this.onBackToLevels = null;
         this.setupSuccessScreenButtons();
@@ -128,44 +157,32 @@ export class TrigUI extends BaseUI {
             }
         }
 
-        this.initializeMathQuill();
+        this.initializeMathField();
         this.enableInput();
     }
 
     renderMath(latex, container) {
-        container.innerHTML = '';
-
-        if (typeof MathQuill === 'undefined') {
-            console.error('MathQuill not loaded');
-            container.textContent = latex;
-            return;
-        }
-
-        const MQ = MathQuill.getInterface(2);
-        const mathField = MQ.StaticMath(container);
-        mathField.latex(latex);
+        renderStaticLatex(container, latex);
     }
 
-    initializeMathQuill() {
-        if (this.mathField) {
-            this.mathField.revert();
+    initializeMathField() {
+        configureMathLiveGlobals();
+        const field = this.mathField;
+        if (!field) return;
+
+        if (!this.mathFieldConfigured) {
+            field.mathVirtualKeyboardPolicy = 'manual';
+            field.inlineShortcuts = { ...field.inlineShortcuts, ...INLINE_SHORTCUTS };
+            field.menuItems = [];
+            field.addEventListener('pointerdown', (e) => {
+                if (e.target === field) field.focus();
+            });
+            this.mathFieldConfigured = true;
         }
 
-        const MQ = MathQuill.getInterface(2);
-        this.mathField = MQ.MathField(this.elements.mathquillInput, {
-            spaceBehavesLikeTab: true,
-            leftRightIntoCmdGoes: 'up',
-            restrictMismatchedBrackets: true,
-            sumStartsWithNEquals: true,
-            supSubsRequireOperand: true,
-            charsThatBreakOutOfSupSub: '+-=<>',
-            autoSubscriptNumerals: true,
-            autoCommands: 'pi theta alpha beta gamma delta epsilon zeta eta mu nu xi rho sigma tau phi chi psi omega sqrt sum prod int frac',
-            autoOperatorNames: 'sin cos tan cot sec csc sinh cosh tanh coth sech csch arcsin arccos arctan arccot arcsec arccsc',
-        });
-
-        this.elements.mathquillInput.classList.remove('correct', 'incorrect');
-        this.mathField.focus();
+        field.value = '';
+        field.classList.remove('correct', 'incorrect');
+        field.focus();
     }
 
     addAutoParentheses(latex) {
@@ -198,13 +215,13 @@ export class TrigUI extends BaseUI {
 
     getAnswerFromUI() {
         if (!this.mathField) return '';
-        const rawLatex = this.mathField.latex().trim();
+        const rawLatex = (this.mathField.value || '').trim();
         return this.addAutoParentheses(rawLatex);
     }
 
     clearAnswer() {
         if (this.mathField) {
-            this.mathField.latex('');
+            this.mathField.value = '';
             this.mathField.focus();
         }
         this.elements.mathquillInput.classList.remove('correct', 'incorrect');
@@ -217,13 +234,14 @@ export class TrigUI extends BaseUI {
 
     disableInput() {
         if (this.mathField) {
-            this.mathField.config({ disabled: true });
+            this.mathField.disabled = true;
         }
     }
 
     enableInput() {
         if (this.mathField) {
-            this.mathField.config({ disabled: false });
+            this.mathField.disabled = false;
+            this.mathField.focus();
         }
     }
 

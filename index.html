@@ -18,6 +18,7 @@
             --c-green: #3DBD6B;
             --c-blue:  #4A7CF7;
             --c-red:   #F0697A;
+            --c-teal:  #14b8a6;
             --ink-faint: #9aa1ad;
             --line: #e7eaf1;
             --shadow-card: 0 14px 34px -16px rgba(34,42,66,.32), 0 2px 6px rgba(34,42,66,.05);
@@ -81,7 +82,7 @@
         /* ===== TOPIC CARDS ===== */
         .mm-topics {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 26px;
         }
 
@@ -113,6 +114,7 @@
         .mm-card.t-green::before { background: var(--c-green); }
         .mm-card.t-blue::before  { background: var(--c-blue); }
         .mm-card.t-red::before   { background: var(--c-red); }
+        .mm-card.t-teal::before  { background: var(--c-teal); }
 
         .mm-card:hover {
             transform: translateY(-7px);
@@ -136,6 +138,7 @@
         .t-green .mm-glyph { background: var(--c-green); }
         .t-blue  .mm-glyph { background: var(--c-blue); }
         .t-red   .mm-glyph { background: var(--c-red); }
+        .t-teal  .mm-glyph { background: var(--c-teal); }
 
         .mm-card h3 {
             font-family: var(--font-display);
@@ -164,6 +167,7 @@
         .t-green .mm-start { background: var(--c-green); box-shadow: 0 10px 20px -10px var(--c-green); }
         .t-blue  .mm-start { background: var(--c-blue);  box-shadow: 0 10px 20px -10px var(--c-blue); }
         .t-red   .mm-start { background: var(--c-red);   box-shadow: 0 10px 20px -10px var(--c-red); }
+        .t-teal  .mm-start { background: var(--c-teal);  box-shadow: 0 10px 20px -10px var(--c-teal); }
 
         .mm-card:hover .mm-start { gap: 14px; filter: brightness(1.06); }
         .mm-start:active { transform: scale(.97); }
@@ -528,6 +532,9 @@
         .hub-lb-loading { text-align: center; font-size: .825rem; color: var(--color-text-muted); padding: .75rem 0; }
 
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .mm-topics { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 900px) {
             .mm-topics { grid-template-columns: 1fr; }
             .mm-rails  { grid-template-columns: 1fr; }
@@ -560,6 +567,12 @@
             <a href="./algebra/" class="mm-card t-blue">
                 <div class="mm-glyph">𝑥</div>
                 <h3>Algebra Skills</h3>
+                <span class="mm-start">Start <span>→</span></span>
+            </a>
+
+            <a href="./equations/" class="mm-card t-teal">
+                <div class="mm-glyph">≡</div>
+                <h3>Equation Solving</h3>
                 <span class="mm-start">Start <span>→</span></span>
             </a>
 
@@ -597,6 +610,7 @@
                     <button class="panel-hof-tab panel-hof-tab-active" data-app="mathsfacts">Number</button>
                     <button class="panel-hof-tab" data-app="algebra">Algebra</button>
                     <button class="panel-hof-tab" data-app="trigfacts">Trig</button>
+                    <button class="panel-hof-tab" data-app="equations">Equations</button>
                 </div>
                 <div class="panel-body">
                     <div class="mm-signin-prompt">
@@ -624,6 +638,7 @@
                 <button class="hub-lb-tab hub-lb-tab-active" data-app="mathsfacts">Number Skills</button>
                 <button class="hub-lb-tab" data-app="algebra">Algebra Skills</button>
                 <button class="hub-lb-tab" data-app="trigfacts">Trig Skills</button>
+                <button class="hub-lb-tab" data-app="equations">Equation Solving</button>
             </div>
             <div id="hub-lb-content"></div>
         </div>

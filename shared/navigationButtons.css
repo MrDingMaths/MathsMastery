@@ -76,6 +76,10 @@
 .site-nav-link-red:hover { background: rgba(240,105,122,.1); }
 .site-nav-link-red.active { background-color: #F0697A; color: white; border-color: #F0697A; }
 
+.site-nav-link-teal { border-color: #14b8a6; color: #14b8a6; }
+.site-nav-link-teal:hover { background: rgba(20,184,166,.1); }
+.site-nav-link-teal.active { background-color: #14b8a6; color: white; border-color: #14b8a6; }
+
 .site-nav-link-icon {
     font-size: 1rem;
     line-height: 1;

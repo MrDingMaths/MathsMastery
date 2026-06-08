@@ -14,12 +14,13 @@ class SiteHeader {
         if (pathname.includes('/algebra/')) return 'algebra';
         if (pathname.includes('/trigfacts/')) return 'trig';
         if (pathname.includes('/mathsfacts/')) return 'mathsfacts';
+        if (pathname.includes('/equations/')) return 'equations';
         return 'hub';
     }
 
     getBasePath() {
-        // Pages are either at root (/) or one level deep (/algebra/, /mathsfacts/, /trigfacts/)
-        const isSubpage = /\/(algebra|mathsfacts|trigfacts)\//.test(window.location.pathname);
+        // Pages are either at root (/) or one level deep (/algebra/, /mathsfacts/, /trigfacts/, /equations/)
+        const isSubpage = /\/(algebra|mathsfacts|trigfacts|equations)\//.test(window.location.pathname);
         return isSubpage ? '../' : './';
     }
 
@@ -54,6 +55,13 @@ class SiteHeader {
                 icon: '𝑥',
                 label: 'Algebra',
                 active: activePage === 'algebra',
+            },
+            {
+                href: base + 'equations/',
+                color: 'teal',
+                icon: '=',
+                label: 'Equations',
+                active: activePage === 'equations',
             },
             {
                 href: base + 'trigfacts/',

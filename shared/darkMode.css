@@ -194,6 +194,17 @@ html[data-theme="dark"] .mq-editable-field {
     color: #f9fafb;
 }
 
+/* MathLive (math-field) dark mode */
+html[data-theme="dark"] math-field.mathquill-input {
+    background-color: #374151;
+    color: #f9fafb;
+    --primary: #60a5fa;
+    --caret-color: #60a5fa;
+    --selection-background-color: rgba(96, 165, 250, 0.3);
+    --selection-color: #f9fafb;
+    --contains-highlight-background-color: rgba(96, 165, 250, 0.15);
+}
+
 /* ----------------------------------------------------------
    Mathsfacts: inline input, fraction, FDP table
    ---------------------------------------------------------- */

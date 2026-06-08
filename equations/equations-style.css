@@ -1,0 +1,133 @@
+:root {
+    --app-accent: #3b82f6;
+    --app-accent-dark: #2563eb;
+}
+
+.question-text {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+}
+
+.equations-question {
+    display: block;
+    text-align: center;
+}
+
+.problem-line {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.problem-line + .problem-line {
+    margin-top: -0.25rem;
+}
+
+.answer-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.answer-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.equals-sign {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    color: #4b5563;
+    min-width: 2.6rem;
+    text-align: right;
+}
+
+.mathquill-editable {
+    margin: 0;
+    border: 2px solid var(--app-accent);
+    padding: 8px 10px;
+    line-height: normal;
+    min-width: 8rem;
+    min-height: 40px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: white;
+    text-align: left;
+}
+
+.mathquill-editable.equations-multi-input {
+    min-width: 14rem;
+}
+
+.mathquill-editable.mq-focused {
+    border-color: var(--app-accent-dark) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
+    outline: none !important;
+}
+
+.mathquill-editable.correct {
+    border-color: #10b981 !important;
+    background-color: rgba(16, 185, 129, 0.08) !important;
+}
+
+.mathquill-editable.incorrect {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.08) !important;
+}
+
+.equations-input-hint {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+/* Preserve MathQuill internals */
+.mq-root-block {
+    display: inline-block !important;
+    width: 100% !important;
+    padding: 8px !important;
+    margin: 0 !important;
+}
+
+.mq-cursor {
+    display: inline-block !important;
+    vertical-align: text-bottom !important;
+}
+
+.mq-sqrt-prefix {
+    display: inline-block !important;
+    font-family: Symbola, serif !important;
+}
+
+sup, sub {
+    vertical-align: baseline !important;
+    position: relative !important;
+    font-size: 0.8em !important;
+}
+sup { bottom: 0.6em !important; }
+sub { top: 0.6em !important; }
+
+sup.mq-nthroot {
+    font-size: 80% !important;
+    vertical-align: 0.3em !important;
+    padding-top: 0.4em;
+}
+
+.mq-aria-alert {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
+/* Streak / timer accent */
+#streak-counter, #timer {
+    color: var(--app-accent-dark) !important;
+}
+
+[data-theme="dark"] .mathquill-editable {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}

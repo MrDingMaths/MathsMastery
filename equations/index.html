@@ -4,31 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <title>Maths Mastery: Trig</title>
+    <title>Maths Mastery: Equations</title>
 
-    <!-- Dark mode (must load before CSS to avoid flash) -->
     <script src="../shared/darkMode.js"></script>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../shared/darkMode.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- MathQuill CSS and JS (Desmos fork - local) -->
+    <link rel="stylesheet" href="../shared/lib/mathquill/mathquill.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../shared/lib/mathquill/mathquill.min.js"></script>
+
+    <!-- Math.js for algebraic evaluation -->
+    <script src="../shared/lib/math.js"></script>
+
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-    <!-- MathLive (vendored, v0.109.2) -->
-    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-static.css">
-    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-fonts.css">
-    <script src="../shared/lib/math.js"></script>
-    <script defer src="../shared/lib/mathlive/mathlive.min.js"></script>
 
     <!-- Shared styles -->
     <link rel="stylesheet" href="../shared/common.css">
     <link rel="stylesheet" href="../shared/progressStyles.css">
-
-    <!-- Custom TrigFacts Styling -->
-    <link rel="stylesheet" href="trig-style/trig-style.css">
+    <link rel="stylesheet" href="equations-style.css">
 
     <!-- Navigation buttons styles -->
     <link rel="stylesheet" href="../shared/navigationButtons.css">
@@ -41,57 +38,27 @@
 
     <div class="container mx-auto text-center">
 
-        <!-- Settings Screen -->
         <div id="settings-screen"></div>
 
-        <!-- Game Screen -->
         <div id="game-screen" class="card mx-auto hidden">
             <div class="flex justify-between items-center mb-6 text-lg">
-                <div class="font-semibold text-gray-700">
-                    Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥
-                </div>
-                <div class="font-semibold text-gray-700">
-                    Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span>
-                </div>
+                <div class="font-semibold text-gray-700">Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥</div>
+                <div class="font-semibold text-gray-700">Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span></div>
             </div>
-
-            <!-- Level Name Display -->
-            <div id="level-name" class="text-center text-gray-700 text-xl mb-4"></div>
-
-            <!-- Timer Paused Message -->
-            <div id="timer-paused-message" class="hidden font-semibold text-orange-600">
+            <div id="level-name" class="text-center text-gray-700 text-xl mb-2"></div>
+            <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
                 Timer will reset
+            </span>
+            <div id="question-container" class="my-12 min-h-[60px] flex items-center justify-center">
+                <div id="question-text" class="question-text equations-question"></div>
             </div>
-
-            <!-- Quadrant Diagram Container -->
-            <div id="diagram-container" class="diagram-container my-4 hidden">
-                <canvas id="quadrant-diagram" width="300" height="300"
-                        class="mx-auto bg-white rounded-lg shadow-inner border border-gray-200"></canvas>
-            </div>
-
-            <!-- Question Display -->
-            <div id="question-container" class="my-8 min-h-[60px] flex items-center justify-center">
-                <div id="question-text" class="question-text"></div>
-            </div>
-
-            <!-- Input Container -->
-            <div id="input-container" class="flex flex-col items-center my-6">
-                <math-field id="mathquill-input" class="mathquill-input"></math-field>
-            </div>
-
-            <!-- Feedback Message -->
             <div id="feedback-message" class="feedback mb-6"></div>
 
-            <!-- Quit Button -->
-            <button id="quit-btn" tabindex="-1" class="mt-6 text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span>
-                Back to Levels
-            </button>
+            <button id="quit-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span> Back to Levels</button>
         </div>
 
-        <!-- Success Screen -->
         <div id="success-screen" class="card mx-auto hidden">
 
-            <!-- Header: icon circle + title/rating/level -->
             <div class="success-header">
                 <div id="rating-icon-circle" class="success-icon-circle">
                     <span id="rating-emoji" class="success-icon-emoji"></span>
@@ -103,7 +70,6 @@
                 </div>
             </div>
 
-            <!-- Time panel -->
             <div class="success-time-card">
                 <div class="success-time-left">
                     <div class="success-time-label">YOUR TIME</div>
@@ -118,16 +84,13 @@
                 </div>
             </div>
 
-            <!-- Rating progress timeline (rendered by JS) -->
             <div id="rating-timeline" class="success-timeline"></div>
 
-            <!-- Next rating hint -->
             <div id="rating-hint" class="success-rating-hint hidden">
                 <span class="success-hint-icon">🏆</span>
                 <span id="rating-hint-text"></span>
             </div>
 
-            <!-- Action buttons -->
             <div class="success-actions">
                 <button id="replay-level-btn" class="btn btn-primary flex items-center justify-center gap-2 flex-1">
                     <span class="dcg">Enter</span><span>Replay Level</span>
@@ -141,25 +104,26 @@
 
     </div>
 
-    <!-- Single source of truth for level metadata (must precede main.js) -->
+    <!-- Single source of truth for level metadata (consumed by config.js) -->
     <script src="../shared/levelRegistry.js"></script>
 
-    <!-- App entry -->
+    <!-- Algebra engine (reused for scalar expression equivalence) -->
+    <script src="../algebra/algebraEngine.js"></script>
+
+    <!-- App entry: imports config.js + levels barrel + game modules -->
     <script type="module" src="main.js"></script>
 
     <!-- Supabase auth + leaderboard -->
     <script src="../shared/supabaseClient.js"></script>
     <script src="../shared/leaderboard.js"></script>
     <!-- Navigation buttons module -->
-	<script src="../shared/navigationButtons.js"></script>
-
-	<!-- Progress tracking modules (shared class + per-app wrapper) -->
-	<script src="../shared/progressTracker.js"></script>
-	<script src="progress-tracking/progressTracker.js"></script>
-	<script src="../shared/progressChart.js"></script>
-	<script src="../shared/progressShare.js"></script>
-	<script src="../shared/progressUI.js"></script>
-	<script src="../shared/progressSync.js"></script>
-
+    <script src="../shared/navigationButtons.js"></script>
+    <!-- Progress tracking modules (shared class + per-app wrapper) -->
+    <script src="../shared/progressTracker.js"></script>
+    <script src="progress-tracking/progressTracker.js"></script>
+    <script src="../shared/progressChart.js"></script>
+    <script src="../shared/progressShare.js"></script>
+    <script src="../shared/progressUI.js"></script>
+    <script src="../shared/progressSync.js"></script>
 </body>
 </html>
