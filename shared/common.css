@@ -99,9 +99,11 @@ h1, h2, h3, h4, .level-section-title {
 .feedback-correct { color: #10b981; }
 .feedback-incorrect { color: #ef4444; }
 
-/* Ensure math renderers (KaTeX, MathQuill) inherit feedback colour */
-.feedback .mq-root-block,
-.feedback .mq-math-mode {
+/* Ensure math renderers (MathLive/KaTeX) inherit feedback colour */
+.feedback math-field,
+.feedback .ML__base,
+.feedback .ML__mathit,
+.feedback .ML__cmr {
     color: inherit;
 }
 

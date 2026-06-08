@@ -12,28 +12,8 @@ const INLINE_SHORTCUTS = {
     nthroot: '\\sqrt[#?]{#?}',
 };
 
-let mathliveGlobalsConfigured = false;
-function configureMathLiveGlobals() {
-    if (mathliveGlobalsConfigured) return;
-    if (typeof window.MathfieldElement === 'undefined') return;
-    window.MathfieldElement.soundsDirectory = null;
-    window.MathfieldElement.fontsDirectory = null;
-    mathliveGlobalsConfigured = true;
-}
-
-function renderStaticLatex(container, latex) {
-    container.innerHTML = '';
-    if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
-        container.innerHTML = window.MathLive.convertLatexToMarkup(latex);
-        return;
-    }
-    const field = document.createElement('math-field');
-    field.setAttribute('read-only', '');
-    field.style.border = 'none';
-    field.style.background = 'transparent';
-    field.value = latex;
-    container.appendChild(field);
-}
+const configureMathLiveGlobals = () => window.MathRenderer?.configureMathLiveGlobals();
+const renderStaticLatex = (container, latex) => window.MathRenderer?.renderStaticLatex(container, latex);
 
 export class UI extends BaseUI {
     constructor() {
@@ -82,12 +62,12 @@ export class UI extends BaseUI {
     // --- Settings rendered hook ---
 
     _onSettingsRendered() {
-        this.initializeMathQuill();
+        this.initializeMathInputs();
     }
 
     // --- Static math examples on the level select screen ---
 
-    initializeMathQuill() {
+    initializeMathInputs() {
         configureMathLiveGlobals();
         const staticExamples = [
             'power-example',
@@ -126,14 +106,8 @@ export class UI extends BaseUI {
         answerLineContainer.appendChild(equalsSign);
 
         const answerField = document.createElement('math-field');
-        answerField.classList.add('mathquill-editable');
+        answerField.classList.add('math-field-answer');
         answerLineContainer.appendChild(answerField);
-
-        const toggleBtn = createEl('button', {
-            id: 'toggle-keyboard-btn',
-            textContent: '⌨️',
-        });
-        answerLineContainer.appendChild(toggleBtn);
 
         configureMathLiveGlobals();
 
@@ -150,18 +124,6 @@ export class UI extends BaseUI {
 
         answerField.addEventListener('pointerdown', (e) => {
             if (e.target === answerField) answerField.focus();
-        });
-
-        toggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const vk = window.mathVirtualKeyboard;
-            if (!vk) return;
-            if (vk.visible) {
-                vk.hide();
-            } else {
-                vk.show();
-                answerField.focus();
-            }
         });
 
         this.mathField = answerField;

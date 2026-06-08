@@ -24,7 +24,7 @@ export class GameController {
         this.lastQuestionProblem = null;
         
         // Initialize MathQuill after DOM is ready
-        this.ui.initializeMathQuill();
+        this.ui.initializeMathInputs();
         
         this.setupEventListeners();
         this.initializeProgressTracking();
@@ -324,15 +324,15 @@ export class GameController {
     updateLearningPathInterface() {
         const keyboardTableHTML = `<table>
             <tr>
-                <td><span class="mathquill-static" id="power-example">a^n</span></td>
+                <td><span class="math-static" id="power-example">a^n</span></td>
                 <td><span class="dcg">^</span> (<span class="dcg">shift</span><span class="dcg">6</span>)</td>
-                <td><span class="mathquill-static" id="fraction-example">\\frac{a}{b}</span></td>
+                <td><span class="math-static" id="fraction-example">\\frac{a}{b}</span></td>
                 <td><span class="dcg">a</span><span class="dcg">/</span><span class="dcg">b</span></td>
             </tr>
             <tr>
-                <td><span class="mathquill-static" id="sqrt-example">\\sqrt{a}</span></td>
+                <td><span class="math-static" id="sqrt-example">\\sqrt{a}</span></td>
                 <td><span class="dcg">s</span><span class="dcg">q</span><span class="dcg">r</span><span class="dcg">t</span></td>
-                <td><span class="mathquill-static" id="nthroot-example">\\sqrt[n]{a}</span></td>
+                <td><span class="math-static" id="nthroot-example">\\sqrt[n]{a}</span></td>
                 <td><span class="dcg">n</span><span class="dcg">t</span><span class="dcg">h</span><span class="dcg">r</span><span class="dcg">o</span><span class="dcg">o</span><span class="dcg">t</span></td>
             </tr>
         </table>`;

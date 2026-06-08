@@ -36,13 +36,15 @@
 }
 
 /* MathLive math-field answer input */
-math-field.mathquill-editable {
+math-field.math-field-answer {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    width: 100%;
+    min-width: 220px;
+    max-width: 100%;
     min-height: 60px;
     margin: 0;
-    padding: 10px;
+    padding: 10px 52px 10px 10px;
     border: 2px solid #3b82f6;
     border-radius: 5px;
     background-color: white;
@@ -59,24 +61,30 @@ math-field.mathquill-editable {
     --selection-color: #1f2937;
 }
 
-math-field.mathquill-editable::part(virtual-keyboard-toggle),
-math-field.mathquill-editable::part(menu-toggle) {
+math-field.math-field-answer::part(menu-toggle) {
     display: none;
 }
 
-math-field.mathquill-editable:focus,
-math-field.mathquill-editable:focus-within {
+math-field.math-field-answer::part(virtual-keyboard-toggle) {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+math-field.math-field-answer:focus,
+math-field.math-field-answer:focus-within {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.1);
     outline: none;
 }
 
-math-field.mathquill-editable.correct {
+math-field.math-field-answer.correct {
     border-color: #10b981;
     background-color: rgba(16, 185, 129, 0.08);
 }
 
-math-field.mathquill-editable.incorrect {
+math-field.math-field-answer.incorrect {
     border-color: #ef4444;
     background-color: rgba(239, 68, 68, 0.08);
 }
@@ -97,36 +105,3 @@ math-field.mathquill-editable.incorrect {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Toggle Keyboard Button - Desktop Only */
-#toggle-keyboard-btn {
-    display: none;
-    background: #ffffff;
-    color: #ffffff;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 2rem;
-    transition: all 0.2s ease-in-out;
-    min-width: 64px;
-    height: 64px;
-    flex-shrink: 0;
-}
-
-#toggle-keyboard-btn:hover {
-    background: #5b9aff;
-    transform: translateY(-1px);
-}
-
-#toggle-keyboard-btn:active {
-    transform: translateY(0);
-}
-
-/* Show button on desktop (screens wider than 1024px) */
-@media (min-width: 1025px) {
-    #toggle-keyboard-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}

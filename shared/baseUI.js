@@ -800,7 +800,7 @@ export class BaseUI {
         top.appendChild(emojiEl);
 
         const nameEl = createEl('div', { className: 'ls-tile-name', textContent: topicName });
-        nameEl.style.color = showCurrentStyle ? '#1d4ed8' : (bestMs ? rv.tc : '#1f2937');
+        nameEl.style.color = showCurrentStyle ? '#1d4ed8' : (bestMs ? rv.tc : '');
 
         const timeEl = createEl('div', { className: 'ls-tile-time' });
         timeEl.style.color = showCurrentStyle ? '#2563eb' : (bestMs ? rv.tc : '#6b7280');

@@ -13,28 +13,8 @@ const INLINE_SHORTCUTS = {
     omega: '\\omega',
 };
 
-let mathliveGlobalsConfigured = false;
-function configureMathLiveGlobals() {
-    if (mathliveGlobalsConfigured) return;
-    if (typeof window.MathfieldElement === 'undefined') return;
-    window.MathfieldElement.soundsDirectory = null;
-    window.MathfieldElement.fontsDirectory = null;
-    mathliveGlobalsConfigured = true;
-}
-
-function renderStaticLatex(container, latex) {
-    container.innerHTML = '';
-    if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
-        container.innerHTML = window.MathLive.convertLatexToMarkup(latex);
-        return;
-    }
-    const field = document.createElement('math-field');
-    field.setAttribute('read-only', '');
-    field.style.border = 'none';
-    field.style.background = 'transparent';
-    field.value = latex;
-    container.appendChild(field);
-}
+const configureMathLiveGlobals = () => window.MathRenderer?.configureMathLiveGlobals();
+const renderStaticLatex = (container, latex) => window.MathRenderer?.renderStaticLatex(container, latex);
 
 export class TrigUI extends BaseUI {
     constructor() {
@@ -50,7 +30,7 @@ export class TrigUI extends BaseUI {
             diagramCanvas: document.getElementById('quadrant-diagram'),
             questionText: document.getElementById('question-text'),
             inputContainer: document.getElementById('input-container'),
-            mathquillInput: document.getElementById('mathquill-input'),
+            mathFieldInput: document.getElementById('math-field-input'),
             feedbackMessage: document.getElementById('feedback-message'),
             timerPausedMessage: document.getElementById('timer-paused-message'),
             quitBtn: document.getElementById('quit-btn'),
@@ -72,7 +52,7 @@ export class TrigUI extends BaseUI {
 
         this.storage = StorageManager;
         this.diagramRenderer = new QuadrantDiagramRenderer(this.elements.diagramCanvas);
-        this.mathField = this.elements.mathquillInput;
+        this.mathField = this.elements.mathFieldInput;
         this.mathFieldConfigured = false;
         this.onReplayLevel = null;
         this.onBackToLevels = null;
@@ -118,7 +98,7 @@ export class TrigUI extends BaseUI {
                     const inputWrapper = document.createElement('span');
                     inputWrapper.style.marginLeft = '0.5rem';
                     inputWrapper.style.marginRight = '0.5rem';
-                    inputWrapper.appendChild(this.elements.mathquillInput);
+                    inputWrapper.appendChild(this.elements.mathFieldInput);
 
                     const secondPart = document.createElement('span');
                     this.renderMath(parts[1], secondPart);
@@ -144,7 +124,7 @@ export class TrigUI extends BaseUI {
                 this.renderMath(parts[0], firstPart);
 
                 const inputWrapper = document.createElement('span');
-                inputWrapper.appendChild(this.elements.mathquillInput);
+                inputWrapper.appendChild(this.elements.mathFieldInput);
 
                 const secondPart = document.createElement('span');
                 this.renderMath(parts[1], secondPart);
@@ -202,7 +182,7 @@ export class TrigUI extends BaseUI {
     }
 
     adjustInputWidth(questionType) {
-        const inputElement = this.elements.mathquillInput;
+        const inputElement = this.elements.mathFieldInput;
 
         if (questionType === 'equivalent') {
             inputElement.style.minWidth = '200px';
@@ -224,12 +204,12 @@ export class TrigUI extends BaseUI {
             this.mathField.value = '';
             this.mathField.focus();
         }
-        this.elements.mathquillInput.classList.remove('correct', 'incorrect');
+        this.elements.mathFieldInput.classList.remove('correct', 'incorrect');
     }
 
     showInputFeedback(isCorrect) {
-        this.elements.mathquillInput.classList.remove('correct', 'incorrect');
-        this.elements.mathquillInput.classList.add(isCorrect ? 'correct' : 'incorrect');
+        this.elements.mathFieldInput.classList.remove('correct', 'incorrect');
+        this.elements.mathFieldInput.classList.add(isCorrect ? 'correct' : 'incorrect');
     }
 
     disableInput() {

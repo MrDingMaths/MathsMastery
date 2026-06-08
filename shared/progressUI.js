@@ -17,14 +17,8 @@ class ProgressUI {
     }
 
     _renderStaticLatex(element, latex) {
-        if (typeof window.MathLive !== 'undefined' && typeof window.MathLive.convertLatexToMarkup === 'function') {
-            element.innerHTML = window.MathLive.convertLatexToMarkup(latex);
-            return true;
-        }
-        if (typeof MathQuill !== 'undefined') {
-            const MQ = MathQuill.getInterface(2);
-            element.textContent = '';
-            MQ.StaticMath(element).latex(latex);
+        if (window.MathRenderer) {
+            window.MathRenderer.renderStaticLatex(element, latex);
             return true;
         }
         return false;

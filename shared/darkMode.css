@@ -182,21 +182,9 @@ html[data-theme="dark"] .diagram-container {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-html[data-theme="dark"] .mathquill-input,
-html[data-theme="dark"] .mathquill-editable {
-    background-color: #374151;
-    color: #f9fafb;
-}
-
-/* MathQuill inner elements */
-html[data-theme="dark"] .mq-editable-field {
-    background-color: #374151;
-    color: #f9fafb;
-}
-
 /* MathLive (math-field) dark mode */
-html[data-theme="dark"] math-field.mathquill-input,
-html[data-theme="dark"] math-field.mathquill-editable {
+html[data-theme="dark"] math-field.math-field-input,
+html[data-theme="dark"] math-field.math-field-answer {
     background-color: #374151;
     color: #f9fafb;
     --primary: #60a5fa;
@@ -517,8 +505,8 @@ html[data-theme="dark"] .math-display {
     border-color: #4b5563;
     color: #f9fafb;
 }
-html[data-theme="dark"] .math-display .mq-math-mode,
-html[data-theme="dark"] .math-display .mq-root-block {
+html[data-theme="dark"] .math-display math-field,
+html[data-theme="dark"] .math-display .ML__base {
     color: #f9fafb;
 }
 

@@ -57,6 +57,70 @@ class AlgebraEngine {
      * Convert LaTeX string to Math.js expression string
      * Handles: superscripts, fractions, roots, operators, implicit multiplication
      */
+    /**
+     * Consume one TeX argument starting at `pos`: either a {braced group},
+     * a \command, or a single character. Returns the raw text and next position.
+     */
+    consumeTexArg(str, pos) {
+        if (pos >= str.length) return { raw: '', inner: '', nextPos: pos };
+        const ch = str[pos];
+        if (ch === '{') {
+            let depth = 1;
+            let i = pos + 1;
+            while (i < str.length) {
+                const c = str[i];
+                if (c === '\\') { i += 2; continue; }
+                if (c === '{') depth++;
+                else if (c === '}') {
+                    depth--;
+                    if (depth === 0) {
+                        return { raw: str.slice(pos, i + 1), inner: str.slice(pos + 1, i), nextPos: i + 1 };
+                    }
+                }
+                i++;
+            }
+            // Unbalanced — take rest of string as inner
+            return { raw: str.slice(pos), inner: str.slice(pos + 1), nextPos: str.length };
+        }
+        if (ch === '\\') {
+            let i = pos + 1;
+            while (i < str.length && /[a-zA-Z]/.test(str[i])) i++;
+            const cmd = str.slice(pos, i);
+            return { raw: cmd, inner: cmd, nextPos: i };
+        }
+        return { raw: ch, inner: ch, nextPos: pos + 1 };
+    }
+
+    /**
+     * Normalise compact \frac shorthand to always-braced form.
+     * Examples:
+     *   \frac12         → \frac{1}{2}
+     *   \frac\pi2       → \frac{\pi}{2}
+     *   \frac1{2x}      → \frac{1}{2x}
+     *   \frac{a+b}{c}   → \frac{a+b}{c}  (unchanged)
+     * Recurses into braced groups so nested fractions also normalise.
+     */
+    normalizeFracBraces(expr) {
+        let result = '';
+        let i = 0;
+        while (i < expr.length) {
+            if (expr.startsWith('\\frac', i)) {
+                result += '\\frac';
+                i += 5;
+                const arg1 = this.consumeTexArg(expr, i);
+                result += '{' + this.normalizeFracBraces(arg1.inner) + '}';
+                i = arg1.nextPos;
+                const arg2 = this.consumeTexArg(expr, i);
+                result += '{' + this.normalizeFracBraces(arg2.inner) + '}';
+                i = arg2.nextPos;
+            } else {
+                result += expr[i];
+                i++;
+            }
+        }
+        return result;
+    }
+
     latexToMathJS(latex) {
         let expr = latex.trim();
 
@@ -69,7 +133,7 @@ class AlgebraEngine {
             expr = expr.replace(new RegExp(unicode, 'g'), replacement);
         }
 
-        // Remove \left and \right (MathQuill) and \mleft / \mright (MathLive)
+        // Strip \left/\right (MathQuill) and \mleft/\mright (MathLive context-aware variant)
         expr = expr.replace(/\\left|\\right|\\mleft|\\mright/g, '');
 
         // Strip MathLive \placeholder{...} tokens
@@ -90,21 +154,26 @@ class AlgebraEngine {
             'sqrt($1)'
         );
 
-        // Convert fractions: \frac{a}{b} → ((a)/(b))
+        // MathLive emits TeX shorthand like \frac12; normalise to \frac{1}{2} so the brace regex matches.
+        expr = this.normalizeFracBraces(expr);
+
+        // Convert fractions inside-out: \frac{a}{b} → ((a)/(b))
+        const FRAC_MAX = 100;
+        let fracIter = 0;
         while (expr.includes('\\frac')) {
+            const before = expr;
             expr = expr.replace(
                 /\\frac\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g,
                 '(($1)/($2))'
             );
+            if (expr === before || ++fracIter >= FRAC_MAX) break;
         }
 
         // Handle explicit exponents: ^{expr} → ^(expr)
         expr = expr.replace(/\^{([^}]*)}/g, '^($1)');
 
-        // Remove remaining backslashes
+        // Remove remaining backslashes and whitespace
         expr = expr.replace(/\\/g, '');
-
-        // Remove whitespace
         expr = expr.replace(/\s+/g, '');
 
         return this.insertImpliedMultiplication(expr);

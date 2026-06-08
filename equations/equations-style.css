@@ -42,37 +42,61 @@
     text-align: right;
 }
 
-.mathquill-editable {
+/* MathLive math-field answer input */
+math-field.math-field-answer {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
     margin: 0;
+    padding: 8px 44px 8px 10px;
     border: 2px solid var(--app-accent);
-    padding: 8px 10px;
-    line-height: normal;
+    border-radius: 6px;
+    background-color: white;
+    box-sizing: border-box;
     min-width: 8rem;
     min-height: 40px;
-    border-radius: 6px;
-    box-sizing: border-box;
-    background-color: white;
     text-align: left;
+    font-size: 1.4rem;
+    line-height: normal;
+    cursor: text;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    --primary: var(--app-accent);
+    --caret-color: var(--app-accent);
+    --contains-highlight-background-color: rgba(59, 130, 246, 0.08);
+    --selection-background-color: rgba(59, 130, 246, 0.25);
+    --selection-color: #1f2937;
 }
 
-.mathquill-editable.equations-multi-input {
+math-field.math-field-answer.equations-multi-input {
     min-width: 14rem;
 }
 
-.mathquill-editable.mq-focused {
-    border-color: var(--app-accent-dark) !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
-    outline: none !important;
+math-field.math-field-answer::part(menu-toggle) {
+    display: none;
 }
 
-.mathquill-editable.correct {
-    border-color: #10b981 !important;
-    background-color: rgba(16, 185, 129, 0.08) !important;
+math-field.math-field-answer::part(virtual-keyboard-toggle) {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.mathquill-editable.incorrect {
-    border-color: #ef4444 !important;
-    background-color: rgba(239, 68, 68, 0.08) !important;
+math-field.math-field-answer:focus,
+math-field.math-field-answer:focus-within {
+    border-color: var(--app-accent-dark);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    outline: none;
+}
+
+math-field.math-field-answer.correct {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.08);
+}
+
+math-field.math-field-answer.incorrect {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.08);
 }
 
 .equations-input-hint {
@@ -82,52 +106,12 @@
     font-style: italic;
 }
 
-/* Preserve MathQuill internals */
-.mq-root-block {
-    display: inline-block !important;
-    width: 100% !important;
-    padding: 8px !important;
-    margin: 0 !important;
-}
-
-.mq-cursor {
-    display: inline-block !important;
-    vertical-align: text-bottom !important;
-}
-
-.mq-sqrt-prefix {
-    display: inline-block !important;
-    font-family: Symbola, serif !important;
-}
-
-sup, sub {
-    vertical-align: baseline !important;
-    position: relative !important;
-    font-size: 0.8em !important;
-}
-sup { bottom: 0.6em !important; }
-sub { top: 0.6em !important; }
-
-sup.mq-nthroot {
-    font-size: 80% !important;
-    vertical-align: 0.3em !important;
-    padding-top: 0.4em;
-}
-
-.mq-aria-alert {
-    position: absolute !important;
-    left: -10000px !important;
-    width: 1px !important;
-    height: 1px !important;
-    overflow: hidden !important;
-}
-
 /* Streak / timer accent */
 #streak-counter, #timer {
     color: var(--app-accent-dark) !important;
 }
 
-[data-theme="dark"] .mathquill-editable {
+[data-theme="dark"] math-field.math-field-answer {
     background-color: #1f2937;
     color: #f3f4f6;
 }

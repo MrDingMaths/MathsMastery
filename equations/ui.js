@@ -5,6 +5,17 @@ import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storage.js';
 import { BaseUI } from '../shared/baseUI.js';
 
+const INLINE_SHORTCUTS = {
+    pi: '\\pi',
+    theta: '\\theta',
+    sqrt: '\\sqrt{#?}',
+    nthroot: '\\sqrt[#?]{#?}',
+    pm: '\\pm',
+};
+
+const configureMathLiveGlobals = () => window.MathRenderer?.configureMathLiveGlobals();
+const renderStaticLatex = (container, latex) => window.MathRenderer?.renderStaticLatex(container, latex);
+
 export class UI extends BaseUI {
     constructor() {
         super();
@@ -35,9 +46,8 @@ export class UI extends BaseUI {
             replayLevelBtn: document.getElementById('replay-level-btn'),
         };
         this.storage = StorageManager;
-        this.mathFields = {};         // { x: MathField, y: MathField }
+        this.mathFields = {};         // { x: math-field, y: math-field }
         this.mathFieldOrder = [];     // ['x'] or ['x','y'] — input focus order
-        this.MQ = null;
         this.currentView = 'grid';
         this.setupSuccessScreenButtons();
     }
@@ -47,11 +57,24 @@ export class UI extends BaseUI {
     }
 
     _onSettingsRendered() {
-        this.initializeMathQuill();
+        this.initializeMathInputs();
     }
 
-    initializeMathQuill() {
-        this.MQ = MathQuill.getInterface(2);
+    initializeMathInputs() {
+        configureMathLiveGlobals();
+        const staticExamples = [
+            'power-example',
+            'fraction-example',
+            'sqrt-example',
+            'pm-example',
+        ];
+        staticExamples.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                const latex = element.textContent.trim();
+                renderStaticLatex(element, latex);
+            }
+        });
     }
 
     // --- Question display ---
@@ -61,6 +84,8 @@ export class UI extends BaseUI {
         this.mathFields = {};
         this.mathFieldOrder = [];
 
+        configureMathLiveGlobals();
+
         // Problem line(s) (static math) — string for one equation, array for stacked
         const problemLines = Array.isArray(question.problem) ? question.problem : [question.problem];
         problemLines.forEach(latex => {
@@ -68,8 +93,7 @@ export class UI extends BaseUI {
             this.elements.questionText.appendChild(problemLineContainer);
             const problemContainer = createEl('span');
             problemLineContainer.appendChild(problemContainer);
-            const problemMath = this.MQ.StaticMath(problemContainer);
-            problemMath.latex(latex);
+            renderStaticLatex(problemContainer, latex);
         });
 
         const inputs = question.inputs || { vars: ['x'] };
@@ -83,39 +107,37 @@ export class UI extends BaseUI {
         vars.forEach((v, idx) => {
             const row = createEl('div', { className: 'answer-line' });
             const label = createEl('span', { className: 'equals-sign' });
-            const labelMath = this.MQ.StaticMath(label);
-            labelMath.latex(`${v} =`);
+            renderStaticLatex(label, `${v} =`);
             row.appendChild(label);
 
-            const inputContainer = createEl('span', {
-                className: multi ? 'mathquill-editable equations-multi-input' : 'mathquill-editable'
-            });
-            row.appendChild(inputContainer);
+            const field = document.createElement('math-field');
+            field.classList.add('math-field-answer');
+            if (multi) field.classList.add('equations-multi-input');
+            row.appendChild(field);
             answerWrap.appendChild(row);
 
+            field.mathVirtualKeyboardPolicy = 'manual';
+            field.inlineShortcuts = { ...field.inlineShortcuts, ...INLINE_SHORTCUTS };
+            field.menuItems = [];
+
             const isLast = idx === vars.length - 1;
-            const mathFieldConfig = {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: false,
-                autoCommands: 'pi theta sqrt nthroot pm',
-                handlers: {
-                    enter: () => {
-                        if (!isLast) {
-                            const nextVar = vars[idx + 1];
-                            const next = this.mathFields[nextVar];
-                            if (next) next.focus();
-                        } else {
-                            document.dispatchEvent(new CustomEvent('mathquill-enter'));
-                        }
+            field.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!isLast) {
+                        const nextVar = vars[idx + 1];
+                        const next = this.mathFields[nextVar];
+                        if (next) next.focus();
+                    } else {
+                        document.dispatchEvent(new CustomEvent('math-enter'));
                     }
                 }
-            };
+            });
 
-            const field = this.MQ.MathField(inputContainer, mathFieldConfig);
+            field.addEventListener('pointerdown', (e) => {
+                if (e.target === field) field.focus();
+            });
+
             this.mathFields[v] = field;
             this.mathFieldOrder.push(v);
         });
@@ -138,7 +160,7 @@ export class UI extends BaseUI {
     getAnswerFromUI() {
         const out = {};
         for (const v of this.mathFieldOrder) {
-            out[v] = this.mathFields[v] ? this.mathFields[v].latex() : '';
+            out[v] = this.mathFields[v] ? this.mathFields[v].value : '';
         }
         return out;
     }
@@ -155,7 +177,7 @@ export class UI extends BaseUI {
     clearAnswer() {
         for (const v of this.mathFieldOrder) {
             const f = this.mathFields[v];
-            if (f) f.latex('');
+            if (f) f.value = '';
         }
         const first = this.mathFields[this.mathFieldOrder[0]];
         if (first) first.focus();
@@ -178,8 +200,7 @@ export class UI extends BaseUI {
             const answerSpan = createEl('span', { className: 'inline-block' });
             answerLine.appendChild(answerSpan);
             this.elements.feedbackMessage.appendChild(answerLine);
-            const staticMath = this.MQ.StaticMath(answerSpan);
-            staticMath.latex(latex);
+            renderStaticLatex(answerSpan, latex);
         } else if (message) {
             this.elements.feedbackMessage.textContent = message;
         }
@@ -207,16 +228,20 @@ export class UI extends BaseUI {
     }
 
     showInputFeedback(isCorrect) {
-        const fields = this.elements.questionText.querySelectorAll('.mq-editable-field');
-        fields.forEach(el => {
-            el.classList.remove('correct', 'incorrect');
-            el.classList.add(isCorrect ? 'correct' : 'incorrect');
-        });
+        for (const v of this.mathFieldOrder) {
+            const field = this.mathFields[v];
+            if (field) {
+                field.classList.remove('correct', 'incorrect');
+                field.classList.add(isCorrect ? 'correct' : 'incorrect');
+            }
+        }
     }
 
     clearInputFeedback() {
-        const fields = this.elements.questionText.querySelectorAll('.mq-editable-field');
-        fields.forEach(el => el.classList.remove('correct', 'incorrect'));
+        for (const v of this.mathFieldOrder) {
+            const field = this.mathFields[v];
+            if (field) field.classList.remove('correct', 'incorrect');
+        }
     }
 
     // --- Success screen ---

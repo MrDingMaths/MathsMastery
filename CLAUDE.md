@@ -4,7 +4,7 @@
 
 Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step. Supabase backend for Google OAuth and leaderboards. Local progress still persisted in browser localStorage; Supabase is additive (app works fully offline).
 
-**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), jQuery (CDN), MathQuill (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
+**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), MathLive v0.109.2 (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
 
 ## Directory Structure
 
@@ -65,7 +65,7 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `darkMode.css` | Dark mode styles via `[data-theme="dark"]` selectors |
 | `progressStyles.css` | Progress modal/chart styles |
 | `lib/math.js` | Bundled Math.js library |
-| `lib/mathquill/` | MathQuill library (Desmos fork) |
+| `lib/mathlive/` | MathLive v0.109.2 — `<math-field>` Web Component, fonts, static-render CSS |
 
 **CSS design tokens:**
 ```css
@@ -79,20 +79,18 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 ### Algebra (`algebra/`)
 | File | Purpose |
 |------|---------|
-| `index.html` | Entry HTML; loads KaTeX, MathQuill, jQuery, Chart.js |
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
 | `main.js` | ES module entry; wires gameController to UI |
 | `config.js` | Reads `window.LevelRegistry.algebra.LEVEL_GROUPS`; level group config |
 | `gameController.js` | Main orchestrator |
 | `gameState.js` | Extends `BaseGameState`; adds `currentQuestion`, `lastQuestionFormat` |
-| `ui.js` | MathQuill input management + level grid rendering |
+| `ui.js` | `<math-field>` input management + level grid rendering |
 | `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
 | `algebraEngine.js` | Expression comparison engine (~92KB, classic script — see below) |
 | `storage.js` | Stub `StorageManager` delegating best-time/rating reads to `window.progressTracker` |
-| `mobileDetection.js` | Touch/mobile UA + small-screen detection for mobile keyboard |
 | `levels/BaseLevel.js` | Level template class |
 | `levels/index.js` | Dynamic level loader (injects `<script src="levels/{key}.js">` per registry key) |
 | `levels/*.js` | 128 individual level files |
-| `mobile-keyboard/` | Custom on-screen keyboard for algebra input |
 | `progress-tracking/progressTracker.js` | Thin wrapper: calls `window.initProgressTracker('algebra', { enableMistakes: true, oldVersionKeys: […] })` |
 | `debug-algebra-engine.html`, `styleguide.md`, `package.json`, `node_modules/` | Dev tooling for the algebra engine (not shipped on the page) |
 
@@ -140,7 +138,7 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 The most sophisticated component (~90KB). Compares student LaTeX answers algebraically.
 
 **Pipeline:**
-1. **LaTeX Parser** — MathQuill output → Math.js syntax (handles `\frac`, `\sqrt`, unicode superscripts)
+1. **LaTeX Parser** — MathLive output → Math.js syntax (handles `\frac` braced/shorthand forms, `\sqrt`, `\mleft`/`\mright`, `\placeholder{}` stripping, unicode superscripts)
 2. **AST Utilities** — Math.js expression tree traversal
 3. **Simplification Validator** — Rejects unsimplified forms (e.g. `2+2` instead of `4`)
 4. **Binary Difference Canonicalization** — `(a−x)` ≡ `−(x−a)`
