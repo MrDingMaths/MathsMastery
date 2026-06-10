@@ -71,6 +71,7 @@ export class GameController {
             'unitConversions': () => this.questionGen.generateUnitConversions(),
             'integerOperations': () => this.questionGen.generateIntegerOperations(),
             'roundingDecimals': () => this.questionGen.generateRoundingDecimals(),
+            'negAddSub': () => this.questionGen.generateNegativeAddSub(),
             'bonds': (level) => this.questionGen.generateBonds(level.value, level.customMixedRange)
         };
     }

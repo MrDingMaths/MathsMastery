@@ -226,6 +226,21 @@ export const CONFIG = {
         'indexFormToSurdFormEasy': 4,
         'indexFormToSurdFormMedium': 8,
         'indexFormToSurdFormHard': 15,
+
+        // Advanced Skills - Complete the Square
+        'completeTheSquareEasy': 5,
+        'completeTheSquareMedium': 10,
+        'completeTheSquareHard': 20,
+
+        // Advanced Skills - Factorise with Indices
+        'factoriseWithIndicesEasy': 5,
+        'factoriseWithIndicesMedium': 10,
+        'factoriseWithIndicesHard': 20,
+
+        // Advanced Skills - Splitting the Numerator
+        'splittingTheNumeratorEasy': 4,
+        'splittingTheNumeratorMedium': 8,
+        'splittingTheNumeratorHard': 16,
     },
     STORAGE_PREFIX: 'algebra_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }

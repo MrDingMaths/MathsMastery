@@ -1,0 +1,40 @@
+import { BaseLevel } from './BaseLevel.js';
+const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
+export default new BaseLevel('mixedMultistepLinearEasy', 'Mixed Multistep Linear (Easy)', [
+    // Collect like terms on one/both sides
+    Q('13 + 2x + 2x = 41', '7'),
+    Q('3x + 17 + 2x = 62', '9'),
+    Q('3x + 7 + x - 4 = 35', '8'),
+    Q('3x + 7 - x + 4 = 37', '13'),
+    Q('3 + 2x + 3x - 8 = 14', '19/5'),
+    // Expand a single bracket, then solve
+    Q('2(2x + 3) = 27 - 3x', '3'),
+    Q('2(4x + 5) = 9x', '10'),
+    Q('6(3x + 1) = 4x + 20', '1'),
+    Q('4x - 6 = -8(6x - 7) + 42', '2'),
+    Q('8(8x + 5) = 3(6x + 8) + 108', '2'),
+    Q('5(4x - 3) = 3(-4x + 4) + 101', '4'),
+    Q('8x + 6 - 2x = 4x + 8', '1'),
+    // Simple fraction coefficients: ax/b ± c = d
+    Q('\\frac{5x}{9} - 9 = -4', '9'),
+    Q('-\\frac{x}{4} + 15 = 8', '28'),
+    Q('-\\frac{x}{3} + 10 = 17', '-21'),
+    Q('\\frac{8x}{3} + 5 = -11', '-6'),
+    Q('-\\frac{3x}{4} + 5 = -7', '16'),
+    Q('-\\frac{5x}{6} - 6 = 14', '-24'),
+    Q('17 - \\frac{2x}{3} = 1', '24'),
+    Q('2 - \\frac{6x}{5} = 3', '-5/6'),
+    Q('-5 - \\frac{12x}{7} = 3', '-14/3'),
+    Q('\\frac{2x}{3} - 1 = 7', '12'),
+    Q('\\frac{3x}{4} - 2 = 7', '12'),
+    Q('1 = 3 + \\frac{x}{2}', '-4'),
+    Q('5 = 1 - \\frac{4x}{3}', '-3'),
+    Q('-\\frac{3x}{4} + 5 = 14', '-12'),
+    Q('\\frac{x}{2} + 7 = 19', '24'),
+    Q('\\frac{3x}{2} + 7 = 19', '8'),
+    Q('\\frac{3x}{8} - 5 = 1', '16'),
+    Q('-\\frac{3x}{8} + 10 = 19', '-24'),
+    Q('4 = 4 - \\frac{2x}{3}', '0'),
+    Q('\\frac{x}{6} = \\frac{5}{3}', '10'),
+    Q('\\frac{x}{9} = \\frac{2}{3}', '6'),
+]);

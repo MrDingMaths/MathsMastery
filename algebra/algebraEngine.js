@@ -144,6 +144,9 @@ class AlgebraEngine {
         expr = expr.replace(/\\times|\\cdot|×/g, '*');
         expr = expr.replace(/÷/g, '/');
 
+        // Normalise bare \sqrtN → \sqrt{N} (MathLive omits braces for single-char arguments)
+        expr = expr.replace(/\\sqrt([^{(\\\s\[}])/g, '\\sqrt{$1}');
+
         // Convert roots: \sqrt[n]{x} → (x^(1/n)), \sqrt{x} → sqrt(x)
         expr = expr.replace(
             /\\sqrt\[(\d+)\]\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g,
@@ -1989,6 +1992,24 @@ class AlgebraEngine {
     }
 
     // ==================== MODULE 8: MAIN ORCHESTRATOR ====================
+
+    evaluateNumeric(latexStr) {
+        try {
+            const mathExpr = this.latexToMathJS(latexStr);
+            const ast = this.math.parse(mathExpr);
+            const MATH_CONSTANTS = new Set(['pi', 'e', 'i', 'Infinity', 'NaN', 'phi', 'tau']);
+            let hasVariable = false;
+            ast.traverse((node) => {
+                if (node.isSymbolNode && !MATH_CONSTANTS.has(node.name)) hasVariable = true;
+            });
+            if (hasVariable) return null;
+            const result = ast.evaluate();
+            if (typeof result !== 'number' || !isFinite(result)) return null;
+            return result;
+        } catch (e) {
+            return null;
+        }
+    }
 
     /**
      * Full pipeline: Parse LaTeX → Build AST → Validate Simplification →

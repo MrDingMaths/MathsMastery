@@ -48,15 +48,15 @@ math-field.math-field-answer {
     display: inline-flex;
     align-items: center;
     margin: 0;
-    padding: 8px 44px 8px 10px;
+    padding: 10px 12px;
     border: 2px solid var(--app-accent);
     border-radius: 6px;
     background-color: white;
     box-sizing: border-box;
     min-width: 8rem;
-    min-height: 40px;
+    min-height: 56px;
     text-align: left;
-    font-size: 1.4rem;
+    font-size: 2rem;
     line-height: normal;
     cursor: text;
     transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -76,10 +76,7 @@ math-field.math-field-answer::part(menu-toggle) {
 }
 
 math-field.math-field-answer::part(virtual-keyboard-toggle) {
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
+    display: none;
 }
 
 math-field.math-field-answer:focus,
@@ -97,6 +94,12 @@ math-field.math-field-answer.correct {
 math-field.math-field-answer.incorrect {
     border-color: #ef4444;
     background-color: rgba(239, 68, 68, 0.08);
+}
+
+.question-hint {
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #6b7280);
+    margin-bottom: 0.5rem;
 }
 
 .equations-input-hint {

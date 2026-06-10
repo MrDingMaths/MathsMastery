@@ -314,6 +314,7 @@
     font-weight: 500;
     color: #1f2937;
     line-height: 1.3;
+    text-align: left;
 }
 
 .ls-hybrid-tiles {
@@ -541,6 +542,9 @@
     color: #6b7280;
     font-weight: 500;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ls-section-rings-label {
@@ -576,12 +580,14 @@
     color: #1f2937;
     line-height: 1.2;
     word-break: break-word;
+    text-align: left;
 }
 
 .ls-section-ring-count {
     font-size: 10px;
     color: #6b7280;
     margin-top: 1px;
+    text-align: left;
 }
 
 

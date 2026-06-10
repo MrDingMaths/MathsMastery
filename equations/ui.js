@@ -100,15 +100,23 @@ export class UI extends BaseUI {
         const vars = inputs.vars;
         const multi = !!inputs.multi;
 
+        if (question.hint) {
+            const hintLine = createEl('div', { className: 'question-hint', textContent: question.hint });
+            this.elements.questionText.appendChild(hintLine);
+        }
+
         // Answer area
         const answerWrap = createEl('div', { className: 'answer-wrap' });
         this.elements.questionText.appendChild(answerWrap);
 
         vars.forEach((v, idx) => {
             const row = createEl('div', { className: 'answer-line' });
-            const label = createEl('span', { className: 'equals-sign' });
-            renderStaticLatex(label, `${v} =`);
-            row.appendChild(label);
+
+            if (!inputs.type?.startsWith('ineq')) {
+                const label = createEl('span', { className: 'equals-sign' });
+                renderStaticLatex(label, `${v} =`);
+                row.appendChild(label);
+            }
 
             const field = document.createElement('math-field');
             field.classList.add('math-field-answer');
@@ -146,6 +154,14 @@ export class UI extends BaseUI {
             const hint = createEl('div', {
                 className: 'equations-input-hint',
                 textContent: "Enter solutions separated by , or use ±"
+            });
+            answerWrap.appendChild(hint);
+        }
+
+        if (inputs.type === 'ineq-union') {
+            const hint = createEl('div', {
+                className: 'equations-input-hint',
+                textContent: "Enter both inequalities separated by , e.g. x < −2, x > 3"
             });
             answerWrap.appendChild(hint);
         }
@@ -206,21 +222,54 @@ export class UI extends BaseUI {
         }
     }
 
+    _toLatex(expr) {
+        let s = String(expr).trim();
+        const fracMatch = s.match(/^\((.+)\)\/(-?\d+)$/);
+        if (fracMatch) {
+            return `\\frac{${this._convertSqrt(fracMatch[1])}}{${fracMatch[2]}}`;
+        }
+        return this._convertSqrt(s);
+    }
+
+    _convertSqrt(s) {
+        s = s.replace(/(\d+)\*sqrt\((\d+)\)/g, '$1\\sqrt{$2}');
+        s = s.replace(/sqrt\((\d+)\)/g, '\\sqrt{$1}');
+        return s;
+    }
+
     _renderCorrectAnswerLatex(answerObj) {
         const parts = [];
         for (const v of Object.keys(answerObj)) {
             const val = answerObj[v];
-            if (Array.isArray(val)) {
+            if (val && typeof val === 'object' && !Array.isArray(val) && val.ineq) {
+                parts.push(this._renderInequalityLatex(v, val));
+            } else if (Array.isArray(val)) {
                 if (val.length === 1) {
-                    parts.push(`${v} = ${val[0]}`);
+                    parts.push(`${v} = ${this._toLatex(val[0])}`);
                 } else {
-                    parts.push(`${v} = ${val.join(' \\text{ or } ')}`);
+                    parts.push(`${v} = ${val.map(r => this._toLatex(r)).join(' \\text{ or } ')}`);
                 }
             } else {
-                parts.push(`${v} = ${val}`);
+                parts.push(`${v} = ${this._toLatex(val)}`);
             }
         }
         return parts.join(', \\quad ');
+    }
+
+    _renderInequalityLatex(variable, val) {
+        const opLatex = { '>': '>', '<': '<', '>=': '\\geq', '<=': '\\leq' };
+        if (val.ineq === 'union') {
+            return val.parts
+                .map(p => `${variable} ${opLatex[p.ineq] ?? p.ineq} ${p.rhs}`)
+                .join(' \\text{ or } ');
+        }
+        if (val.ineq === 'between') {
+            const lo = val.loStrict ? '<' : '\\leq';
+            const hi = val.hiStrict ? '<' : '\\leq';
+            return `${val.lo} ${lo} ${variable} ${hi} ${val.hi}`;
+        }
+        // linear
+        return `${variable} ${opLatex[val.ineq] ?? val.ineq} ${val.rhs}`;
     }
 
     clearFeedback() {

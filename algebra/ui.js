@@ -89,6 +89,11 @@ export class UI extends BaseUI {
     displayQuestion(question) {
         this.elements.questionText.innerHTML = '';
 
+        if (question.hint) {
+            const hintLine = createEl('div', { className: 'question-hint', textContent: question.hint });
+            this.elements.questionText.appendChild(hintLine);
+        }
+
         const problemLineContainer = createEl('div', { className: 'problem-line' });
         this.elements.questionText.appendChild(problemLineContainer);
 

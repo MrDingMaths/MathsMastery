@@ -848,7 +848,10 @@ export class BaseUI {
         // Overall ring
         const overallWrap = createEl('div', { className: 'ls-overall-ring' });
         overallWrap.appendChild(this._lsProgressRingSVG(totalCount > 0 ? masteredCount / totalCount : 0, 76, color));
-        overallWrap.appendChild(createEl('span', { className: 'ls-ring-label', textContent: `${masteredCount} / ${totalCount} mastered` }));
+        const ringLabel = createEl('span', { className: 'ls-ring-label' });
+        ringLabel.appendChild(document.createTextNode(`${masteredCount} / ${totalCount}`));
+        ringLabel.appendChild(createEl('span', { textContent: 'mastered' }));
+        overallWrap.appendChild(ringLabel);
         aside.appendChild(overallWrap);
         aside.appendChild(createEl('div', { className: 'ls-hr' }));
 

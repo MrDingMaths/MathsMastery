@@ -133,6 +133,25 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `trig-style/trig-style.css` | Trig-specific styles |
 | `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('trigfacts', …)` |
 
+### Equations (`equations/`)
+| File | Purpose |
+|------|---------|
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
+| `main.js` | ES module entry |
+| `config.js` | Reads `window.LevelRegistry.equations.LEVEL_GROUPS` |
+| `gameController.js` | Main orchestrator |
+| `gameState.js` | Extends `BaseGameState` |
+| `ui.js` | `<math-field>` input management; renders variable input rows |
+| `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
+| `equationsAnswerChecker.js` | Answer checker: scalar, multi-root, inequality; delegates to `AlgebraEngine` |
+| `storage.js` | Stub `StorageManager` delegating to `window.progressTracker` |
+| `levels/BaseLevel.js` | Level template class; accepts optional `{ toleranceDp }` option |
+| `levels/index.js` | Dynamic level loader |
+| `levels/*.js` | Individual level files |
+| `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('equations', …)` |
+
+**Irrational-answer levels** pass `{ toleranceDp: 2 }` as the 4th argument to `BaseLevel`. This causes `generateQuestion()` to stamp `toleranceDp: 2` onto every returned question's answer object, enabling the checker to accept a decimal answer correct to 2dp as an alternative to the exact form (e.g. `1.62` accepted alongside `(1+√5)/2`). Levels that need this flag: `quadraticFormula`, `equationsLogs`, `simpleCubic` (all difficulties). Levels solved by matching bases (`exponentialNoLogs`) always give exact rational answers and do not need the flag.
+
 ## Algebra Engine (`algebra/algebraEngine.js`)
 
 The most sophisticated component (~90KB). Compares student LaTeX answers algebraically.

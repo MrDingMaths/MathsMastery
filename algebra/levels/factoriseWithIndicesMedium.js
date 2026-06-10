@@ -1,0 +1,38 @@
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel(
+    'factoriseWithIndicesMedium',
+    'Factorise with Indices (Medium)',
+    [
+        { problem: "6^x \\times 4^x \\div 3^x",                                answer: "2^{3x}" },
+        { problem: "12^x \\times 18^x",                                         answer: "2^{3x} \\times 3^{3x}" },
+        { problem: "24^{x+1} \\times 8^{-1}",                                   answer: "2^{3x} \\times 3^{x+1}" },
+        { problem: "15^x \\times 6^x \\div 10^x",                               answer: "3^{2x}" },
+        { problem: "6^{2n} \\div 3^n \\div 4^n",                                answer: "3^n" },
+        { problem: "10^n \\times 4^n \\div 8^n",                                answer: "5^n" },
+        { problem: "\\frac{2^n \\times 9^{2n+1}}{6^{n-2}}",                    answer: "4 \\times 3^{3n+4}" },
+        { problem: "\\frac{25^{3n} \\times 5^{n-3}}{5^{4n+3}}",                answer: "5^{3n-6}" },
+        { problem: "\\frac{12^{x-2} \\times 4^x}{6^{x-2}}",                    answer: "2^{3x-2}" },
+        { problem: "\\frac{3^n \\times 4^{n+1}}{2^{n+3}}",                     answer: "3^n \\times 2^{n-1}" },
+        { problem: "\\frac{6^{n+1} \\times 2^n}{4^{n+1} \\times 3^n}",         answer: "\\frac{3}{2}" },
+        { problem: "\\frac{2^{n+2} + 2^{n+1}}{2^n + 2^{n-1}}",                 answer: "4" },
+        { problem: "\\frac{2^{n+3} - 2^{n+1}}{2^{n-1} + 2^n}",                 answer: "4" },
+        { problem: "\\frac{3^{n+2} - 3^n}{3^{n+1} + 3^n}",                    answer: "2" },
+        { problem: "\\frac{4^n - 4^{n-2}}{4^n + 4^{n-1}}",                    answer: "\\frac{3}{4}" },
+        { problem: "\\frac{2^{2n+1} + 2^{2n}}{2^{n+1} + 2^n}",                answer: "2^n" },
+        { problem: "\\frac{7^n + 7^{n+2}}{7^{n-1} + 7^{n+1}}",                 answer: "7" },
+        { problem: "\\frac{2^{2n} - 2^{n-1}}{2^n - 2^{-1}}",                   answer: "2^n" },
+        { problem: "\\frac{5^n - 5^{n+1}}{5^{n+1} + 5^n}",                    answer: "-\\frac{2}{3}" },
+        { problem: "\\frac{3^{2n} - 3^n}{3^n - 1}",                            answer: "3^n" },
+        { problem: "6^n - 3^n",                                                 answer: "3^n(2^n - 1)" },
+        { problem: "4^n - 2^n",                                                 answer: "2^n(2^n - 1)" },
+        { problem: "10^n - 5^n",                                                answer: "5^n(2^n - 1)" },
+        { problem: "15^n - 3^n",                                                answer: "3^n(5^n - 1)" },
+        { problem: "12^n - 4^n",                                                answer: "4^n(3^n - 1)" },
+        { problem: "\\frac{6^n + 3^n}{2^{n+1} + 2}",                           answer: "\\frac{3^n}{2}" },
+        { problem: "\\frac{4^n + 2^n}{2^{n+1} + 2}",                           answer: "2^{n-1}" },
+        { problem: "\\frac{10^n + 5^n}{2^{n+1} + 2}",                          answer: "\\frac{5^n}{2}" },
+        { problem: "\\frac{15^n + 3^n}{5^n + 1}",                              answer: "3^n" },
+        { problem: "\\frac{12^n + 4^n}{3^n + 1}",                              answer: "4^n" },
+    ]
+);

@@ -127,3 +127,12 @@ export { default as surdFormToIndexFormHard } from './surdFormToIndexFormHard.js
 export { default as indexFormToSurdFormEasy } from './indexFormToSurdFormEasy.js';
 export { default as indexFormToSurdFormMedium } from './indexFormToSurdFormMedium.js';
 export { default as indexFormToSurdFormHard } from './indexFormToSurdFormHard.js';
+export { default as completeTheSquareEasy } from './completeTheSquareEasy.js';
+export { default as completeTheSquareMedium } from './completeTheSquareMedium.js';
+export { default as completeTheSquareHard } from './completeTheSquareHard.js';
+export { default as factoriseWithIndicesEasy } from './factoriseWithIndicesEasy.js';
+export { default as factoriseWithIndicesMedium } from './factoriseWithIndicesMedium.js';
+export { default as factoriseWithIndicesHard } from './factoriseWithIndicesHard.js';
+export { default as splittingTheNumeratorEasy   } from './splittingTheNumeratorEasy.js';
+export { default as splittingTheNumeratorMedium } from './splittingTheNumeratorMedium.js';
+export { default as splittingTheNumeratorHard   } from './splittingTheNumeratorHard.js';

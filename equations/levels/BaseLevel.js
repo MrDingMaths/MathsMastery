@@ -4,10 +4,12 @@
 // equations/equationsAnswerChecker.js for the contract.
 
 export class BaseLevel {
-    constructor(key, name, questions) {
+    constructor(key, name, questions, options = {}) {
         this.key = key;
         this.name = name;
         this.questions = questions;
+        this.toleranceDp = options.toleranceDp ?? null;
+        this.hint = options.hint ?? null;
         this.usedQuestionIndices = new Set();
     }
 
@@ -20,6 +22,10 @@ export class BaseLevel {
             idx = Math.floor(Math.random() * this.questions.length);
         } while (this.usedQuestionIndices.has(idx));
         this.usedQuestionIndices.add(idx);
-        return this.questions[idx];
+        const q = this.questions[idx];
+        const out = { ...q };
+        if (this.toleranceDp != null) out.answer = { ...q.answer, toleranceDp: this.toleranceDp };
+        if (this.hint) out.hint = this.hint;
+        return out;
     }
 }

@@ -21,6 +21,7 @@ export const CONFIG = {
         'Bonds to 100': { text: '100', useKaTeX: false },
         'Bonds to -10': { text: '-10', useKaTeX: false },
         'Bonds to -20': { text: '-20', useKaTeX: false },
+        'Add & Subtract Negatives': { text: '-n \\pm', useKaTeX: true },
 
         // Multiplication & Division
         '× 2 4 5 10': { text: '\\times 2', useKaTeX: true },
@@ -90,13 +91,14 @@ export const CONFIG = {
         'bonds100': 1.4,          // Common benchmark, standard speed
         'bonds-10': 1.5,          // Negative numbers add complexity
         'bonds-20': 1.5,          // More negative complexity
+        'negAddSub': 1.5,         // Directed-number addition and subtraction
 
         // Multiplication & Division - essential facts requiring memorization
         'group245': 1,          // Easy tables (2,4,5,10)
         'group369': 1.2,          // Medium tables (3,6,9)
         'multall': 1.2,           // Full tables (2-12), more variety
         'mixed-negative-mult': 1.8, // Negatives add significant complexity
-        'integerOperations': 2.5, // Mixed directed-number ops with order of operations
+        'integerOperations': 1.5, // Mixed directed-number ops with order of operations
         'multiplyDivideBy100': 1.8, // Focused on single power, pattern-based
         'powersOf10': 2,        // Pattern-based, should be quick
         'double100': 1.5,         // Doubling is systematic
