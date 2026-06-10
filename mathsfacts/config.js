@@ -98,7 +98,7 @@ export const CONFIG = {
         'group369': 1.2,          // Medium tables (3,6,9)
         'multall': 1.2,           // Full tables (2-12), more variety
         'mixed-negative-mult': 1.8, // Negatives add significant complexity
-        'integerOperations': 1.5, // Mixed directed-number ops with order of operations
+        'integerOperations': 1.8, // Mixed directed-number ops with order of operations
         'multiplyDivideBy100': 1.8, // Focused on single power, pattern-based
         'powersOf10': 2,        // Pattern-based, should be quick
         'double100': 1.5,         // Doubling is systematic
