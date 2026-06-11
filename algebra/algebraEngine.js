@@ -29,6 +29,13 @@ if (typeof require !== 'undefined') {
 }
 
 class AlgebraEngine {
+    // Multi-letter math.js function names that must survive implicit-multiplication
+    // splitting (see insertImpliedMultiplication). `sqrt` is the only one emitted
+    // by latexToMathJS today; the rest future-proof the parser.
+    static KNOWN_FUNCTIONS = new Set([
+        'sqrt', 'cbrt', 'nthRoot', 'abs', 'sin', 'cos', 'tan', 'log', 'ln', 'exp'
+    ]);
+
     constructor(mathObj = null) {
         this.logDepth = 0;
         // Store math object - use provided math or the global one
@@ -185,23 +192,50 @@ class AlgebraEngine {
     /**
      * Insert implicit multiplication between adjacent terms
      * Examples: "2x" → "2*x", "(x)(y)" → "(x)*(y)", "xy" → "x*y"
+     *
+     * Multi-letter math.js function names (e.g. sqrt) are recognised and kept
+     * intact when followed by "(": their letters are NOT split and no "*" is
+     * inserted before the "(". Without this, "sqrt(5)" would become
+     * "s*q*r*t*(5)" — four phantom variables that break numeric evaluation.
      */
     insertImpliedMultiplication(expr) {
-        let result = '';
         if (expr.length === 0) return '';
 
-        for (let i = 0; i < expr.length; i++) {
+        let result = '';
+        let i = 0;
+        while (i < expr.length) {
+            // Detect a maximal run of letters.
+            const runMatch = expr.slice(i).match(/^[a-zA-Z]+/);
+            if (runMatch) {
+                const run = runMatch[0];
+                const after = expr[i + run.length]; // char following the run (may be undefined)
+
+                // Protected function call: known name immediately followed by "(".
+                if (AlgebraEngine.KNOWN_FUNCTIONS.has(run) && after === '(') {
+                    // Leading "*" if the previous emitted char was a digit or ")".
+                    if (result.length && /[)\d]/.test(result[result.length - 1])) result += '*';
+                    result += run; // emit name verbatim; no "*" before "("
+                    i += run.length;
+                    continue;
+                }
+                // Otherwise treat each letter as its own variable (split with "*").
+                if (result.length && /[)\d]/.test(result[result.length - 1])) result += '*';
+                result += run.split('').join('*');
+                // Implicit multiplication before a following letter/"(".
+                if (after && /[a-zA-Z(]/.test(after)) result += '*';
+                i += run.length;
+                continue;
+            }
+
+            // Non-letter character: apply digit/paren rules.
             const char = expr[i];
             result += char;
-
-            if (i === expr.length - 1) break;
-
             const nextChar = expr[i + 1];
-
-            // Insert * between: digit and letter/paren, paren and letter/digit/paren, letter and letter/paren
-            if (char.match(/\d/) && nextChar.match(/[a-zA-Z(]/)) result += '*';
-            else if (char === ')' && nextChar.match(/[a-zA-Z\d(]/)) result += '*';
-            else if (char.match(/[a-zA-Z]/) && nextChar.match(/[a-zA-Z(]/)) result += '*';
+            if (nextChar !== undefined) {
+                if (/\d/.test(char) && /[a-zA-Z(]/.test(nextChar)) result += '*';
+                else if (char === ')' && /[a-zA-Z\d(]/.test(nextChar)) result += '*';
+            }
+            i++;
         }
 
         return result;
@@ -1996,17 +2030,32 @@ class AlgebraEngine {
     evaluateNumeric(latexStr) {
         try {
             const mathExpr = this.latexToMathJS(latexStr);
+            console.log(`[evaluateNumeric] latex="${latexStr}" → mathExpr="${mathExpr}"`);
             const ast = this.math.parse(mathExpr);
             const MATH_CONSTANTS = new Set(['pi', 'e', 'i', 'Infinity', 'NaN', 'phi', 'tau']);
             let hasVariable = false;
-            ast.traverse((node) => {
-                if (node.isSymbolNode && !MATH_CONSTANTS.has(node.name)) hasVariable = true;
+            const symbolsFound = [];
+            ast.traverse((node, path, parent) => {
+                if (!node.isSymbolNode || MATH_CONSTANTS.has(node.name)) return;
+                // A FunctionNode's name is a child SymbolNode (path 'fn'); that's a
+                // function identifier (e.g. sqrt), not a free variable — skip it.
+                if (parent && parent.isFunctionNode && path === 'fn') return;
+                hasVariable = true;
+                symbolsFound.push(node.name);
             });
-            if (hasVariable) return null;
+            if (hasVariable) {
+                console.log(`[evaluateNumeric] → null (has variables: ${symbolsFound.join(', ')})`);
+                return null;
+            }
             const result = ast.evaluate();
-            if (typeof result !== 'number' || !isFinite(result)) return null;
+            if (typeof result !== 'number' || !isFinite(result)) {
+                console.log(`[evaluateNumeric] → null (result not finite number: ${result}, type: ${typeof result})`);
+                return null;
+            }
+            console.log(`[evaluateNumeric] → ${result}`);
             return result;
         } catch (e) {
+            console.log(`[evaluateNumeric] → null (exception: ${e.message})`);
             return null;
         }
     }

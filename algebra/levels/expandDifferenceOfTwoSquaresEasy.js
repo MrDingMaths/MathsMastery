@@ -23,8 +23,6 @@ export default new BaseLevel(
             {problem: "(x+7)(x-7)", answer: "x^2-49"},
             {problem: "(x+9)(x-9)", answer: "x^2-81"},
             {problem: "(x+10)(x-10)", answer: "x^2-100"},
-            {problem: "(x-3)(x+3)", answer: "x^2-9"},
-            {problem: "(x-8)(x+8)", answer: "x^2-64"},
             {problem: "(x-12)(x+12)", answer: "x^2-144"},
             {problem: "(x-15)(x+15)", answer: "x^2-225"},
             
@@ -42,7 +40,6 @@ export default new BaseLevel(
             {problem: "(x+4)(x-4)", answer: "x^2-16"},
             {problem: "(x+25)(x-25)", answer: "x^2-625"},
             {problem: "(16+x)(16-x)", answer: "256-x^2"},
-            {problem: "(x-25)(x+25)", answer: "x^2-625"},
             {problem: "(20+x)(20-x)", answer: "400-x^2"},
             {problem: "(x+30)(x-30)", answer: "x^2-900"},
             

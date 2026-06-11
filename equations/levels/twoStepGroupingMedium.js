@@ -2,7 +2,6 @@ import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
 export default new BaseLevel('twoStepGroupingMedium', 'Two Step Grouping (Medium)', [
     // Page 14 (4a–4b) — contrasting forms (fraction vs bracket notation)
-    Q('\\frac{x}{3} + 5 = 7', '6'),
     Q('\\frac{x + 5}{3} = 7', '16'),
     // Page 14 (5a–5f) — bracket forms only (non-grouping 2x±5 variants migrated to twoStep)
     Q('2(x + 5) = 60', '25'),
@@ -37,6 +36,13 @@ export default new BaseLevel('twoStepGroupingMedium', 'Two Step Grouping (Medium
     Q('2(5 - x) - 3x = 30', '-4'),
     Q('2 - 3(x + 1) = -1', '0'),
     Q('-4 - 2(x + 2) = 4', '-6'),
+    // Moved from Easy — extra terms / negative multipliers
+    Q('4(x + 6) - 8 = 48', '8'),
+    Q('-5(x + 4) + 9 = -41', '6'),
+    Q('-8(x + 4) - 3 = -59', '3'),
+    Q('-2(x - 2) - 7 = -29', '13'),
+    Q('2(3x - 1) - 4 = 12', '3'),
+    Q('3(3x + 5) + 6 = 3', '-2'),
     // Migrated from mixedTwoStepMedium
     Q('4(x + 16) = -84', '-37'),
     // Migrated from mixedTwoStepHard
@@ -44,4 +50,6 @@ export default new BaseLevel('twoStepGroupingMedium', 'Two Step Grouping (Medium
     Q('30 = \\frac{-6 + x}{3}', '96'),
     Q('3 = \\frac{-6 + x}{30}', '96'),
     Q('30 = \\frac{1}{3}(x + 6)', '84'),
+    // Migrated from mixedMultistepLinearMedium
+    Q('\\frac{1}{3}(3x - 6) = 2', '4'),
 ]);

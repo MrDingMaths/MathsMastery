@@ -7,13 +7,13 @@ export default new BaseLevel('simpleCubicHard', 'Simple Cubic (Hard)', [
     Q('2(x^3+1)=130', '4'),
     Q('3(x^3+2)=87', '3'),
     Q('5(x^3+3)=640', '5'),
-    Q('-3(x^3+4)=39', '-(17)^(1/3)'),
+    Q('3(x^3-4)=39', '17^(1/3)'),
     Q('2(x^3-10)=500', '260^(1/3)'),
     Q('4(x^3+2)=60', '13^(1/3)'),
     Q('10-\\frac{x^3}{4}=2', '32^(1/3)'),
     Q('5+\\frac{x^3}{3}=14', '3'),
     Q('1-\\frac{x^3}{2}=-13', '28^(1/3)'),
-    Q('\\frac{x^3}{4}+3=-22', '-(100)^(1/3)'),
+    Q('\\frac{x^3}{4}-3=22', '100^(1/3)'),
     Q('7-\\frac{3x^3}{2}=1', '4^(1/3)'),
     Q('\\frac{x^3}{5}-3=22', '5'),
     Q('5x^3=2x^3+81', '3'),
@@ -31,4 +31,4 @@ export default new BaseLevel('simpleCubicHard', 'Simple Cubic (Hard)', [
     Q('2x^3-3x^3+100=28', '72^(1/3)'),
     Q('\\frac{3x^3-1}{2}=26', '(53/3)^(1/3)'),
     Q('\\frac{x^3}{3}+\\frac{x^3}{6}=12', '24^(1/3)'),
-], { toleranceDp: 2 });
+], { toleranceDp: 2, hint: 'Leave exact, in surd form, in index form, or to 2 d.p.' });

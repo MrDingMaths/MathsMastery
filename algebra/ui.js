@@ -5,6 +5,14 @@ import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storage.js';
 import { BaseUI } from '../shared/baseUI.js';
 
+function focusWhenReady(field, attempts = 10) {
+    try {
+        field.focus();
+    } catch {
+        if (attempts > 0) setTimeout(() => focusWhenReady(field, attempts - 1), 50);
+    }
+}
+
 const INLINE_SHORTCUTS = {
     pi: '\\pi',
     theta: '\\theta',
@@ -134,7 +142,7 @@ export class UI extends BaseUI {
         this.mathField = answerField;
 
         setTimeout(() => {
-            answerField.focus();
+            focusWhenReady(answerField);
         }, 100);
     }
 

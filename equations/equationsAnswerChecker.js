@@ -129,14 +129,20 @@ export class EquationsAnswerChecker {
 
     _scalarEqual(userLatex, expectedLatex, tolerance = null) {
         try {
-            if (this.engine.compareExpressions(userLatex, expectedLatex)) return true;
-            if (tolerance === null) return false;
+            const symbolic = this.engine.compareExpressions(userLatex, expectedLatex);
+            console.log(`[AnswerChecker] symbolic "${userLatex}" vs "${expectedLatex}":`, symbolic);
+            if (symbolic) return true;
+            if (tolerance === null) {
+                console.log(`[AnswerChecker] no tolerance — rejecting`);
+                return false;
+            }
             const userVal = this.engine.evaluateNumeric(userLatex);
-            if (userVal === null) return false;
             const expectedVal = this.engine.evaluateNumeric(expectedLatex);
-            if (expectedVal === null) return false;
+            console.log(`[AnswerChecker] numeric user=${userVal} expected=${expectedVal} tolerance=${tolerance}`);
+            if (userVal === null || expectedVal === null) return false;
             return Math.abs(userVal - expectedVal) < tolerance;
         } catch (e) {
+            console.log(`[AnswerChecker] error:`, e);
             return false;
         }
     }

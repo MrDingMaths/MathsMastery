@@ -7,7 +7,6 @@ export default new BaseLevel(
             // Provided textbook questions
             {problem: "\\frac{x}{3} + \\frac{x+5}{4}", answer: "\\frac{7x+15}{12}"},
             {problem: "\\frac{x}{3} + \\frac{x+2}{4}", answer: "\\frac{7x+6}{12}"},
-            {problem: "\\frac{x}{2} + \\frac{3x}{4}", answer: "\\frac{5x}{4}"},
             {problem: "\\frac{y+1}{5} + \\frac{2y}{3}", answer: "\\frac{13y+3}{15}"},
             {problem: "\\frac{a+2}{3} - \\frac{a}{4}", answer: "\\frac{a+8}{12}"},
             {problem: "\\frac{x+4}{3} + \\frac{x-2}{5}", answer: "\\frac{8x+14}{15}"},
@@ -41,6 +40,7 @@ export default new BaseLevel(
             {problem: "\\frac{x}{4} + \\frac{x+2}{3}", answer: "\\frac{7x+8}{12}"},
             {problem: "\\frac{x+1}{6} + \\frac{x}{2}", answer: "\\frac{4x+1}{6}"},
             {problem: "\\frac{x-2}{3} + \\frac{2x}{5}", answer: "\\frac{11x-10}{15}"},
-            {problem: "\\frac{x+3}{4} + \\frac{x+1}{6}", answer: "\\frac{5x+11}{12}"}
+            {problem: "\\frac{x+3}{4} + \\frac{x+1}{6}", answer: "\\frac{5x+11}{12}"},
+            {problem: "\\frac{x+5}{7} + \\frac{x-2}{3}", answer: "\\frac{10x+1}{21}"}
         ]
 );

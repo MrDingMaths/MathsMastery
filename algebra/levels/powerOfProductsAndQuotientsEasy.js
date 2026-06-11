@@ -65,7 +65,6 @@ export default new BaseLevel(
             {problem: "(\\frac{x^3}{y})^2", answer: "\\frac{x^6}{y^2}"},
             {problem: "(\\frac{x^2}{y})^3", answer: "\\frac{x^6}{y^3}"},
             {problem: "(\\frac{a^4}{b})^2", answer: "\\frac{a^8}{b^2}"},
-            {problem: "(\\frac{x^3}{y^2})^2", answer: "\\frac{x^6}{y^4}"},
             
             // More coefficient powers            {problem: "(5a)^3", answer: "125a^3"},
             {problem: "(2x)^6", answer: "64x^6"},

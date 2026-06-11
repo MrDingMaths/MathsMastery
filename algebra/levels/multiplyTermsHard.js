@@ -6,7 +6,7 @@ class MultiplyTermsHardLevel extends BaseLevel {
         super('multiplyTermsHard', 'Multiplying Terms (Hard)', [
             // 3-term problems (adjusted from 4-term problems)
             {problem: "2a \\times 3b \\times 4x", answer: "24abx"},
-            {problem: "7x \\times 2y \\times (-3)", answer: "-42xy"},
+            {problem: "x \\times 2y \\times 7a", answer: "14xya"},
             {problem: "x \\times (-4y) \\times 5a", answer: "-20xya"},
             {problem: "(-2a^2) \\times 3b \\times (-x)", answer: "6a^2bx"},
             {problem: "6x \\times (-y) \\times 3a", answer: "-18xya"},

@@ -12,6 +12,7 @@ export default new BaseLevel(
             {problem: "(5y^2)^4", answer: "625y^8"},
             
             // Multi-variable quotients
+            {problem: "(\\frac{x^3}{y^2})^2", answer: "\\frac{x^6}{y^4}"},
             {problem: "(\\frac{a^2}{b^3})^2", answer: "\\frac{a^4}{b^6}"},
             {problem: "(\\frac{x^3}{y^4})^3", answer: "\\frac{x^9}{y^{12}}"},
             {problem: "(\\frac{x^5}{y^2})^2", answer: "\\frac{x^{10}}{y^4}"},

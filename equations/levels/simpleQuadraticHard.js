@@ -36,4 +36,4 @@ export default new BaseLevel('simpleQuadraticHard', 'Simple Quadratic (Hard)', [
     Q('4x^{2} - 3x - 1 = 2x^{2} - 3x + 15', ['2\\sqrt{2}', '-2\\sqrt{2}']),
     Q('5x^{2} - 2x + 1 = 3x^{2} - 2x + 11', ['\\sqrt{5}', '-\\sqrt{5}']),
     Q('6x^{2} + x - 4 = 4x^{2} + x + 14', ['3', '-3']),
-]);
+], { toleranceDp: 2 });

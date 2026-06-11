@@ -20,8 +20,13 @@ export default new BaseLevel(
             {problem: "(\\frac{4a}{3}+2)(\\frac{4a}{3}-2)", answer: "\\frac{16a^2}{9}-4"},
             {problem: "(xy-\\frac{1}{y})(xy+\\frac{1}{y})", answer: "x^2y^2-\\frac{1}{y^2}"},
             
-            // Complex expressions with parentheses
-            {problem: "[x+(y-2)][x-(y-2)]", answer: "x^2-(y-2)^2"},
+            // Composite binomial as a term — applying DoTS where one "term" is itself a binomial
+            {problem: "(x+(y-2))(x-(y-2))", answer: "x^2-(y-2)^2"},
+            {problem: "(x+(y+3))(x-(y+3))", answer: "x^2-(y+3)^2"},
+            {problem: "(a+(2b-1))(a-(2b-1))", answer: "a^2-(2b-1)^2"},
+            {problem: "(3x+(y+2))(3x-(y+2))", answer: "9x^2-(y+2)^2"},
+            {problem: "(x+(y+z))(x-(y+z))", answer: "x^2-(y+z)^2"},
+            {problem: "((a+b)+(c+d))((a+b)-(c+d))", answer: "(a+b)^2-(c+d)^2"},
             
             // Additional fraction patterns
             {problem: "(x+\\frac{2}{5})(x-\\frac{2}{5})", answer: "x^2-\\frac{4}{25}"},

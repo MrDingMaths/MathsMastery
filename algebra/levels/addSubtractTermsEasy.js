@@ -82,6 +82,42 @@ export default new BaseLevel(
             {problem: "4a + 2 + 3a", answer: "7a + 2"},
             {problem: "7 + 2b + 5b", answer: "7 + 7b"},
             {problem: "3x - 2 + 3x", answer: "6x - 2"},
-            {problem: "7ab + 4 + 2ab", answer: "9ab + 4"}
+            {problem: "7ab + 4 + 2ab", answer: "9ab + 4"},
+
+            // Larger coefficient linear — moved from Medium
+            {problem: "7x + 8x", answer: "15x"},
+            {problem: "12a - 5a", answer: "7a"},
+            {problem: "9b + 6b", answer: "15b"},
+            {problem: "15y - 8y", answer: "7y"},
+            {problem: "11x + 4x", answer: "15x"},
+            {problem: "18x - 9x", answer: "9x"},
+            {problem: "13x - 7x", answer: "6x"},
+            {problem: "20x - 12x", answer: "8x"},
+            {problem: "14x + 9x", answer: "23x"},
+            {problem: "25x - 16x", answer: "9x"},
+
+            // Larger coefficient quadratic — moved from Medium
+            {problem: "8x^2 + 7x^2", answer: "15x^2"},
+            {problem: "12a^2 - 5a^2", answer: "7a^2"},
+            {problem: "15b^2 + 9b^2", answer: "24b^2"},
+            {problem: "18y^2 - 11y^2", answer: "7y^2"},
+            {problem: "10x^2 + 13x^2", answer: "23x^2"},
+            {problem: "22x^2 - 14x^2", answer: "8x^2"},
+            {problem: "16x^2 + 7x^2", answer: "23x^2"},
+            {problem: "25x^2 - 18x^2", answer: "7x^2"},
+            {problem: "19x^2 + 12x^2", answer: "31x^2"},
+            {problem: "30x^2 - 17x^2", answer: "13x^2"},
+
+            // Variable + constant (3-term) — moved from Medium
+            {problem: "5x + 8 - 2x", answer: "3x + 8"},
+            {problem: "12a - 7 + 3a", answer: "15a - 7"},
+            {problem: "9b + 15 - 4b", answer: "5b + 15"},
+            {problem: "7y - 12 + 8y", answer: "15y - 12"},
+            {problem: "11x + 6 - 7x", answer: "4x + 6"},
+            {problem: "18x - 9 - 5x", answer: "13x - 9"},
+            {problem: "14x + 11 + 3x", answer: "17x + 11"},
+            {problem: "20x - 15 - 8x", answer: "12x - 15"},
+            {problem: "16x + 7 + 9x", answer: "25x + 7"},
+            {problem: "22x - 18 - 6x", answer: "16x - 18"}
         ]
 );

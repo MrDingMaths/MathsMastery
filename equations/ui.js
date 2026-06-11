@@ -5,6 +5,14 @@ import { Timer } from '../shared/timer.js';
 import { StorageManager } from './storage.js';
 import { BaseUI } from '../shared/baseUI.js';
 
+function focusWhenReady(field, attempts = 10) {
+    try {
+        field.focus();
+    } catch {
+        if (attempts > 0) setTimeout(() => focusWhenReady(field, attempts - 1), 50);
+    }
+}
+
 const INLINE_SHORTCUTS = {
     pi: '\\pi',
     theta: '\\theta',
@@ -169,7 +177,7 @@ export class UI extends BaseUI {
         // Focus first field
         setTimeout(() => {
             const first = this.mathFields[this.mathFieldOrder[0]];
-            if (first) first.focus();
+            if (first) focusWhenReady(first);
         }, 100);
     }
 
@@ -224,11 +232,32 @@ export class UI extends BaseUI {
 
     _toLatex(expr) {
         let s = String(expr).trim();
+
+        // (content)^(1/N) → \sqrt[N]{content}
+        const nthRootParen = s.match(/^\((.+)\)\^\(1\/(\d+)\)$/);
+        if (nthRootParen) {
+            const inner = this._fracToLatex(nthRootParen[1]);
+            const n = nthRootParen[2];
+            return n === '2' ? `\\sqrt{${inner}}` : `\\sqrt[${n}]{${inner}}`;
+        }
+
+        // plain^(1/N) → \sqrt[N]{plain}
+        const nthRootPlain = s.match(/^(-?[\d.]+)\^\(1\/(\d+)\)$/);
+        if (nthRootPlain) {
+            const n = nthRootPlain[2];
+            return n === '2' ? `\\sqrt{${nthRootPlain[1]}}` : `\\sqrt[${n}]{${nthRootPlain[1]}}`;
+        }
+
         const fracMatch = s.match(/^\((.+)\)\/(-?\d+)$/);
         if (fracMatch) {
             return `\\frac{${this._convertSqrt(fracMatch[1])}}{${fracMatch[2]}}`;
         }
         return this._convertSqrt(s);
+    }
+
+    _fracToLatex(s) {
+        const m = s.match(/^(-?\d+)\/(\d+)$/);
+        return m ? `\\frac{${m[1]}}{${m[2]}}` : s;
     }
 
     _convertSqrt(s) {
@@ -240,6 +269,7 @@ export class UI extends BaseUI {
     _renderCorrectAnswerLatex(answerObj) {
         const parts = [];
         for (const v of Object.keys(answerObj)) {
+            if (v === 'toleranceDp') continue;
             const val = answerObj[v];
             if (val && typeof val === 'object' && !Array.isArray(val) && val.ineq) {
                 parts.push(this._renderInequalityLatex(v, val));

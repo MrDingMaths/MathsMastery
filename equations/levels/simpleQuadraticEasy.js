@@ -34,4 +34,4 @@ export default new BaseLevel('simpleQuadraticEasy', 'Simple Quadratic (Easy)', [
     Q('4 - x^{2} = 0', ['2', '-2']),
     Q('x^{2} - 32 = 0', ['4\\sqrt{2}', '-4\\sqrt{2}']),
     Q('x^{2} - 20 = 0', ['2\\sqrt{5}', '-2\\sqrt{5}']),
-]);
+], { toleranceDp: 2 });

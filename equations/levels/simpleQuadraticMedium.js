@@ -36,4 +36,4 @@ export default new BaseLevel('simpleQuadraticMedium', 'Simple Quadratic (Medium)
     Q('4x^{2} - 2x = -2x + 36', ['3', '-3']),
     Q('3x^{2} + 4x = 4x + 12', ['2', '-2']),
     Q('5x^{2} - x = -x + 20', ['2', '-2']),
-]);
+], { toleranceDp: 2 });

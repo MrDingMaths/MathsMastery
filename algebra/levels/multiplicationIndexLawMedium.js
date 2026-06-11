@@ -19,6 +19,21 @@ export default new BaseLevel(
             {problem: "x^4y^3 \\times x^3y^4", answer: "x^7y^7"},
             {problem: "x^2y^6 \\times x^5y^2", answer: "x^7y^8"},
             
+            // Basic coefficient × first-power single variable
+            {problem: "3a \\times 4a", answer: "12a^2"},
+            {problem: "5y \\times 2y", answer: "10y^2"},
+            {problem: "3x \\times 5x", answer: "15x^2"},
+            {problem: "4x \\times 3x", answer: "12x^2"},
+            {problem: "9x \\times x", answer: "9x^2"},
+            {problem: "2x \\times 8x", answer: "16x^2"},
+            {problem: "3x \\times x", answer: "3x^2"},
+            {problem: "2x \\times x", answer: "2x^2"},
+            {problem: "x \\times 7x", answer: "7x^2"},
+            {problem: "x \\times 3x", answer: "3x^2"},
+            {problem: "6x \\times 2x", answer: "12x^2"},
+            {problem: "9x \\times 4x", answer: "36x^2"},
+            {problem: "5x \\times 2x", answer: "10x^2"},
+
             // Cognitive Level 2: Coefficients with Single Variables
             {problem: "3x^3 \\times 5x^2", answer: "15x^5"},
             {problem: "4x^2 \\times 5x^3", answer: "20x^5"},
@@ -68,27 +83,12 @@ export default new BaseLevel(
             {problem: "2x^{12} \\times 7x^6", answer: "14x^{18}"},
             {problem: "4x^{11} \\times 5x^8", answer: "20x^{19}"},
             
-            // Cognitive Level 5: Three Variables
-            {problem: "xy^4a \\times 4xy", answer: "4x^2y^5a"},
+            // Cognitive Level 5: Two variables, large exponents
             {problem: "9yx^2 \\times 2yx^5", answer: "18y^2x^7"},
             {problem: "2y^{10}x^2 \\times y^5x^3", answer: "2y^{15}x^5"},
             
-            // Additional three-variable questions
-            {problem: "3abx \\times 2a^2bx^3", answer: "6a^3b^2x^4"},
-            {problem: "4x^2ya^3 \\times 3xy^4a", answer: "12x^3y^5a^4"},
-            {problem: "5x^3y^2a \\times 2xy^3a^4", answer: "10x^4y^5a^5"},
-            {problem: "6x^4y^3a^2 \\times xy^2a^5", answer: "6x^5y^5a^7"},
-            {problem: "2x^5y^4a^3 \\times 3x^2ya^2", answer: "6x^7y^5a^5"},
-            
-            // Cognitive Level 6: Multiple Terms (Three factors)
-            {problem: "x^2 \\times y^3 \\times x^4 \\times y^7", answer: "x^6y^{10}"},
+            // Cognitive Level 6: Two-factor, two variables, coefficient
             {problem: "3x^3y^2 \\times y^5", answer: "3x^3y^7"},
-            
-            // Additional multiple term questions
-            {problem: "2a^3 \\times 3b^2 \\times a^4b^3", answer: "6a^7b^5"},
-            {problem: "4x^2y \\times xy^3 \\times 2x^3y^2", answer: "8x^6y^6"},
-            {problem: "3x^4y \\times 2xy^2 \\times x^2y^3", answer: "6x^7y^6"},
-            {problem: "5x^3y^2 \\times xy \\times 2x^2y^4", answer: "10x^6y^7"},
             
             // Cognitive Level 7: Negative Coefficients
             {problem: "-7x^2y^3 \\times 2x^5y", answer: "-14x^7y^4"},
@@ -101,18 +101,6 @@ export default new BaseLevel(
             {problem: "-6x^2y^5 \\times 3x^3y^2", answer: "-18x^5y^7"},
             {problem: "4x^6y^3 \\times (-2x^2y^4)", answer: "-8x^8y^7"},
             {problem: "-2x^4y^6 \\times 5x^3y^2", answer: "-10x^7y^8"},
-            
-            // Cognitive Level 8: Fractions
-            {problem: "\\frac{1}{5}x^2 \\times x", answer: "\\frac{1}{5}x^3"},
-            {problem: "\\frac{1}{4}x^4 \\times \\frac{2}{3}x^3", answer: "\\frac{1}{6}x^7"},
-            {problem: "\\frac{3}{5}x \\times \\frac{3x}{5}", answer: "\\frac{9}{25}x^2"},
-            
-            // Additional fraction questions
-            {problem: "\\frac{2}{3}a^3 \\times \\frac{3}{4}a^2", answer: "\\frac{1}{2}a^5"},
-            {problem: "\\frac{1}{2}x^4y \\times \\frac{4}{3}xy^2", answer: "\\frac{2}{3}x^5y^3"},
-            {problem: "\\frac{3}{7}x^2y \\times \\frac{7}{6}xy^3", answer: "\\frac{1}{2}x^3y^4"},
-            {problem: "\\frac{5}{8}x^3y^2 \\times \\frac{4}{5}xy^4", answer: "\\frac{1}{2}x^4y^6"},
-            {problem: "\\frac{2}{9}x^5y \\times \\frac{9}{4}x^2y^3", answer: "\\frac{1}{2}x^7y^4"},
             
             // Mixed complexity reinforcement
             {problem: "6ab^3 \\times 2a^4b^2", answer: "12a^5b^5"},

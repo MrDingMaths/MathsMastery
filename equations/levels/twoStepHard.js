@@ -47,4 +47,8 @@ export default new BaseLevel('twoStepHard', 'Two Step (Hard)', [
     Q('2x + \\frac{1}{2} = \\frac{1}{4}', '-1/8'),
     Q('-1 = 5x - \\frac{1}{4}', '-3/20'),
     Q('5 + \\frac{3x}{2} = -7', '-8'),
+    // Migrated from mixedMultistepLinearEasy/Medium (ax/b ± c = d, fractional answers)
+    Q('2 - \\frac{6x}{5} = 3', '-5/6'),
+    Q('-5 - \\frac{12x}{7} = 3', '-14/3'),
+    Q('-20 + \\frac{3x}{4} = 11', '124/3'),
 ]);

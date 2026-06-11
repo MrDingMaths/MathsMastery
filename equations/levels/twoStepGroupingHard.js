@@ -36,9 +36,13 @@ export default new BaseLevel('twoStepGroupingHard', 'Two Step Grouping (Hard)', 
     Q('3(5x - 2) - 7x = -4', '1/4'),
     Q('-4(2x - 1) + 3x = -9', '13/5'),
     Q('\\frac{8 - 3x}{4} = 1', '4/3'),
+    // Moved from Easy — b>1 with extra dx term (requires expansion)
+    Q('2(3x + 1) - 4x = 12', '5'),
     // Migrated from mixedTwoStepHard
     Q('\\frac{6 + x}{5} = 5.5', '21.5'),
     Q('30 = -\\frac{1}{3}(x + 6)', '-96'),
     Q('\\frac{7x - 3}{3} = 9', '30/7'),
     Q('5 = \\frac{3x - 6}{2}', '16/3'),
+    // Migrated from mixedMultistepLinearMedium
+    Q('3(x - 2) = 10', '16/3'),
 ]);
