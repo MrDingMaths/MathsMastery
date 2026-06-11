@@ -95,6 +95,7 @@ export class GameController {
         this.state.setLevel(level);
         this.ui.showScreen('game');
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.ui.updateLevelName(level.name);
         this.timer.start();
         this.generateQuestion();
@@ -108,7 +109,8 @@ export class GameController {
 
         // Reset incorrect count when moving to new question
         this.state.resetIncorrectCount();
-        
+        this.ui.updateSecondChances();
+
         let question = this.questionGen.generateQuestion(this.state.currentLevel.key);
         for (let i = 0; i < 5 && this.lastQuestionProblem && question.problem === this.lastQuestionProblem; i++) {
             question = this.questionGen.generateQuestion(this.state.currentLevel.key);
@@ -210,6 +212,7 @@ export class GameController {
                 }, 50);
             } else {
                 // First incorrect attempt - give second chance
+                this.ui.updateSecondChances(0);
                 this.ui.showInputFeedback(false);
                 this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
 

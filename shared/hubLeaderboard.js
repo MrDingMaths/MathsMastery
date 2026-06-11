@@ -342,7 +342,7 @@ class HubPanels {
         for (const app of Object.values(HUB_LEVELS)) {
             for (const levels of Object.values(app.groups)) {
                 const found = levels.find(l => l.key === levelKey);
-                if (found) return found.name.replace(/\s+[🥇🥈🥉]$/, '');
+                if (found) return found.name.replace(/\s+(Easy|Medium|Hard)$/, '');
             }
         }
         return levelKey;

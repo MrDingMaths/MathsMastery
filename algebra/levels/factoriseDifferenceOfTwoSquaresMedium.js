@@ -73,7 +73,10 @@ export default new BaseLevel(
             {problem: "40x^2 - 10", answer: "10(2x-1)(2x+1)"},
             {problem: "16 - 4y^2", answer: "4(2-y)(2+y)"},
             {problem: "27x^2 - 3", answer: "3(3x-1)(3x+1)"},
-            
+            {problem: "3x^2 - 75", answer: "3(x-5)(x+5)"},
+            {problem: "7x^2 - 63", answer: "7(x-3)(x+3)"},
+            {problem: "-20 + 5x^2", answer: "5(x-2)(x+2)"},
+
             // Additional higher powers with coefficients
             {problem: "9x^6 - y^4", answer: "(3x^3 - y^2)(3x^3 + y^2)"},
             {problem: "a^4 - 25b^2", answer: "(a^2 - 5b)(a^2 + 5b)"},

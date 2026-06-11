@@ -63,5 +63,13 @@ export default new BaseLevel(
             {problem: "5x^2 - 7x + 2", answer: "(5x - 2)(x - 1)"},
 
             // More patterns with different variables
-            {problem: "2y^2 + 3y + 1", answer: "(2y + 1)(y + 1)"},        ]
+            {problem: "2y^2 + 3y + 1", answer: "(2y + 1)(y + 1)"},
+
+            // One-monic-bracket cases migrated from Medium
+            {problem: "3x^2 - 11x - 4", answer: "(3x + 1)(x - 4)"},
+            {problem: "13x^2 - 7x - 6", answer: "(13x + 6)(x - 1)"},
+            {problem: "2x^2 + 5x - 12", answer: "(x + 4)(2x - 3)"},
+            {problem: "10x^2 + 13x + 3", answer: "(x + 1)(10x + 3)"},
+            {problem: "10x^2 - 13x + 3", answer: "(x - 1)(10x - 3)"},
+        ]
 );

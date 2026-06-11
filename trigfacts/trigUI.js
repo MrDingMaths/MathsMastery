@@ -25,6 +25,8 @@ export class TrigUI extends BaseUI {
             successScreen: document.getElementById('success-screen'),
             levelSelection: document.getElementById('level-selection-container'),
             streakCounter: document.getElementById('streak-counter'),
+            streakCount: document.getElementById('streak-count'),
+            secondChanceCounter: document.getElementById('second-chance-counter'),
             timer: document.getElementById('timer'),
             diagramContainer: document.getElementById('diagram-container'),
             diagramCanvas: document.getElementById('quadrant-diagram'),
@@ -48,6 +50,7 @@ export class TrigUI extends BaseUI {
             ratingHint: document.getElementById('rating-hint'),
             ratingHintText: document.getElementById('rating-hint-text'),
             levelName: document.getElementById('level-name'),
+            levelMeta: document.getElementById('level-meta'),
         };
 
         this.storage = StorageManager;

@@ -16,7 +16,8 @@ The `key` is the canonical identifier — it appears in localStorage progress da
 
 ```js
 // Algebra entry
-{ key: 'myNewSkillEasy', name: 'My New Skill<br>🥉', value: 'my-new-skill-easy' }
+{ key: 'myNewSkillEasy', name: 'My New Skill<br>Easy', value: 'my-new-skill-easy' }
+// difficulty label after <br> is one of: Easy / Med / Hard
 
 // MathsFacts entry
 { key: 'myNewFact', name: 'My New Fact' }

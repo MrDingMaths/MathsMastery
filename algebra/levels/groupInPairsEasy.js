@@ -11,9 +11,6 @@ export default new BaseLevel(
             {problem: "x^2 + 4x + 3x + 12", answer: "(x+4)(x+3)"},
             {problem: "x^2 + 7x + 2x + 14", answer: "(x+7)(x+2)"},
             {problem: "3ab + 5bx + 3ay + 5xy", answer: "(3a+5x)(b+y)"},
-            {problem: "4ab - 7ax + 4by - 7xy", answer: "(a+y)(4b-7x)"},
-            {problem: "2xy - 8xa + 3by - 12ba", answer: "(2x+3b)(y-4a)"},
-            {problem: "5xy - 10x + ya - 2a", answer: "(5x+a)(y-2)"},
             
             // Additional easy questions - simple factorization by grouping
             {problem: "x^2 + x + 2x + 2", answer: "(x+1)(x+2)"},
@@ -30,7 +27,7 @@ export default new BaseLevel(
             {problem: "2x^2 + 6x + 3x + 9", answer: "(2x+3)(x+3)"},
             {problem: "4x^2 + 12x + 3x + 9", answer: "(4x+3)(x+3)"},
             {problem: "5x^2 + 15x + 2x + 6", answer: "(5x+2)(x+3)"},
-            {problem: "6x^2 + 18x + 2x + 6", answer: "(6x+2)(x+3)"},
+            {problem: "6x^2 + 18x + 2x + 6", answer: "2(3x+1)(x+3)"},
             
             // Simple variable grouping
             {problem: "ab + 2b + 3a + 6", answer: "(a+2)(b+3)"},

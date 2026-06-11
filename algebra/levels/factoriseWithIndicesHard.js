@@ -33,6 +33,6 @@ export default new BaseLevel(
         { problem: "49^n - 4^n",                                                               answer: "(7^n + 2^n)(7^n - 2^n)" },
         { problem: "3^{2n} - 1",                                                               answer: "(3^n + 1)(3^n - 1)" },
         { problem: "2^{4x} - 2^{6x}",                                                          answer: "2^{4x}(1 + 2^x)(1 - 2^x)" },
-        { problem: "6^6 + 6^6 + 6^6 + 6^6 + 6^6 + 6^6",                                      answer: "6^7" },
+        { problem: "4^n - 6 \\times 2^n + 9",                                                  answer: "(2^n - 3)^2" },
     ]
 );

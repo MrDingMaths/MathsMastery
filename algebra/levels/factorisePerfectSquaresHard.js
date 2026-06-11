@@ -6,9 +6,7 @@ export default new BaseLevel(
     [
             {problem: "25a^4 - 10a^2 + 1", answer: "(5a^2-1)^2"},
             {problem: "16x^4 + 24x^2 + 9", answer: "(4x^2+3)^2"},
-            {problem: "36 - 12x + x^2", answer: "(x-6)^2"},
             {problem: "49x^6 - 14x^3 + 1", answer: "(7x^3-1)^2"},
-            {problem: "81x^2 - 36xy + 4y^2", answer: "(9x-2y)^2"},
             {problem: "144x^6 - 72x^3 + 9", answer: "(12x^3-3)^2"},
             {problem: "x^2 + x + \\frac{1}{4}", answer: "(x+\\frac{1}{2})^2"},
             {problem: "x^2 - \\frac{4x}{3} + \\frac{4}{9}", answer: "(x-\\frac{2}{3})^2"},

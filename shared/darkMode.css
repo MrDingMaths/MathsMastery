@@ -572,3 +572,10 @@ html[data-theme="dark"] .success-icon-circle.rating-developing { background: rgb
 html[data-theme="dark"] .success-icon-circle.rating-expert     { background: rgba(16,185,129,0.15); }
 html[data-theme="dark"] .success-icon-circle.rating-mastery    { background: rgba(245,158,11,0.15); }
 html[data-theme="dark"] .success-icon-circle.rating-queen      { background: rgba(236,72,153,0.15); }
+
+/* ----------------------------------------------------------
+   Game HUD: header + streak bar + retry indicator
+   ---------------------------------------------------------- */
+html[data-theme="dark"] .game-level-name { color: var(--color-text); }
+html[data-theme="dark"] .streak-seg:not(.filled) { background: rgba(255,255,255,0.12); }
+html[data-theme="dark"] .retry-indicator.spent .retry-dot { background: rgba(255,255,255,0.22); }

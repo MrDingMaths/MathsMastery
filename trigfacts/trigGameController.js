@@ -101,6 +101,7 @@ export class TrigGameController {
         this.ui.showScreen('game');
         this.ui.updateLevelName(level.name);
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.ui.hideTimerPausedMessage();
         this.timer.start();
         this.generateQuestion();
@@ -109,6 +110,9 @@ export class TrigGameController {
     generateQuestion() {
         this.ui.clearFeedback();
         this.state.setAnswering(false);
+        // Reset the per-question second-chance counter (trig previously never did this).
+        this.state.resetIncorrectCount();
+        this.ui.updateSecondChances();
 
         try {
             let question = this.questionGen.generate(this.state.currentLevel);
@@ -233,6 +237,7 @@ export class TrigGameController {
             }, 50);
         } else {
             // First incorrect attempt - show hint and let user try again
+            this.ui.updateSecondChances(0);
             this.ui.showInputFeedback(false);
             this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
 

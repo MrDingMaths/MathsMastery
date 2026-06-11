@@ -17,6 +17,8 @@ export class UI extends BaseUI {
             successScreen: document.getElementById('success-screen'),
             levelSelection: document.getElementById('level-selection-container'),
             streakCounter: document.getElementById('streak-counter'),
+            streakCount: document.getElementById('streak-count'),
+            secondChanceCounter: document.getElementById('second-chance-counter'),
             timer: document.getElementById('timer'),
             timerPausedMessage: document.getElementById('timer-paused-message'),
             questionText: document.getElementById('question-text'),
@@ -38,6 +40,7 @@ export class UI extends BaseUI {
             masteryProgressBars: document.getElementById('mastery-progress-bars'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
             levelName: document.getElementById('level-name'),
+            levelMeta: document.getElementById('level-meta'),
         };
         this.storage = StorageManager;
         this.onBackToLevels = null;

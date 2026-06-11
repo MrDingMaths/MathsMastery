@@ -38,6 +38,8 @@ export default new BaseLevel(
             {problem: "4x^2 + 12xy + 9y^2", answer: "(2x+3y)^2"},
             {problem: "25x^2 - 30xy + 9y^2", answer: "(5x-3y)^2"},
             {problem: "16x^2 + 24xy + 9y^2", answer: "(4x+3y)^2"},
-            {problem: "49y^2 - 42yx + 9x^2", answer: "(7y-3x)^2"}
+            {problem: "49y^2 - 42yx + 9x^2", answer: "(7y-3x)^2"},
+            {problem: "36 - 12x + x^2", answer: "(x-6)^2"},
+            {problem: "81x^2 - 36xy + 4y^2", answer: "(9x-2y)^2"}
         ]
 );

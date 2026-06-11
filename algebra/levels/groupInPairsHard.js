@@ -4,8 +4,6 @@ export default new BaseLevel(
     'groupInPairsHard',
     'Grouping in Pairs (Hard)',
     [
-            {problem: "-5x^2 + 4x - 5x + 4", answer: "(4-5x)(x+1)"},
-            {problem: "3x - 8x - 6x^2 + 4", answer: "(1-2x)(3x+4)"},
             {problem: "x^2 - bx + x - b", answer: "(x+1)(x-b)"},
             {problem: "x^2 - yx + x - y", answer: "(x+1)(x-y)"},
             {problem: "x^2 + bx + x + b", answer: "(x+1)(x+b)"},
@@ -31,8 +29,7 @@ export default new BaseLevel(
             {problem: "-x^2 - ax + bx + ab", answer: "-(x+a)(x-b)"},
             {problem: "-x^2 + ax - bx + ab", answer: "-(x-a)(x+b)"},
             {problem: "-x^2 - ax - bx - ab", answer: "-(x+a)(x+b)"},
-            {problem: "-2x^2 + 3x - 4x + 6", answer: "-(2x-3)(x+2)"},
-            
+
             // Multiple parameters with different variables
             {problem: "ax^2 + a^2x + bx + ab", answer: "(ax+b)(x+a)"},
             {problem: "bx^2 + abx + yx + ay", answer: "(bx+y)(x+a)"},

@@ -142,6 +142,7 @@ export class GameController {
         this.ui.showScreen('game');
         this.ui.updateLevelName(level.name);
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.isWaitingForKeystroke = false;
         this.timer.start();
         this.generateQuestion();
@@ -153,6 +154,7 @@ export class GameController {
         this.ui.hideTimerPausedMessage();  // Ensure message is hidden when generating new question
         this.answerSubmitted = false;
         this.state.resetIncorrectCount();  // Reset mistake counter for new question
+        this.ui.updateSecondChances();
         const levelKey = this.state.currentLevel.key;
 
         let generatorFn = this.generatorMap[levelKey];
@@ -390,6 +392,9 @@ export class GameController {
             }
             // SUB-BRANCH: First Incorrect Attempt (show encouragement and allow retry)
             else {
+                // Consume the second chance
+                this.ui.updateSecondChances(0);
+
                 // Show red input feedback
                 this.ui.showInputFeedback(false);
 

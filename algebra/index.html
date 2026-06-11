@@ -42,11 +42,18 @@
         <div id="settings-screen"></div>
 
         <div id="game-screen" class="card mx-auto hidden">
-            <div class="flex justify-between items-center mb-6 text-lg">
-                <div class="font-semibold text-gray-700">Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥</div>
-                <div class="font-semibold text-gray-700">Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span></div>
+            <div class="game-header">
+                <div class="game-header-title">
+                    <div id="level-name" class="game-level-name"></div>
+                    <div id="level-meta" class="game-level-meta"></div>
+                </div>
+                <div class="game-time">Time <span id="timer">0s</span></div>
             </div>
-            <div id="level-name" class="text-center text-gray-700 text-xl mb-2"></div>
+            <div class="streak-row">
+                <div id="streak-counter" class="streak-bar"></div>
+                <span id="streak-count" class="streak-count">0 / 10</span>
+                <span id="second-chance-counter" class="retry-indicator"></span>
+            </div>
             <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
                 Timer will reset
             </span>

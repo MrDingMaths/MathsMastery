@@ -98,11 +98,11 @@ export default new BaseLevel(
             {problem: "4x^2 - ax + bx - \\frac{ab}{4}", answer: "(4x-a)(x+\\frac{b}{4})"},
             {problem: "5x^2 - ax - bx + \\frac{ab}{5}", answer: "(5x-a)(x-\\frac{b}{5})"},
             
-            // Complex parameter relationships
-            {problem: "x^2 + (a+b)x + ax + ab", answer: "x^2 + 2ax + bx + ab"},
-            {problem: "x^2 - (a+b)x + ax - ab", answer: "x^2 - bx - ab"},
-            {problem: "x^2 + (a-b)x - bx - ab", answer: "x^2 + ax - 2bx - ab"},
-            {problem: "x^2 - (a-b)x - bx + ab", answer: "x^2 - ax + ab"},
+            // Abstract literal parameters: complete the square then DOTS, two-variable quadratic, degree-4 non-monic
+            {problem: "x^2 + 2ax + a^2 - b^2", answer: "(x + a - b)(x + a + b)"},
+            {problem: "a^3 - 10a^2b + 24ab^2", answer: "a(a - 4b)(a - 6b)"},
+            {problem: "6x^4 - x^3 - 2x^2", answer: "x^2(3x - 2)(2x + 1)"},
+            {problem: "2x^4 + 4x^3 - 2x^2 - 4x", answer: "2x(x - 1)(x + 1)(x + 2)"},
             
             // Negative leading coefficients
             {problem: "-x^2 + ax + bx - ab", answer: "-(x-a)(x-b)"},
@@ -133,17 +133,17 @@ export default new BaseLevel(
             {problem: "axy - ay - bxy + by", answer: "y(a-b)(x-1)"},
             {problem: "2axy + 3ay + 2bxy + 3by", answer: "y(a+b)(2x+3)"},
             
-            // Advanced parameter manipulation
-            {problem: "x^2 + (a+2)x + 2x + 2a", answer: "x^2+ax+4x+2a"},
-            {problem: "x^2 + (b+3)x + 3x + 3b", answer: "x^2+bx+6x+3b"},
-            {problem: "x^2 - (y+4)x + 4x - 4y", answer: "x^2-yx-4y"},
-            {problem: "x^2 - (y+5)x - 5x + 5y", answer: "x^2-yx-10x+5y"},
-            {problem: "2x^2 + (2a+1)x + ax + \\frac{a}{2}", answer: "2x^2+3ax+x+\\frac{a}{2}"},
-            {problem: "3x^2 - (3b+2)x + 2x - \\frac{2b}{3}", answer: "3x^2-3bx-\\frac{2b}{3}"},
+            // Multi-step multi-technique Hard questions
+            {problem: "x^4 + x^3 - x - 1", answer: "(x - 1)(x + 1)(x^2 + x + 1)"},
+            {problem: "(x^2 - 1)^2 - (x - 1)^2", answer: "x(x - 1)^2(x + 2)"},
+            {problem: "4(x + 1)^2 - 9(x - 1)^2", answer: "(5 - x)(5x - 1)"},
+            {problem: "x^2y^2 - x^2 - y^2 + 1", answer: "(x - 1)(x + 1)(y - 1)(y + 1)"},
+            {problem: "x^3 + x^2y - xy^2 - y^3", answer: "(x - y)(x + y)^2"},
+            {problem: "2x^4 - 8x^3 - 2x^2 + 8x", answer: "2x(x - 4)(x - 1)(x + 1)"},
             
             // Very complex parameter relationships
             {problem: "x^2y + axy + bxy + ab", answer: "(xy+a)(x+b)"},
-            {problem: "x^2y - axy + bxy - ab", answer: "x^2y - axy + bxy - ab"},
+            {problem: "(x + y)^4 - (x - y)^4", answer: "8xy(x^2 + y^2)"},
             {problem: "ay^2 + a^2y + by^2 + aby", answer: "y(a+b)(y+a)"},
             {problem: "bx^2 - abx + yx^2 - ayx", answer: "x(b+y)(x-a)"},
             {problem: "3x(5x + 2)^2 - 2(5x + 2)", answer: "(5x + 2)(15x^2 + 6x - 2)"},
@@ -248,9 +248,9 @@ export default new BaseLevel(
             {problem: "49x^6 - 14x^3 + 1", answer: "(7x^3-1)^2"},
             {problem: "81x^2 - 36xy + 4y^2", answer: "(9x-2y)^2"},
             {problem: "144x^6 - 72x^3 + 9", answer: "(12x^3-3)^2"},
-            {problem: "x^2 + x + \\frac{1}{4}", answer: "(x+\\frac{1}{2})^2"},
-            {problem: "x^2 - \\frac{4x}{3} + \\frac{4}{9}", answer: "(x-\\frac{2}{3})^2"},
-            {problem: "9y^2 + \\frac{6y}{5} + \\frac{1}{25}", answer: "(3y+\\frac{1}{5})^2"},
+            {problem: "x^3a - x^3b - xa + xb", answer: "x(a - b)(x - 1)(x + 1)"},
+            {problem: "16x^4 - 625", answer: "(2x - 5)(2x + 5)(4x^2 + 25)"},
+            {problem: "a^4 - 2a^2b^2 + b^4", answer: "(a - b)^2(a + b)^2"},
             {problem: "x^2 + 2 + \\frac{1}{x^2}", answer: "(x+\\frac{1}{x})^2"},
             {problem: "25x^2 - 20 + \\frac{4}{x^2}", answer: "(5x-\\frac{2}{x})^2"},
             

@@ -36,5 +36,6 @@ export default new BaseLevel(
         { problem: "2^n + 2^{n-1}",                           answer: "3 \\times 2^{n-1}" },
         { problem: "5^n - 5^{n-1}",                           answer: "4 \\times 5^{n-1}" },
         { problem: "7^{n+1} + 7^{n+2}",                       answer: "8 \\times 7^{n+1}" },
+        { problem: "6^6 + 6^6 + 6^6 + 6^6 + 6^6 + 6^6",     answer: "6^7" },
     ]
 );

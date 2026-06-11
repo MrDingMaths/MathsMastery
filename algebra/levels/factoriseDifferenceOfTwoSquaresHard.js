@@ -23,16 +23,9 @@ export default new BaseLevel(
             {problem: "x^2 - 32", answer: "(x-4\\sqrt{2})(x+4\\sqrt{2})"},
             {problem: "x^2 - 50", answer: "(x-5\\sqrt{2})(x+5\\sqrt{2})"},
             
-            // Complex coefficient expressions
-            {problem: "3x^2 - 75", answer: "3(x - 5)(x + 5)"},
-            {problem: "7x^2 - 63", answer: "7(x - 3)(x + 3)"},
-            
             // Complex binomial expressions
             {problem: "6(x-2)^2 - 54", answer: "6(x-5)(x+1)"},
             {problem: "2(x+1)^2 - 32", answer: "2(x-3)(x+5)"},
-            
-            // Negative leading terms
-            {problem: "-20 + 5x^2", answer: "5(x - 2)(x + 2)"},
             
             // Difference of binomial squares
             {problem: "(x+2)^2 - (x+3)^2", answer: "-(2x+5)"},

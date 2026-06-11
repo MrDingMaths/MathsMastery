@@ -12,13 +12,10 @@ export default new BaseLevel(
             {problem: "-14x^2 + 39x - 10", answer: "-(7x - 2)(2x - 5)"},
             {problem: "-15x^2 - x + 6", answer: "-(5x - 3)(3x + 2)"},
             {problem: "6x^2 + 13x + 6", answer: "(2x + 3)(3x + 2)"},
-            {problem: "3x^2 - 11x - 4", answer: "(3x + 1)(x - 4)"},
             {problem: "12x^2 + x - 6", answer: "(4x + 3)(3x - 2)"},
             {problem: "10x^2 - 11x - 6", answer: "(2x - 3)(5x + 2)"},
             {problem: "21x^2 - 20x + 4", answer: "(3x - 2)(7x - 2)"},
             {problem: "15x^2 - 13x + 2", answer: "(3x - 2)(5x - 1)"},
-            {problem: "13x^2 - 7x - 6", answer: "(13x + 6)(x - 1)"},
-            {problem: "2x^2 + 5x - 12", answer: "(x + 4)(2x - 3)"},
             {problem: "6x^2 - 13x + 6", answer: "(2x - 3)(3x - 2)"},
             {problem: "9x^2 + 9x - 10", answer: "(3x + 5)(3x - 2)"},
     
@@ -27,9 +24,7 @@ export default new BaseLevel(
             {problem: "6x^2 - 7x + 2", answer: "(2x - 1)(3x - 2)"},
             {problem: "8x^2 + 10x + 3", answer: "(2x + 1)(4x + 3)"},
             {problem: "8x^2 - 10x + 3", answer: "(2x - 1)(4x - 3)"},
-            {problem: "10x^2 + 13x + 3", answer: "(x + 1)(10x + 3)"},
-            {problem: "10x^2 - 13x + 3", answer: "(x - 1)(10x - 3)"},
-    
+
             // Negative leading coefficient patterns
             {problem: "-6x^2 + 7x - 2", answer: "-(2x - 1)(3x - 2)"},
             {problem: "-8x^2 + 10x - 3", answer: "-(2x - 1)(4x - 3)"},
@@ -55,14 +50,13 @@ export default new BaseLevel(
             // Different variables for variety
             {problem: "6a^2 + 13a + 6", answer: "(2a + 3)(3a + 2)"},
             {problem: "8b^2 + 10b + 3", answer: "(2b + 1)(4b + 3)"},
-            {problem: "12x^2 + x - 6", answer: "(3x - 2)(4x + 3)"},    
+            {problem: "4x^2 + 8x + 3", answer: "(2x + 1)(2x + 3)"},
             // More negative coefficient patterns
             {problem: "-9x^2 + 6x - 1", answer: "-(3x - 1)^2"},
             {problem: "-16x^2 + 8x - 1", answer: "-(4x - 1)^2"},
             {problem: "-25x^2 + 10x - 1", answer: "-(5x - 1)^2"},
             {problem: "-6x^2 - 5x + 1", answer: "-(x + 1)(6x - 1)"},
-            {problem: "-8x^2 - 6x + 2", answer: "-2(x + 1)(4x - 1)"},
-    
+
             // Complex mixed patterns
             {problem: "21x^2 + 22x + 5", answer: "(3x + 1)(7x + 5)"},
             {problem: "28x^2 + 15x + 2", answer: "(4x + 1)(7x + 2)"},

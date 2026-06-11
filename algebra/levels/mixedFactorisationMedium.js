@@ -88,9 +88,9 @@ export default new BaseLevel(
             {problem: "4x^2 - (y + a)^2", answer: "(2x - y - a)(2x + y + a)"},
             {problem: "a^2 - b^2 - a + b", answer: "(a - b)(a + b - 1)"},
             
-            // Higher degree with multiple variables
-            {problem: "a^3 - 10a^2b + 24ab^2", answer: "a(a - 4b)(a - 6b)"},
-            {problem: "6x^4 - x^3 - 2x^2", answer: "x^2(3x - 2)(2x + 1)"},
-            {problem: "x^2 + 2ax + a^2 - b^2", answer: "(x + a - b)(x + a + b)"}
+            // Two-variable DOTS with common factor; two-variable perfect square
+            {problem: "2a^2 - 18b^2", answer: "2(a - 3b)(a + 3b)"},
+            {problem: "3x^3 + 6x^2 - 45x", answer: "3x(x - 3)(x + 5)"},
+            {problem: "4x^2 - 12xy + 9y^2", answer: "(2x - 3y)^2"}
         ]
 );

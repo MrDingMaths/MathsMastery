@@ -13,6 +13,13 @@
 import { Timer } from './timer.js';
 import { createEl } from './createEl.js';
 
+// Number of filled circles required to complete a level (matches CONFIG.REQUIRED_STREAK).
+export const STREAK_TARGET = 10;
+
+// Second chances available per question. Derived from BaseGameState.isSecondIncorrectAttempt()
+// which triggers the reset at consecutiveIncorrect >= 2, i.e. one free retry per question.
+export const MAX_SECOND_CHANCES = 1;
+
 export class BaseUI {
 
     // --- Rating class hook ---
@@ -53,11 +60,48 @@ export class BaseUI {
     }
 
     updateStreak(streak) {
-        this.elements.streakCounter.textContent = streak;
+        const container = this.elements.streakCounter;
+        if (container) {
+            // Build the 10 segments once, then just toggle .filled so CSS transitions run.
+            if (container.childElementCount !== STREAK_TARGET) {
+                container.textContent = '';
+                for (let i = 0; i < STREAK_TARGET; i++) {
+                    container.appendChild(createEl('span', { className: 'streak-seg' }));
+                }
+            }
+            const segs = container.children;
+            for (let i = 0; i < segs.length; i++) {
+                segs[i].classList.toggle('filled', i < streak);
+            }
+        }
+
+        if (this.elements.streakCount) {
+            this.elements.streakCount.textContent = `${streak} / ${STREAK_TARGET}`;
+        }
+    }
+
+    updateSecondChances(remaining = MAX_SECOND_CHANCES) {
+        const container = this.elements.secondChanceCounter;
+        if (!container) return;
+
+        const available = remaining > 0;
+
+        // Build the retry indicator (dot + label) once, then update state.
+        if (container.childElementCount !== 2) {
+            container.textContent = '';
+            container.appendChild(createEl('span', { className: 'retry-dot' }));
+            container.appendChild(createEl('span', { className: 'retry-label' }));
+        }
+        container.classList.toggle('spent', !available);
+        container.lastChild.textContent = available ? 'retry ready' : 'retry used';
     }
 
     updateLevelName(name) {
-        this.elements.levelName.innerHTML = name;
+        // Flatten the grid's two-line "Topic<br>Easy" form into one header line.
+        this.elements.levelName.innerHTML = (name || '').replace(/<br\s*\/?>/gi, ' ');
+        if (this.elements.levelMeta) {
+            this.elements.levelMeta.textContent = this.subjectName || '';
+        }
     }
 
     // --- Success screen ---
@@ -374,6 +418,8 @@ export class BaseUI {
             keyboardTableHTML = null,
         } = config;
 
+        this.subjectName = subjectName;
+
         const screen = this.elements.settingsScreen;
         if (!screen) return;
         screen.innerHTML = '';
@@ -494,7 +540,7 @@ export class BaseUI {
 
     _lsDiffInfo(levelKey) {
         if (levelKey.endsWith('Easy'))   return { label: 'Easy', color: '#16a34a' };
-        if (levelKey.endsWith('Medium')) return { label: 'Med',  color: '#d97706' };
+        if (levelKey.endsWith('Medium')) return { label: 'Medium', color: '#d97706' };
         if (levelKey.endsWith('Hard'))   return { label: 'Hard', color: '#dc2626' };
         return { label: '', color: '#6b7280' };
     }
