@@ -26,7 +26,6 @@ export default new BaseLevel(
             
             // Additional textbook questions
             {problem: "2\\sqrt{3} + 5\\sqrt{3}", answer: "7\\sqrt{3}"},
-            {problem: "2\\sqrt{3} + 5\\sqrt{6}", answer: "2\\sqrt{3} + 5\\sqrt{6}"},
             {problem: "2\\sqrt{3} + 5\\sqrt{12}", answer: "12\\sqrt{3}"},
             {problem: "2\\sqrt{3} + 5\\sqrt{27}", answer: "17\\sqrt{3}"},
             {problem: "2\\sqrt{3} + 6\\sqrt{27}", answer: "20\\sqrt{3}"},
@@ -52,6 +51,7 @@ export default new BaseLevel(
             {problem: "\\sqrt{9} + \\sqrt{25}", answer: "8"},
             {problem: "\\sqrt{36} - \\sqrt{4}", answer: "4"},
             {problem: "\\sqrt{49} - \\sqrt{9}", answer: "4"},
+            {problem: "4 + \\sqrt{16} + 2\\sqrt{4}", answer: "12"},
             
             // Simple mixed simplification
             {problem: "\\sqrt{12} + \\sqrt{3}", answer: "3\\sqrt{3}"},

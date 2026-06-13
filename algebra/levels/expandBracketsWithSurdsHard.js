@@ -42,11 +42,6 @@ export default new BaseLevel(
             {problem: "3\\sqrt{5}(2\\sqrt{10} + \\sqrt{5}) - \\sqrt{125}", answer: "30\\sqrt{2} + 15 - 5\\sqrt{5}"},
             {problem: "\\sqrt{6}(\\sqrt{24} - 2\\sqrt{6}) + 3\\sqrt{2}", answer: "3\\sqrt{2}"},
             
-            // Complex difference of squares variations
-            {problem: "(2\\sqrt{3} + 3\\sqrt{2})(2\\sqrt{3} - 3\\sqrt{2})", answer: "-6"},
-            {problem: "(4\\sqrt{5} - 2\\sqrt{7})(4\\sqrt{5} + 2\\sqrt{7})", answer: "52"},
-            {problem: "(3\\sqrt{11} + 5\\sqrt{3})(3\\sqrt{11} - 5\\sqrt{3})", answer: "24"},
-            
             // Triple bracket expressions
             {problem: "\\sqrt{3}(\\sqrt{12} + 2)(\\sqrt{3} - 1)", answer: "4\\sqrt{3}"},
             {problem: "2\\sqrt{2}(\\sqrt{8} - 1)(\\sqrt{2} + 2)", answer: "12 + 4\\sqrt{2}"},
@@ -57,8 +52,6 @@ export default new BaseLevel(
             {problem: "2\\sqrt{3}(\\sqrt{12} + 3) + (\\sqrt{3} + 1)^2", answer: "16 + 8\\sqrt{3}"},
             
             // Rationalization with expansion
-            {problem: "(\\sqrt{2} + 1)(\\sqrt{8} - \\sqrt{2})", answer: "2 + \\sqrt{2}"},
-            {problem: "(\\sqrt{6} - \\sqrt{2})(\\sqrt{24} + \\sqrt{8})", answer: "8"},
             {problem: "(2\\sqrt{15} + 3\\sqrt{5})(\\sqrt{3} - \\sqrt{15})", answer: "6\\sqrt{5} - 30 + 3\\sqrt{15} - 15\\sqrt{3}"},
             
             // Complex coefficient manipulations

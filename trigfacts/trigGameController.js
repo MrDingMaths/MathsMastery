@@ -153,7 +153,6 @@ export class TrigGameController {
 
         this.state.incrementQuestionsAttempted();
         this.state.setAnswering(true);
-        this.ui.disableInput();
 
         const isCorrect = this.answerChecker.checkAnswer(
             userAnswer,

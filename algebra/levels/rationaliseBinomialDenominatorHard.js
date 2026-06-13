@@ -6,7 +6,6 @@ export default new BaseLevel(
     [
             // Provided textbook questions
             {problem: "\\frac{4\\sqrt{3}-\\sqrt{2}}{5-3\\sqrt{3}}", answer: "\\frac{-36+5\\sqrt{2}-20\\sqrt{3}+3\\sqrt{6}}{2}"},
-            {problem: "\\frac{a\\sqrt{b}}{x\\sqrt{y}}", answer: "\\frac{a\\sqrt{by}}{xy}"},
             {problem: "\\frac{1}{a+\\sqrt{b}}", answer: "\\frac{a-\\sqrt{b}}{a^2-b}"},
             {problem: "\\frac{1}{\\sqrt{a}}-\\frac{1}{\\sqrt{b}}", answer: "\\frac{b\\sqrt{a}-a\\sqrt{b}}{ab}"},
             {problem: "\\frac{1}{a\\sqrt{b}-x}", answer: "\\frac{a\\sqrt{b}+x}{a^2b-x^2}"},
@@ -39,6 +38,12 @@ export default new BaseLevel(
             {problem: "\\frac{\\sqrt{2}+\\sqrt{3}}{\\sqrt{6}-1}", answer: "\\frac{3\\sqrt{3}+4\\sqrt{2}}{5}"},
             {problem: "\\frac{\\sqrt{5}-\\sqrt{3}}{\\sqrt{15}+2}", answer: "\\frac{7\\sqrt{3}-5\\sqrt{5}}{11}"},
             {problem: "\\frac{2\\sqrt{7}+3\\sqrt{2}}{\\sqrt{14}-4}", answer: "-13\\sqrt{2}-7\\sqrt{7}"},
-            {problem: "\\frac{\\sqrt{11}+2\\sqrt{3}}{3\\sqrt{11}-\\sqrt{3}}", answer: "\\frac{39+7\\sqrt{33}}{96}"}
+            {problem: "\\frac{\\sqrt{11}+2\\sqrt{3}}{3\\sqrt{11}-\\sqrt{3}}", answer: "\\frac{39+7\\sqrt{33}}{96}"},
+
+            // Sum/difference of two independently rationalised fractions
+            {problem: "\\frac{1}{1+\\sqrt{2}}+\\frac{1}{1-\\sqrt{2}}", answer: "-2"},
+            {problem: "\\frac{3}{1+\\sqrt{5}}+\\frac{3}{1-\\sqrt{5}}", answer: "-\\frac{3}{2}"},
+            {problem: "\\frac{\\sqrt{3}+1}{\\sqrt{3}-1}-\\frac{\\sqrt{3}-1}{\\sqrt{3}+1}", answer: "2\\sqrt{3}"},
+            {problem: "\\frac{5}{3+\\sqrt{2}}-\\frac{3}{3-\\sqrt{2}}", answer: "\\frac{6-8\\sqrt{2}}{7}"}
         ]
 );

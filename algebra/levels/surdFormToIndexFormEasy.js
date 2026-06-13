@@ -72,5 +72,28 @@ export default new BaseLevel(
             {problem: "5\\sqrt[4]{x}", answer: "5x^{\\frac{1}{4}}"},
             {problem: "6\\sqrt{x^3}", answer: "6x^{\\frac{3}{2}}"},
             {problem: "7\\sqrt[3]{x^2}", answer: "7x^{\\frac{2}{3}}"},
+
+            // Coefficient × root of power — additional single-step conversions
+            {problem: "5\\sqrt{x^3}", answer: "5x^{\\frac{3}{2}}"},
+            {problem: "3\\sqrt{x^5}", answer: "3x^{\\frac{5}{2}}"},
+            {problem: "4\\sqrt{x^7}", answer: "4x^{\\frac{7}{2}}"},
+            {problem: "2\\sqrt{x^9}", answer: "2x^{\\frac{9}{2}}"},
+            {problem: "6\\sqrt{x^{11}}", answer: "6x^{\\frac{11}{2}}"},
+            {problem: "8\\sqrt{x^{13}}", answer: "8x^{\\frac{13}{2}}"},
+            {problem: "7\\sqrt{x^5}", answer: "7x^{\\frac{5}{2}}"},
+            {problem: "6\\sqrt[3]{x^7}", answer: "6x^{\\frac{7}{3}}"},
+            {problem: "9\\sqrt{x^9}", answer: "9x^{\\frac{9}{2}}"},
+            {problem: "10\\sqrt[4]{x^7}", answer: "10x^{\\frac{7}{4}}"},
+            {problem: "12\\sqrt[5]{x^8}", answer: "12x^{\\frac{8}{5}}"},
+            {problem: "15\\sqrt[3]{x^{10}}", answer: "15x^{\\frac{10}{3}}"},
+            {problem: "8\\sqrt{x^{11}}", answer: "8x^{\\frac{11}{2}}"},
+
+            // Coefficient × constant surd — single-step (coefficient stays separate)
+            {problem: "6\\sqrt{5}", answer: "6 \\times 5^{\\frac{1}{2}}"},
+            {problem: "7\\sqrt{6}", answer: "7 \\times 6^{\\frac{1}{2}}"},
+            {problem: "5\\sqrt[3]{4}", answer: "5 \\times 4^{\\frac{1}{3}}"},
+            {problem: "8\\sqrt{7}", answer: "8 \\times 7^{\\frac{1}{2}}"},
+            {problem: "11\\sqrt{10}", answer: "11 \\times 10^{\\frac{1}{2}}"},
+            {problem: "13\\sqrt[3]{8}", answer: "26"},
         ]
 );

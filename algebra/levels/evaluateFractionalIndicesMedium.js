@@ -99,8 +99,8 @@ export default new BaseLevel(
             
             // Additional problems
             {problem: "(9^3)^{\\frac{1}{2}}", answer: "27"},
-            {problem: "(-8)^{\\frac{2}{3}}", answer: "4"},
-            {problem: "5^{-2}", answer: "\\frac{1}{25}"},
-            {problem: "\\frac{1}{3^{-3}}", answer: "27"}
+            {problem: "0.008^{\\frac{1}{3}}", answer: "\\frac{1}{5}"},
+            {problem: "(\\frac{1}{343})^{\\frac{1}{3}}", answer: "\\frac{1}{7}"},
+            {problem: "64^{\\frac{5}{6}}", answer: "32"}
         ]
 );

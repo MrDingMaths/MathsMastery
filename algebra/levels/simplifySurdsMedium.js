@@ -18,7 +18,6 @@ export default new BaseLevel(
             {problem: "3\\sqrt{98}", answer: "21\\sqrt{2}"},
             {problem: "4\\sqrt{125}", answer: "20\\sqrt{5}"},
             {problem: "5\\sqrt{72}", answer: "30\\sqrt{2}"},
-            {problem: "5\\sqrt{144}", answer: "60"},
             {problem: "\\sqrt{128}", answer: "8\\sqrt{2}"},
             {problem: "\\sqrt{160}", answer: "4\\sqrt{10}"},
             {problem: "\\sqrt{162}", answer: "9\\sqrt{2}"},

@@ -86,10 +86,10 @@ export default new BaseLevel(
             
             // Additional challenging problems
             {problem: "(\\frac{125}{64})^{\\frac{2}{3}}", answer: "\\frac{25}{16}"},
-            {problem: "(\\frac{2}{5})^{-2}", answer: "\\frac{25}{4}"},
             {problem: "(\\frac{1}{25})^{-\\frac{3}{2}}", answer: "125"},
             {problem: "4^{-1\\frac{1}{2}}", answer: "\\frac{1}{8}"},
             {problem: "125^{-\\frac{2}{3}}", answer: "\\frac{1}{25}"},
-            {problem: "8^{-3} \\times 2^8", answer: "\\frac{1}{2}"}
+            {problem: "(-8)^{\\frac{2}{3}}", answer: "4"},
+            {problem: "(\\frac{4}{25})^{-\\frac{3}{2}}", answer: "\\frac{125}{8}"}
         ]
 );

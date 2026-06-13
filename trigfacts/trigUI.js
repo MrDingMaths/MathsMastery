@@ -31,7 +31,6 @@ export class TrigUI extends BaseUI {
             diagramContainer: document.getElementById('diagram-container'),
             diagramCanvas: document.getElementById('quadrant-diagram'),
             questionText: document.getElementById('question-text'),
-            inputContainer: document.getElementById('input-container'),
             mathFieldInput: document.getElementById('math-field-input'),
             feedbackMessage: document.getElementById('feedback-message'),
             timerPausedMessage: document.getElementById('timer-paused-message'),

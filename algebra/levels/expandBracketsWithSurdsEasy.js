@@ -28,6 +28,7 @@ export default new BaseLevel(
             {problem: "(3 - \\sqrt{2})(3 + \\sqrt{2})", answer: "7"},
             {problem: "(5 - \\sqrt{6})(5 + \\sqrt{6})", answer: "19"},
             {problem: "(\\sqrt{3} + \\sqrt{2})(\\sqrt{3} - \\sqrt{2})", answer: "1"},
+            {problem: "(\\sqrt{7} + \\sqrt{3})(\\sqrt{7} - \\sqrt{3})", answer: "4"},
             
             // Additional easy questions to reach variety
             {problem: "\\sqrt{3}(\\sqrt{12} + 2)", answer: "6 + 2\\sqrt{3}"},

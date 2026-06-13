@@ -34,7 +34,6 @@ export default new BaseLevel(
             {problem: "\\sqrt{49} + 2\\sqrt{7} - 3", answer: "4 + 2\\sqrt{7}"},
             {problem: "2\\sqrt{25} + \\sqrt{5} - 6", answer: "4 + \\sqrt{5}"},
             {problem: "\\sqrt{36} + 3\\sqrt{6} + 2", answer: "8 + 3\\sqrt{6}"},
-            {problem: "4 + \\sqrt{16} + 2\\sqrt{4}", answer: "12"},
             {problem: "\\sqrt{100} - 2\\sqrt{10} + 5", answer: "15 - 2\\sqrt{10}"},
             
             // Four-term expressions
@@ -74,6 +73,20 @@ export default new BaseLevel(
             // Mixed positive and negative with different radicals
             {problem: "-2\\sqrt{6} + 5\\sqrt{10} + 3\\sqrt{6} - 2\\sqrt{10}", answer: "\\sqrt{6} + 3\\sqrt{10}"},
             {problem: "4\\sqrt{14} - 3\\sqrt{21} - \\sqrt{14} + 2\\sqrt{21}", answer: "3\\sqrt{14} - \\sqrt{21}"},
-            {problem: "-\\sqrt{15} + 4\\sqrt{35} + 3\\sqrt{15} - \\sqrt{35}", answer: "2\\sqrt{15} + 3\\sqrt{35}"}
+            {problem: "-\\sqrt{15} + 4\\sqrt{35} + 3\\sqrt{15} - \\sqrt{35}", answer: "2\\sqrt{15} + 3\\sqrt{35}"},
+
+            // Unlike surds — recognise they cannot be combined
+            {problem: "2\\sqrt{3} + 5\\sqrt{6}", answer: "2\\sqrt{3} + 5\\sqrt{6}"},
+
+            // Surd division within each term simplifies to an integer before combining
+            {problem: "\\frac{\\sqrt{72}}{\\sqrt{8}} + \\frac{\\sqrt{50}}{\\sqrt{2}}", answer: "8"},
+            {problem: "\\frac{\\sqrt{98}}{\\sqrt{2}} - \\frac{\\sqrt{128}}{\\sqrt{32}}", answer: "5"},
+            {problem: "\\frac{2\\sqrt{108}}{\\sqrt{12}} + \\frac{\\sqrt{75}}{\\sqrt{3}}", answer: "11"},
+            {problem: "\\frac{3\\sqrt{200}}{\\sqrt{50}} - \\frac{\\sqrt{162}}{\\sqrt{18}}", answer: "3"},
+
+            // Nested and composed perfect-square radicals requiring fraction arithmetic
+            {problem: "\\frac{\\sqrt{\\sqrt{16}} + \\sqrt{4}}{2}", answer: "2"},
+            {problem: "\\sqrt{\\frac{9}{4}} + \\frac{\\sqrt{36}}{4}", answer: "3"},
+            {problem: "\\frac{\\sqrt{25 \\times 4}}{5} - \\frac{\\sqrt{9}}{3}", answer: "1"}
         ]
 );

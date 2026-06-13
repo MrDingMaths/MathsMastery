@@ -80,6 +80,9 @@ export default new BaseLevel(
             {problem: "\\frac{\\sqrt{50}}{\\sqrt{2}}", answer: "5"},
             {problem: "\\frac{\\sqrt{63}}{\\sqrt{7}}", answer: "3"},
             {problem: "\\frac{\\sqrt{75}}{\\sqrt{3}}", answer: "5"},
-            {problem: "\\frac{\\sqrt{80}}{\\sqrt{5}}", answer: "4"}
+            {problem: "\\frac{\\sqrt{80}}{\\sqrt{5}}", answer: "4"},
+            {problem: "\\frac{\\sqrt{27}}{\\sqrt{3}}", answer: "3"},
+            {problem: "\\frac{\\sqrt{162}}{\\sqrt{2}}", answer: "9"},
+            {problem: "\\frac{\\sqrt{98}}{\\sqrt{2}}", answer: "7"}
         ]
 );

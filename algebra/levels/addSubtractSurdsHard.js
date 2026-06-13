@@ -36,16 +36,7 @@ export default new BaseLevel(
             {problem: "\\frac{\\sqrt{32}}{8} + \\frac{3\\sqrt{50}}{10} - \\frac{\\sqrt{2}}{4}", answer: "\\frac{7\\sqrt{2}}{4}"},
             {problem: "\\frac{4\\sqrt{75}}{15} - \\frac{\\sqrt{48}}{6} + \\frac{2\\sqrt{3}}{5}", answer: "\\frac{16\\sqrt{3}}{15}"},
             
-            // Denominators requiring simplification
-            {problem: "\\frac{\\sqrt{72}}{\\sqrt{8}} + \\frac{\\sqrt{50}}{\\sqrt{2}}", answer: "8"},
-            {problem: "\\frac{\\sqrt{98}}{\\sqrt{2}} - \\frac{\\sqrt{128}}{\\sqrt{32}}", answer: "5"},
-            {problem: "\\frac{2\\sqrt{108}}{\\sqrt{12}} + \\frac{\\sqrt{75}}{\\sqrt{3}}", answer: "11"},
-            {problem: "\\frac{3\\sqrt{200}}{\\sqrt{50}} - \\frac{\\sqrt{162}}{\\sqrt{18}}", answer: "3"},
-            
             // Nested radicals and complex expressions
-            {problem: "\\frac{\\sqrt{\\sqrt{16}} + \\sqrt{4}}{2}", answer: "2"},
-            {problem: "\\sqrt{\\frac{9}{4}} + \\frac{\\sqrt{36}}{4}", answer: "3"},
-            {problem: "\\frac{\\sqrt{25 \\times 4}}{5} - \\frac{\\sqrt{9}}{3}", answer: "1"},
             {problem: "\\sqrt{\\frac{49}{9}} + \\frac{2\\sqrt{7}}{3}", answer: "\\frac{7 + 2\\sqrt{7}}{3}"},
             
             // Algebraic manipulation with surds

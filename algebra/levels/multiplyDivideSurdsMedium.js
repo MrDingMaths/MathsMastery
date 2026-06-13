@@ -31,9 +31,6 @@ export default new BaseLevel(
             {problem: "(2\\sqrt{2})^5", answer: "128\\sqrt{2}"},
             {problem: "-3(2\\sqrt{5})^3", answer: "-120\\sqrt{5}"},
             {problem: "2(-3\\sqrt{2})^3", answer: "-108\\sqrt{2}"},
-            {problem: "\\frac{\\sqrt{27}}{\\sqrt{3}}", answer: "3"},
-            {problem: "\\frac{\\sqrt{20}}{\\sqrt{5}}", answer: "2"},
-            {problem: "\\frac{\\sqrt{162}}{\\sqrt{2}}", answer: "9"},
             {problem: "-\\frac{2\\sqrt{2}}{5\\sqrt{8}}", answer: "-\\frac{1}{5}"},
             {problem: "\\frac{2\\sqrt{45}}{15\\sqrt{5}}", answer: "\\frac{2}{5}"},
             {problem: "\\frac{5\\sqrt{27}}{\\sqrt{75}}", answer: "3"},
@@ -69,6 +66,9 @@ export default new BaseLevel(
             {problem: "5\\sqrt{20} \\times 3\\sqrt{5}", answer: "150"},
             {problem: "5\\sqrt{20} \\times 3\\sqrt{10}", answer: "150\\sqrt{2}"},
             {problem: "5\\sqrt{20} \\times 3\\sqrt{20}", answer: "300"},
-            {problem: "2\\sqrt{20} \\times 3\\sqrt{40}", answer: "120\\sqrt{2}"}
+            {problem: "2\\sqrt{20} \\times 3\\sqrt{40}", answer: "120\\sqrt{2}"},
+            {problem: "\\frac{(2\\sqrt{7})^3}{4}", answer: "14\\sqrt{7}"},
+            {problem: "\\frac{(3\\sqrt{2})^3}{4}", answer: "\\frac{27\\sqrt{2}}{2}"},
+            {problem: "\\frac{(3\\sqrt{2})^4}{4}", answer: "81"}
         ]
 );

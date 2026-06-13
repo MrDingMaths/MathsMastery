@@ -49,6 +49,9 @@ export default new BaseLevel(
             // Advanced variable patterns
             {problem: "\\frac{2x}{x^2-y^2} - \\frac{y}{x^2+xy-2y^2}", answer: "\\frac{2x^2+3xy-y^2}{(x-y)(x+y)(x+2y)}"},            
             // Extremely complex cases
-            {problem: "\\frac{x}{6x^3-6x} + \\frac{1}{2x^2-2}", answer: "\\frac{2}{3(x-1)(x+1)}"}
+            {problem: "\\frac{x}{6x^3-6x} + \\frac{1}{2x^2-2}", answer: "\\frac{2}{3(x-1)(x+1)}"},
+
+            // Two non-monic quadratics sharing a common factor
+            {problem: "\\frac{5}{6x^2+x-2} - \\frac{3}{4x^2-1}", answer: "\\frac{x-1}{(2x-1)(3x+2)(2x+1)}"}
         ]
 );

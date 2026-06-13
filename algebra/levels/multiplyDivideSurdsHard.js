@@ -10,9 +10,6 @@ export default new BaseLevel(
             {problem: "\\frac{(3\\sqrt{3})^3}{2} \\div \\frac{(5\\sqrt{2})^2}{4}", answer: "\\frac{81\\sqrt{3}}{25}"},
             {problem: "\\frac{(2\\sqrt{5})^4}{50} \\div \\frac{(2\\sqrt{3})^3}{5}", answer: "\\frac{5\\sqrt{3}}{9}"},
             {problem: "\\frac{(2\\sqrt{2})^3}{9} \\div \\frac{(2\\sqrt{8})^2}{(\\sqrt{27})^2}", answer: "\\frac{3\\sqrt{2}}{2}"},
-            {problem: "\\frac{(2\\sqrt{7})^3}{4}", answer: "14\\sqrt{7}"},
-            {problem: "\\frac{(3\\sqrt{2})^3}{4}", answer: "\\frac{27\\sqrt{2}}{2}"},
-            {problem: "\\frac{(3\\sqrt{2})^4}{4}", answer: "81"},
             {problem: "\\frac{6\\sqrt{3} \\times 8\\sqrt{2}}{\\sqrt{32} \\times \\sqrt{27}}", answer: "4"},
             // Additional complex questions for Hard level
             {problem: "\\frac{(4\\sqrt{5})^3}{8} \\times \\frac{(3\\sqrt{2})^2}{6}", answer: "120\\sqrt{5}"},
@@ -51,5 +48,8 @@ export default new BaseLevel(
             {problem: "\\left(\\sqrt{\\frac{75}{48}}\\right) \\times \\left(\\sqrt{\\frac{64}{25}}\\right) \\times \\left(\\sqrt{\\frac{9}{16}}\\right)", answer: "\\frac{3}{2}"},
             {problem: "\\sqrt{\\frac{(12\\sqrt{5})^4}{(4\\sqrt{20})^2 \\times (3\\sqrt{5})^2}}", answer: "6"},
             {problem: "\\left(\\frac{6\\sqrt{8}}{4\\sqrt{2}}\\right)^3 \\times \\frac{\\sqrt{16}}{9}", answer: "12"},
+            {problem: "\\frac{(3\\sqrt{5})^2 \\times (2\\sqrt{3})^3}{\\sqrt{60}}", answer: "108\\sqrt{5}"},
+            {problem: "\\frac{(\\sqrt{12} + \\sqrt{75})^2}{49}", answer: "3"},
+            {problem: "\\frac{(2\\sqrt{15})^2 \\times \\sqrt{12}}{(\\sqrt{20})^3}", answer: "\\frac{3\\sqrt{15}}{5}"},
         ]
 );

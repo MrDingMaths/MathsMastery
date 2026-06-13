@@ -53,6 +53,7 @@ export default new BaseLevel(
             {problem: "4\\sqrt{16}", answer: "16"},
             {problem: "2(\\sqrt{5})^2", answer: "10"},
             {problem: "4(\\sqrt{3})^2", answer: "12"},
-            {problem: "6(\\sqrt{2})^2", answer: "12"}
+            {problem: "6(\\sqrt{2})^2", answer: "12"},
+            {problem: "5\\sqrt{144}", answer: "60"}
         ]
 );

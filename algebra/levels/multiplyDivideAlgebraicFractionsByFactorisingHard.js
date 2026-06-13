@@ -32,6 +32,15 @@ export default new BaseLevel(
             {problem: "\\frac{x^2+6x+9}{x^2-9} \\times \\frac{x^2-3x}{x^2+3x} \\div \\frac{x+3}{x-3}", answer: "\\frac{x-3}{x+3}"},
             {problem: "\\frac{4x^3-4x}{x^2+2x+1} \\div \\frac{2x^2-2}{x+1} \\times \\frac{x+1}{2x}", answer: "1"},
             
-            {problem: "\\frac{9x^2-4}{3x^2+5x-2} \\div \\frac{3x+2}{x+2} \\times \\frac{x+2}{3x-2}", answer: "\\frac{x+2}{3x-1}"}
+            {problem: "\\frac{9x^2-4}{3x^2+5x-2} \\div \\frac{3x+2}{x+2} \\times \\frac{x+2}{3x-2}", answer: "\\frac{x+2}{3x-1}"},
+
+            {problem: "\\frac{x^2-1}{x^2+4x+3} \\times \\frac{x^2+2x-3}{x^2-4} \\div \\frac{x-1}{x+2}", answer: "\\frac{x-1}{x-2}"},
+            {problem: "\\frac{3x^2-5x-2}{2x^2+5x-3} \\div \\frac{3x+1}{2x-1}", answer: "\\frac{x-2}{x+3}"},
+            {problem: "\\frac{6x^2+7x-3}{4x^2-1} \\times \\frac{2x+1}{3x-1}", answer: "\\frac{2x+3}{2x-1}"},
+            {problem: "\\frac{x^2+5x+6}{x^2-x-6} \\times \\frac{x^2-9}{x^2+x-6} \\div \\frac{x+3}{x-3}", answer: "\\frac{x-3}{x-2}"},
+            {problem: "\\frac{x^2-y^2}{x^2+2xy+y^2} \\times \\frac{x^2+xy}{x-y}", answer: "x"},
+            {problem: "\\frac{x^3-x}{x^2+3x+2} \\div \\frac{x^2-1}{x+2}", answer: "\\frac{x}{x+1}"},
+            {problem: "\\frac{3x^2+x-2}{x^2-4} \\times \\frac{x+2}{3x-2} \\div \\frac{x+1}{x-2}", answer: "1"},
+            {problem: "\\frac{4x^2+4x-3}{2x^2+x-6} \\div \\frac{2x+3}{x+2}", answer: "\\frac{2x-1}{2x-3}"}
         ]
 );

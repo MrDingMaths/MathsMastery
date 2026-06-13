@@ -31,6 +31,8 @@ export default new BaseLevel(
             {problem: "\\frac{\\frac{9x}{14}}{3x}", answer: "\\frac{3}{14}"},
             {problem: "\\frac{\\frac{12x}{35}}{6x}", answer: "\\frac{2}{35}"},
             {problem: "\\frac{x+8}{\\frac{x+8}{4}}", answer: "4"},
-            {problem: "\\frac{x-3}{\\frac{x-3}{11}}", answer: "11"}
+            {problem: "\\frac{x-3}{\\frac{x-3}{11}}", answer: "11"},
+            {problem: "\\frac{2a-5}{\\frac{2a-5}{6}}", answer: "6"},
+            {problem: "\\frac{\\frac{4a-3}{9}}{\\frac{4a-3}{18}}", answer: "2"}
         ]
 );

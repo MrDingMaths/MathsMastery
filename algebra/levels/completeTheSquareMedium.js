@@ -38,6 +38,25 @@ export default new BaseLevel(
         {problem: "-x^2+14x-44", answer: "-(x-7)^2+5"},
         {problem: "-x^2-10x+1",  answer: "-(x+5)^2+26"},
         {problem: "-x^2-12x-10", answer: "-(x+6)^2+26"},
+
+        // Migrated from Hard — non-monic, integer completion
+        {problem: "3x^2+6x+1",   answer: "3(x+1)^2-2"},
+        {problem: "4x^2+8x+3",   answer: "4(x+1)^2-1"},
+        {problem: "2x^2+12x+1",  answer: "2(x+3)^2-17"},
+        {problem: "3x^2-6x+2",   answer: "3(x-1)^2-1"},
+        {problem: "4x^2-8x+1",   answer: "4(x-1)^2-3"},
+        {problem: "2x^2+4x+3",   answer: "2(x+1)^2+1"},
+        {problem: "5x^2+10x-3",  answer: "5(x+1)^2-8"},
+        {problem: "-2x^2+8x-5",  answer: "-2(x-2)^2+3"},
+        {problem: "-3x^2+6x+4",  answer: "-3(x-1)^2+7"},
+        {problem: "3x^2+12x-2",  answer: "3(x+2)^2-14"},
+        {problem: "4x^2-8x-3",   answer: "4(x-1)^2-7"},
+        {problem: "2x^2+8x+5",   answer: "2(x+2)^2-3"},
+        {problem: "5x^2-20x+11", answer: "5(x-2)^2-9"},
+        {problem: "-2x^2+4x+7",  answer: "-2(x-1)^2+9"},
+        {problem: "-3x^2-12x+5", answer: "-3(x+2)^2+17"},
+        {problem: "-4x^2+16x-9", answer: "-4(x-2)^2+7"},
+        {problem: "3x^2-18x+22", answer: "3(x-3)^2-5"},
     ],
     'Write in the form k(x+a)²+b'
 );

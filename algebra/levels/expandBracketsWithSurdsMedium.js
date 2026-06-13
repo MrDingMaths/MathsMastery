@@ -38,7 +38,10 @@ export default new BaseLevel(
             {problem: "(3\\sqrt{7} - 4\\sqrt{6})(3\\sqrt{7} + 4\\sqrt{6})", answer: "-33"},
             {problem: "(2\\sqrt{10} + 4\\sqrt{5})(2\\sqrt{10} - 4\\sqrt{5})", answer: "-40"},
             {problem: "(4\\sqrt{10} - 5\\sqrt{6})(4\\sqrt{10} + 5\\sqrt{6})", answer: "10"},
-            
+            {problem: "(2\\sqrt{3} + 3\\sqrt{2})(2\\sqrt{3} - 3\\sqrt{2})", answer: "-6"},
+            {problem: "(4\\sqrt{5} - 2\\sqrt{7})(4\\sqrt{5} + 2\\sqrt{7})", answer: "52"},
+            {problem: "(3\\sqrt{11} + 5\\sqrt{3})(3\\sqrt{11} - 5\\sqrt{3})", answer: "24"},
+
             // Perfect squares
             {problem: "(\\sqrt{3} + 1)^2", answer: "4 + 2\\sqrt{3}"},
             {problem: "(2 - \\sqrt{6})^2", answer: "10 - 4\\sqrt{6}"},
@@ -56,9 +59,10 @@ export default new BaseLevel(
             // More two bracket expansions
             {problem: "(\\sqrt{2} + 3)(\\sqrt{8} - 1)", answer: "1 + 5\\sqrt{2}"},
             {problem: "(2\\sqrt{3} + 1)(\\sqrt{3} - 2)", answer: "4 - 3\\sqrt{3}"},
-            {problem: "(\\sqrt{7} + \\sqrt{3})(\\sqrt{7} - \\sqrt{3})", answer: "4"},
             {problem: "(2 + 3\\sqrt{2})(2 - 3\\sqrt{2})", answer: "-14"},
             {problem: "(\\sqrt{11} + 2)(\\sqrt{11} + 3)", answer: "17 + 5\\sqrt{11}"},
+            {problem: "(\\sqrt{2} + 1)(\\sqrt{8} - \\sqrt{2})", answer: "2 + \\sqrt{2}"},
+            {problem: "(\\sqrt{6} - \\sqrt{2})(\\sqrt{24} + \\sqrt{8})", answer: "8"},
             
             // Complex perfect squares
             {problem: "(\\sqrt{2} - 3)^2", answer: "11 - 6\\sqrt{2}"},
