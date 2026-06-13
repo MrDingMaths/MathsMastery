@@ -16,15 +16,36 @@ export const CONFIG = {
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],
     LEVEL_DIFFICULTY_MULTIPLIERS: {
-        // Differentiation - Power Rule
-        'powerRuleDiffEasy': 2,
-        'powerRuleDiffMedium': 3.5,
-        'powerRuleDiffHard': 6,
-
-        // Integration - Power Rule
-        'powerRuleIntEasy': 2.5,
-        'powerRuleIntMedium': 4,
-        'powerRuleIntHard': 7,
+        // Differentiation
+        'polynomialDiff':         2.0,
+        'polynomialChainRule':    3.0,
+        'polynomialProductRule':  3.5,
+        'polynomialQuotientRule': 3.5,
+        'polynomialMixedRules':   5.0,
+        'exponentialDiff':        2.5,
+        'exponentialDiffRules':   4.5,
+        'logarithmicDiff':        3.0,
+        'logarithmicDiffRules':   5.0,
+        'trigDiff':               2.5,
+        'trigDiffRules':          4.5,
+        'mixedDiff':              6.0,
+        // Integration
+        'polynomialInt':          2.5,
+        'exponentialInt':         3.0,
+        'rationalInt':            3.5,
+        'trigInt':                3.0,
+        'mixedInt':               5.0,
+        'polynomialRCR':          4.0,
+        'exponentialRCR':         4.0,
+        'rationalRCR':            4.0,
+        'trigRCR':                4.0,
+        'mixedRCR':               6.0,
+        // Extension
+        'inverseTrigDiff':            5.5,
+        'inverseTrigInt':             6.0,
+        'integrationBySubstitution':  7.0,
+        'sinCosSquaredInt':           6.5,
+        'extensionMixedInt':          8.0,
     },
     STORAGE_PREFIX: 'calculus_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }
