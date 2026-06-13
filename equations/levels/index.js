@@ -70,3 +70,6 @@ export { default as exponentialNoLogsHard } from './exponentialNoLogsHard.js';
 export { default as quadraticInequalitiesEasy } from './quadraticInequalitiesEasy.js';
 export { default as quadraticInequalitiesMedium } from './quadraticInequalitiesMedium.js';
 export { default as quadraticInequalitiesHard } from './quadraticInequalitiesHard.js';
+export { default as trigEquationsEasy } from './trigEquationsEasy.js';
+export { default as trigEquationsMedium } from './trigEquationsMedium.js';
+export { default as trigEquationsHard } from './trigEquationsHard.js';

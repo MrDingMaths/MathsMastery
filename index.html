@@ -19,6 +19,7 @@
             --c-blue:  #4A7CF7;
             --c-red:   #F0697A;
             --c-teal:  #14b8a6;
+            --c-purple: #7c5cff;
             --ink-faint: #9aa1ad;
             --line: #e7eaf1;
             --shadow-card: 0 14px 34px -16px rgba(34,42,66,.32), 0 2px 6px rgba(34,42,66,.05);
@@ -115,6 +116,7 @@
         .mm-card.t-blue::before  { background: var(--c-blue); }
         .mm-card.t-red::before   { background: var(--c-red); }
         .mm-card.t-teal::before  { background: var(--c-teal); }
+        .mm-card.t-purple::before { background: var(--c-purple); }
 
         .mm-card:hover {
             transform: translateY(-7px);
@@ -139,6 +141,7 @@
         .t-blue  .mm-glyph { background: var(--c-blue); }
         .t-red   .mm-glyph { background: var(--c-red); }
         .t-teal  .mm-glyph { background: var(--c-teal); }
+        .t-purple .mm-glyph { background: var(--c-purple); }
 
         .mm-card h3 {
             font-family: var(--font-display);
@@ -168,9 +171,65 @@
         .t-blue  .mm-start { background: var(--c-blue);  box-shadow: 0 10px 20px -10px var(--c-blue); }
         .t-red   .mm-start { background: var(--c-red);   box-shadow: 0 10px 20px -10px var(--c-red); }
         .t-teal  .mm-start { background: var(--c-teal);  box-shadow: 0 10px 20px -10px var(--c-teal); }
+        .t-purple .mm-start { background: var(--c-purple); box-shadow: 0 10px 20px -10px var(--c-purple); }
 
         .mm-card:hover .mm-start { gap: 14px; filter: brightness(1.06); }
         .mm-start:active { transform: scale(.97); }
+
+        /* ===== FEATURED + 2×2 LAYOUT ===== */
+        .mm-topics-featured {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 26px;
+        }
+
+        .mm-compact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .mm-card.mm-compact {
+            padding: 20px 16px 18px;
+        }
+
+        .mm-compact .mm-glyph {
+            width: 52px; height: 52px;
+            font-size: 26px; border-radius: 16px;
+            margin: 6px 0 12px;
+        }
+
+        .mm-compact h3 { font-size: 18px; margin: 0 0 8px; }
+        .mm-compact .mm-start { font-size: 14px; padding: 9px 18px; }
+
+        .mm-lp-tag {
+            position: absolute;
+            top: 16px; right: 16px;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: .04em; text-transform: uppercase;
+            background: rgba(0,0,0,.07);
+            color: var(--chalk-heading);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        [data-theme="dark"] .mm-lp-tag { background: rgba(255,255,255,.12); }
+
+        .mm-mastery-ring {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 5px;
+            margin: 16px 0 20px;
+        }
+
+        .mm-ring-label {
+            font-size: 11px; color: #6b7280; font-weight: 500;
+            text-align: center; display: flex; flex-direction: column;
+            align-items: center; gap: 2px;
+        }
+
+        [data-theme="dark"] .mm-ring-label { color: #9ca3af; }
+        [data-theme="dark"] .mm-mastery-ring svg text { fill: #f3f4f6; }
 
         /* ===== RAILS ===== */
         .mm-rails {
@@ -537,6 +596,8 @@
         }
         @media (max-width: 900px) {
             .mm-topics { grid-template-columns: 1fr; }
+            .mm-topics-featured { grid-template-columns: 1fr; }
+            .mm-compact-grid { grid-template-columns: 1fr 1fr; }
             .mm-rails  { grid-template-columns: 1fr; }
             .mm-hero h1 { font-size: 46px; }
             .mm-shell { padding: 20px 20px 80px; }
@@ -582,6 +643,12 @@
                 <span class="mm-start">Start <span>→</span></span>
             </a>
 
+            <a href="./calculus/" class="mm-card t-purple">
+                <div class="mm-glyph">∫</div>
+                <h3>Calculus</h3>
+                <span class="mm-start">Start <span>→</span></span>
+            </a>
+
         </div>
 
         <div class="mm-rails">
@@ -609,7 +676,7 @@
                 <div class="panel-hof-tabs">
                     <button class="panel-hof-tab panel-hof-tab-active" data-app="mathsfacts">Number</button>
                     <button class="panel-hof-tab" data-app="algebra">Algebra</button>
-                    <button class="panel-hof-tab" data-app="trigfacts">Trig</button>
+                    <button class="panel-hof-tab" data-app="trigfacts">Trigonometry</button>
                     <button class="panel-hof-tab" data-app="equations">Equations</button>
                 </div>
                 <div class="panel-body">
@@ -635,10 +702,10 @@
                 <button id="hub-lb-close" aria-label="Close leaderboard">✕</button>
             </div>
             <div class="hub-lb-tabs">
-                <button class="hub-lb-tab hub-lb-tab-active" data-app="mathsfacts">Number Skills</button>
-                <button class="hub-lb-tab" data-app="algebra">Algebra Skills</button>
-                <button class="hub-lb-tab" data-app="trigfacts">Trig Skills</button>
-                <button class="hub-lb-tab" data-app="equations">Equation Solving</button>
+                <button class="hub-lb-tab hub-lb-tab-active" data-app="mathsfacts">Number</button>
+                <button class="hub-lb-tab" data-app="algebra">Algebra</button>
+                <button class="hub-lb-tab" data-app="trigfacts">Trigonometry</button>
+                <button class="hub-lb-tab" data-app="equations">Equations</button>
             </div>
             <div id="hub-lb-content"></div>
         </div>
@@ -694,6 +761,152 @@
             if (typeof window.supabaseUser !== 'undefined') {
                 updatePanels({ user: window.supabaseUser });
             }
+        })();
+    </script>
+    <script>
+        (function () {
+            const APPS = [
+                { key: 'mathsfacts', href: './mathsfacts/', label: 'Number',       glyph: '±', cls: 't-green',  color: '#3DBD6B', storageKey: 'mf_progress_data_v5' },
+                { key: 'algebra',    href: './algebra/',    label: 'Algebra',      glyph: '𝑥', cls: 't-blue',   color: '#4A7CF7', storageKey: 'algebra_progress_data_v5' },
+                { key: 'equations',  href: './equations/',  label: 'Equations',    glyph: '=', cls: 't-teal',   color: '#14b8a6', storageKey: 'equations_progress_data_v5' },
+                { key: 'trigfacts',  href: './trigfacts/',  label: 'Trigonometry', glyph: 'θ', cls: 't-red',    color: '#F0697A', storageKey: 'tf_progress_data_v5' },
+                { key: 'calculus',   href: './calculus/',   label: 'Calculus',     glyph: '∫', cls: 't-purple', color: '#7c5cff', storageKey: 'calculus_progress_data_v5' },
+            ];
+
+            function findLastPlayed() {
+                let best = null, bestTime = 0;
+                for (const app of APPS) {
+                    try {
+                        const raw = localStorage.getItem(app.storageKey);
+                        if (!raw) continue;
+                        const dh = JSON.parse(raw).drillHistory || {};
+                        for (const level of Object.values(dh)) {
+                            if (level.lastAttempt && level.lastAttempt > bestTime) {
+                                bestTime = level.lastAttempt;
+                                best = app;
+                            }
+                        }
+                    } catch (_) {}
+                }
+                return best;
+            }
+
+            function getPracticedStats(app) {
+                let practiced = 0, total = 0;
+                try {
+                    const raw = localStorage.getItem(app.storageKey);
+                    const dh = raw ? (JSON.parse(raw).drillHistory || {}) : {};
+                    practiced = Object.values(dh).filter(d => d.bestTime != null).length;
+                } catch (_) {}
+                try {
+                    const groups = window.LevelRegistry?.[app.key]?.LEVEL_GROUPS;
+                    if (groups) total = Object.values(groups).reduce((n, lvls) => n + lvls.length, 0);
+                } catch (_) {}
+                return { practiced, total };
+            }
+
+            function makeRingSVG(pct, size, color) {
+                const r = size * 0.36, circ = 2 * Math.PI * r;
+                const safe = isNaN(pct) ? 0 : Math.max(0, Math.min(1, pct));
+                const ns = 'http://www.w3.org/2000/svg';
+                const svg = document.createElementNS(ns, 'svg');
+                svg.setAttribute('width', size); svg.setAttribute('height', size);
+                svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+                svg.style.flexShrink = '0';
+
+                const track = document.createElementNS(ns, 'circle');
+                track.setAttribute('cx', size / 2); track.setAttribute('cy', size / 2);
+                track.setAttribute('r', r); track.setAttribute('fill', 'none');
+                track.setAttribute('stroke', '#e5e7eb'); track.setAttribute('stroke-width', size * 0.1);
+
+                const fill = document.createElementNS(ns, 'circle');
+                fill.setAttribute('cx', size / 2); fill.setAttribute('cy', size / 2);
+                fill.setAttribute('r', r); fill.setAttribute('fill', 'none');
+                fill.setAttribute('stroke', color); fill.setAttribute('stroke-width', size * 0.1);
+                fill.setAttribute('stroke-dasharray', `${circ * safe} ${circ * (1 - safe)}`);
+                fill.setAttribute('stroke-linecap', 'round');
+                fill.setAttribute('transform', `rotate(-90 ${size / 2} ${size / 2})`);
+
+                const text = document.createElementNS(ns, 'text');
+                text.setAttribute('x', size / 2); text.setAttribute('y', size / 2 + size * 0.07);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('font-size', size * 0.2); text.setAttribute('font-weight', '700');
+                text.setAttribute('font-family', 'Inter,system-ui,sans-serif');
+                text.setAttribute('fill', '#1f2937');
+                text.textContent = `${Math.round(safe * 100)}%`;
+
+                svg.append(track, fill, text);
+                return svg;
+            }
+
+            function el(tag, attrs, children) {
+                const e = document.createElement(tag);
+                for (const [k, v] of Object.entries(attrs || {})) {
+                    if (k === 'className') e.className = v;
+                    else if (k === 'textContent') e.textContent = v;
+                    else e.setAttribute(k, v);
+                }
+                for (const c of (children || [])) {
+                    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+                }
+                return e;
+            }
+
+            function buildFeatured(app, showTag) {
+                const a = el('a', { href: app.href, className: `mm-card ${app.cls} mm-featured` });
+
+                if (showTag) {
+                    a.appendChild(el('span', { className: 'mm-lp-tag', textContent: 'Last played' }));
+                }
+
+                a.appendChild(el('div', { className: 'mm-glyph', textContent: app.glyph }));
+                a.appendChild(el('h3', { textContent: app.label }));
+
+                if (showTag) {
+                    const { practiced, total } = getPracticedStats(app);
+                    const ring = el('div', { className: 'mm-mastery-ring' });
+                    ring.appendChild(makeRingSVG(total > 0 ? practiced / total : 0, 76, app.color));
+                    const label = el('span', { className: 'mm-ring-label' });
+                    const strong = document.createElement('strong');
+                    strong.textContent = `${practiced} / ${total}`;
+                    label.appendChild(strong);
+                    label.appendChild(el('span', { textContent: 'practised' }));
+                    ring.appendChild(label);
+                    a.appendChild(ring);
+                }
+
+                const start = el('span', { className: 'mm-start' }, ['Start ']);
+                start.appendChild(el('span', { textContent: '→' }));
+                a.appendChild(start);
+                return a;
+            }
+
+            function buildCompact(app) {
+                const a = el('a', { href: app.href, className: `mm-card ${app.cls} mm-compact` });
+                a.appendChild(el('div', { className: 'mm-glyph', textContent: app.glyph }));
+                a.appendChild(el('h3', { textContent: app.label }));
+                const start = el('span', { className: 'mm-start' }, ['Start ']);
+                start.appendChild(el('span', { textContent: '→' }));
+                a.appendChild(start);
+                return a;
+            }
+
+            const container = document.querySelector('.mm-topics');
+            if (!container) return;
+
+            const lastPlayed = findLastPlayed();
+            const featured   = lastPlayed || APPS[0];
+            const rest       = APPS.filter(a => a !== featured);
+
+            container.className = 'mm-topics mm-topics-featured';
+            while (container.firstChild) container.removeChild(container.firstChild);
+
+            container.appendChild(buildFeatured(featured, !!lastPlayed));
+
+            const grid = document.createElement('div');
+            grid.className = 'mm-compact-grid';
+            for (const app of rest) grid.appendChild(buildCompact(app));
+            container.appendChild(grid);
         })();
     </script>
 </body>

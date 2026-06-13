@@ -13,7 +13,7 @@
  */
 window.LevelRegistry = {
     algebra: {
-        appLabel: 'Algebra Skills',
+        appLabel: 'Algebra',
         LEVEL_GROUPS: {
             "Foundational Skills": [
                 { key: 'addSubtractTermsEasy', name: 'Add Subtract Terms<br>Easy', value: 'liketerms-easy' },
@@ -162,7 +162,7 @@ window.LevelRegistry = {
     },
 
     mathsfacts: {
-        appLabel: 'Number Skills',
+        appLabel: 'Number',
         LEVEL_GROUPS: {
             "Number Bonds": [
                 { key: 'bonds10', name: 'Bonds to 10', value: 10 },
@@ -201,9 +201,9 @@ window.LevelRegistry = {
     },
 
     trigfacts: {
-        appLabel: 'Trig Skills',
+        appLabel: 'Trigonometry',
         LEVEL_GROUPS: {
-            "Working in Degrees": [
+            "Unit Circle in Degrees": [
                 { key: 'exact_deg_mixed', name: 'Exact Values', type: 'exact', unit: 'deg' },
                 { key: 'reference_angles', name: 'Reference Angles', type: 'reference_angles' },
                 { key: 'equiv_deg', name: 'Equivalent Ratios', type: 'equivalent', unit: 'deg' },
@@ -225,7 +225,7 @@ window.LevelRegistry = {
     },
 
     equations: {
-        appLabel: 'Equation Solving',
+        appLabel: 'Equations',
         LEVEL_GROUPS: {
             "Foundational Skills": [
                 { key: 'oneStepEasy', name: 'One Step<br>Easy', value: 'one-step-easy' },
@@ -301,6 +301,24 @@ window.LevelRegistry = {
                 { key: 'quadraticInequalitiesEasy', name: 'Quadratic Inequalities<br>Easy', value: 'quadratic-inequalities-easy' },
                 { key: 'quadraticInequalitiesMedium', name: 'Quadratic Inequalities<br>Medium', value: 'quadratic-inequalities-medium' },
                 { key: 'quadraticInequalitiesHard', name: 'Quadratic Inequalities<br>Hard', value: 'quadratic-inequalities-hard' },
+                { key: 'trigEquationsEasy', name: 'Trig Equations<br>Easy', value: 'trig-equations-easy' },
+                { key: 'trigEquationsMedium', name: 'Trig Equations<br>Medium', value: 'trig-equations-medium' },
+                { key: 'trigEquationsHard', name: 'Trig Equations<br>Hard', value: 'trig-equations-hard' },
+            ],
+        }
+    },
+    calculus: {
+        appLabel: 'Calculus',
+        LEVEL_GROUPS: {
+            "Differentiation": [
+                { key: 'powerRuleDiffEasy', name: 'Power Rule<br>Easy', value: 'power-rule-diff-easy' },
+                { key: 'powerRuleDiffMedium', name: 'Power Rule<br>Medium', value: 'power-rule-diff-medium' },
+                { key: 'powerRuleDiffHard', name: 'Power Rule<br>Hard', value: 'power-rule-diff-hard' },
+            ],
+            "Integration": [
+                { key: 'powerRuleIntEasy', name: 'Power Rule<br>Easy', value: 'power-rule-int-easy' },
+                { key: 'powerRuleIntMedium', name: 'Power Rule<br>Medium', value: 'power-rule-int-medium' },
+                { key: 'powerRuleIntHard', name: 'Power Rule<br>Hard', value: 'power-rule-int-hard' },
             ],
         }
     }

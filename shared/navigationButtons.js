@@ -15,12 +15,13 @@ class SiteHeader {
         if (pathname.includes('/trigfacts/')) return 'trig';
         if (pathname.includes('/mathsfacts/')) return 'mathsfacts';
         if (pathname.includes('/equations/')) return 'equations';
+        if (pathname.includes('/calculus/')) return 'calculus';
         return 'hub';
     }
 
     getBasePath() {
         // Pages are either at root (/) or one level deep (/algebra/, /mathsfacts/, /trigfacts/, /equations/)
-        const isSubpage = /\/(algebra|mathsfacts|trigfacts|equations)\//.test(window.location.pathname);
+        const isSubpage = /\/(algebra|mathsfacts|trigfacts|equations|calculus)\//.test(window.location.pathname);
         return isSubpage ? '../' : './';
     }
 
@@ -67,8 +68,15 @@ class SiteHeader {
                 href: base + 'trigfacts/',
                 color: 'red',
                 icon: 'θ',
-                label: 'Trig',
+                label: 'Trigonometry',
                 active: activePage === 'trig',
+            },
+            {
+                href: base + 'calculus/',
+                color: 'purple',
+                icon: '∫',
+                label: 'Calculus',
+                active: activePage === 'calculus',
             },
         ];
 

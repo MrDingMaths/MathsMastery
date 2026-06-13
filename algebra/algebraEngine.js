@@ -33,7 +33,12 @@ class AlgebraEngine {
     // splitting (see insertImpliedMultiplication). `sqrt` is the only one emitted
     // by latexToMathJS today; the rest future-proof the parser.
     static KNOWN_FUNCTIONS = new Set([
-        'sqrt', 'cbrt', 'nthRoot', 'abs', 'sin', 'cos', 'tan', 'log', 'ln', 'exp'
+        'sqrt', 'cbrt', 'nthRoot', 'abs', 'sin', 'cos', 'tan', 'log', 'ln', 'exp',
+        // Extra trig / inverse-trig / hyperbolic names (all valid Math.js functions)
+        // so they survive implicit-multiplication splitting when emitted by the
+        // calculus answer checker. Additive — no algebra/equations level uses these
+        // identifiers as variables.
+        'sec', 'csc', 'cot', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh'
     ]);
 
     constructor(mathObj = null) {

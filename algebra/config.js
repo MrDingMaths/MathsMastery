@@ -195,17 +195,17 @@ export const CONFIG = {
         // Advanced Skills - Multiply Divide Surds
         'multiplyDivideSurdsEasy': 4,
         'multiplyDivideSurdsMedium': 8,
-        'multiplyDivideSurdsHard': 34,
+        'multiplyDivideSurdsHard': 30,
 
         // Advanced Skills - Expand Brackets with Surds
         'expandBracketsWithSurdsEasy': 4,
         'expandBracketsWithSurdsMedium': 10,
-        'expandBracketsWithSurdsHard': 22,
+        'expandBracketsWithSurdsHard': 20,
 
         // Advanced Skills - Rationalise the Denominator
-        'rationaliseTheDenominatorEasy': 5,
-        'rationaliseTheDenominatorMedium': 12,
-        'rationaliseTheDenominatorHard': 18,
+        'rationaliseTheDenominatorEasy': 3,
+        'rationaliseTheDenominatorMedium': 8,
+        'rationaliseTheDenominatorHard': 12,
 
         // Advanced Skills - Rationalise Binomial Denominator
         'rationaliseBinomialDenominatorEasy': 19,
@@ -214,32 +214,32 @@ export const CONFIG = {
 
         // Advanced Skills - Evaluate Fractional Indices
         'evaluateFractionalIndicesEasy': 1.5,
-        'evaluateFractionalIndicesMedium': 4,
-        'evaluateFractionalIndicesHard': 6,
+        'evaluateFractionalIndicesMedium': 3,
+        'evaluateFractionalIndicesHard': 7,
 
         // Advanced Skills - Surd Form to Index Form
         'surdFormToIndexFormEasy': 3,
         'surdFormToIndexFormMedium': 4,
-        'surdFormToIndexFormHard': 12,
+        'surdFormToIndexFormHard': 6,
 
         // Advanced Skills - Index Form to Surd Form
         'indexFormToSurdFormEasy': 4,
         'indexFormToSurdFormMedium': 8,
-        'indexFormToSurdFormHard': 15,
+        'indexFormToSurdFormHard': 10,
 
         // Advanced Skills - Complete the Square
         'completeTheSquareEasy': 5,
-        'completeTheSquareMedium': 10,
-        'completeTheSquareHard': 20,
+        'completeTheSquareMedium': 15,
+        'completeTheSquareHard': 25,
 
         // Advanced Skills - Factorise with Indices
-        'factoriseWithIndicesEasy': 5,
+        'factoriseWithIndicesEasy': 14,
         'factoriseWithIndicesMedium': 10,
         'factoriseWithIndicesHard': 20,
 
         // Advanced Skills - Splitting the Numerator
-        'splittingTheNumeratorEasy': 4,
-        'splittingTheNumeratorMedium': 8,
+        'splittingTheNumeratorEasy': 3,
+        'splittingTheNumeratorMedium': 7,
         'splittingTheNumeratorHard': 16,
     },
     STORAGE_PREFIX: 'algebra_bestTime_v1_',

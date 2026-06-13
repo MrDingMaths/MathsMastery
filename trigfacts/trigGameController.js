@@ -39,7 +39,7 @@ export class TrigGameController {
 
     initialize() {
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Trig Skills',
+            subjectName: 'Trigonometry',
             subjectSubtitle: 'Exact values, radians & degrees',
             subjectIcon: 'θ',
             accentColor: '#F0697A',

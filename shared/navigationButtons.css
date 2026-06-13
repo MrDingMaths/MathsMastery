@@ -80,6 +80,10 @@
 .site-nav-link-teal:hover { background: rgba(20,184,166,.1); }
 .site-nav-link-teal.active { background-color: #14b8a6; color: white; border-color: #14b8a6; }
 
+.site-nav-link-purple { border-color: #7c3aed; color: #7c3aed; }
+.site-nav-link-purple:hover { background: rgba(124,58,237,.1); }
+.site-nav-link-purple.active { background-color: #7c3aed; color: white; border-color: #7c3aed; }
+
 .site-nav-link-icon {
     font-size: 1rem;
     line-height: 1;

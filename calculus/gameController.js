@@ -7,6 +7,7 @@ import { QuestionGenerator } from './questionGenerator.js';
 import { Confetti } from '../shared/confetti.js';
 import { StorageManager } from './storage.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
+import { CalculusAnswerChecker } from './calculusAnswerChecker.js';
 
 // Make RatingUtils globally available for progress tracking modules
 window.RatingUtils = RatingUtils;
@@ -17,53 +18,44 @@ export class GameController {
         this.ui = new UI();
         this.timer = new Timer(this.ui.elements.timer);
         this.questionGen = new QuestionGenerator();
-        this.algebraEngine = new AlgebraEngine();
+        this.checker = new CalculusAnswerChecker();
         this.confetti = new Confetti('confetti-canvas');
         this.isChecking = false;
         this.answerSubmitted = false;
         this.lastQuestionProblem = null;
-        
-        // Initialize MathQuill after DOM is ready
+
         this.ui.initializeMathInputs();
-        
+
         this.setupEventListeners();
         this.initializeProgressTracking();
         this.initializeLearningPath();
     }
 
     initializeProgressTracking() {
-        // Only initialize if not already initialized
         if (!window.progressUI) {
-            // progressTracker is already instantiated by the per-app wrapper script
             window.progressChart = new ProgressChart('progress-chart', window.progressTracker);
-            window.progressShare = new ProgressShare(window.progressTracker, window.progressChart, 'Algebra Challenge');
+            window.progressShare = new ProgressShare(window.progressTracker, window.progressChart, 'Calculus Challenge');
             window.progressUI = new ProgressUI(window.progressTracker, window.progressChart, window.progressShare);
         }
     }
 
     initializeLearningPath() {
-        // Set up success screen callbacks (Enter = replay, Escape = back to levels)
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
             () => this.quitGame()
         );
-
-        // Initialize the learning path interface
         this.updateLearningPathInterface();
     }
 
     setupEventListeners() {
-        // Quit button (game screen)
         this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
 
-        // Listen for Enter key from the math field
         document.addEventListener('math-enter', () => {
             if (!this.isChecking && !this.answerSubmitted) {
                 this.checkAnswer();
             }
         });
 
-        // Game screen ESC handler (success screen shortcuts handled by BaseUI.setupSuccessScreenButtons)
         this.handleGlobalKeys = (e) => {
             if (!this.ui.elements.gameScreen.classList.contains('hidden')) {
                 if (e.key === 'Escape') {
@@ -73,7 +65,7 @@ export class GameController {
         };
         document.addEventListener('keydown', this.handleGlobalKeys);
 
-        // Capture phase so MathLive doesn't swallow the \ key
+        // Capture phase so MathLive doesn't swallow the \ key (skip question)
         this.handleSkipKey = (e) => {
             if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
                 e.stopPropagation();
@@ -107,7 +99,6 @@ export class GameController {
         this.ui.hideTimerPausedMessage();
         this.answerSubmitted = false;
 
-        // Reset incorrect count when moving to new question
         this.state.resetIncorrectCount();
         this.ui.updateSecondChances();
 
@@ -120,7 +111,7 @@ export class GameController {
             console.error("Failed to generate question");
             return;
         }
-        
+
         this.state.currentQuestion = question;
         this.state.currentAnswer = question.answer;
         this.ui.displayQuestion(question);
@@ -133,7 +124,7 @@ export class GameController {
         this.isChecking = true;
 
         const userAnswer = this.ui.getAnswerFromUI();
-        
+
         if (!userAnswer || userAnswer.trim() === '') {
             this.ui.showFeedback(false, 'Please enter an answer');
             this.answerSubmitted = false;
@@ -143,34 +134,42 @@ export class GameController {
 
         this.state.incrementQuestionsAttempted();
 
-        const correctAnswer = this.state.currentAnswer;
-        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer, this.state.currentLevel.value);
+        const question = this.state.currentQuestion;
+        const correctAnswer = question.answer;
+        const result = this.checker.check(userAnswer, {
+            answer: correctAnswer,
+            mode: question.mode,
+            toleranceDp: question.toleranceDp,
+        });
+        const isCorrect = result.correct;
 
         if (isCorrect) {
-            // Reset incorrect count on correct answer
             this.state.resetIncorrectCount();
-            
+
             const newStreak = this.state.incrementStreak();
             this.ui.updateStreak(newStreak);
             this.ui.showInputFeedback(true);
             this.ui.showFeedback(true, CONFIG.POSITIVE_FEEDBACK[Math.floor(Math.random() * CONFIG.POSITIVE_FEEDBACK.length)]);
             this.confetti.trigger(CONFIG.CONFETTI.CORRECT);
-            
+
+            // Correct, but the student omitted the constant of integration.
+            if (result.missingC) {
+                this.ui.showToast('Correct — but don’t forget + C ✏️');
+            }
+
             if (this.state.isComplete()) {
                 setTimeout(() => this.showSuccess(), 500);
             } else {
-                setTimeout(() => { 
+                setTimeout(() => {
                     this.answerSubmitted = false;
-                    this.generateQuestion(); 
-                    this.isChecking = false; 
+                    this.generateQuestion();
+                    this.isChecking = false;
                 }, CONFIG.FEEDBACK_DELAY_CORRECT);
             }
         } else {
-            // Increment incorrect count
             const incorrectCount = this.state.incrementIncorrectCount();
 
             if (this.state.isSecondIncorrectAttempt()) {
-                // Second incorrect attempt - reset streak, show correct answer with question, persist until user input
                 this.state.resetStreak();
                 this.ui.updateStreak(0);
                 this.ui.showInputFeedback(false);
@@ -178,26 +177,19 @@ export class GameController {
                 this.ui.showTimerPausedMessage();
                 this.timer.reset();
 
-                // Record the mistake
                 this.recordMistake(userAnswer, correctAnswer);
 
-                // Clear the answer field but keep feedback visible
                 this.ui.clearAnswer();
 
-                // Set up one-time listener for when user presses any key to move to next question
                 this._moveToNextQuestion = (e) => {
-                    // Only respond to actual key presses (not meta keys like Shift, Ctrl, etc.)
                     if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape') {
-                        // Remove this listener
                         document.removeEventListener('keydown', this._moveToNextQuestion);
                         this._moveToNextQuestion = null;
 
-                        // If Escape was pressed, don't advance to next question - let global handler quit the game
                         if (e.key === 'Escape') {
                             return;
                         }
 
-                        // Move to next question (only for non-Escape keys)
                         this.ui.hideTimerPausedMessage();
                         this.answerSubmitted = false;
                         this.generateQuestion();
@@ -206,12 +198,10 @@ export class GameController {
                     }
                 };
 
-                // Add the keydown listener (50ms delay prevents same keystroke from double-firing)
                 setTimeout(() => {
                     document.addEventListener('keydown', this._moveToNextQuestion);
                 }, 50);
             } else {
-                // First incorrect attempt - give second chance
                 this.ui.updateSecondChances(0);
                 this.ui.showInputFeedback(false);
                 this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
@@ -222,7 +212,6 @@ export class GameController {
                     this.answerSubmitted = false;
                     this.isChecking = false;
 
-                    // Refocus the input field for second attempt
                     if (this.ui.mathField) {
                         this.ui.mathField.focus();
                     }
@@ -236,12 +225,11 @@ export class GameController {
         const time = this.timer.getMs();
         const previousBest = StorageManager.getBestTime(this.state.currentLevel.key);
         const isNewBest = !previousBest || time < previousBest;
-        
+
         if (isNewBest) {
             this.confetti.trigger(CONFIG.CONFETTI.SUCCESS);
         }
 
-        // Add progress tracking
         try {
             if (window.progressTracker) {
                 console.log('Recording progress for:', this.state.currentLevel.key, 'Time:', time);
@@ -255,7 +243,7 @@ export class GameController {
         } catch (error) {
             console.error('Error recording progress (non-blocking):', error);
         }
-        
+
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
 
         try {
@@ -272,11 +260,8 @@ export class GameController {
             console.error('Error showing success screen:', error);
         }
 
-        if (typeof Leaderboard !== 'undefined') {
-            const submitParams = (isNewBest && window.supabaseUser) ? { bestTime: time, rating } : null;
-            Leaderboard.renderOnSuccessScreen('algebra', this.state.currentLevel.key, window.supabaseUser?.id || null, submitParams)
-                .catch(err => console.error('Leaderboard error:', err));
-        }
+        // Leaderboard intentionally deferred for calculus (not yet in the
+        // Supabase CHECK constraint). Progress still persists locally.
 
         if (typeof renderProgressChartOnSuccessScreen === 'function') {
             renderProgressChartOnSuccessScreen(this.state.currentLevel.key, this.state.currentLevel.name);
@@ -290,7 +275,6 @@ export class GameController {
     }
 
     recordMistake(studentAnswer, correctAnswer) {
-        // Record mistake for progress tracking
         try {
             if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
                 console.log('Recording mistake for:', this.state.currentLevel.key);
@@ -315,7 +299,7 @@ export class GameController {
             this.quitGame();
             return;
         }
-        if (this._quitPending) return; // within 200ms delay, ignore
+        if (this._quitPending) return;
         this._quitPending = true;
         this._quitAcceptSecond = false;
         this.ui.showToast('Keep going!');
@@ -357,10 +341,10 @@ export class GameController {
             </tr>
         </table>`;
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Algebra',
-            subjectSubtitle: 'Expand, simplify & factorise',
-            subjectIcon: '𝑥',
-            accentColor: '#4A7CF7',
+            subjectName: 'Calculus',
+            subjectSubtitle: 'Differentiate & integrate',
+            subjectIcon: '∫',
+            accentColor: '#7c5cff',
             singleLevel: false,
             keyboardTableHTML,
         });

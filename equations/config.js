@@ -88,6 +88,9 @@ export const CONFIG = {
         'quadraticInequalitiesEasy': 9.0,
         'quadraticInequalitiesMedium': 12.0,
         'quadraticInequalitiesHard': 17.0,
+        'trigEquationsEasy': 6.0,
+        'trigEquationsMedium': 9.0,
+        'trigEquationsHard': 13.0,
     },
     STORAGE_PREFIX: 'equations_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }

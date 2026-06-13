@@ -458,7 +458,7 @@ export class GameController {
 
     updateLearningPathInterface() {
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Number Skills',
+            subjectName: 'Number',
             subjectSubtitle: 'Bonds, multiplication & fractions',
             subjectIcon: '±',
             accentColor: '#3DBD6B',
