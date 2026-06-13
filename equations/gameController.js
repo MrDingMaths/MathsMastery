@@ -313,7 +313,7 @@ export class GameController {
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
             subjectName: 'Equation Solving',
             subjectSubtitle: 'Linear, quadratic & simultaneous',
-            subjectIcon: '≡',
+            subjectIcon: '=',
             accentColor: '#14b8a6',
             singleLevel: false,
             keyboardTableHTML,
