@@ -4,7 +4,7 @@ export default new BaseLevel(
     'compoundFractionsEasy',
     'Compound Fractions (Easy)',
     [
-            {problem: "\\frac{1}{(\\frac{1}{x})}", answer: "x"},
+            {problem: "\\frac{1}{\\left(\\frac{1}{x}\\right)}", answer: "x"},
             {problem: "\\frac{2}{\\frac{4}{x}}", answer: "\\frac{x}{2}"},
             {problem: "\\frac{5}{\\frac{25}{a}}", answer: "\\frac{a}{5}"},
             {problem: "\\frac{\\frac{3x}{8}}{3x}", answer: "\\frac{1}{8}"},

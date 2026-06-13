@@ -71,7 +71,7 @@ export default new BaseLevel(
             
             // Mixed fractions
             {problem: "x^2 - 1\\frac{7}{9}", answer: "(x - \\frac{4}{3})(x + \\frac{4}{3})"},
-            {problem: "\\frac{1}{25} - x^2", answer: "(\\frac{1}{5} - x)(\\frac{1}{5} + x)"},
+            {problem: "\\frac{1}{25} - x^2", answer: "\\left(\\frac{1}{5} - x\\right)\\left(\\frac{1}{5} + x\\right)"},
             
             // Complex grouped expressions
             {problem: "(x + 3)^2 - 25", answer: "(x - 2)(x + 8)"},

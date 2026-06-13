@@ -9,10 +9,10 @@ export default new BaseLevel('exponentialNoLogsHard', 'Exponential Equations (No
     Q('49^{2x-3}=343^{2x-1}', '-3/2'),
     Q('8^{5x-1}=\\frac{1}{2}', '2/15'),
     // Linear exponent with fraction base, complex RHS
-    Q('\\left(\\frac{3}{4}\\right)^{2x+1}=\\frac{64}{27}', '-2'),
-    Q('\\left(\\frac{2}{5}\\right)^{3x-5}=\\frac{25}{4}', '1'),
-    Q('\\left(\\frac{3}{2}\\right)^{3x+2}=\\frac{16}{81}', '-2'),
-    Q('\\left(\\frac{7}{4}\\right)^{1-x}=\\frac{4}{7}', '2'),
+    Q('\\left\\left(\\frac{3}{4}\\right\\right)^{2x+1}=\\frac{64}{27}', '-2'),
+    Q('\\left\\left(\\frac{2}{5}\\right\\right)^{3x-5}=\\frac{25}{4}', '1'),
+    Q('\\left\\left(\\frac{3}{2}\\right\\right)^{3x+2}=\\frac{16}{81}', '-2'),
+    Q('\\left\\left(\\frac{7}{4}\\right\\right)^{1-x}=\\frac{4}{7}', '2'),
     Q('3^{2x-1}=\\frac{1}{81}', '-3/2'),
     Q('7^{2x+3}=\\frac{1}{49}', '-5/2'),
     // Two-base cross matching
@@ -26,14 +26,14 @@ export default new BaseLevel('exponentialNoLogsHard', 'Exponential Equations (No
     Q('\\frac{5^{3x-3}}{25^{x-3}}=125', '0'),
     Q('\\frac{36^{3+2x}}{6^{x}}=1', '-2'),
     // Complex combinations
-    Q('\\left(\\frac{1}{5}\\right)^{x+1}=\\left(\\frac{1}{125}\\right)^{x-1}', '2'),
+    Q('\\left\\left(\\frac{1}{5}\\right\\right)^{x+1}=\\left\\left(\\frac{1}{125}\\right\\right)^{x-1}', '2'),
     Q('\\sqrt{2^{4x}\\times 4^{2x}\\times 8^{4x}}=256^{x}', '0'),
     // M1 hard series
     Q('121^{x}\\times\\sqrt[3]{11}=1331', '4/3'),
     Q('\\frac{\\sqrt[3]{5}}{5}=5^{x}', '-2/3'),
-    Q('\\left(\\frac{1}{36}\\right)^{5x+8}=216', '-19/10'),
-    Q('\\left(\\frac{1}{8}\\right)^{1-2x}=128^{x}', '-3'),
-    Q('\\left(\\frac{25}{\\sqrt[3]{5}}\\right)^{\\frac{x}{2}}=5', '6/5'),
+    Q('\\left\\left(\\frac{1}{36}\\right\\right)^{5x+8}=216', '-19/10'),
+    Q('\\left\\left(\\frac{1}{8}\\right\\right)^{1-2x}=128^{x}', '-3'),
+    Q('\\left\\left(\\frac{25}{\\sqrt[3]{5}}\\right\\right)^{\\frac{x}{2}}=5', '6/5'),
     Q('1000=\\frac{100^{x}}{\\sqrt[5]{10^{x}}}', '5/3'),
     Q('\\frac{9^{x}}{27^{5-x}}=\\sqrt{243}', '7/2'),
     Q('\\frac{\\sqrt[3]{5^{x}}}{\\sqrt{5}}=25^{4}', '51/2'),

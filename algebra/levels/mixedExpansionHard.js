@@ -41,9 +41,9 @@ export default new BaseLevel(
             {problem: "5x^2(x^2 + 2x - 1) - 3x(x^3 - x + 4)", answer: "2x^4 + 10x^3 - 2x^2 - 12x"},
 
             // Advanced rational expressions
-            {problem: "(\\frac{a}{b} + \\frac{b}{a})^2", answer: "\\frac{a^2}{b^2} + 2 + \\frac{b^2}{a^2}"},
-            {problem: "(\\frac{2x}{y} - \\frac{y}{2x})^2", answer: "\\frac{4x^2}{y^2} - 2 + \\frac{y^2}{4x^2}"},
-            {problem: "(\\frac{x}{y} + \\frac{y}{x})(\\frac{x}{y} - \\frac{y}{x})", answer: "\\frac{x^2}{y^2} - \\frac{y^2}{x^2}"},
+            {problem: "\\left(\\frac{a}{b} + \\frac{b}{a}\\right)^2", answer: "\\frac{a^2}{b^2} + 2 + \\frac{b^2}{a^2}"},
+            {problem: "\\left(\\frac{2x}{y} - \\frac{y}{2x}\\right)^2", answer: "\\frac{4x^2}{y^2} - 2 + \\frac{y^2}{4x^2}"},
+            {problem: "\\left(\\frac{x}{y} + \\frac{y}{x}\\right)\\left(\\frac{x}{y} - \\frac{y}{x}\\right)", answer: "\\frac{x^2}{y^2} - \\frac{y^2}{x^2}"},
 
             // General algebraic expressions
             {problem: "(ax-b)(cx-d)", answer: "acx^2 - adx - bcx + bd"},
@@ -70,14 +70,14 @@ export default new BaseLevel(
             {problem: "(x - \\frac{2}{5})^2", answer: "x^2 - \\frac{4}{5}x + \\frac{4}{25}"},
             {problem: "(3x + \\frac{5}{7})^2", answer: "9x^2 + \\frac{30}{7}x + \\frac{25}{49}"},
             {problem: "(3x + \\frac{2}{5})^2", answer: "9x^2 + \\frac{12}{5}x + \\frac{4}{25}"},
-            {problem: "(\\frac{x}{5} - \\frac{3}{8})^2", answer: "\\frac{x^2}{25} - \\frac{3x}{20} + \\frac{9}{64}"},
-            {problem: "(\\frac{2x}{3} + \\frac{9y}{8})^2", answer: "\\frac{4x^2}{9} + \\frac{3xy}{2} + \\frac{81y^2}{64}"},
+            {problem: "\\left(\\frac{x}{5} - \\frac{3}{8}\\right)^2", answer: "\\frac{x^2}{25} - \\frac{3x}{20} + \\frac{9}{64}"},
+            {problem: "\\left(\\frac{2x}{3} + \\frac{9y}{8}\\right)^2", answer: "\\frac{4x^2}{9} + \\frac{3xy}{2} + \\frac{81y^2}{64}"},
 
             // Reciprocal terms
             {problem: "(x - \\frac{1}{x})^2", answer: "x^2 - 2 + \\frac{1}{x^2}"},
             {problem: "(2 + \\frac{2}{a})^2", answer: "4 + \\frac{8}{a} + \\frac{4}{a^2}"},
-            {problem: "(\\frac{6}{x} - x)^2", answer: "x^2 - 12 + \\frac{36}{x^2}"},
-            {problem: "(\\frac{3}{x} + 3x)^2", answer: "9x^2 + 18 + \\frac{9}{x^2}"},
+            {problem: "\\left(\\frac{6}{x} - x\\right)^2", answer: "x^2 - 12 + \\frac{36}{x^2}"},
+            {problem: "\\left(\\frac{3}{x} + 3x\\right)^2", answer: "9x^2 + 18 + \\frac{9}{x^2}"},
 
             // Higher powers with coefficients
             {problem: "(2x^2 + 3y^2)^2", answer: "4x^4 + 12x^2y^2 + 9y^4"},
@@ -88,21 +88,21 @@ export default new BaseLevel(
             // Fractions with powers
             {problem: "(x^2 + \\frac{1}{2})^2", answer: "x^4 + x^2 + \\frac{1}{4}"},
             {problem: "(y^3 - \\frac{1}{3})^2", answer: "y^6 - \\frac{2}{3}y^3 + \\frac{1}{9}"},
-            {problem: "(\\frac{a^3}{2} - \\frac{b^2}{3})^2", answer: "\\frac{a^6}{4} - \\frac{a^3b^2}{3} + \\frac{b^4}{9}"},
+            {problem: "\\left(\\frac{a^3}{2} - \\frac{b^2}{3}\\right)^2", answer: "\\frac{a^6}{4} - \\frac{a^3b^2}{3} + \\frac{b^4}{9}"},
             {problem: "(2x^3 + \\frac{1}{x})^2", answer: "4x^6 + 4x^2 + \\frac{1}{x^2}"},
 
             // Additional complex fraction examples
             {problem: "(x + \\frac{1}{2})^2", answer: "x^2 + x + \\frac{1}{4}"},
             {problem: "(x - \\frac{3}{4})^2", answer: "x^2 - \\frac{3}{2}x + \\frac{9}{16}"},
             {problem: "(2x + \\frac{1}{4})^2", answer: "4x^2 + x + \\frac{1}{16}"},
-            {problem: "(\\frac{x}{2} + \\frac{1}{3})^2", answer: "\\frac{x^2}{4} + \\frac{x}{3} + \\frac{1}{9}"},
-            {problem: "(\\frac{x}{3} - \\frac{2}{5})^2", answer: "\\frac{x^2}{9} - \\frac{4x}{15} + \\frac{4}{25}"},
+            {problem: "\\left(\\frac{x}{2} + \\frac{1}{3}\\right)^2", answer: "\\frac{x^2}{4} + \\frac{x}{3} + \\frac{1}{9}"},
+            {problem: "\\left(\\frac{x}{3} - \\frac{2}{5}\\right)^2", answer: "\\frac{x^2}{9} - \\frac{4x}{15} + \\frac{4}{25}"},
 
             // More reciprocal variations
-            {problem: "(\\frac{2}{x} + x)^2", answer: "x^2 + 4 + \\frac{4}{x^2}"},
-            {problem: "(\\frac{1}{x} - 2x)^2", answer: "4x^2 - 4 + \\frac{1}{x^2}"},
+            {problem: "\\left(\\frac{2}{x} + x\\right)^2", answer: "x^2 + 4 + \\frac{4}{x^2}"},
+            {problem: "\\left(\\frac{1}{x} - 2x\\right)^2", answer: "4x^2 - 4 + \\frac{1}{x^2}"},
             {problem: "(3 + \\frac{1}{3x})^2", answer: "9 + \\frac{2}{x} + \\frac{1}{9x^2}"},
-            {problem: "(\\frac{5}{2x} - \\frac{x}{2})^2", answer: "\\frac{x^2}{4} - \\frac{5}{2} + \\frac{25}{4x^2}"},
+            {problem: "\\left(\\frac{5}{2x} - \\frac{x}{2}\\right)^2", answer: "\\frac{x^2}{4} - \\frac{5}{2} + \\frac{25}{4x^2}"},
 
             // Complex power combinations
             {problem: "(x^3 + 2y^2)^2", answer: "x^6 + 4x^3y^2 + 4y^4"},
@@ -111,42 +111,42 @@ export default new BaseLevel(
             {problem: "(4x^5 - y^2)^2", answer: "16x^{10} - 8x^5y^2 + y^4"},
 
             // Mixed fraction and power terms
-            {problem: "(\\frac{x^2}{3} + \\frac{2}{x})^2", answer: "\\frac{x^4}{9} + \\frac{4x}{3} + \\frac{4}{x^2}"},
-            {problem: "(\\frac{3}{y^2} - y^3)^2", answer: "y^6 - 6y + \\frac{9}{y^4}"},
+            {problem: "\\left(\\frac{x^2}{3} + \\frac{2}{x}\\right)^2", answer: "\\frac{x^4}{9} + \\frac{4x}{3} + \\frac{4}{x^2}"},
+            {problem: "\\left(\\frac{3}{y^2} - y^3\\right)^2", answer: "y^6 - 6y + \\frac{9}{y^4}"},
             {problem: "(2x^2 + \\frac{1}{3x})^2", answer: "4x^4 + \\frac{4x}{3} + \\frac{1}{9x^2}"},
 
             // Complex coefficient fractions
-            {problem: "(\\frac{3x}{4} + \\frac{5y}{6})^2", answer: "\\frac{9x^2}{16} + \\frac{5xy}{4} + \\frac{25y^2}{36}"},
-            {problem: "(\\frac{2a}{5} - \\frac{3b}{7})^2", answer: "\\frac{4a^2}{25} - \\frac{12ab}{35} + \\frac{9b^2}{49}"},
-            {problem: "(\\frac{4x}{3} + \\frac{y}{2})^2", answer: "\\frac{16x^2}{9} + \\frac{4xy}{3} + \\frac{y^2}{4}"},
+            {problem: "\\left(\\frac{3x}{4} + \\frac{5y}{6}\\right)^2", answer: "\\frac{9x^2}{16} + \\frac{5xy}{4} + \\frac{25y^2}{36}"},
+            {problem: "\\left(\\frac{2a}{5} - \\frac{3b}{7}\\right)^2", answer: "\\frac{4a^2}{25} - \\frac{12ab}{35} + \\frac{9b^2}{49}"},
+            {problem: "\\left(\\frac{4x}{3} + \\frac{y}{2}\\right)^2", answer: "\\frac{16x^2}{9} + \\frac{4xy}{3} + \\frac{y^2}{4}"},
 
             // Very advanced combinations
             {problem: "(2x + \\frac{3}{x})^2", answer: "4x^2 + 12 + \\frac{9}{x^2}"},
-            {problem: "(\\frac{x^4}{4} + \\frac{2}{x^2})^2", answer: "\\frac{x^8}{16} + x^2 + \\frac{4}{x^4}"},
+            {problem: "\\left(\\frac{x^4}{4} + \\frac{2}{x^2}\\right)^2", answer: "\\frac{x^8}{16} + x^2 + \\frac{4}{x^4}"},
             {problem: "(3x - \\frac{1}{x})^2", answer: "9x^2 - 6 + \\frac{1}{x^2}"},
 
             // Additional challenging examples
-            {problem: "(\\frac{2x}{7} + \\frac{3}{14})^2", answer: "\\frac{4x^2}{49} + \\frac{6x}{49} + \\frac{9}{196}"},
-            {problem: "(\\frac{5y}{8} - \\frac{1}{4y})^2", answer: "\\frac{25y^2}{64} - \\frac{5}{16} + \\frac{1}{16y^2}"},
-            {problem: "(\\frac{a^5}{6} + \\frac{3b^3}{4})^2", answer: "\\frac{a^{10}}{36} + \\frac{a^5b^3}{4} + \\frac{9b^6}{16}"},
+            {problem: "\\left(\\frac{2x}{7} + \\frac{3}{14}\\right)^2", answer: "\\frac{4x^2}{49} + \\frac{6x}{49} + \\frac{9}{196}"},
+            {problem: "\\left(\\frac{5y}{8} - \\frac{1}{4y}\\right)^2", answer: "\\frac{25y^2}{64} - \\frac{5}{16} + \\frac{1}{16y^2}"},
+            {problem: "\\left(\\frac{a^5}{6} + \\frac{3b^3}{4}\\right)^2", answer: "\\frac{a^{10}}{36} + \\frac{a^5b^3}{4} + \\frac{9b^6}{16}"},
 
             // Final complex variations
-            {problem: "(\\frac{x^2}{2} + \\frac{3}{x})^2", answer: "\\frac{x^4}{4} + 3x + \\frac{9}{x^2}"},
-            {problem: "(\\frac{4x^2}{9} - \\frac{2}{3x})^2", answer: "\\frac{16x^4}{81} - \\frac{16x}{27} + \\frac{4}{9x^2}"},
+            {problem: "\\left(\\frac{x^2}{2} + \\frac{3}{x}\\right)^2", answer: "\\frac{x^4}{4} + 3x + \\frac{9}{x^2}"},
+            {problem: "\\left(\\frac{4x^2}{9} - \\frac{2}{3x}\\right)^2", answer: "\\frac{16x^4}{81} - \\frac{16x}{27} + \\frac{4}{9x^2}"},
 
             // Difference of squares with fractional terms
             {problem: "(x+\\frac{1}{3})(x-\\frac{1}{3})", answer: "x^2-\\frac{1}{9}"},
             {problem: "(x+\\frac{3}{4})(x-\\frac{3}{4})", answer: "x^2-\\frac{9}{16}"},
-            {problem: "(\\frac{x}{3}+\\frac{4}{5})(\\frac{x}{3}-\\frac{4}{5})", answer: "\\frac{x^2}{9}-\\frac{16}{25}"},
-            {problem: "(\\frac{x}{2}+\\frac{y}{7})(\\frac{x}{2}-\\frac{y}{7})", answer: "\\frac{x^2}{4}-\\frac{y^2}{49}"},
+            {problem: "\\left(\\frac{x}{3}+\\frac{4}{5}\\right)\\left(\\frac{x}{3}-\\frac{4}{5}\\right)", answer: "\\frac{x^2}{9}-\\frac{16}{25}"},
+            {problem: "\\left(\\frac{x}{2}+\\frac{y}{7}\\right)\\left(\\frac{x}{2}-\\frac{y}{7}\\right)", answer: "\\frac{x^2}{4}-\\frac{y^2}{49}"},
             {problem: "(2x-\\frac{3}{7})(2x+\\frac{3}{7})", answer: "4x^2-\\frac{9}{49}"},
-            {problem: "(\\frac{7}{3}-5x)(\\frac{7}{3}+5x)", answer: "\\frac{49}{9}-25x^2"},
+            {problem: "\\left(\\frac{7}{3}-5x\\right)\\left(\\frac{7}{3}+5x\\right)", answer: "\\frac{49}{9}-25x^2"},
 
             // Reciprocal DOTS
             {problem: "(x+\\frac{1}{x})(x-\\frac{1}{x})", answer: "x^2-\\frac{1}{x^2}"},
-            {problem: "(\\frac{4}{x}-x)(\\frac{4}{x}+x)", answer: "\\frac{16}{x^2}-x^2"},
+            {problem: "\\left(\\frac{4}{x}-x\\right)\\left(\\frac{4}{x}+x\\right)", answer: "\\frac{16}{x^2}-x^2"},
             {problem: "(3x+\\frac{1}{x})(3x-\\frac{1}{x})", answer: "9x^2-\\frac{1}{x^2}"},
-            {problem: "(\\frac{4a}{3}+2)(\\frac{4a}{3}-2)", answer: "\\frac{16a^2}{9}-4"},
+            {problem: "\\left(\\frac{4a}{3}+2\\right)\\left(\\frac{4a}{3}-2\\right)", answer: "\\frac{16a^2}{9}-4"},
             {problem: "(xy-\\frac{1}{y})(xy+\\frac{1}{y})", answer: "x^2y^2-\\frac{1}{y^2}"},
 
             // Complex expressions with nested parentheses
@@ -156,9 +156,9 @@ export default new BaseLevel(
             {problem: "(x+\\frac{2}{5})(x-\\frac{2}{5})", answer: "x^2-\\frac{4}{25}"},
             {problem: "(x+\\frac{5}{6})(x-\\frac{5}{6})", answer: "x^2-\\frac{25}{36}"},
             {problem: "(x-\\frac{7}{8})(x+\\frac{7}{8})", answer: "x^2-\\frac{49}{64}"},
-            {problem: "(\\frac{2}{3}+x)(\\frac{2}{3}-x)", answer: "\\frac{4}{9}-x^2"},
-            {problem: "(\\frac{5}{4}-x)(\\frac{5}{4}+x)", answer: "\\frac{25}{16}-x^2"},
-            {problem: "(\\frac{9}{7}+x)(\\frac{9}{7}-x)", answer: "\\frac{81}{49}-x^2"},
+            {problem: "\\left(\\frac{2}{3}+x\\right)\\left(\\frac{2}{3}-x\\right)", answer: "\\frac{4}{9}-x^2"},
+            {problem: "\\left(\\frac{5}{4}-x\\right)\\left(\\frac{5}{4}+x\\right)", answer: "\\frac{25}{16}-x^2"},
+            {problem: "\\left(\\frac{9}{7}+x\\right)\\left(\\frac{9}{7}-x\\right)", answer: "\\frac{81}{49}-x^2"},
 
             // Fractions with coefficients
             {problem: "(3x+\\frac{1}{2})(3x-\\frac{1}{2})", answer: "9x^2-\\frac{1}{4}"},
@@ -168,33 +168,33 @@ export default new BaseLevel(
             {problem: "(6x+\\frac{1}{7})(6x-\\frac{1}{7})", answer: "36x^2-\\frac{1}{49}"},
 
             // Two-variable fractions
-            {problem: "(\\frac{x}{2}+\\frac{y}{3})(\\frac{x}{2}-\\frac{y}{3})", answer: "\\frac{x^2}{4}-\\frac{y^2}{9}"},
-            {problem: "(\\frac{a}{5}+\\frac{b}{4})(\\frac{a}{5}-\\frac{b}{4})", answer: "\\frac{a^2}{25}-\\frac{b^2}{16}"},
-            {problem: "(\\frac{x}{7}-\\frac{y}{6})(\\frac{x}{7}+\\frac{y}{6})", answer: "\\frac{x^2}{49}-\\frac{y^2}{36}"},
-            {problem: "(\\frac{2x}{3}+\\frac{3y}{4})(\\frac{2x}{3}-\\frac{3y}{4})", answer: "\\frac{4x^2}{9}-\\frac{9y^2}{16}"},
-            {problem: "(\\frac{3a}{8}-\\frac{2b}{5})(\\frac{3a}{8}+\\frac{2b}{5})", answer: "\\frac{9a^2}{64}-\\frac{4b^2}{25}"},
+            {problem: "\\left(\\frac{x}{2}+\\frac{y}{3}\\right)\\left(\\frac{x}{2}-\\frac{y}{3}\\right)", answer: "\\frac{x^2}{4}-\\frac{y^2}{9}"},
+            {problem: "\\left(\\frac{a}{5}+\\frac{b}{4}\\right)\\left(\\frac{a}{5}-\\frac{b}{4}\\right)", answer: "\\frac{a^2}{25}-\\frac{b^2}{16}"},
+            {problem: "\\left(\\frac{x}{7}-\\frac{y}{6}\\right)\\left(\\frac{x}{7}+\\frac{y}{6}\\right)", answer: "\\frac{x^2}{49}-\\frac{y^2}{36}"},
+            {problem: "\\left(\\frac{2x}{3}+\\frac{3y}{4}\\right)\\left(\\frac{2x}{3}-\\frac{3y}{4}\\right)", answer: "\\frac{4x^2}{9}-\\frac{9y^2}{16}"},
+            {problem: "\\left(\\frac{3a}{8}-\\frac{2b}{5}\\right)\\left(\\frac{3a}{8}+\\frac{2b}{5}\\right)", answer: "\\frac{9a^2}{64}-\\frac{4b^2}{25}"},
 
             // Complex reciprocal patterns
-            {problem: "(\\frac{2}{x}+x)(\\frac{2}{x}-x)", answer: "\\frac{4}{x^2}-x^2"},
-            {problem: "(\\frac{3}{y}-y)(\\frac{3}{y}+y)", answer: "\\frac{9}{y^2}-y^2"},
-            {problem: "(\\frac{5}{x}+2x)(\\frac{5}{x}-2x)", answer: "\\frac{25}{x^2}-4x^2"},
-            {problem: "(\\frac{1}{2a}+3a)(\\frac{1}{2a}-3a)", answer: "\\frac{1}{4a^2}-9a^2"},
-            {problem: "(\\frac{4}{3b}-2b)(\\frac{4}{3b}+2b)", answer: "\\frac{16}{9b^2}-4b^2"},
+            {problem: "\\left(\\frac{2}{x}+x\\right)\\left(\\frac{2}{x}-x\\right)", answer: "\\frac{4}{x^2}-x^2"},
+            {problem: "\\left(\\frac{3}{y}-y\\right)\\left(\\frac{3}{y}+y\\right)", answer: "\\frac{9}{y^2}-y^2"},
+            {problem: "\\left(\\frac{5}{x}+2x\\right)\\left(\\frac{5}{x}-2x\\right)", answer: "\\frac{25}{x^2}-4x^2"},
+            {problem: "\\left(\\frac{1}{2a}+3a\\right)\\left(\\frac{1}{2a}-3a\\right)", answer: "\\frac{1}{4a^2}-9a^2"},
+            {problem: "\\left(\\frac{4}{3b}-2b\\right)\\left(\\frac{4}{3b}+2b\\right)", answer: "\\frac{16}{9b^2}-4b^2"},
 
             // Mixed complex fractions
             {problem: "(2x+\\frac{y}{3})(2x-\\frac{y}{3})", answer: "4x^2-\\frac{y^2}{9}"},
-            {problem: "(\\frac{x}{4}+3y)(\\frac{x}{4}-3y)", answer: "\\frac{x^2}{16}-9y^2"},
+            {problem: "\\left(\\frac{x}{4}+3y\\right)\\left(\\frac{x}{4}-3y\\right)", answer: "\\frac{x^2}{16}-9y^2"},
             {problem: "(5a-\\frac{b}{2})(5a+\\frac{b}{2})", answer: "25a^2-\\frac{b^2}{4}"},
-            {problem: "(\\frac{x}{6}+4y)(\\frac{x}{6}-4y)", answer: "\\frac{x^2}{36}-16y^2"},
+            {problem: "\\left(\\frac{x}{6}+4y\\right)\\left(\\frac{x}{6}-4y\\right)", answer: "\\frac{x^2}{36}-16y^2"},
             {problem: "(3x-\\frac{y}{5})(3x+\\frac{y}{5})", answer: "9x^2-\\frac{y^2}{25}"},
 
             // Advanced reciprocal with variables
             {problem: "(ab+\\frac{1}{ab})(ab-\\frac{1}{ab})", answer: "a^2b^2-\\frac{1}{a^2b^2}"},
-            {problem: "(\\frac{xy}{2}-\\frac{2}{xy})(\\frac{xy}{2}+\\frac{2}{xy})", answer: "\\frac{x^2y^2}{4}-\\frac{4}{x^2y^2}"},
-            {problem: "(\\frac{3}{xy}+xy)(\\frac{3}{xy}-xy)", answer: "\\frac{9}{x^2y^2}-x^2y^2"},
+            {problem: "\\left(\\frac{xy}{2}-\\frac{2}{xy}\\right)\\left(\\frac{xy}{2}+\\frac{2}{xy}\\right)", answer: "\\frac{x^2y^2}{4}-\\frac{4}{x^2y^2}"},
+            {problem: "\\left(\\frac{3}{xy}+xy\\right)\\left(\\frac{3}{xy}-xy\\right)", answer: "\\frac{9}{x^2y^2}-x^2y^2"},
 
             // Nested fraction expressions
-            {problem: "(\\frac{3x}{5}+\\frac{2}{7})(\\frac{3x}{5}-\\frac{2}{7})", answer: "\\frac{9x^2}{25}-\\frac{4}{49}"},
-            {problem: "(\\frac{5a}{2}+\\frac{3}{b})(\\frac{5a}{2}-\\frac{3}{b})", answer: "\\frac{25a^2}{4}-\\frac{9}{b^2}"}
+            {problem: "\\left(\\frac{3x}{5}+\\frac{2}{7}\\right)\\left(\\frac{3x}{5}-\\frac{2}{7}\\right)", answer: "\\frac{9x^2}{25}-\\frac{4}{49}"},
+            {problem: "\\left(\\frac{5a}{2}+\\frac{3}{b}\\right)\\left(\\frac{5a}{2}-\\frac{3}{b}\\right)", answer: "\\frac{25a^2}{4}-\\frac{9}{b^2}"}
         ]
 );

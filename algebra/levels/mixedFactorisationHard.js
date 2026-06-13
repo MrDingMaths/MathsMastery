@@ -40,9 +40,9 @@ export default new BaseLevel(
             {problem: "36x^3y^2 - 9x", answer: "9x(2xy - 1)(2xy + 1)"},
             
             // Very complex fractions
-            {problem: "\\frac{64b^2}{25} - \\frac{4y^2}{81}", answer: "(\\frac{8b}{5} - \\frac{2y}{9})(\\frac{8b}{5} + \\frac{2y}{9})"},
+            {problem: "\\frac{64b^2}{25} - \\frac{4y^2}{81}", answer: "\\left(\\frac{8b}{5} - \\frac{2y}{9}\\right)\\left(\\frac{8b}{5} + \\frac{2y}{9}\\right)"},
             {problem: "3x^2 - \\frac{48}{x^2}", answer: "3(x - \\frac{4}{x})(x + \\frac{4}{x})"},
-            {problem: "\\frac{4x^2}{9} - \\frac{y^2}{36}", answer: "(\\frac{2x}{3} - \\frac{y}{6})(\\frac{2x}{3} + \\frac{y}{6})"},
+            {problem: "\\frac{4x^2}{9} - \\frac{y^2}{36}", answer: "\\left(\\frac{2x}{3} - \\frac{y}{6}\\right)\\left(\\frac{2x}{3} + \\frac{y}{6}\\right)"},
             
             // Complex algebraic manipulation
             {problem: "(y + x)^2 - (y - x)^2", answer: "4yx"},
@@ -279,8 +279,8 @@ export default new BaseLevel(
             {problem: "x^2 - \\frac{3}{4}", answer: "(x - \\frac{\\sqrt{3}}{2})(x + \\frac{\\sqrt{3}}{2})"},
             {problem: "x^2 - \\frac{7}{16}", answer: "(x - \\frac{\\sqrt{7}}{4})(x + \\frac{\\sqrt{7}}{4})"},
             {problem: "x^2 - \\frac{5}{16}", answer: "(x - \\frac{\\sqrt{5}}{4})(x + \\frac{\\sqrt{5}}{4})"},
-            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "(\\frac{x}{2} - \\frac{\\sqrt{7}}{3})(\\frac{x}{2} + \\frac{\\sqrt{7}}{3})"},
-            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2})(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2})"},
+            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "\\left(\\frac{x}{2} - \\frac{\\sqrt{7}}{3}\\right)\\left(\\frac{x}{2} + \\frac{\\sqrt{7}}{3}\\right)"},
+            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "\\left(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2}\\right)\\left(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2}\\right)"},
             
             // Irrational coefficients
             {problem: "x^2 - 7", answer: "(x-\\sqrt{7})(x+\\sqrt{7})"},
@@ -330,7 +330,7 @@ export default new BaseLevel(
             {problem: "ax^4 - 81a", answer: "a(x-3)(x+3)(x^2+9)"},
             {problem: "x^5 - x", answer: "x(x-1)(x+1)(x^2+1)"},
             {problem: "5x^4 - 80", answer: "5(x-2)(x+2)(x^2+4)"},
-            {problem: "\\frac{y^4}{81} - 1", answer: "(\\frac{y}{3}-1)(\\frac{y}{3}+1)(\\frac{y^2}{9}+1)"},
+            {problem: "\\frac{y^4}{81} - 1", answer: "\\left(\\frac{y}{3}-1\\right)\\left(\\frac{y}{3}+1\\right)\\left(\\frac{y^2}{9}+1\\right)"},
             {problem: "x^5 - 16x", answer: "x(x-2)(x+2)(x^2+4)"},
             {problem: "4a^4 - 64", answer: "4(a-2)(a+2)(a^2+4)"},
             {problem: "3x^4 - 243", answer: "3(x-3)(x+3)(x^2+9)"},
@@ -338,6 +338,6 @@ export default new BaseLevel(
             // Complex fractional fourth powers
             {problem: "\\frac{x^4}{3} - \\frac{y^4}{3}", answer: "\\frac{1}{3}(x-y)(x+y)(x^2+y^2)"},
             {problem: "2a^4 - 32b^4", answer: "2(a-2b)(a+2b)(a^2+4b^2)"},
-            {problem: "\\frac{a^4}{16} - \\frac{b^4}{81}", answer: "(\\frac{a}{2}-\\frac{b}{3})(\\frac{a}{2}+\\frac{b}{3})(\\frac{a^2}{4}+\\frac{b^2}{9})"},
+            {problem: "\\frac{a^4}{16} - \\frac{b^4}{81}", answer: "\\left(\\frac{a}{2}-\\frac{b}{3}\\right)\\left(\\frac{a}{2}+\\frac{b}{3}\\right)\\left(\\frac{a^2}{4}+\\frac{b^2}{9}\\right)"},
         ]
 );

@@ -16,10 +16,10 @@ export default new BaseLevel(
             {problem: "\\frac{7x^2}{xy} \\div \\frac{6y}{3} \\div \\frac{4y}{14}", answer: "\\frac{49x}{4y^3}"},
 
             // Operations with parentheses
-            {problem: "\\frac{7x^2}{xy} \\div \\left(\\frac{6y}{3} \\times \\frac{4y}{14}\\right)", answer: "\\frac{49x}{4y^3}"},
-            {problem: "\\frac{7x^2}{xy} \\div \\left(\\frac{6y}{3} \\div \\frac{4y}{14}\\right)", answer: "\\frac{x}{y}"},
-            {problem: "\\frac{7x^2}{xy} \\div \\left(\\frac{6y}{9} \\times \\frac{4y}{14}\\right)", answer: "\\frac{147x}{4y^3}"},
-            {problem: "\\frac{7x^2}{xy} \\times \\left(\\frac{6y}{9} \\div \\frac{4y}{14}\\right)", answer: "\\frac{49x}{3y}"},
+            {problem: "\\frac{7x^2}{xy} \\div \\left\\left(\\frac{6y}{3} \\times \\frac{4y}{14}\\right\\right)", answer: "\\frac{49x}{4y^3}"},
+            {problem: "\\frac{7x^2}{xy} \\div \\left\\left(\\frac{6y}{3} \\div \\frac{4y}{14}\\right\\right)", answer: "\\frac{x}{y}"},
+            {problem: "\\frac{7x^2}{xy} \\div \\left\\left(\\frac{6y}{9} \\times \\frac{4y}{14}\\right\\right)", answer: "\\frac{147x}{4y^3}"},
+            {problem: "\\frac{7x^2}{xy} \\times \\left\\left(\\frac{6y}{9} \\div \\frac{4y}{14}\\right\\right)", answer: "\\frac{49x}{3y}"},
 
             // Additional complex problems with higher powers
             {problem: "\\frac{3a^2}{4b} \\times \\frac{8b^2}{9a}", answer: "\\frac{2ab}{3}"},
@@ -43,11 +43,11 @@ export default new BaseLevel(
             {problem: "\\frac{15a}{4} \\times \\frac{8b}{25} \\times \\frac{10x}{3ab}", answer: "4x"},
 
             // Complex parenthetical operations
-            {problem: "\\frac{10x^2}{3y} \\times \\left(\\frac{9y^2}{5x} \\div \\frac{6y}{15x^2}\\right)", answer: "15x^3"},
-            {problem: "\\frac{12a^3}{7b} \\div \\left(\\frac{8a^2}{14b^2} \\times \\frac{21b}{6a}\\right)", answer: "\\frac{6a^2}{7}"},
-            {problem: "\\frac{16x^2}{9y} \\times \\left(\\frac{27y^3}{8x} \\div \\frac{18y^2}{4x^2}\\right)", answer: "\\frac{4x^3}{3}"},
-            {problem: "\\frac{20x^3}{11y} \\div \\left(\\frac{15x^2}{22y^3} \\times \\frac{44y^2}{25x}\\right)", answer: "\\frac{50x^2}{33}"},
-            {problem: "\\frac{24x^2y}{13a} \\times \\left(\\frac{26a^2}{16xy} \\div \\frac{39a}{12x^2}\\right)", answer: "\\frac{12x^3}{13}"},
+            {problem: "\\frac{10x^2}{3y} \\times \\left\\left(\\frac{9y^2}{5x} \\div \\frac{6y}{15x^2}\\right\\right)", answer: "15x^3"},
+            {problem: "\\frac{12a^3}{7b} \\div \\left\\left(\\frac{8a^2}{14b^2} \\times \\frac{21b}{6a}\\right\\right)", answer: "\\frac{6a^2}{7}"},
+            {problem: "\\frac{16x^2}{9y} \\times \\left\\left(\\frac{27y^3}{8x} \\div \\frac{18y^2}{4x^2}\\right\\right)", answer: "\\frac{4x^3}{3}"},
+            {problem: "\\frac{20x^3}{11y} \\div \\left\\left(\\frac{15x^2}{22y^3} \\times \\frac{44y^2}{25x}\\right\\right)", answer: "\\frac{50x^2}{33}"},
+            {problem: "\\frac{24x^2y}{13a} \\times \\left\\left(\\frac{26a^2}{16xy} \\div \\frac{39a}{12x^2}\\right\\right)", answer: "\\frac{12x^3}{13}"},
 
             // Very complex mixed operations
             {problem: "\\frac{a^2b}{x^3} \\times \\frac{x^2}{ab} \\div \\frac{2a}{3x}", answer: "\\frac{3}{2}"},

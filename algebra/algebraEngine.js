@@ -249,6 +249,37 @@ class AlgebraEngine {
     // ==================== MODULE 2: AST UTILITIES ====================
 
     /**
+     * If `node` is a ConstantNode holding a non-integer number (e.g. 5.5),
+     * return an equivalent exact rational as a divide node (e.g. 11/2), with any
+     * sign carried on the numerator. This routes a decimal constant through the
+     * same canonicalization path as the same value typed as a fraction, so a
+     * decimal answer matches its fractional equivalent (5.5 ≡ 11/2) while pure
+     * fraction forms are left untouched. Returns null for nulls, non-constants,
+     * and integer / non-finite constants (nothing to convert).
+     *
+     * math.fraction() rationalises the float, so a truncated decimal stays
+     * genuinely unequal: 0.33 → 33/100 (≠ 1/3).
+     */
+    decimalConstantToFraction(node) {
+        if (!node || !node.isConstantNode) return null;
+        const v = node.value;
+        if (typeof v !== 'number' || !isFinite(v) || Number.isInteger(v)) return null;
+
+        try {
+            const f = this.math.fraction(v);
+            const num = Number(f.s) * Number(f.n);
+            const den = Number(f.d);
+            if (!Number.isFinite(num) || !Number.isFinite(den) || den === 0) return null;
+            return new this.math.OperatorNode('divide', 'divide', [
+                new this.math.ConstantNode(num),
+                new this.math.ConstantNode(den)
+            ]);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    /**
      * Convert AST node to readable string representation
      * Handles: Constants, Symbols, Operators, Functions, Parentheses
      */
@@ -832,6 +863,14 @@ class AlgebraEngine {
             if (transformedNode.content) {
                 transformedNode.content = canonicalizeNode(transformedNode.content);
             }
+
+            // Rewrite a decimal constant (e.g. 5.5) as its exact rational form
+            // (11/2) so it canonicalizes identically to the same value typed as a
+            // fraction. Runs after the simplification validator, so it cannot
+            // bypass the "reject 2+2 instead of 4" rejection — it only affects
+            // equivalence. Pure fraction forms are unaffected.
+            const asFraction = this.decimalConstantToFraction(transformedNode);
+            if (asFraction) return canonicalizeNode(asFraction);
 
             switch (transformedNode.type) {
                 case 'OperatorNode':
