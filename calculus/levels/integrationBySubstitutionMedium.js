@@ -1,3 +1,26 @@
-﻿import { BaseLevel } from './BaseLevel.js';
+import { BaseLevel } from './BaseLevel.js';
 
-export default new BaseLevel('integrationBySubstitutionMedium', 'Integration by Substitution — Medium', [], { mode: 'integral', toleranceDp: 4 });
+export default new BaseLevel('integrationBySubstitutionMedium', 'Integration by Substitution — Medium', [
+  { problem: '\\int\\tan^2(2x)\\sec^2(2x)\\,dx', answer: '\\frac{1}{6}\\tan^3(2x)+C' },
+  { problem: '\\int\\frac{e^{\\frac{1}{x}}}{x^2}\\,dx', answer: '-e^{\\frac{1}{x}}+C' },
+  { problem: '\\int x\\sqrt{x+1}\\,dx', answer: '\\frac{2}{5}(x+1)^{\\frac{5}{2}}-\\frac{2}{3}(x+1)^{\\frac{3}{2}}+C' },
+  { problem: '\\int\\frac{\\sin^2 x}{1+\\cos x}\\,dx', answer: 'x-\\sin x+C' },
+  { problem: '\\int\\frac{1+\\cos^3 x}{\\cos^2 x}\\,dx', answer: '\\tan x+\\sin x+C' },
+  { problem: '\\int\\frac{x}{\\sqrt{x-1}}\\,dx', answer: '\\frac{2}{3}(x-1)^{\\frac{3}{2}}+2\\sqrt{x-1}+C' },
+  { problem: '\\int\\frac{x}{(x-1)^2}\\,dx', answer: '\\ln(x-1)-\\frac{1}{x-1}+C' },
+  { problem: '\\int\\frac{x-2}{x+2}\\,dx', answer: 'x-4\\ln(x+2)+C' },
+  { problem: '\\int\\frac{2x+1}{\\sqrt{2x-1}}\\,dx', answer: '\\frac{1}{3}(2x-1)^{\\frac{3}{2}}+2\\sqrt{2x-1}+C' },
+  { problem: '\\int\\frac{1}{x\\ln x}\\,dx', answer: '\\ln(\\ln x)+C' },
+  { problem: '\\int\\frac{e^{2x}}{\\sqrt{1+e^{2x}}}\\,dx', answer: '\\sqrt{1+e^{2x}}+C' },
+  { problem: '\\int_0^4\\frac{e^{\\sqrt{x}}}{4\\sqrt{x}}\\,dx', answer: '\\frac{1}{2}(e^2-1)' },
+  { problem: '\\int_0^1\\frac{(\\sin^{-1}x)^3}{\\sqrt{1-x^2}}\\,dx', answer: '\\frac{\\pi^4}{64}' },
+  { problem: '\\int_0^2\\frac{x+1}{(x^2+2x)^{\\frac{1}{3}}}\\,dx', answer: '3' },
+  { problem: '\\int_{\\frac{\\pi}{4}}^{\\frac{\\pi}{3}}\\frac{\\sec^2 x}{\\tan x}\\,dx', answer: '\\frac{1}{2}\\ln 3' },
+  { problem: '\\int_0^{\\frac{\\pi}{6}}\\frac{\\cos x}{1+\\sin x}\\,dx', answer: '\\ln\\left(\\frac{3}{2}\\right)' },
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\cos^3 x\\,dx', answer: '\\frac{2}{3}' },
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\frac{\\sin(2x)}{1+\\sin^2 x}\\,dx', answer: '\\ln 2' },
+  { problem: '\\int_0^1 x(x+1)^3\\,dx', answer: '\\frac{49}{20}' },
+  { problem: '\\int_0^{\\frac{1}{2}}\\frac{1+x}{1-x}\\,dx', answer: '2\\ln 2-\\frac{1}{2}' },
+  { problem: '\\int_0^1\\frac{3x}{\\sqrt{3x+1}}\\,dx', answer: '\\frac{8}{9}' },
+  { problem: '\\int_0^1\\frac{2-x}{(2+x)^3}\\,dx', answer: '\\frac{1}{9}' },
+], { mode: 'integral', toleranceDp: 4 });

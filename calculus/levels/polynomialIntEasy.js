@@ -1,3 +1,22 @@
-﻿import { BaseLevel } from './BaseLevel.js';
+import { BaseLevel } from './BaseLevel.js';
 
-export default new BaseLevel('polynomialIntEasy', 'Polynomials — Easy', [], { mode: 'integral' });
+export default new BaseLevel('polynomialIntEasy', 'Polynomials — Easy', [
+  { problem: '\\int 4\\,dx', answer: '4x+C' },
+  { problem: '\\int 1\\,dx', answer: 'x+C' },
+  { problem: '\\int(-2)\\,dx', answer: '-2x+C' },
+  { problem: '\\int x\\,dx', answer: '\\frac{x^2}{2}+C' },
+  { problem: '\\int x^2\\,dx', answer: '\\frac{x^3}{3}+C' },
+  { problem: '\\int x^3\\,dx', answer: '\\frac{x^4}{4}+C' },
+  { problem: '\\int x^7\\,dx', answer: '\\frac{x^8}{8}+C' },
+  { problem: '\\int 8x^5\\,dx', answer: '\\frac{4x^6}{3}+C' },
+  { problem: '\\int 15x^2\\,dx', answer: '5x^3+C' },
+  { problem: '\\int(x+x^2)\\,dx', answer: '\\frac{x^2}{2}+\\frac{x^3}{3}+C' },
+  { problem: '\\int(x^4-x^3)\\,dx', answer: '\\frac{x^5}{5}-\\frac{x^4}{4}+C' },
+  { problem: '\\int(x^7+x^{10})\\,dx', answer: '\\frac{x^8}{8}+\\frac{x^{11}}{11}+C' },
+  { problem: '\\int(2x+5x^4)\\,dx', answer: 'x^2+x^5+C' },
+  { problem: '\\int(9x^8-11)\\,dx', answer: 'x^9-11x+C' },
+  { problem: '\\int(7x^{13}+3x^8)\\,dx', answer: '\\frac{x^{14}}{2}+\\frac{x^9}{3}+C' },
+  { problem: '\\int(4-3x)\\,dx', answer: '4x-\\frac{3x^2}{2}+C' },
+  { problem: '\\int(1-x^2+x^4)\\,dx', answer: 'x-\\frac{x^3}{3}+\\frac{x^5}{5}+C' },
+  { problem: '\\int(3x^2-8x^3+7x^4)\\,dx', answer: 'x^3-2x^4+\\frac{7x^5}{5}+C' },
+], { mode: 'integral' });

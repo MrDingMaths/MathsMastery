@@ -1,3 +1,30 @@
-﻿import { BaseLevel } from './BaseLevel.js';
+import { BaseLevel } from './BaseLevel.js';
 
-export default new BaseLevel('integrationBySubstitutionEasy', 'Integration by Substitution — Easy', [], { mode: 'integral', toleranceDp: 4 });
+export default new BaseLevel('integrationBySubstitutionEasy', 'Integration by Substitution — Easy', [
+  { problem: '\\int 2(2x+3)^3\\,dx', answer: '\\frac{1}{4}(2x+3)^4+C' },
+  { problem: '\\int 3x^2(1+x^3)^4\\,dx', answer: '\\frac{1}{5}(1+x^3)^5+C' },
+  { problem: '\\int\\frac{2x}{(1+x^2)^2}\\,dx', answer: '-\\frac{1}{1+x^2}+C' },
+  { problem: '\\int\\frac{3}{\\sqrt{3x-5}}\\,dx', answer: '2\\sqrt{3x-5}+C' },
+  { problem: '\\int\\sin^3 x\\cos x\\,dx', answer: '\\frac{1}{4}\\sin^4 x+C' },
+  { problem: '\\int\\frac{4x^3}{1+x^4}\\,dx', answer: '\\ln(1+x^4)+C' },
+  { problem: '\\int x^3(x^4+1)^5\\,dx', answer: '\\frac{1}{24}(x^4+1)^6+C' },
+  { problem: '\\int x^2\\sqrt{x^3-1}\\,dx', answer: '\\frac{2}{9}(x^3-1)^{\\frac{3}{2}}+C' },
+  { problem: '\\int x^2 e^{x^3}\\,dx', answer: '\\frac{1}{3}e^{x^3}+C' },
+  { problem: '\\int\\frac{e^x}{1+e^x}\\,dx', answer: '\\ln(1+e^x)+C' },
+  { problem: '\\int\\sin x\\sqrt{1-\\cos x}\\,dx', answer: '\\frac{2}{3}(1-\\cos x)^{\\frac{3}{2}}+C' },
+  { problem: '\\int\\sin^6 x\\cos x\\,dx', answer: '\\frac{1}{7}\\sin^7 x+C' },
+  { problem: '\\int\\cos^5 x\\sin x\\,dx', answer: '-\\frac{1}{6}\\cos^6 x+C' },
+  { problem: '\\int\\cos^8 x\\sin x\\,dx', answer: '-\\frac{1}{9}\\cos^9 x+C' },
+  { problem: '\\int e^x\\sin(e^x)\\,dx', answer: '-\\cos(e^x)+C' },
+  { problem: '\\int e^x\\cos(5e^x)\\,dx', answer: '\\frac{1}{5}\\sin(5e^x)+C' },
+  { problem: '\\int\\tan x\\sec^2 x\\,dx', answer: '\\frac{1}{2}\\tan^2 x+C' },
+  { problem: '\\int_0^1 x^2(2+x^3)^3\\,dx', answer: '\\frac{65}{12}' },
+  { problem: '\\int_0^1\\frac{2x^3}{\\sqrt{1+x^4}}\\,dx', answer: '\\sqrt{2}-1' },
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\cos^2 x\\sin x\\,dx', answer: '\\frac{1}{3}' },
+  { problem: '\\int_{\\frac{\\sqrt{3}}{2}}^1 x\\sqrt{1-x^2}\\,dx', answer: '\\frac{1}{24}' },
+  { problem: '\\int_1^{e^2}\\frac{\\ln x}{x}\\,dx', answer: '2' },
+  { problem: '\\int_0^{\\frac{\\pi}{4}}\\sin^4(2x)\\cos(2x)\\,dx', answer: '\\frac{1}{10}' },
+  { problem: '\\int_0^2 x^2\\sqrt{x^3+1}\\,dx', answer: '\\frac{52}{9}' },
+  { problem: '\\int_0^{\\pi}\\cos^6 x\\sin x\\,dx', answer: '\\frac{2}{7}' },
+  { problem: '\\int_0^1 x\\sqrt{1-x^2}\\,dx', answer: '\\frac{1}{3}' },
+], { mode: 'integral', toleranceDp: 4 });

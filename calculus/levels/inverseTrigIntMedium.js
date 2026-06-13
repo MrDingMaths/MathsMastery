@@ -1,3 +1,22 @@
-﻿import { BaseLevel } from './BaseLevel.js';
+import { BaseLevel } from './BaseLevel.js';
 
-export default new BaseLevel('inverseTrigIntMedium', 'Integrating Inverse Trig — Medium', [], { mode: 'integral', toleranceDp: 4 });
+export default new BaseLevel('inverseTrigIntMedium', 'Integrating Inverse Trig — Medium', [
+  { problem: '\\int_0^{\\frac{1}{2}}\\frac{-1}{\\sqrt{1-x^2}}\\,dx', answer: '-\\frac{\\pi}{6}' },
+  { problem: '\\int_0^1\\frac{5}{1+x^2}\\,dx', answer: '\\frac{5\\pi}{4}' },
+  { problem: '\\int\\frac{7}{\\sqrt{16-x^2}}\\,dx', answer: '7\\sin^{-1}\\left(\\frac{x}{4}\\right)+C' },
+  { problem: '\\int\\frac{1}{8+x^2}\\,dx', answer: '\\frac{1}{2\\sqrt{2}}\\tan^{-1}\\left(\\frac{x}{2\\sqrt{2}}\\right)+C' },
+  { problem: '\\int\\frac{5}{\\sqrt{9-4x^2}}\\,dx', answer: '\\frac{5}{2}\\sin^{-1}\\left(\\frac{2x}{3}\\right)+C' },
+  { problem: '\\int\\frac{1}{5+2x^2}\\,dx', answer: '\\frac{1}{\\sqrt{10}}\\tan^{-1}\\left(\\frac{\\sqrt{2}x}{\\sqrt{5}}\\right)+C' },
+  { problem: '\\int\\frac{1}{\\sqrt{\\frac{4}{9}-x^2}}\\,dx', answer: '\\sin^{-1}\\left(\\frac{3x}{2}\\right)+C' },
+  { problem: '\\int\\frac{1}{2+x^2}\\,dx', answer: '\\frac{1}{\\sqrt{2}}\\tan^{-1}\\left(\\frac{x}{\\sqrt{2}}\\right)+C' },
+  { problem: '\\int\\frac{-1}{\\sqrt{5-x^2}}\\,dx', answer: '\\cos^{-1}\\left(\\frac{x}{\\sqrt{5}}\\right)+C' },
+  { problem: '\\int_0^1\\frac{1}{\\sqrt{2-x^2}}\\,dx', answer: '\\frac{\\pi}{4}' },
+  { problem: '\\int\\frac{1}{\\sqrt{1-4x^2}}\\,dx', answer: '\\frac{1}{2}\\sin^{-1}(2x)+C' },
+  { problem: '\\int\\frac{1}{1+16x^2}\\,dx', answer: '\\frac{1}{4}\\tan^{-1}(4x)+C' },
+  { problem: '\\int\\frac{-1}{\\sqrt{1-2x^2}}\\,dx', answer: '\\frac{1}{\\sqrt{2}}\\cos^{-1}(\\sqrt{2}x)+C' },
+  { problem: '\\int\\frac{1}{\\sqrt{4-9x^2}}\\,dx', answer: '\\frac{1}{3}\\sin^{-1}\\left(\\frac{3x}{2}\\right)+C' },
+  { problem: '\\int\\frac{1}{25+9x^2}\\,dx', answer: '\\frac{1}{15}\\tan^{-1}\\left(\\frac{3x}{5}\\right)+C' },
+  { problem: '\\int\\frac{-1}{\\sqrt{3-4x^2}}\\,dx', answer: '\\frac{1}{2}\\cos^{-1}\\left(\\frac{2x}{\\sqrt{3}}\\right)+C' },
+  { problem: '\\int\\frac{-1}{\\sqrt{3-x^2}}\\,dx', answer: '\\cos^{-1}\\left(\\frac{x}{\\sqrt{3}}\\right)+C' },
+  { problem: '\\int_0^3\\frac{1}{\\sqrt{36-x^2}}\\,dx', answer: '\\frac{\\pi}{6}' },
+], { mode: 'integral', toleranceDp: 4 });
