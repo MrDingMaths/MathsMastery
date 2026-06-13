@@ -56,13 +56,13 @@ class SiteHeader {
                 label: 'Algebra',
                 active: activePage === 'algebra',
             },
-            // {
-            //     href: base + 'equations/',
-            //     color: 'teal',
-            //     icon: '=',
-            //     label: 'Equations',
-            //     active: activePage === 'equations',
-            // },
+            {
+                href: base + 'equations/',
+                color: 'teal',
+                icon: '=',
+                label: 'Equations',
+                active: activePage === 'equations',
+            },
             {
                 href: base + 'trigfacts/',
                 color: 'red',

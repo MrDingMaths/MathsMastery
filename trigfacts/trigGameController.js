@@ -60,19 +60,19 @@ export class TrigGameController {
         // Keyboard listeners
         document.addEventListener('keydown', (e) => this.handleKeypress(e));
 
-        // // Capture phase so MathLive doesn't swallow the \ key
-        // document.addEventListener('keydown', (e) => {
-        //     if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
-        //         e.stopPropagation();
-        //         if (this._moveToNextQuestion) {
-        //             document.removeEventListener('keydown', this._moveToNextQuestion);
-        //             this._moveToNextQuestion = null;
-        //         }
-        //         this.ui.hideTimerPausedMessage();
-        //         this.timer.start();
-        //         this.generateQuestion();
-        //     }
-        // }, { capture: true });
+        // Capture phase so MathLive doesn't swallow the \ key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
+                e.stopPropagation();
+                if (this._moveToNextQuestion) {
+                    document.removeEventListener('keydown', this._moveToNextQuestion);
+                    this._moveToNextQuestion = null;
+                }
+                this.ui.hideTimerPausedMessage();
+                this.timer.start();
+                this.generateQuestion();
+            }
+        }, { capture: true });
     }
 
     handleKeypress(e) {
