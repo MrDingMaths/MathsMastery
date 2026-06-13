@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractMonomialMedium', 'Algebraic Fractions with Monomial Numerator (Medium)', [
+export default new BaseLevel('algFractMonomialMedium', 'Monomial Numerator (Medium)', [
     Q('\\frac{3x}{2}+\\frac{7x}{5}=5', '50/29'),
     Q('\\frac{5x}{6}-\\frac{3x}{7}=-2', '-84/17'),
     Q('\\frac{3x}{2}-\\frac{x}{8}=12', '96/11'),

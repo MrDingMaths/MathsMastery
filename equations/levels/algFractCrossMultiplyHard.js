@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractCrossMultiplyHard', 'Algebraic Fractions Cross Multiplying (Hard)', [
+export default new BaseLevel('algFractCrossMultiplyHard', 'Cross Multiplying (Hard)', [
     Q('\\frac{3(6-x)}{2}=\\frac{2(x+1)}{5}', '86/19'),
     Q('\\frac{-2(x-1)}{3}=\\frac{2-x}{4}', '2/5'),
     Q('\\frac{7x+1}{2}+7=\\frac{3x-25}{4}', '-5'),

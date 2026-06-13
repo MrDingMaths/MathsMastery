@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractAlgDenomEasy', 'Algebraic Fractions Algebraic Denominator (Easy)', [
+export default new BaseLevel('algFractAlgDenomEasy', 'Algebraic Denominator (Easy)', [
     Q('\\frac{1}{x}+3=4', '1'),
     Q('4+\\frac{20}{x}=14', '2'),
     Q('5=-\\frac{10}{x}+3', '-5'),

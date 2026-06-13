@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractBinomialHard', 'Algebraic Fractions with Binomial Numerator (Hard)', [
+export default new BaseLevel('algFractBinomialHard', 'Binomial Numerator (Hard)', [
     Q('\\frac{2x-2}{6}-\\frac{2x-4}{8}=9', '106'),
     Q('\\frac{4x-2}{6}-\\frac{4x-4}{8}=9', '53'),
     Q('\\frac{4x-4}{8}-\\frac{4x-2}{6}=1', '-7'),

@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractBinomialMedium', 'Algebraic Fractions with Binomial Numerator (Medium)', [
+export default new BaseLevel('algFractBinomialMedium', 'Binomial Numerator (Medium)', [
     Q('\\frac{2x-1}{4}-\\frac{x-2}{6}=-1', '-13/4'),
     Q('\\frac{2x+3}{4}-\\frac{7x-1}{6}=2', '-13/8'),
     Q('\\frac{x+3}{3}+\\frac{x+3}{6}=6x', '3/11'),

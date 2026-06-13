@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractAlgDenomMedium', 'Algebraic Fractions Algebraic Denominator (Medium)', [
+export default new BaseLevel('algFractAlgDenomMedium', 'Algebraic Denominator (Medium)', [
     Q('5=\\frac{10}{x+5}-3', '-15/4'),
     Q('\\frac{7}{3x}+\\frac{11}{x}=2', '20/3'),
     Q('\\frac{21}{2x}+\\frac{19}{x}=5', '59/10'),

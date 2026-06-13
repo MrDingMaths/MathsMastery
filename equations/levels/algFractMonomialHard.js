@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractMonomialHard', 'Algebraic Fractions with Monomial Numerator (Hard)', [
+export default new BaseLevel('algFractMonomialHard', 'Monomial Numerator (Hard)', [
     Q('\\frac{x}{2}+\\frac{x}{3}=\\frac{x}{4}+5', '60/7'),
     Q('\\frac{x}{3}+\\frac{x}{4}=\\frac{x}{6}+7', '84/5'),
     Q('\\frac{x}{2}-\\frac{x}{4}=\\frac{x}{3}+2', '-24'),

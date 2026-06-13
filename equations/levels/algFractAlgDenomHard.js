@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractAlgDenomHard', 'Algebraic Fractions Algebraic Denominator (Hard)', [
+export default new BaseLevel('algFractAlgDenomHard', 'Algebraic Denominator (Hard)', [
     Q('\\frac{3}{x^{2}}-\\frac{2}{x}=\\frac{5}{x}', '3/7'),
     Q('\\frac{1-3x}{x^{2}}+\\frac{2}{3x}=\\frac{4}{x}', '3/19'),
     Q('\\frac{1}{x+2}-\\frac{2}{x-3}=\\frac{5}{(x+2)(x-3)}', '-12'),

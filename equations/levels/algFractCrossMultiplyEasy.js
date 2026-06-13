@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractCrossMultiplyEasy', 'Algebraic Fractions Cross Multiplying (Easy)', [
+export default new BaseLevel('algFractCrossMultiplyEasy', 'Cross Multiplying (Easy)', [
     Q('\\frac{x+1}{4}=\\frac{x}{3}', '3'),
     Q('\\frac{x-2}{3}=\\frac{x}{2}', '-4'),
     Q('\\frac{x+3}{4}=\\frac{x-1}{2}', '5'),

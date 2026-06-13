@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractMonomialEasy', 'Algebraic Fractions with Monomial Numerator (Easy)', [
+export default new BaseLevel('algFractMonomialEasy', 'Monomial Numerator (Easy)', [
     Q('\\frac{x}{5}+\\frac{x}{2}=21', '30'),
     Q('\\frac{x}{2}-\\frac{x}{5}=-12', '-40'),
     Q('-\\frac{x}{4}+\\frac{x}{3}=-5', '-60'),

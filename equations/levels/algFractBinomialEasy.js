@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
-export default new BaseLevel('algFractBinomialEasy', 'Algebraic Fractions with Binomial Numerator (Easy)', [
+export default new BaseLevel('algFractBinomialEasy', 'Binomial Numerator (Easy)', [
     Q('\\frac{x+3}{2}+\\frac{x-4}{3}=1', '1'),
     Q('\\frac{x+2}{3}+\\frac{x-1}{2}=1', '1'),
     Q('\\frac{x-4}{5}+\\frac{x+2}{3}=2', '4'),
