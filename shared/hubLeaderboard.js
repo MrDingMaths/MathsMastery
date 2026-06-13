@@ -296,14 +296,16 @@ class HubPanels {
         if (!entries.length) { body.innerHTML = '<div class="panel-empty">No activity yet.</div>'; return; }
         let html = '';
         for (const e of entries) {
-            const badge     = this._appBadge(e.app);
-            const emoji     = RATING_EMOJIS[e.rating_key] || '';
-            const levelName = _hubEscape(this._lookupLevelName(e.level_key));
+            const badge      = this._appBadge(e.app);
+            const emoji      = RATING_EMOJIS[e.rating_key] || '';
+            const levelName  = _hubEscape(this._lookupLevelName(e.level_key));
+            const difficulty = e.level_key.match(/(Easy|Medium|Hard)$/)?.[1] ?? null;
+            const diffHtml   = difficulty ? ` · <span class="panel-entry-diff">${difficulty}</span>` : '';
             html += `<div class="panel-entry">
                 <span class="panel-badge panel-badge-${_hubEscape(e.app)}">${badge}</span>
                 <div class="panel-entry-body">
                     <span class="panel-entry-name">${_hubAbbreviateName(e.display_name)}</span>
-                    <span class="panel-entry-detail">${emoji} ${levelName}</span>
+                    <span class="panel-entry-detail">${emoji} ${levelName}${diffHtml}</span>
                     <span class="panel-entry-time">${this._timeAgo(e.updated_at)}</span>
                 </div>
             </div>`;
@@ -342,7 +344,7 @@ class HubPanels {
         for (const app of Object.values(HUB_LEVELS)) {
             for (const levels of Object.values(app.groups)) {
                 const found = levels.find(l => l.key === levelKey);
-                if (found) return found.name.replace(/\s+(Easy|Medium|Hard)$/, '');
+                if (found) return found.name.replace(/\s+(Easy|Medium|Hard)$/i, '').trim();
             }
         }
         return levelKey;
@@ -359,7 +361,7 @@ class HubPanels {
     }
 
     _appBadge(app) {
-        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ' }[app] || app;
+        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ', equations: '=' }[app] || app;
     }
 }
 
