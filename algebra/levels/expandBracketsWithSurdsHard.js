@@ -48,11 +48,11 @@ export default new BaseLevel(
             
             // Advanced multi-step problems
             {problem: "3(\\sqrt{7} + 2)^2 - 2\\sqrt{7}(\\sqrt{7} - 3)", answer: "19 + 18\\sqrt{7}"},
-            {problem: "(\\sqrt{5} + 2)^3", answer: "38 + 17\\sqrt{5}"},
+            {problem: "(2\\sqrt{5} + 3\\sqrt{2})^2", answer: "38 + 12\\sqrt{10}"},
             {problem: "2\\sqrt{3}(\\sqrt{12} + 3) + (\\sqrt{3} + 1)^2", answer: "16 + 8\\sqrt{3}"},
             
             // Rationalization with expansion
-            {problem: "(2\\sqrt{15} + 3\\sqrt{5})(\\sqrt{3} - \\sqrt{15})", answer: "6\\sqrt{5} - 30 + 3\\sqrt{15} - 15\\sqrt{3}"},
+            {problem: "(2\\sqrt{3} + \\sqrt{2})(\\sqrt{3} - 2\\sqrt{2})", answer: "2 - 3\\sqrt{6}"},
             
             // Complex coefficient manipulations
             {problem: "4\\sqrt{6}(\\sqrt{54} - 2\\sqrt{6}) + 3\\sqrt{24}", answer: "24 + 6\\sqrt{6}"},
@@ -61,8 +61,8 @@ export default new BaseLevel(
             
             // Extreme complexity
             {problem: "(\\sqrt{7} + \\sqrt{11})(\\sqrt{77} - \\sqrt{7}\\sqrt{11})", answer: "0"},
-            {problem: "(2\\sqrt{6} + \\sqrt{15})(\\sqrt{10} - 2\\sqrt{3})", answer: "4\\sqrt{15} - 12\\sqrt{2} + 5\\sqrt{6} - 6\\sqrt{5}"},
-            {problem: "(3\\sqrt{14} - \\sqrt{21})(\\sqrt{7} + 2\\sqrt{6})", answer: "21\\sqrt{2} + 12\\sqrt{21} - 7\\sqrt{3} - 6\\sqrt{14}"},
+            {problem: "(3\\sqrt{2} + \\sqrt{5})(2\\sqrt{2} - \\sqrt{5})", answer: "7 - \\sqrt{10}"},
+            {problem: "(\\sqrt{7} + 2\\sqrt{3})(2\\sqrt{7} - \\sqrt{3})", answer: "8 + 3\\sqrt{21}"},
             
             // Final challenging questions
             {problem: "\\sqrt{5}(\\sqrt{20} + \\sqrt{45}) - 2(\\sqrt{5} + \\sqrt{45})", answer: "25 - 8\\sqrt{5}"},

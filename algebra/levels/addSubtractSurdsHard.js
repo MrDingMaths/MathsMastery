@@ -33,8 +33,8 @@ export default new BaseLevel(
             // Complex multi-term expressions with fractions
             {problem: "\\frac{\\sqrt{12}}{3} + \\frac{2\\sqrt{27}}{9} - \\frac{\\sqrt{3}}{6}", answer: "\\frac{7\\sqrt{3}}{6}"},
             {problem: "\\frac{2\\sqrt{18}}{5} - \\frac{\\sqrt{8}}{4} + \\frac{3\\sqrt{2}}{10}", answer: "\\sqrt{2}"},
-            {problem: "\\frac{\\sqrt{32}}{8} + \\frac{3\\sqrt{50}}{10} - \\frac{\\sqrt{2}}{4}", answer: "\\frac{7\\sqrt{2}}{4}"},
-            {problem: "\\frac{4\\sqrt{75}}{15} - \\frac{\\sqrt{48}}{6} + \\frac{2\\sqrt{3}}{5}", answer: "\\frac{16\\sqrt{3}}{15}"},
+            {problem: "\\frac{\\sqrt{50}}{4} - \\frac{\\sqrt{18}}{6}", answer: "\\frac{3\\sqrt{2}}{4}"},
+            {problem: "\\frac{2\\sqrt{27}}{5} - \\frac{\\sqrt{12}}{4}", answer: "\\frac{7\\sqrt{3}}{10}"},
             
             // Nested radicals and complex expressions
             {problem: "\\sqrt{\\frac{49}{9}} + \\frac{2\\sqrt{7}}{3}", answer: "\\frac{7 + 2\\sqrt{7}}{3}"},

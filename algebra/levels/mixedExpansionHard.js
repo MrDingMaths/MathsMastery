@@ -32,7 +32,7 @@ export default new BaseLevel(
             {problem: "(x + \\frac{2}{x})^2", answer: "x^2 + 4 + \\frac{4}{x^2}"},
             {problem: "(a - \\frac{2}{a})(a + \\frac{2}{a})", answer: "a^2 - \\frac{4}{a^2}"},
             {problem: "(x + \\frac{1}{\\sqrt{x}})^2", answer: "x^2 + 2\\sqrt{x} + \\frac{1}{x}"},
-            {problem: "((\\frac{x}{3} - 5)(\\frac{x}{3} + 5))^2", answer: "\\frac{x^4}{81} - \\frac{50x^2}{9} + 625"},
+            {problem: "2(x + 3)^2 - (x + 3)(x - 3)", answer: "x^2 + 12x + 27"},
 
             // Additional complex expansions
             {problem: "3x^2(2x - 1)^2 + 4x(x + 2)^2", answer: "12x^4 - 8x^3 + 19x^2 + 16x"},
@@ -121,9 +121,9 @@ export default new BaseLevel(
             {problem: "(\\frac{4x}{3} + \\frac{y}{2})^2", answer: "\\frac{16x^2}{9} + \\frac{4xy}{3} + \\frac{y^2}{4}"},
 
             // Very advanced combinations
-            {problem: "(\\sqrt{2}x + \\frac{1}{\\sqrt{2}})^2", answer: "2x^2 + 2x + \\frac{1}{2}"},
+            {problem: "(2x + \\frac{3}{x})^2", answer: "4x^2 + 12 + \\frac{9}{x^2}"},
             {problem: "(\\frac{x^4}{4} + \\frac{2}{x^2})^2", answer: "\\frac{x^8}{16} + x^2 + \\frac{4}{x^4}"},
-            {problem: "(3x^{\\frac{1}{2}} + \\frac{1}{x^{\\frac{1}{2}}})^2", answer: "9x + 6 + \\frac{1}{x}"},
+            {problem: "(3x - \\frac{1}{x})^2", answer: "9x^2 - 6 + \\frac{1}{x^2}"},
 
             // Additional challenging examples
             {problem: "(\\frac{2x}{7} + \\frac{3}{14})^2", answer: "\\frac{4x^2}{49} + \\frac{6x}{49} + \\frac{9}{196}"},
@@ -131,7 +131,7 @@ export default new BaseLevel(
             {problem: "(\\frac{a^5}{6} + \\frac{3b^3}{4})^2", answer: "\\frac{a^{10}}{36} + \\frac{a^5b^3}{4} + \\frac{9b^6}{16}"},
 
             // Final complex variations
-            {problem: "(\\frac{7}{3x^2} + \\frac{x^3}{5})^2", answer: "\\frac{x^6}{25} + \\frac{14x}{15} + \\frac{49}{9x^4}"},
+            {problem: "(\\frac{x^2}{2} + \\frac{3}{x})^2", answer: "\\frac{x^4}{4} + 3x + \\frac{9}{x^2}"},
             {problem: "(\\frac{4x^2}{9} - \\frac{2}{3x})^2", answer: "\\frac{16x^4}{81} - \\frac{16x}{27} + \\frac{4}{9x^2}"},
 
             // Difference of squares with fractional terms
@@ -194,7 +194,7 @@ export default new BaseLevel(
             {problem: "(\\frac{3}{xy}+xy)(\\frac{3}{xy}-xy)", answer: "\\frac{9}{x^2y^2}-x^2y^2"},
 
             // Nested fraction expressions
-            {problem: "(\\frac{x+1}{2}+\\frac{x-1}{3})(\\frac{x+1}{2}-\\frac{x-1}{3})", answer: "\\frac{(x+1)^2}{4}-\\frac{(x-1)^2}{9}"},
-            {problem: "(\\frac{2a+3}{4}+\\frac{a-2}{5})(\\frac{2a+3}{4}-\\frac{a-2}{5})", answer: "\\frac{(2a+3)^2}{16}-\\frac{(a-2)^2}{25}"}
+            {problem: "(\\frac{3x}{5}+\\frac{2}{7})(\\frac{3x}{5}-\\frac{2}{7})", answer: "\\frac{9x^2}{25}-\\frac{4}{49}"},
+            {problem: "(\\frac{5a}{2}+\\frac{3}{b})(\\frac{5a}{2}-\\frac{3}{b})", answer: "\\frac{25a^2}{4}-\\frac{9}{b^2}"}
         ]
 );

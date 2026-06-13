@@ -70,7 +70,7 @@ export default new BaseLevel(
             {problem: "(\\frac{3}{xy}+xy)(\\frac{3}{xy}-xy)", answer: "\\frac{9}{x^2y^2}-x^2y^2"},
             
             // Nested fraction expressions
-            {problem: "(\\frac{x+1}{2}+\\frac{x-1}{3})(\\frac{x+1}{2}-\\frac{x-1}{3})", answer: "\\frac{(x+1)^2}{4}-\\frac{(x-1)^2}{9}"},
-            {problem: "(\\frac{2a+3}{4}+\\frac{a-2}{5})(\\frac{2a+3}{4}-\\frac{a-2}{5})", answer: "\\frac{(2a+3)^2}{16}-\\frac{(a-2)^2}{25}"}
+            {problem: "(\\frac{3x}{5}+\\frac{2}{7})(\\frac{3x}{5}-\\frac{2}{7})", answer: "\\frac{9x^2}{25}-\\frac{4}{49}"},
+            {problem: "(\\frac{5a}{2}+\\frac{3}{b})(\\frac{5a}{2}-\\frac{3}{b})", answer: "\\frac{25a^2}{4}-\\frac{9}{b^2}"}
         ]
 );

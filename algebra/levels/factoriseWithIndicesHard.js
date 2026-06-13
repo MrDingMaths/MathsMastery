@@ -4,8 +4,8 @@ export default new BaseLevel(
     'factoriseWithIndicesHard',
     'Factorise with Indices (Hard)',
     [
-        { problem: "\\frac{12^{n-3} \\times 27^{1-n}}{9^{2n} \\times 8^{n-1} \\times 16^n}",  answer: "2^{-5n-3} \\times 3^{-6n}" },
-        { problem: "\\frac{4^n \\times 7^{n-3} \\times 49^{3n+1}}{14^{n+2}}",                  answer: "2^{n-2} \\times 7^{6n-3}" },
+        { problem: "\\frac{6^{2n} \\times 2^{n+1}}{12^n \\times 3^n}",  answer: "2^{n+1}" },
+        { problem: "\\frac{10^n \\times 45^n}{9^n \\times 2^n}",                  answer: "5^{2n}" },
         { problem: "\\frac{35^2 \\times 5^2 \\times 7^6}{25^4 \\times 49^3}",                  answer: "\\frac{49}{625}" },
         { problem: "\\frac{18^{n-1} \\times 12^{n+1}}{9^n \\times 8^n}",                      answer: "2 \\times 3^{n-1}" },
         { problem: "\\frac{15^{2n} \\times 4^{n-1}}{9^n \\times 10^n}",                       answer: "5^n \\times 2^{n-2}" },

@@ -87,6 +87,6 @@ export default new BaseLevel(
 
             // Compound multi-variable exponents (migrated from Medium — requires adding indices on both variables)
             {problem: "4a^2b \\times 2ab^2", answer: "8a^3b^3"},
-            {problem: "24a^3b \\times 6ab", answer: "144a^4b^2"}
+            {problem: "6a^3b \\times 4ab", answer: "24a^4b^2"}
         ]
 );

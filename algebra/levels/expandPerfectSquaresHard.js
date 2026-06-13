@@ -71,7 +71,7 @@ export default new BaseLevel(
             {problem: "(\\frac{a^5}{6} + \\frac{3b^3}{4})^2", answer: "\\frac{a^{10}}{36} + \\frac{a^5b^3}{4} + \\frac{9b^6}{16}"},
             
             // Final complex variations
-            {problem: "(\\frac{7}{3x^2} + \\frac{x^3}{5})^2", answer: "\\frac{x^6}{25} + \\frac{14x}{15} + \\frac{49}{9x^4}"},
+            {problem: "(\\frac{x^2}{2} + \\frac{3}{x})^2", answer: "\\frac{x^4}{4} + 3x + \\frac{9}{x^2}"},
             {problem: "(\\frac{4x^2}{9} - \\frac{2}{3x})^2", answer: "\\frac{16x^4}{81} - \\frac{16x}{27} + \\frac{4}{9x^2}"}
         ]
 );

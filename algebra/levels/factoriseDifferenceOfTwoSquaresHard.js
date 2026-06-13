@@ -43,8 +43,8 @@ export default new BaseLevel(
             {problem: "b^4 - 16", answer: "(b-2)(b+2)(b^2+4)"},
             {problem: "81 - x^4", answer: "(3-x)(3+x)(9+x^2)"},
             {problem: "16x^4 - 81y^4", answer: "(2x-3y)(2x+3y)(4x^2+9y^2)"},
-            {problem: "y^8 - 256", answer: "(y-2)(y+2)(y^2+4)(y^4+16)"},
-            {problem: "x^{16} - 1", answer: "(x-1)(x+1)(x^2+1)(x^4+1)(x^8+1)"},
+            {problem: "x^4 - 256", answer: "(x-4)(x+4)(x^2+16)"},
+            {problem: "16x^4 - 1", answer: "(2x-1)(2x+1)(4x^2+1)"},
             {problem: "x^4 - 81", answer: "(x-3)(x+3)(x^2+9)"},
             {problem: "625 - a^4", answer: "(5-a)(5+a)(25+a^2)"},
             
@@ -52,15 +52,15 @@ export default new BaseLevel(
             {problem: "2x^4 - 32", answer: "2(x-2)(x+2)(x^2+4)"},
             {problem: "ax^4 - 81a", answer: "a(x-3)(x+3)(x^2+9)"},
             {problem: "x^5 - x", answer: "x(x-1)(x+1)(x^2+1)"},
-            {problem: "3x^8 - 3", answer: "3(x-1)(x+1)(x^2+1)(x^4+1)"},
+            {problem: "5x^4 - 80", answer: "5(x-2)(x+2)(x^2+4)"},
             {problem: "\\frac{y^4}{81} - 1", answer: "(\\frac{y}{3}-1)(\\frac{y}{3}+1)(\\frac{y^2}{9}+1)"},
-            {problem: "5x^9 - 5x", answer: "5x(x-1)(x+1)(x^2+1)(x^4+1)"},
+            {problem: "x^5 - 16x", answer: "x(x-2)(x+2)(x^2+4)"},
             {problem: "4a^4 - 64", answer: "4(a-2)(a+2)(a^2+4)"},
             {problem: "3x^4 - 243", answer: "3(x-3)(x+3)(x^2+9)"},
             
             // Complex fractional fourth powers
             {problem: "\\frac{x^4}{3} - \\frac{y^4}{3}", answer: "\\frac{1}{3}(x-y)(x+y)(x^2+y^2)"},
             {problem: "2a^4 - 32b^4", answer: "2(a-2b)(a+2b)(a^2+4b^2)"},
-            {problem: "\\frac{3a^8}{16} - \\frac{3b^4}{625}", answer: "3(\\frac{a^2}{2} - \\frac{b}{5})(\\frac{a^2}{2} + \\frac{b}{5})(\\frac{a^4}{4} + \\frac{b^2}{25})"}
+            {problem: "\\frac{a^4}{16} - \\frac{b^4}{81}", answer: "(\\frac{a}{2}-\\frac{b}{3})(\\frac{a}{2}+\\frac{b}{3})(\\frac{a^2}{4}+\\frac{b^2}{9})"}
         ]
 );

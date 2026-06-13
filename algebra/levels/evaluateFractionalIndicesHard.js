@@ -69,20 +69,20 @@ export default new BaseLevel(
             {problem: "(\\frac{216}{512})^{-\\frac{2}{3}}", answer: "\\frac{16}{9}"},
             {problem: "(\\frac{343}{729})^{-\\frac{2}{3}}", answer: "\\frac{81}{49}"},
             {problem: "(\\frac{512}{1000})^{-\\frac{2}{3}}", answer: "\\frac{25}{16}"},
-            {problem: "(\\frac{729}{1331})^{-\\frac{2}{3}}", answer: "\\frac{121}{81}"},
-            {problem: "(\\frac{1000}{1728})^{-\\frac{2}{3}}", answer: "\\frac{36}{25}"},
-            {problem: "(\\frac{1331}{2197})^{-\\frac{2}{3}}", answer: "\\frac{169}{121}"},
+            {problem: "(\\frac{27}{125})^{-\\frac{2}{3}}", answer: "\\frac{25}{9}"},
+            {problem: "(\\frac{1}{216})^{-\\frac{2}{3}}", answer: "36"},
+            {problem: "(\\frac{64}{343})^{-\\frac{2}{3}}", answer: "\\frac{49}{16}"},
             
             // Complex fourth root operations
             {problem: "(\\frac{16}{625})^{-\\frac{3}{4}}", answer: "\\frac{125}{8}"},
-            {problem: "(\\frac{81}{1296})^{-\\frac{3}{4}}", answer: "8"},
-            {problem: "(\\frac{256}{2401})^{-\\frac{3}{4}}", answer: "\\frac{343}{64}"},
+            {problem: "(\\frac{16}{81})^{-\\frac{3}{4}}", answer: "\\frac{27}{8}"},
+            {problem: "(\\frac{81}{16})^{-\\frac{3}{4}}", answer: "\\frac{8}{27}"},
             
             // Mix of very challenging problems
             {problem: "(\\frac{1}{128})^{-\\frac{4}{7}}", answer: "16"},
             {problem: "(\\frac{1}{243})^{-\\frac{4}{5}}", answer: "81"},
-            {problem: "(\\frac{1}{1024})^{-\\frac{3}{5}}", answer: "64"},
-            {problem: "(\\frac{1}{3125})^{-\\frac{3}{5}}", answer: "125"},
+            {problem: "(\\frac{1}{243})^{-\\frac{3}{5}}", answer: "27"},
+            {problem: "(\\frac{1}{32})^{-\\frac{3}{5}}", answer: "8"},
             
             // Additional challenging problems
             {problem: "(\\frac{125}{64})^{\\frac{2}{3}}", answer: "\\frac{25}{16}"},

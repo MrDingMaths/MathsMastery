@@ -14,7 +14,7 @@ export default new BaseLevel(
             {problem: "x^5y^3 \\times (x^2)^4 \\times (y^3)^2", answer: "x^{13}y^9"},
             {problem: "x^2y \\times (x^4)^3 \\times (y^2)^5", answer: "x^{14}y^{11}"},
             {problem: "(x^3)^2 \\times x^4 \\times (x^2)^3 \\times x", answer: "x^{17}"},
-            {problem: "x^3y^2a \\times (x^2)^5 \\times (y^4)^2 \\times (a^3)^4", answer: "x^{13}y^{10}a^{13}"},
+            {problem: "x^3y^2 \\times (x^2)^4 \\times (y^3)^2", answer: "x^{11}y^8"},
             
             // Cognitive Level 2: Coefficient Power of a Power Products
             {problem: "(2x^2)^2 \\times (3x^3)^2", answer: "36x^{10}"},

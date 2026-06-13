@@ -82,8 +82,8 @@ export default new BaseLevel(
             {problem: "\\sqrt[{11}]{2048x^{33}}", answer: "2x^3"},
             
             // Extreme multi-step conversions
-            {problem: "\\frac{x^3\\sqrt[4]{x^7}}{\\sqrt[3]{x^8}}", answer: "x^{\\frac{25}{12}}"},
-            {problem: "\\frac{\\sqrt[5]{x^{12}}}{x^2\\sqrt{x^3}}", answer: "x^{-\\frac{11}{10}}"},
-            {problem: "\\frac{x\\sqrt[6]{x^{11}}}{\\sqrt[4]{x^9}}", answer: "\\x^{\\frac{7}{12}}"}
+            {problem: "x^4 \\sqrt[5]{x^3}", answer: "x^{\\frac{23}{5}}"},
+            {problem: "\\frac{x^5}{\\sqrt[4]{x^9}}", answer: "x^{\\frac{11}{4}}"},
+            {problem: "x^2 \\sqrt[3]{x^7}", answer: "x^{\\frac{13}{3}}"}
         ]
 );

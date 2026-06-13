@@ -46,6 +46,6 @@ export default new BaseLevel(
             {problem: "\\frac{8x^2-2x-15}{16x^2-25}", answer: "\\frac{2x-3}{4x-5}"},
             {problem: "\\frac{25-4a^2}{6a^2-11a-10}", answer: "-\\frac{2a+5}{3a+2}"},
             {problem: "\\frac{40+11b-2b^2}{8b^2+34b+35}", answer: "\\frac{8-b}{4b+7}"},
-            {problem: "\\frac{x^2y^2-4}{xy^2-3axy-2y+6a}", answer: "\\frac{xy+2}{y-3a}"}
+            {problem: "\\frac{6x^2+x-15}{4x^2-9}", answer: "\\frac{3x+5}{2x+3}"}
         ]
 );

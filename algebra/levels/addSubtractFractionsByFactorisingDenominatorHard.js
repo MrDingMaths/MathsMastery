@@ -44,7 +44,7 @@ export default new BaseLevel(
             // Mixed rational and polynomial terms
             {problem: "\\frac{x^2}{x^2-5x+6} - \\frac{2x}{x-2} + \\frac{3}{x-3}", answer: "\\frac{-x^2+9x-6}{(x-2)(x-3)}"},
             {problem: "\\frac{2x+1}{x^2+x-2} + \\frac{x-3}{x^2-1} - \\frac{1}{x+2}", answer: "\\frac{2}{x+1}"},
-            {problem: "\\frac{x+2}{x^2-4x+3} - \\frac{x-1}{x^2-2x-3} + \\frac{2}{x^2+2x-3}", answer: "\\frac{7x^2+12x-3}{(x-1)(x-3)(x+1)(x+3)}"},
+            {problem: "\\frac{1}{x^2+x-2} + \\frac{2}{x^2-x-6} - \\frac{1}{x^2-4x+3}", answer: "\\frac{2x-7}{(x-1)(x+2)(x-3)}"},
             
             // Advanced variable patterns
             {problem: "\\frac{2x}{x^2-y^2} - \\frac{y}{x^2+xy-2y^2}", answer: "\\frac{2x^2+3xy-y^2}{(x-y)(x+y)(x+2y)}"},            

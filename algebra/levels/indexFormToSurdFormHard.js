@@ -58,7 +58,7 @@ export default new BaseLevel(
             {problem: "((x^{\\frac{1}{2}})^{\\frac{2}{3}})^{\\frac{3}{4}} \\times x^{-\\frac{1}{4}}", answer: "1"},
             
             // Additional complex expressions
-            {problem: "(x^{\\frac{3}{8}}y^{\\frac{5}{12}})^{24}", answer: "x^9y^{10}"},
+            {problem: "(x^{\\frac{1}{2}}y^{\\frac{3}{4}})^8", answer: "x^4y^6"},
             {problem: "\\frac{x^{\\frac{11}{6}}}{x^{\\frac{5}{6}}} \\times x^{-\\frac{1}{3}}", answer: "\\sqrt[3]{x^2}"},
             {problem: "(\\frac{x^{\\frac{2}{3}}}{y^{\\frac{1}{4}}})^{12}", answer: "\\frac{x^8}{y^3}"},
         ]
