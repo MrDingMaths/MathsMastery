@@ -208,9 +208,9 @@ export const CONFIG = {
         'rationaliseTheDenominatorHard': 12,
 
         // Advanced Skills - Rationalise Binomial Denominator
-        'rationaliseBinomialDenominatorEasy': 19,
-        'rationaliseBinomialDenominatorMedium': 28,
-        'rationaliseBinomialDenominatorHard': 46,
+        'rationaliseBinomialDenominatorEasy': 6,
+        'rationaliseBinomialDenominatorMedium': 10,
+        'rationaliseBinomialDenominatorHard': 15,
 
         // Advanced Skills - Evaluate Fractional Indices
         'evaluateFractionalIndicesEasy': 1.5,
@@ -230,12 +230,12 @@ export const CONFIG = {
         // Advanced Skills - Complete the Square
         'completeTheSquareEasy': 5,
         'completeTheSquareMedium': 15,
-        'completeTheSquareHard': 25,
+        'completeTheSquareHard': 30,
 
         // Advanced Skills - Factorise with Indices
         'factoriseWithIndicesEasy': 14,
-        'factoriseWithIndicesMedium': 10,
-        'factoriseWithIndicesHard': 20,
+        'factoriseWithIndicesMedium': 30,
+        'factoriseWithIndicesHard': 50,
 
         // Advanced Skills - Splitting the Numerator
         'splittingTheNumeratorEasy': 3,

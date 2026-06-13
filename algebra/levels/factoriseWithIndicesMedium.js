@@ -28,11 +28,11 @@ export default new BaseLevel(
         { problem: "4^n - 2^n",                                                 answer: "2^n(2^n - 1)" },
         { problem: "10^n - 5^n",                                                answer: "5^n(2^n - 1)" },
         { problem: "15^n - 3^n",                                                answer: "3^n(5^n - 1)" },
-        { problem: "12^n - 4^n",                                                answer: "4^n(3^n - 1)" },
+        { problem: "12^n - 4^n",                                                answer: "2^{2n}(3^n - 1)" },
         { problem: "\\frac{6^n + 3^n}{2^{n+1} + 2}",                           answer: "\\frac{3^n}{2}" },
         { problem: "\\frac{4^n + 2^n}{2^{n+1} + 2}",                           answer: "2^{n-1}" },
         { problem: "\\frac{10^n + 5^n}{2^{n+1} + 2}",                          answer: "\\frac{5^n}{2}" },
         { problem: "\\frac{15^n + 3^n}{5^n + 1}",                              answer: "3^n" },
-        { problem: "\\frac{12^n + 4^n}{3^n + 1}",                              answer: "4^n" },
+        { problem: "\\frac{12^n + 4^n}{3^n + 1}",                              answer: "2^{2n}" },
     ]
 );

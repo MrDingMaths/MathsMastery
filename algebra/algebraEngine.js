@@ -2071,6 +2071,59 @@ class AlgebraEngine {
 
     // ==================== MODULE 8: MAIN ORCHESTRATOR ====================
 
+    _primeFactorize(n) {
+        const factors = {};
+        for (let d = 2; d * d <= n; d++) {
+            while (n % d === 0) { factors[d] = (factors[d] || 0) + 1; n = Math.floor(n / d); }
+        }
+        if (n > 1) factors[n] = (factors[n] || 0) + 1;
+        return factors;
+    }
+
+    // Rewrites composite-integer-base powers to products of prime-base powers so that
+    // e.g. 4^x and 2^(2x) canonicalise to the same form before comparison.
+    toPrimeBaseCanonical(ast) {
+        try {
+            return ast.transform(node => {
+                if (!node.isOperatorNode || node.fn !== 'pow') return node;
+                const base = node.args[0];
+                const exponent = node.args[1];
+                if (!base.isConstantNode) return node;
+                const n = base.value;
+                if (!Number.isInteger(n) || n < 2) return node;
+
+                const factors = this._primeFactorize(n);
+                const pairs = Object.entries(factors); // [[prime, count], ...]
+
+                // Base is already prime — nothing to do
+                if (pairs.length === 1 && pairs[0][1] === 1) return node;
+
+                // Build one prime^(count*exponent) node per prime factor
+                // Expand multiplication into the exponent so 4^(n+1) → 2^(2n+2) not 2^(2*(n+1))
+                const expandRules = [
+                    'n1 * (n2 + n3) -> n1 * n2 + n1 * n3',
+                    'n1 * (n2 - n3) -> n1 * n2 - n1 * n3',
+                    '(n1 + n2) * n3 -> n1 * n3 + n2 * n3',
+                    '(n1 - n2) * n3 -> n1 * n3 - n2 * n3',
+                ];
+                const expStr = this.astToString(exponent);
+                const primeNodes = pairs.map(([prime, count]) => {
+                    const newExpStr = count === 1 ? expStr : `${count} * (${expStr})`;
+                    const simplified = this.math.simplify(newExpStr, expandRules);
+                    return this.math.parse(`${prime} ^ (${this.astToString(simplified)})`);
+                });
+
+                if (primeNodes.length === 1) return primeNodes[0];
+
+                return primeNodes.reduce((acc, node) =>
+                    this.math.parse(`(${this.astToString(acc)}) * (${this.astToString(node)})`)
+                );
+            });
+        } catch (e) {
+            return null;
+        }
+    }
+
     evaluateNumeric(latexStr) {
         try {
             const mathExpr = this.latexToMathJS(latexStr);
@@ -2160,8 +2213,28 @@ class AlgebraEngine {
 
             // Final comparison
             const result = this.astEquals(userCanonical, correctCanonical);
-            this.log(`[RESULT] Final Match: ${result}\n`);
-            return result;
+            if (result) {
+                this.log(`[RESULT] Final Match: true\n`);
+                return true;
+            }
+
+            // Fallback: try prime-base canonicalization (e.g. 4^x ≡ 2^(2x))
+            try {
+                const userPrime = this.toPrimeBaseCanonical(userCanonical);
+                const correctPrime = this.toPrimeBaseCanonical(correctCanonical);
+                if (userPrime && correctPrime) {
+                    const userPrimeCanon = this.toCanonicalForm(userPrime);
+                    const correctPrimeCanon = this.toCanonicalForm(correctPrime);
+                    const primeResult = this.astEquals(userPrimeCanon, correctPrimeCanon);
+                    if (primeResult) {
+                        this.log(`[RESULT] Final Match: true (prime-base equivalence)\n`);
+                        return true;
+                    }
+                }
+            } catch (e) { /* fallback failed silently */ }
+
+            this.log(`[RESULT] Final Match: false\n`);
+            return false;
 
         } catch (error) {
             console.error('[FATAL ERROR] Error during expression comparison.');

@@ -19,7 +19,7 @@ export default new BaseLevel(
         { problem: "\\frac{10^n - 2^n}{5^n - 1}",                                              answer: "2^n" },
         { problem: "\\frac{6^n + 2^n}{3^n + 1}",                                              answer: "2^n" },
         { problem: "\\frac{18^n - 2^n}{3^n - 1}",                                              answer: "2^n(3^n + 1)" },
-        { problem: "\\frac{20^n - 4^n}{5^n - 1}",                                              answer: "4^n" },
+        { problem: "\\frac{20^n - 4^n}{5^n - 1}",                                              answer: "2^{2n}" },
         { problem: "\\frac{9^n - 1}{3^n - 1}",                                                 answer: "3^n + 1" },
         { problem: "\\frac{5^{2n} - 5^n}{5^n - 1}",                                           answer: "5^n" },
         { problem: "\\frac{4^n - 9}{2^n - 3}",                                                 answer: "2^n + 3" },

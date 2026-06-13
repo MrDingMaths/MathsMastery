@@ -30,7 +30,7 @@ export default new BaseLevel(
         { problem: "2^{n+1} + 2^n",                           answer: "3 \\times 2^n" },
         { problem: "7^n - 7^{n-1}",                           answer: "6 \\times 7^{n-1}" },
         { problem: "5^{n+2} + 5^n",                           answer: "26 \\times 5^n" },
-        { problem: "4^n + 4^{n+1}",                           answer: "5 \\times 4^n" },
+        { problem: "4^n + 4^{n+1}",                           answer: "5 \\times 2^{2n}" },
         { problem: "2^{x+2} - 2^x",                           answer: "3 \\times 2^x" },
         { problem: "3^{n+2} - 3^{n+1}",                       answer: "2 \\times 3^{n+1}" },
         { problem: "2^n + 2^{n-1}",                           answer: "3 \\times 2^{n-1}" },
