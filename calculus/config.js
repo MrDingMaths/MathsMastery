@@ -9,9 +9,9 @@ export const CONFIG = {
     POSITIVE_FEEDBACK: ["Awesome!", "Great Job!", "You got it!", "Fantastic!", "Brilliant!", "Keep it up!", "Nice!", "Correct!"],
     SECOND_CHANCE_FEEDBACK: ["Try again", "Not quite right", "Have another go!", "Take another shot at it!"],
     RATING_THRESHOLDS: [
-        { maxAvg: 1.5, name: "Maths Queen", key: "true-mastery" },
-        { maxAvg: 2.5, name: "Mastery", key: "mastery" },
-        { maxAvg: 3.5, name: "Expert", key: "expert" },
+        { maxAvg: 2, name: "Maths Queen", key: "true-mastery" },
+        { maxAvg: 3, name: "Mastery", key: "mastery" },
+        { maxAvg: 4, name: "Expert", key: "expert" },
         { maxAvg: 5, name: "Developing", key: "developing" },
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],

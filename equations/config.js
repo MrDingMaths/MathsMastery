@@ -11,8 +11,8 @@ export const CONFIG = {
     RATING_THRESHOLDS: [
         { maxAvg: 2, name: "Maths Queen", key: "true-mastery" },
         { maxAvg: 3, name: "Mastery", key: "mastery" },
-        { maxAvg: 5, name: "Expert", key: "expert" },
-        { maxAvg: 10, name: "Developing", key: "developing" },
+        { maxAvg: 4, name: "Expert", key: "expert" },
+        { maxAvg: 5, name: "Developing", key: "developing" },
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],
     LEVEL_DIFFICULTY_MULTIPLIERS: {
