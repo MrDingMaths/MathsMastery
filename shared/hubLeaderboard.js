@@ -240,7 +240,7 @@ class HubPanels {
 
     async _loadRecent() {
         const body = this._recentEl && this._recentEl.querySelector('.panel-body');
-        if (!body || !window.supabaseClient) return;
+        if (!body || !window.supabaseClient || !window.supabaseUser) return;
         body.innerHTML = '<div class="panel-loading">Loading…</div>';
         try {
             const { data, error } = await window.supabaseClient
@@ -258,7 +258,7 @@ class HubPanels {
 
     async _loadHof(app) {
         const body = this._hofEl && this._hofEl.querySelector('.panel-body');
-        if (!body || !window.supabaseClient) return;
+        if (!body || !window.supabaseClient || !window.supabaseUser) return;
         body.innerHTML = '<div class="panel-loading">Loading…</div>';
         try {
             const { data, error } = await window.supabaseClient
