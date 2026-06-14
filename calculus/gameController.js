@@ -66,7 +66,7 @@ export class GameController {
         document.addEventListener('keydown', this.handleGlobalKeys);
 
         // Capture phase so MathLive doesn't swallow the \ key (skip question)
-        this.handleSkipKey = (e) => {
+        /* this.handleSkipKey = (e) => {
             if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
                 e.stopPropagation();
                 if (this._moveToNextQuestion) {
@@ -80,7 +80,7 @@ export class GameController {
                 this.generateQuestion();
             }
         };
-        document.addEventListener('keydown', this.handleSkipKey, { capture: true });
+        document.addEventListener('keydown', this.handleSkipKey, { capture: true }); */
     }
 
     startGame(level) {

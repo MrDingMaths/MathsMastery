@@ -63,7 +63,7 @@ export class GameController {
         document.addEventListener('keydown', this.handleGlobalKeys);
 
         // Capture phase so MathLive doesn't swallow the Ctrl+\ key
-        this.handleSkipKey = (e) => {
+        /* this.handleSkipKey = (e) => {
             if (e.key === '\\' && e.ctrlKey && !this.ui.elements.gameScreen.classList.contains('hidden')) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -77,7 +77,7 @@ export class GameController {
                 this.generateQuestion();
             }
         };
-        document.addEventListener('keydown', this.handleSkipKey, { capture: true });
+        document.addEventListener('keydown', this.handleSkipKey, { capture: true }); */
     }
 
     startGame(level) {

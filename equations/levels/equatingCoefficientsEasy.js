@@ -36,4 +36,22 @@ export default new BaseLevel('equatingCoefficientsEasy', 'Equating Coefficients 
     { problem: '(2x-3)^2+ax+b=4x^2-8x+1',         inputs: { vars: ['a', 'b'] }, answer: { a: '4',   b: '-8'  } },
     { problem: '(3x+1)^2+ax^2+b=5x^2+6x+3',       inputs: { vars: ['a', 'b'] }, answer: { a: '-4',  b: '2'   } },
     { problem: '(3x-2)^2+ax^2+b=7x^2-12x+5',      inputs: { vars: ['a', 'b'] }, answer: { a: '-2',  b: '1'   } },
+    // ---- Partial fractions: with fractions (full rational identity) ----
+    { problem: '\\frac{5x+11}{(x+1)(x+4)}=\\frac{A}{x+1}+\\frac{B}{x+4}', inputs: { vars: ['A', 'B'] }, answer: { A: '2', B: '3' } },
+    { problem: '\\frac{5x+22}{(x+2)(x+5)}=\\frac{A}{x+2}+\\frac{B}{x+5}', inputs: { vars: ['A', 'B'] }, answer: { A: '4', B: '1' } },
+    { problem: '\\frac{5x+9}{(x+3)(x+1)}=\\frac{A}{x+3}+\\frac{B}{x+1}',  inputs: { vars: ['A', 'B'] }, answer: { A: '3', B: '2' } },
+    { problem: '\\frac{6x+22}{(x+4)(x+2)}=\\frac{A}{x+4}+\\frac{B}{x+2}', inputs: { vars: ['A', 'B'] }, answer: { A: '1', B: '5' } },
+    { problem: '\\frac{7x+34}{(x+2)(x+6)}=\\frac{A}{x+2}+\\frac{B}{x+6}', inputs: { vars: ['A', 'B'] }, answer: { A: '5', B: '2' } },
+    // ---- Partial fractions: split the numerator (numerator identity) ----
+    { problem: '7x+19=A(x+5)+B(x+1)', inputs: { vars: ['A', 'B'] }, answer: { A: '3', B: '4' } },
+    { problem: '3x+6=A(x+1)+B(x+4)',  inputs: { vars: ['A', 'B'] }, answer: { A: '2', B: '1' } },
+    { problem: '4x+10=A(x+4)+B(x+2)', inputs: { vars: ['A', 'B'] }, answer: { A: '1', B: '3' } },
+    { problem: '7x+11=A(x+2)+B(x+1)', inputs: { vars: ['A', 'B'] }, answer: { A: '4', B: '3' } },
+    { problem: '6x+22=A(x+5)+B(x+3)', inputs: { vars: ['A', 'B'] }, answer: { A: '2', B: '4' } },
+    // ---- Partial fractions: decomposition given (unfactored denominator) ----
+    { problem: '\\frac{6x+17}{x^2+5x+6}=\\frac{A}{x+2}+\\frac{B}{x+3}',  inputs: { vars: ['A', 'B'] }, answer: { A: '5', B: '1' } },
+    { problem: '\\frac{4x+13}{x^2+5x+4}=\\frac{A}{x+1}+\\frac{B}{x+4}',  inputs: { vars: ['A', 'B'] }, answer: { A: '3', B: '1' } },
+    { problem: '\\frac{3x+12}{x^2+7x+10}=\\frac{A}{x+5}+\\frac{B}{x+2}', inputs: { vars: ['A', 'B'] }, answer: { A: '1', B: '2' } },
+    { problem: '\\frac{6x+10}{x^2+4x+3}=\\frac{A}{x+3}+\\frac{B}{x+1}',  inputs: { vars: ['A', 'B'] }, answer: { A: '4', B: '2' } },
+    { problem: '\\frac{5x+21}{x^2+8x+15}=\\frac{A}{x+5}+\\frac{B}{x+3}', inputs: { vars: ['A', 'B'] }, answer: { A: '2', B: '3' } },
 ]);

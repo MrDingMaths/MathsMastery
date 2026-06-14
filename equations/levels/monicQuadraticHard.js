@@ -31,4 +31,10 @@ export default new BaseLevel('monicQuadraticHard', 'Monic Quadratic Trinomials (
     Q('(x + 1)(x - 7) = -12', ['1', '5']),
     Q('(x - 3)(x + 5) = 9', ['4', '-6']),
     Q('6x^{2} - 24x - 72 = 0', ['6', '-2']),
+    // Quadratics in disguise (substitution → monic quadratic)
+    Q('(x + 1)^{2} - 5(x + 1) + 6 = 0', ['1', '2']),
+    Q('(x - 2)^{2} - 7(x - 2) + 12 = 0', ['5', '6']),
+    Q('(x + 3)^{2} + 2(x + 3) - 8 = 0', ['-7', '-1']),
+    Q('(x - 1)^{2} - 3(x - 1) - 10 = 0', ['-1', '6']),
+    Q('(x + 2)^{2} - (x + 2) - 6 = 0', ['-4', '1']),
 ]);

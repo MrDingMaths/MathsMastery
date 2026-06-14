@@ -61,7 +61,7 @@ export class TrigGameController {
         document.addEventListener('keydown', (e) => this.handleKeypress(e));
 
         // Capture phase so MathLive doesn't swallow the \ key
-        document.addEventListener('keydown', (e) => {
+        /* document.addEventListener('keydown', (e) => {
             if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
                 e.stopPropagation();
                 if (this._moveToNextQuestion) {
@@ -72,7 +72,7 @@ export class TrigGameController {
                 this.timer.start();
                 this.generateQuestion();
             }
-        }, { capture: true });
+        }, { capture: true }); */
     }
 
     handleKeypress(e) {

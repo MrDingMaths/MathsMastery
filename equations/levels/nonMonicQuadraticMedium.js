@@ -36,4 +36,10 @@ export default new BaseLevel('nonMonicQuadraticMedium', 'Non-Monic Quadratics (M
     Q('(2x + 1)^{2} = 4x^{2} + 9', ['2']),
     Q('(3x - 1)^{2} = 9x^{2} - 5', ['1']),
     Q('(x + 4)(x - 3) = x^{2} + 2x - 15', ['3']),
+    // Quadratics in disguise (substitution → non-monic quadratic)
+    Q('4x^{4} - 17x^{2} + 4 = 0', ['-2', '-1/2', '1/2', '2']),
+    Q('9x^{4} - 13x^{2} + 4 = 0', ['-1', '-2/3', '2/3', '1']),
+    Q('2(x + 1)^{2} - 7(x + 1) + 3 = 0', ['-1/2', '2']),
+    Q('3(x - 2)^{2} + 5(x - 2) - 2 = 0', ['0', '7/3']),
+    Q('2x - 5\\sqrt{x} + 2 = 0', ['1/4', '4']),
 ]);

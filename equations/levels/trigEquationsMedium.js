@@ -1,9 +1,12 @@
 import { BaseLevel } from './BaseLevel.js';
-// Two strands, domain 0°..360°:
+// Three strands, domain 0°..360°:
 //  (a) compound (multiple) angle — solve cos(2x), sin(2x), tan(2x) by
 //      expanding the argument's domain to 0..720.
 //  (b) divide-by-cos — a·sinx = b·cosx  →  tanx = b/a  (cosx ≠ 0, so the
 //      multiples of 90° are not solutions and need not be added).
+//  (c) common factor — take out a shared sinx or cosx and apply the null
+//      factor law (NOT a trinomial). Here cosx = 0 (i.e. 90°/270°) CAN be a
+//      genuine solution, so it must be kept rather than divided away.
 // Answers are exact integer degrees; enter all solutions separated by commas.
 const D = ',\\quad 0°\\le x\\le 360°';
 const Q = (problem, roots) => ({ problem: problem + D, inputs: { vars: ['x'], multi: true }, answer: { x: roots } });
@@ -33,4 +36,10 @@ export default new BaseLevel('trigEquationsMedium', 'Trig Equations (Medium)', [
     Q('\\cos x = \\sqrt{3}\\sin x', ['30', '210']),
     Q('\\sqrt{3}\\sin x + \\cos x = 0', ['150', '330']),
     Q('\\sqrt{3}\\cos x + \\sin x = 0', ['120', '300']),
+    // (c) Common factor — factor out sin x or cos x, then null factor law
+    Q('\\sin x\\cos x = 0', ['0', '90', '180', '270', '360']),
+    Q('2\\sin x\\cos x - \\sin x = 0', ['0', '60', '180', '300', '360']),
+    Q('2\\sin x\\cos x + \\cos x = 0', ['90', '210', '270', '330']),
+    Q('2\\sin x\\cos x - \\sqrt{3}\\sin x = 0', ['0', '30', '180', '330', '360']),
+    Q('2\\sin x\\cos x + \\sqrt{3}\\cos x = 0', ['90', '240', '270', '300']),
 ], { hint: 'Give all solutions in degrees' });

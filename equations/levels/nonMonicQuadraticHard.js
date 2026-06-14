@@ -36,4 +36,9 @@ export default new BaseLevel('nonMonicQuadraticHard', 'Non-Monic Quadratics (Har
     Q('(x + 3)(2x - 1) = 2x^{2} + 3(x + 2)', ['9/2']),
     Q('(4x - 1)^{2} = (2x + 3)(8x - 5)', ['8/11']),
     Q('(3x - 2)^{2} = (x + 1)(9x - 4)', ['8/17']),
+    // More quadratics in disguise (substitution → non-monic quadratic)
+    Q('4x^{4} - 37x^{2} + 9 = 0', ['-3', '-1/2', '1/2', '3']),
+    Q('3(2x - 1)^{2} - 5(2x - 1) - 2 = 0', ['1/3', '3/2']),
+    Q('\\frac{6}{x^{2}} + \\frac{1}{x} - 2 = 0', ['-3/2', '2']),
+    Q('3x - 7\\sqrt{x} + 2 = 0', ['1/9', '4']),
 ]);
