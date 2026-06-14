@@ -1,7 +1,7 @@
-import { BaseLevel } from './BaseLevel.js';
+﻿import { BaseLevel } from './BaseLevel.js';
 const Q = (problem, x) => ({ problem, inputs: { vars: ['x'] }, answer: { x } });
 export default new BaseLevel('exponentialNoLogsMedium', 'Exponential Equations (No Logs) (Medium)', [
-    // Base conversion — different powers of same base
+    // Base conversion â€” different powers of same base
     Q('8^{x}=16', '4/3'),
     Q('25^{x}=125', '3/2'),
     Q('81^{x}=9', '1/2'),
@@ -12,9 +12,9 @@ export default new BaseLevel('exponentialNoLogsMedium', 'Exponential Equations (
     Q('16^{-x}=64', '-3/2'),
     Q('25^{-x}=125', '-3/2'),
     // Fraction bases
-    Q('\\left\\left(\\frac{3}{4}\\right\\right)^{x}=\\frac{4}{3}', '-1'),
-    Q('\\left\\left(\\frac{2}{3}\\right\\right)^{x}=\\frac{9}{4}', '-2'),
-    Q('\\left\\left(\\frac{2}{5}\\right\\right)^{x}=\\frac{125}{8}', '-3'),
+    Q('\\left(\\frac{3}{4}\\right)^{x}=\\frac{4}{3}', '-1'),
+    Q('\\left(\\frac{2}{3}\\right)^{x}=\\frac{9}{4}', '-2'),
+    Q('\\left(\\frac{2}{5}\\right)^{x}=\\frac{125}{8}', '-3'),
     Q('\\frac{1}{2^{x}}=8', '-3'),
     Q('\\frac{1}{3^{x}}=81', '-4'),
     // Linear exponent, two different bases
@@ -33,14 +33,14 @@ export default new BaseLevel('exponentialNoLogsMedium', 'Exponential Equations (
     Q('25^{x}=\\sqrt[5]{125}', '3/10'),
     Q('9^{x}=\\frac{1}{\\sqrt[3]{27}}', '-1/2'),
     // (1/n)^x forms
-    Q('\\left\\left(\\frac{1}{3}\\right\\right)^{x}=\\frac{1}{81}', '4'),
-    Q('\\left\\left(\\frac{1}{3}\\right\\right)^{x}=81', '-4'),
-    Q('\\left\\left(\\frac{1}{3}\\right\\right)^{x}=27', '-3'),
-    Q('\\left\\left(\\frac{1}{3}\\right\\right)^{x}=\\frac{1}{27}', '3'),
-    Q('\\left\\left(\\frac{1}{4}\\right\\right)^{x}=64', '-3'),
-    Q('\\left\\left(\\frac{1}{4}\\right\\right)^{x}=256', '-4'),
-    Q('\\left\\left(\\frac{1}{4}\\right\\right)^{x}=\\frac{1}{256}', '4'),
-    Q('\\left\\left(\\frac{5}{25}\\right\\right)^{x}=625', '-4'),
+    Q('\\left(\\frac{1}{3}\\right)^{x}=\\frac{1}{81}', '4'),
+    Q('\\left(\\frac{1}{3}\\right)^{x}=81', '-4'),
+    Q('\\left(\\frac{1}{3}\\right)^{x}=27', '-3'),
+    Q('\\left(\\frac{1}{3}\\right)^{x}=\\frac{1}{27}', '3'),
+    Q('\\left(\\frac{1}{4}\\right)^{x}=64', '-3'),
+    Q('\\left(\\frac{1}{4}\\right)^{x}=256', '-4'),
+    Q('\\left(\\frac{1}{4}\\right)^{x}=\\frac{1}{256}', '4'),
+    Q('\\left(\\frac{5}{25}\\right)^{x}=625', '-4'),
     // Linear exponent, simple
     Q('5^{x-1}=\\frac{1}{25}', '-1'),
     Q('3^{x-3}=\\frac{1}{9}', '1'),
@@ -53,7 +53,7 @@ export default new BaseLevel('exponentialNoLogsMedium', 'Exponential Equations (
     Q('3^{x}\\times 9^{x}=27', '1'),
     Q('16^{-x}=\\frac{1}{32}', '5/4'),
     Q('8^{x}=4^{x+1}', '2'),
-    // M1 series — medium
+    // M1 series â€” medium
     Q('15^{x}=\\sqrt{15}', '1/2'),
     Q('15^{x}=\\frac{1}{\\sqrt{15}}', '-1/2'),
     Q('7^{x}=7\\sqrt{7}', '3/2'),
@@ -62,7 +62,7 @@ export default new BaseLevel('exponentialNoLogsMedium', 'Exponential Equations (
     Q('7^{x}=\\frac{1}{\\sqrt{7}}', '-1/2'),
     Q('6^{x}=6\\sqrt{6}', '3/2'),
     Q('2^{5-2x}=\\frac{1}{4}', '7/2'),
-    Q('\\left\\left(\\frac{1}{3}\\right\\right)^{x+1}=27', '-4'),
+    Q('\\left(\\frac{1}{3}\\right)^{x+1}=27', '-4'),
     Q('10^{x}\\times 100^{x}=0.001', '-1'),
     // Decimal RHS (requires converting decimal to fraction before matching bases)
     Q('10^{x}=0.0001', '-4'),
