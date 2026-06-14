@@ -48,7 +48,7 @@ math-field.math-field-answer {
     display: inline-flex;
     align-items: center;
     margin: 0;
-    padding: 10px 12px;
+    padding: 10px 52px 10px 12px;
     border: 2px solid var(--app-accent);
     border-radius: 6px;
     background-color: white;
@@ -76,7 +76,10 @@ math-field.math-field-answer::part(menu-toggle) {
 }
 
 math-field.math-field-answer::part(virtual-keyboard-toggle) {
-    display: none;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 math-field.math-field-answer:focus,

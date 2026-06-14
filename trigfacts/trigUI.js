@@ -187,11 +187,11 @@ export class TrigUI extends BaseUI {
         const inputElement = this.elements.mathFieldInput;
 
         if (questionType === 'equivalent') {
-            inputElement.style.minWidth = '200px';
-            inputElement.style.width = '200px';
+            inputElement.style.minWidth = '240px';
+            inputElement.style.width = '240px';
         } else {
-            inputElement.style.minWidth = '120px';
-            inputElement.style.width = '120px';
+            inputElement.style.minWidth = '160px';
+            inputElement.style.width = '160px';
         }
     }
 
