@@ -63,7 +63,7 @@ export const CONFIG = {
         'algFractBinomialHard': 17.0,
         'algFractCrossMultiplyEasy': 8.0,
         'algFractCrossMultiplyMedium': 11.0,
-        'algFractCrossMultiplyHard': 15.0,
+        'algFractCrossMultiplyHard': 16.0,
         'algFractAlgDenomEasy': 10.0,
         'algFractAlgDenomMedium': 14.0,
         'algFractAlgDenomHard': 20.0,

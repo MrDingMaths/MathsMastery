@@ -62,16 +62,16 @@ export class GameController {
         };
         document.addEventListener('keydown', this.handleGlobalKeys);
 
-        // Capture phase so MathLive doesn't swallow the \ key
+        // Capture phase so MathLive doesn't swallow the Ctrl+\ key
         this.handleSkipKey = (e) => {
-            if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
+            if (e.key === '\\' && e.ctrlKey && !this.ui.elements.gameScreen.classList.contains('hidden')) {
+                e.preventDefault();
                 e.stopPropagation();
                 if (this._moveToNextQuestion) {
                     document.removeEventListener('keydown', this._moveToNextQuestion);
                     this._moveToNextQuestion = null;
                 }
                 this.ui.hideTimerPausedMessage();
-                this.timer.start();
                 this.answerSubmitted = false;
                 this.isChecking = false;
                 this.generateQuestion();
@@ -250,10 +250,11 @@ export class GameController {
     recordMistake(studentAnswer, correctAnswer) {
         try {
             if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
+                const problem = this.state.currentQuestion.problem;
                 window.progressTracker.recordMistake(
                     this.state.currentLevel.key,
                     this.state.currentLevel.name,
-                    this.state.currentQuestion.problem,
+                    Array.isArray(problem) ? problem.join(', ') : problem,
                     JSON.stringify(correctAnswer),
                     JSON.stringify(studentAnswer)
                 );

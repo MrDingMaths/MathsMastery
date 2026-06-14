@@ -69,3 +69,79 @@ jointly-valid points, mostly in roughly x ∈ [-2, 4]), or they cannot be verifi
 Scope of that pass: the four differentiation families above (Diff, ChainRule,
 ProductRule, QuotientRule). Excluded: `polynomialMixedRules*` (mixed level) and the
 integration families (`polynomialInt*`, `polynomialRCR*`).
+
+---
+
+## Reverse Chain Rule integration families (RCR)
+
+The unifying skill is recognising `∫ f'(x)·g(f(x)) dx` and writing the
+antiderivative `G(f(x))`. Decision steps count the manipulations needed before a
+standard antiderivative, plus any definite-integral evaluation.
+
+### polynomialRCR — `∫(ax+b)ⁿ dx`, `∫f'·[f]ⁿ dx`, `√(ax+b)`, `1/(ax+b)ⁿ`
+- **Easy (1–2 steps):** linear inner `(ax+b)ⁿ` (constant inner-derivative);
+  reverse power rule with the `1/(a(n+1))` factor; leading constant multiples.
+  Indefinite.
+- **Medium (2–3 steps):** one rewrite/adjustment first — fractional-coefficient
+  inner, reciprocal `1/(ax+b)ⁿ`, surd outer `√(ax+b)` / `1/√`, or a non-linear
+  inner `f'·[f]ⁿ` where `f'` is already present (e.g. `x²(x³+5)³`). Indefinite.
+- **Hard (3+ steps):** scalar-adjusted non-linear inner (numerator off by a
+  constant), surds over quadratics, and/or **definite** evaluation.
+
+### exponentialRCR — `∫f'·e^f dx`
+- **Easy (1–2 steps):** `f'` exactly present, simple monomial inner
+  (`2x e^{x²}`, `x² e^{x³+1}`). Answer is `e^{f}`. Indefinite.
+- **Medium (2–3 steps):** coefficient adjustment, trinomial inner
+  (`(x−1)e^{x²−2x+3}`), mixed-function inner (`cos x·e^{sin x}`),
+  `e^x·(e^x+c)ⁿ`, or a basic **definite**.
+- **Hard (3+ steps):** compound/nested `e^{kx}/(c+e^{kx})ⁿ`, awkward inners
+  (`x^{−2}e^{1/x}`, `e^{√x}/√x`), surd inners, and/or **definite** evaluation.
+
+### rationalRCR — `∫f'/f dx = ln|f|`
+- **Easy (1–2 steps):** numerator is exactly `f'` (`3x²/(x³+5)`); write `ln|f|`.
+  Indefinite.
+- **Medium (2–3 steps):** numerator off by a constant factor (`x/(x²+4)`),
+  mixed-function (`cos x/(2+sin x)`, `eˣ/(1+eˣ)`, `(ln x)²/x`, `tan x`), or
+  denominator power-scaling. Indefinite.
+- **Hard (3+ steps):** **definite** `f'/f` (logs of ratios), with exponential /
+  trig / log inners and coefficient adjustment.
+
+### trigRCR — `∫f'·trig(f) dx`, `∫sinⁿx·cos x dx`, etc.
+- **Easy (1–2 steps):** `f'·trig(f)` with `f'` present and a monomial inner
+  (`3x²cos(x³)`, `x³sec²(x⁴−1)`). Indefinite.
+- **Medium (2–3 steps):** trig-power patterns (`sin x·cos²x`, `sec²x·tan³x`,
+  `sin x/cos³x`), surd outer over a trig inner, coefficient adjustment.
+  Indefinite.
+- **Hard (3+ steps):** **definite** trig RCR with exact-value bounds
+  (multiples of π/6, π/4, π/3, π/2), often producing surd results.
+
+## Migrations applied (2026-06-14 RCR expansion to ≥30 questions/file)
+
+- **polynomialRCR Easy:** removed `∫(2x+9)¹¹ dx` — its integrand exceeds the
+  checker's 1e6 magnitude cap at every sample point, so it cannot be verified by
+  `calculusAnswerChecker`. Replaced with lower-power linear-inner items.
+- **polynomialRCR Hard:** replaced `∫x√(x²−5) dx` with `∫x√(x²+4) dx` — the
+  original is real on too few sample points (<4 jointly-valid), which the live
+  checker cannot verify; `x²+4` is positive everywhere.
+- **Kept:** non-linear `f'·[f]ⁿ` items (`x²(x³+5)³`, `x√(1−x²)`) in
+  polynomialRCR **Medium** — `f'` is already present, so they are one
+  recognition step (Medium), not Hard.
+- All other tiers were already consistent with the principles; the expansion
+  added new questions for variety rather than re-tiering existing ones. Every
+  answer was checked numerically (differentiate-and-compare for indefinite,
+  numeric integration for definite) before committing.
+
+### Checker fix (calculusAnswerChecker.js `_normalizeCalcLatex`)
+
+While validating the RCR answers against the real checker, two notation forms
+were found to be unparseable — which silently broke correct answers in these
+levels **and** in shipped `*Int*` levels:
+
+- **Absolute-value bars** `\ln|f|` → now rewritten to `\ln((abs(f)))` (the
+  bundled Math.js `abs` keeps the argument real, so `ln|f|` verifies across the
+  whole sample range, and a student typing the bars is accepted).
+- **Bare function arguments** `\sin x`, `\sin 2x`, `\sec^2 x`, `\ln 5` → now
+  wrapped to `\sin(x)`, `\sin(2x)`, `\sec^2(x)`, `\ln(5)` before parsing.
+
+Both transforms are additive and regression-covered by category **K** in
+`test/cases.cjs`; the original 79-case battery still passes (89/89 total).

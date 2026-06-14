@@ -133,6 +133,21 @@ export class CalculusAnswerChecker {
         //    also strips these later; doing it here is harmless.)
         s = s.replace(/\\left|\\right|\\mleft|\\mright/g, '');
 
+        // 1b. Absolute-value bars → abs(). Lets the parser read the common ln|…|
+        //     antiderivative form (and any student who types it); abs keeps the
+        //     argument real for negative values so ln|f| verifies across the whole
+        //     sample range. Assumes non-nested bars (true for our levels).
+        s = s.replace(/\|([^|]*)\|/g, '(abs($1))');
+
+        // 1c. Wrap a BARE argument after a trig/ln function (with optional power)
+        //     in parentheses: \sin x → \sin(x), \cos 2x → \cos(2x), \sec^2 x →
+        //     \sec^2(x), \ln 5 → \ln(5). Parenthesised/\frac arguments are left
+        //     untouched. This is what lets standard hand-written notation parse.
+        s = s.replace(
+            /(\\(?:sin|cos|tan|sec|csc|cot|sinh|cosh|tanh|ln|log))(\s*\^\s*(?:\{[^{}]*\}|-?\d+))?\s*(\d+x|\d+\.\d+|\d+|x)\b/g,
+            (_m, fn, pow, arg) => `${fn}${pow || ''}(${arg})`
+        );
+
         const FN = 'sin|cos|tan|sec|csc|cot|sinh|cosh|tanh|arcsin|arccos|arctan|ln|log|exp|sqrt';
 
         // 2. Insert explicit '*' between a value/closing-bracket and a following

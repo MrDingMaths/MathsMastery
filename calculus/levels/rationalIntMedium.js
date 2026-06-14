@@ -12,7 +12,7 @@ export default new BaseLevel('rationalIntMedium', 'Rational — Medium', [
   { problem: '\\int_1^{e^2}\\frac{1}{x}\\,dx', answer: '2' },
   { problem: '\\int_e^{e^4}\\frac{1}{x}\\,dx', answer: '3' },
   { problem: '\\int_{\\sqrt{e}}^e\\frac{1}{x}\\,dx', answer: '\\frac{1}{2}' },
-  // Definite with decimal answers (toleranceDp: 4)
+  // Definite with decimal answers
   { problem: '\\int_0^1\\frac{1}{x+1}\\,dx', answer: '0.6931' },
   { problem: '\\int_{-7}^{-5}\\frac{1}{x+2}\\,dx', answer: '-0.5108' },
   { problem: '\\int_{-5}^{-2}\\frac{1}{2x+3}\\,dx', answer: '-0.9730' },
@@ -29,4 +29,12 @@ export default new BaseLevel('rationalIntMedium', 'Rational — Medium', [
   { problem: '\\int\\frac{3x^2-2x}{x^2}\\,dx', answer: '3x-2\\ln|x|+C' },
   { problem: '\\int\\frac{2x^2+x-4}{x}\\,dx', answer: 'x^2+x-4\\ln|x|+C' },
   { problem: '\\int\\frac{x^4-x+2}{x^2}\\,dx', answer: '\\frac{1}{3}x^3-\\ln|x|-\\frac{2}{x}+C' },
+  // Additional split-numerator integrals
+  { problem: '\\int\\frac{3x^2+2}{x}\\,dx', answer: '\\frac{3x^2}{2}+2\\ln|x|+C' },
+  { problem: '\\int\\frac{x^3-5x^2+x}{x^2}\\,dx', answer: '\\frac{x^2}{2}-5x+\\ln|x|+C' },
+  { problem: '\\int\\frac{4x^3+x-2}{x^2}\\,dx', answer: '2x^2+\\ln|x|+\\frac{2}{x}+C' },
+  { problem: '\\int\\frac{x^2+4}{2x}\\,dx', answer: '\\frac{x^2}{4}+2\\ln|x|+C' },
+  { problem: '\\int\\frac{5x^2-3x+1}{x}\\,dx', answer: '\\frac{5x^2}{2}-3x+\\ln|x|+C' },
+  { problem: '\\int\\frac{x^3+2x-1}{x^3}\\,dx', answer: 'x-\\frac{2}{x}+\\frac{1}{2x^2}+C' },
+  { problem: '\\int\\frac{2x^3-x+4}{x^2}\\,dx', answer: 'x^2-\\ln|x|-\\frac{4}{x}+C' },
 ], { mode: 'integral', toleranceDp: 4 });

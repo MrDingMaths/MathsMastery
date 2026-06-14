@@ -39,7 +39,7 @@ export default new BaseLevel('polynomialRCRHard', 'Polynomial Reverse Chain Rule
   { problem: '\\int 4x^3(x^4+5)^2\\,dx', answer: '\\frac{(x^4+5)^3}{3}+C' },
   { problem: '\\int(2x+3)(x^2+3x-2)^4\\,dx', answer: '\\frac{(x^2+3x-2)^5}{5}+C' },
   { problem: '\\int x(3x^2-7)^6\\,dx', answer: '\\frac{(3x^2-7)^7}{42}+C' },
-  { problem: '\\int x\\sqrt{x^2-5}\\,dx', answer: '\\frac{(x^2-5)^{\\frac{3}{2}}}{3}+C' },
+  { problem: '\\int x\\sqrt{x^2+4}\\,dx', answer: '\\frac{(x^2+4)^{\\frac{3}{2}}}{3}+C' },
   { problem: '\\int x^2(4-5x^3)^2\\,dx', answer: '-\\frac{(4-5x^3)^3}{45}+C' },
   { problem: '\\int 3x(5x^2+3)^7\\,dx', answer: '\\frac{3(5x^2+3)^8}{80}+C' },
   { problem: '\\int 4x^5(2x^6-3)^4\\,dx', answer: '\\frac{(2x^6-3)^5}{15}+C' },

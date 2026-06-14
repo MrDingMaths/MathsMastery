@@ -661,13 +661,22 @@ class ProgressUI {
                 mistakesTable.style.display = 'block';
                 noMistakesMessage.classList.add('hidden');
 
+                const toText = (value) => {
+                    if (Array.isArray(value)) return value.join(', ');
+                    if (value == null) return '';
+                    return String(value);
+                };
+
                 const tableRows = mistakes.map(mistake => {
                     const date = new Date(mistake.timestamp);
+                    const question = toText(mistake.question);
+                    const correctAnswer = toText(mistake.correctAnswer);
+                    const studentAnswer = toText(mistake.studentAnswer);
                     return `<tr data-mistake-id="${mistake.id}">` +
                         `<td class="level-column">${mistake.levelName}</td>` +
-                        `<td class="question-column"><div class="math-display" data-latex="${mistake.question.replace(/"/g, '&quot;')}">${mistake.question}</div></td>` +
-                        `<td class="correct-answer-column"><div class="math-display" data-latex="${mistake.correctAnswer.replace(/"/g, '&quot;')}">${mistake.correctAnswer}</div></td>` +
-                        `<td class="student-answer-column"><div class="math-display" data-latex="${mistake.studentAnswer.replace(/"/g, '&quot;')}">${mistake.studentAnswer}</div></td>` +
+                        `<td class="question-column"><div class="math-display" data-latex="${question.replace(/"/g, '&quot;')}">${question}</div></td>` +
+                        `<td class="correct-answer-column"><div class="math-display" data-latex="${correctAnswer.replace(/"/g, '&quot;')}">${correctAnswer}</div></td>` +
+                        `<td class="student-answer-column"><div class="math-display" data-latex="${studentAnswer.replace(/"/g, '&quot;')}">${studentAnswer}</div></td>` +
                         `<td class="date-column">${date.toLocaleDateString()}</td>` +
                         `<td class="actions-column">
                             <button class="btn btn-small btn-danger delete-mistake-btn" data-mistake-id="${mistake.id}" title="Remove this mistake">

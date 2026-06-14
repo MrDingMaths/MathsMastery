@@ -114,4 +114,16 @@ module.exports = [
     { cat: 'J robust', name: 'blank spaces',               mode: 'derivative', model: '2x', student: '   ',  expect: 'reject' },
     { cat: 'J robust', name: 'integral lone +C',           mode: 'integral',   model: 'x^2+C', student: '+C', expect: 'reject' },
     { cat: 'J robust', name: 'garbage tokens',             mode: 'derivative', model: '2x', student: '\\foo', expect: 'reject' },
+
+    // ---------- K. RCR notation: bare trig args + |…| bars (checker normalisation) ----------
+    { cat: 'K notation', name: 'ln|f| accepted',           mode: 'integral', toleranceDp: 2, model: '\\ln|x+7|+C',              student: '\\ln|x+7|+C',                 expect: 'accept' },
+    { cat: 'K notation', name: 'ln|f| ≡ ln(f) on f>0',     mode: 'integral', toleranceDp: 2, model: '\\ln|x+7|+C',              student: '\\ln\\left(x+7\\right)+C',    expect: 'accept' },
+    { cat: 'K notation', name: 'ln|neg-domain| (x^2-9)',   mode: 'integral', toleranceDp: 2, model: '\\ln|x^2-9|+C',            student: '\\ln|x^2-9|+C',               expect: 'accept' },
+    { cat: 'K notation', name: 'bare \\sin x antideriv',   mode: 'integral', toleranceDp: 2, model: '-\\cos x+C',               student: '-\\cos x+C',                  expect: 'accept' },
+    { cat: 'K notation', name: 'bare \\sin 2x',            mode: 'integral', toleranceDp: 2, model: '\\frac{1}{2}\\sin 2x+C',    student: '\\frac{1}{2}\\sin(2x)+C',     expect: 'accept' },
+    { cat: 'K notation', name: 'bare \\cos^3 x power',     mode: 'integral', toleranceDp: 2, model: '-\\frac{\\cos^3 x}{3}+C',   student: '-\\frac{\\cos^3(x)}{3}+C',    expect: 'accept' },
+    { cat: 'K notation', name: 'bare \\sec^2 x',           mode: 'integral', toleranceDp: 2, model: '\\tan x+C',                student: '\\tan(x)+C',                  expect: 'accept' },
+    { cat: 'K notation', name: 'ln(number) bound result',  mode: 'integral', toleranceDp: 2, model: '2\\ln 2',                  student: '2\\ln(2)',                    expect: 'accept' },
+    { cat: 'K notation', name: 'e^{sin x} RCR answer',     mode: 'integral', toleranceDp: 2, model: 'e^{\\sin x}+C',            student: 'e^{\\sin(x)}+C',              expect: 'accept' },
+    { cat: 'K notation', name: 'ln|f| wrong coeff reject', mode: 'integral', toleranceDp: 2, model: '\\ln|x+7|+C',              student: '2\\ln|x+7|+C',                expect: 'reject' },
 ];
