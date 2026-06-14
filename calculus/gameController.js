@@ -177,8 +177,6 @@ export class GameController {
                 this.ui.showTimerPausedMessage();
                 this.timer.reset();
 
-                this.recordMistake(userAnswer, correctAnswer);
-
                 this.ui.clearAnswer();
 
                 this._moveToNextQuestion = (e) => {
@@ -271,23 +269,6 @@ export class GameController {
 
         if (window.ProgressSync && window.supabaseUser) {
             window.ProgressSync.pushAfterLevel(window.ProgressSync.detectApp());
-        }
-    }
-
-    recordMistake(studentAnswer, correctAnswer) {
-        try {
-            if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
-                console.log('Recording mistake for:', this.state.currentLevel.key);
-                window.progressTracker.recordMistake(
-                    this.state.currentLevel.key,
-                    this.state.currentLevel.name,
-                    this.state.currentQuestion.problem,
-                    correctAnswer,
-                    studentAnswer
-                );
-            }
-        } catch (error) {
-            console.error('Error recording mistake (non-blocking):', error);
         }
     }
 
