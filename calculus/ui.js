@@ -138,6 +138,15 @@ export class UI extends BaseUI {
             }
         });
 
+        // MathLive fires 'change' on commit (the Return key — including the virtual
+        // keyboard's, which doesn't emit a DOM keydown) and on blur. Only submit on a
+        // focused commit so blurring the field doesn't auto-submit.
+        answerField.addEventListener('change', () => {
+            if (answerField.hasFocus && answerField.hasFocus()) {
+                document.dispatchEvent(new CustomEvent('math-enter'));
+            }
+        });
+
         answerField.addEventListener('pointerdown', (e) => {
             if (e.target === answerField) answerField.focus();
         });

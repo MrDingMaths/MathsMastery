@@ -159,6 +159,14 @@ export class TrigUI extends BaseUI {
             field.addEventListener('pointerdown', (e) => {
                 if (e.target === field) field.focus();
             });
+            // MathLive fires 'change' on commit (the Return key — including the virtual
+            // keyboard's, which doesn't emit a DOM keydown) and on blur. Only submit on a
+            // focused commit so blurring the field doesn't auto-submit.
+            field.addEventListener('change', () => {
+                if (field.hasFocus && field.hasFocus()) {
+                    document.dispatchEvent(new CustomEvent('math-enter'));
+                }
+            });
             this.mathFieldConfigured = true;
         }
 

@@ -60,6 +60,14 @@ export class TrigGameController {
         // Keyboard listeners
         document.addEventListener('keydown', (e) => this.handleKeypress(e));
 
+        // Submit when the MathLive virtual keyboard's Return key commits the field
+        // (it dispatches 'change' rather than a DOM keydown, so handleKeypress misses it).
+        document.addEventListener('math-enter', () => {
+            if (!this.ui.elements.gameScreen.classList.contains('hidden') && !this.state.isAnswering) {
+                this.checkAnswer();
+            }
+        });
+
         // Capture phase so MathLive doesn't swallow the \ key
         /* document.addEventListener('keydown', (e) => {
             if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {

@@ -140,17 +140,27 @@ export class UI extends BaseUI {
             field.menuItems = [];
 
             const isLast = idx === vars.length - 1;
+            const onCommit = () => {
+                if (!isLast) {
+                    const nextVar = vars[idx + 1];
+                    const next = this.mathFields[nextVar];
+                    if (next) next.focus();
+                } else {
+                    document.dispatchEvent(new CustomEvent('math-enter'));
+                }
+            };
             field.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    if (!isLast) {
-                        const nextVar = vars[idx + 1];
-                        const next = this.mathFields[nextVar];
-                        if (next) next.focus();
-                    } else {
-                        document.dispatchEvent(new CustomEvent('math-enter'));
-                    }
+                    onCommit();
                 }
+            });
+
+            // MathLive fires 'change' on commit (the Return key — including the virtual
+            // keyboard's, which doesn't emit a DOM keydown) and on blur. Only act on a
+            // focused commit so blurring a field doesn't advance/submit.
+            field.addEventListener('change', () => {
+                if (field.hasFocus && field.hasFocus()) onCommit();
             });
 
             field.addEventListener('pointerdown', (e) => {
