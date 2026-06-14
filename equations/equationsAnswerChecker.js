@@ -63,7 +63,18 @@ export class EquationsAnswerChecker {
         const tolerance = (toleranceDp !== null) ? (0.5 * Math.pow(10, -toleranceDp)) : null;
 
         const expectedKeys = Object.keys(expected).filter(k => k !== 'toleranceDp');
+
+        // Paired multi-solution case (simultaneous equations): two or more
+        // variables each given as positional arrays, e.g. { x: ['5','10'], y: ['10','5'] }.
+        // These must be validated together so the i-th x stays paired with the i-th y,
+        // rather than treating each variable as an independent unordered set.
+        const arrayKeys = expectedKeys.filter(k => Array.isArray(expected[k]));
+        if (arrayKeys.length >= 2) {
+            if (!this._pairedMultiCheck(userAnswer, expected, arrayKeys, tolerance)) return false;
+        }
+
         for (const key of expectedKeys) {
+            if (arrayKeys.length >= 2 && arrayKeys.includes(key)) continue; // handled above
             const userLatex = userAnswer?.[key];
             if (userLatex == null || String(userLatex).trim() === '') return false;
             const exp = expected[key];
@@ -76,6 +87,40 @@ export class EquationsAnswerChecker {
             }
         }
         return true;
+    }
+
+    // Validates two-or-more paired solution variables together. Each variable's
+    // expected value is a positional array; index i across all keys forms one
+    // solution. Solutions may be entered in any order, but within a solution the
+    // variables must correspond (e.g. (x=5, y=10) and (x=10, y=5), not (x=5, y=5)).
+    _pairedMultiCheck(userAnswer, expected, arrayKeys, tolerance = null) {
+        const N = expected[arrayKeys[0]].length;
+
+        // Every expected array must share the same length.
+        if (arrayKeys.some(k => expected[k].length !== N)) return false;
+
+        // Expand each user variable into positional pieces; all must yield N values.
+        const userPieces = {};
+        for (const key of arrayKeys) {
+            const userLatex = userAnswer?.[key];
+            if (userLatex == null || String(userLatex).trim() === '') return false;
+            const pieces = this._expandUserLatex(userLatex);
+            if (pieces.length !== N) return false;
+            userPieces[key] = pieces;
+        }
+
+        // Greedy multiset match of user pairs against expected pairs. A user pair
+        // matches only when every variable compares equal.
+        const remaining = [];
+        for (let i = 0; i < N; i++) remaining.push(i);
+        for (let u = 0; u < N; u++) {
+            const idx = remaining.findIndex(e =>
+                arrayKeys.every(k => this._scalarEqual(userPieces[k][u], expected[k][e], tolerance))
+            );
+            if (idx === -1) return false;
+            remaining.splice(idx, 1);
+        }
+        return remaining.length === 0;
     }
 
     // --- Inequality checking ---

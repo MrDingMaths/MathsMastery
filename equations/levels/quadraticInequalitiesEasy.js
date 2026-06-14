@@ -1,6 +1,6 @@
 import { BaseLevel } from './BaseLevel.js';
 const QU = (problem, ineq1, rhs1, ineq2, rhs2) => ({ problem, inputs: { vars: ['x'], type: 'ineq-union' }, answer: { x: { ineq: 'union', parts: [{ ineq: ineq1, rhs: rhs1 }, { ineq: ineq2, rhs: rhs2 }] } } });
-const QB = (problem, lo, hi, loStrict, hiStrict) => ({ problem, inputs: { vars: ['x'], type: 'ineq' }, answer: { x: { ineq: 'between', lo, hi, loStrict, hiStrict } } });
+const QB = (problem, lo, hi, loStrict, hiStrict) => ({ problem, inputs: { vars: ['x'], type: 'ineq', showUnionHint: true }, answer: { x: { ineq: 'between', lo, hi, loStrict, hiStrict } } });
 export default new BaseLevel('quadraticInequalitiesEasy', 'Quadratic Inequalities (Easy)', [
     // x² op k  (square-root both sides, no factorising)
     QU('x^{2} > 4', '<', '-2', '>', '2'),

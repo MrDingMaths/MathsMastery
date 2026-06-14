@@ -169,7 +169,7 @@ export class UI extends BaseUI {
             answerWrap.appendChild(hint);
         }
 
-        if (inputs.type === 'ineq-union') {
+        if (inputs.type === 'ineq-union' || inputs.showUnionHint) {
             const hint = createEl('div', {
                 className: 'equations-input-hint',
                 textContent: "Enter both inequalities separated by , e.g. x < −2, x > 3"
