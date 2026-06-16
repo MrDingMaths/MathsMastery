@@ -63,7 +63,23 @@ export class CalculusAnswerChecker {
             }
 
             if (mode === 'integral') {
-                // student − model must be the SAME constant at every point.
+                // A constant model answer (no x) is a DEFINITE integral: the answer
+                // is a fixed number, so require an exact numeric match. The lenient
+                // differ-by-constant test below would otherwise pass any answer,
+                // because a constant evaluates identically at every sample point.
+                if (!this._referencesX(model.node)) {
+                    for (let i = 0; i < fu.length; i++) {
+                        const allowed = tol * (1 + Math.abs(fc[i]));
+                        if (Math.abs(fu[i] - fc[i]) > allowed) {
+                            console.log(`[CalcChecker] definite integral: mismatch at point ${i} (${fu[i]} vs ${fc[i]}) → reject`);
+                            return { correct: false };
+                        }
+                    }
+                    return { correct: true };
+                }
+
+                // Indefinite integral: student − model must be the SAME constant at
+                // every point (they may differ only by the constant of integration).
                 const d0 = fu[0] - fc[0];
                 for (let i = 1; i < fu.length; i++) {
                     const di = fu[i] - fc[i];
@@ -178,6 +194,17 @@ export class CalculusAnswerChecker {
         );
 
         return s;
+    }
+
+    // True if the parsed expression contains the variable x (vs. a pure constant
+    // like ln 5, π/4, e−1 — i.e. a definite-integral answer). Math constants
+    // (e, pi) are not SymbolNode 'x', so they correctly read as constant.
+    _referencesX(node) {
+        try {
+            return node.filter(n => n.isSymbolNode && n.name === 'x').length > 0;
+        } catch (e) {
+            return true; // on any doubt, treat as a function (safer / stricter path)
+        }
     }
 
     _evalAt(node, x) {
