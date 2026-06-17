@@ -234,7 +234,7 @@
         /* ===== RAILS ===== */
         .mm-rails {
             display: grid;
-            grid-template-columns: 1.45fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 26px;
             margin-top: 30px;
         }
@@ -426,6 +426,28 @@
             line-height: 1.5;
         }
         [data-theme="dark"] .panel-medal { background: rgba(255,255,255,.08); }
+
+        .panel-hof-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .75rem;
+        }
+
+        .panel-hof-section-label {
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: var(--c-blue);
+            padding: 6px 0 2px;
+            opacity: .7;
+        }
+        .panel-hof-total-time {
+            font-size: .75rem;
+            color: var(--c-blue);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
 
         .panel-loading, .panel-empty {
             font-size: .85rem;
@@ -681,6 +703,7 @@
                     <button class="panel-hof-tab" data-app="algebra">Algebra</button>
                     <button class="panel-hof-tab" data-app="equations">Equations</button>
                     <button class="panel-hof-tab" data-app="trigfacts">Trig</button>
+                    <button class="panel-hof-tab" data-app="calculus">Calculus</button>
                 </div>
                 <div class="panel-body">
                     <div class="mm-signin-prompt">
@@ -709,6 +732,7 @@
                 <button class="hub-lb-tab" data-app="algebra">Algebra</button>
                 <button class="hub-lb-tab" data-app="equations">Equations</button>
                 <button class="hub-lb-tab" data-app="trigfacts">Trig</button>
+                <button class="hub-lb-tab" data-app="calculus">Calculus</button>
             </div>
             <div id="hub-lb-content"></div>
         </div>

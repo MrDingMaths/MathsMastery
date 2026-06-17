@@ -258,8 +258,11 @@ export class GameController {
             console.error('Error showing success screen:', error);
         }
 
-        // Leaderboard intentionally deferred for calculus (not yet in the
-        // Supabase CHECK constraint). Progress still persists locally.
+        if (typeof Leaderboard !== 'undefined') {
+            const submitParams = (isNewBest && window.supabaseUser) ? { bestTime: time, rating } : null;
+            Leaderboard.renderOnSuccessScreen('calculus', this.state.currentLevel.key, window.supabaseUser?.id || null, submitParams)
+                .catch(err => console.error('Leaderboard error:', err));
+        }
 
         if (typeof renderProgressChartOnSuccessScreen === 'function') {
             renderProgressChartOnSuccessScreen(this.state.currentLevel.key, this.state.currentLevel.name);

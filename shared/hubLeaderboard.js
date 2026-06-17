@@ -21,6 +21,13 @@ const HUB_LEVELS = (function buildFromRegistry() {
     return out;
 })();
 
+const HOF_TOTAL_LEVELS = Object.fromEntries(
+    Object.entries(HUB_LEVELS).map(([app, data]) => [
+        app,
+        Object.values(data.groups).reduce((sum, levels) => sum + levels.length, 0),
+    ])
+);
+
 const RATING_EMOJIS = {
     'true-mastery': '💖',
     'mastery': '🏆',
@@ -260,34 +267,53 @@ class HubPanels {
         const body = this._hofEl && this._hofEl.querySelector('.panel-body');
         if (!body || !window.supabaseClient || !window.supabaseUser) return;
         body.innerHTML = '<div class="panel-loading">Loading…</div>';
+        if (!this._hofSeq) this._hofSeq = 0;
+        const seq = ++this._hofSeq;
         try {
-            const { data, error } = await window.supabaseClient
-                .from('leaderboard_entries')
-                .select('user_id, display_name, rating_key, profiles(avatar_url)')
-                .eq('app', app)
-                .limit(500);
-            if (this._hofApp !== app) return;
-            if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
+            const PAGE = 1000;
+            let allData = [], from = 0;
+            while (true) {
+                const { data, error } = await window.supabaseClient
+                    .from('leaderboard_entries')
+                    .select('user_id, display_name, rating_key, best_time, profiles(avatar_url)')
+                    .eq('app', app)
+                    .order('user_id')
+                    .range(from, from + PAGE - 1);
+                if (seq !== this._hofSeq) return;
+                if (this._hofApp !== app) return;
+                if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
+                allData = allData.concat(data);
+                if (data.length < PAGE) break;
+                from += PAGE;
+            }
+            const data = allData;
 
             const map = new Map();
             for (const e of data) {
                 if (!map.has(e.user_id)) {
-                    map.set(e.user_id, { display_name: e.display_name, avatar_url: e.profiles?.avatar_url || null, queen: 0, mastery: 0, expert: 0, developing: 0, beginner: 0, total: 0 });
+                    map.set(e.user_id, { display_name: e.display_name, avatar_url: e.profiles?.avatar_url || null, queen: 0, totalTime: 0, mastery: 0, expert: 0, developing: 0, beginner: 0, total: 0 });
                 }
                 const u = map.get(e.user_id);
                 u.total++;
-                if      (e.rating_key === 'true-mastery') u.queen++;
-                else if (e.rating_key === 'mastery')      u.mastery++;
-                else if (e.rating_key === 'expert')       u.expert++;
-                else if (e.rating_key === 'developing')   u.developing++;
-                else if (e.rating_key === 'beginner')     u.beginner++;
+                if (e.rating_key === 'true-mastery') {
+                    u.queen++;
+                    u.totalTime += e.best_time || 0;
+                } else if (e.rating_key === 'mastery')    u.mastery++;
+                else if   (e.rating_key === 'expert')     u.expert++;
+                else if   (e.rating_key === 'developing') u.developing++;
+                else if   (e.rating_key === 'beginner')   u.beginner++;
             }
 
-            const tally = [...map.values()]
+            const totalLevels = HOF_TOTAL_LEVELS[app] || Infinity;
+            const allQueens = [...map.values()]
+                .filter(u => u.queen >= totalLevels)
+                .sort((a, b) => a.totalTime - b.totalTime);
+            const rest = [...map.values()]
+                .filter(u => u.queen < totalLevels)
                 .sort((a, b) => b.queen - a.queen || b.mastery - a.mastery || b.expert - a.expert || b.total - a.total)
                 .slice(0, 10);
 
-            this._renderHof(tally, body);
+            this._renderHof(allQueens, rest, body);
         } catch (e) {
             body.innerHTML = '<div class="panel-empty">No data yet.</div>';
         }
@@ -314,31 +340,52 @@ class HubPanels {
         body.innerHTML = html;
     }
 
-    _renderHof(tally, body) {
-        if (!tally.length) { body.innerHTML = '<div class="panel-empty">No entries yet.</div>'; return; }
-        let html = '';
-        tally.forEach((u, i) => {
-            const rank    = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+    _renderHof(allQueens, rest, body) {
+        if (!allQueens.length && !rest.length) { body.innerHTML = '<div class="panel-empty">No entries yet.</div>'; return; }
+
+        const renderEntry = (u, rank, showTime) => {
+            const rankLabel = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
             const initial = _hubEscape((u.display_name || 'A')[0].toUpperCase());
             const avatarHtml = u.avatar_url
                 ? `<img class="panel-hof-avatar panel-hof-avatar-img" src="${_hubEscape(u.avatar_url)}" alt="" loading="lazy">`
                 : `<span class="panel-hof-avatar">${initial}</span>`;
             let medals = '';
-            if (u.queen)     medals += `<span class="panel-medal">💖${u.queen}</span>`;
-            if (u.mastery)   medals += `<span class="panel-medal">🏆${u.mastery}</span>`;
-            if (u.expert)    medals += `<span class="panel-medal">⭐${u.expert}</span>`;
+            if (u.queen)      medals += `<span class="panel-medal">💖${u.queen}</span>`;
+            if (u.mastery)    medals += `<span class="panel-medal">🏆${u.mastery}</span>`;
+            if (u.expert)     medals += `<span class="panel-medal">⭐${u.expert}</span>`;
             if (u.developing) medals += `<span class="panel-medal">🎯${u.developing}</span>`;
-            if (u.beginner)  medals += `<span class="panel-medal">🌱${u.beginner}</span>`;
-            html += `<div class="panel-hof-entry">
-                <span class="panel-hof-rank">${rank}</span>
+            if (u.beginner)   medals += `<span class="panel-medal">🌱${u.beginner}</span>`;
+            const timeHtml = showTime ? `<span class="panel-hof-total-time">${_hubFormatTime(u.totalTime)}</span>` : '';
+            return `<div class="panel-hof-entry">
+                <span class="panel-hof-rank">${rankLabel}</span>
                 ${avatarHtml}
                 <div class="panel-hof-info">
                     <span class="panel-hof-name">${_hubAbbreviateName(u.display_name)}</span>
                     <span class="panel-hof-medals">${medals}</span>
                 </div>
+                ${timeHtml}
             </div>`;
-        });
-        body.innerHTML = html;
+        };
+
+        const bothCols = allQueens.length > 0 && rest.length > 0;
+
+        if (bothCols) {
+            let leftHtml = '<div class="panel-hof-section-label">💝 Maths Queens</div>';
+            allQueens.forEach((u, i) => { leftHtml += renderEntry(u, i + 1, true); });
+
+            let rightHtml = '<div class="panel-hof-section-label">Leaderboard</div>';
+            rest.forEach((u, i) => { rightHtml += renderEntry(u, i + 1, false); });
+
+            body.innerHTML = `<div class="panel-hof-cols"><div>${leftHtml}</div><div>${rightHtml}</div></div>`;
+        } else if (allQueens.length) {
+            let html = '';
+            allQueens.forEach((u, i) => { html += renderEntry(u, i + 1, true); });
+            body.innerHTML = html;
+        } else {
+            let html = '';
+            rest.forEach((u, i) => { html += renderEntry(u, i + 1, false); });
+            body.innerHTML = html;
+        }
     }
 
     _lookupLevelName(levelKey) {

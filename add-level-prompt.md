@@ -1,10 +1,12 @@
 # Adding a New Level
 
-All three apps read their level metadata from **`shared/levelRegistry.js`**. That file is the entry point regardless of which app you're adding to. After registering metadata there, the per-app work differs because each app sources questions differently:
+All five apps read their level metadata from **`shared/levelRegistry.js`**. That file is the entry point regardless of which app you're adding to. After registering metadata there, the per-app work differs because each app sources questions differently:
 
 - **Algebra** — one new file per level under `algebra/levels/` (static question bank, optionally a custom `generateQuestion()`), wired into `algebra/levels/index.js`.
 - **MathsFacts** — questions are produced by generator functions in `mathsfacts/levels/*.js`; you add (or reuse) a generator and map the level key to it in `mathsfacts/gameController.js`.
 - **TrigFacts** — fully driven by a `type` field on the registry entry, dispatched in `trigfacts/questions/trigQuestionGenerator.js`.
+- **Equations** — same per-level file pattern as Algebra: one `BaseLevel` file in `equations/levels/`, re-exported from `equations/levels/index.js`.
+- **Calculus** — identical pattern to Equations: one `BaseLevel` file in `calculus/levels/`, re-exported from `calculus/levels/index.js`.
 
 ---
 
@@ -117,7 +119,93 @@ Same idea as algebra: add a key to `CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS` in `mat
 
 ---
 
-## Step 4 — TrigFacts
+## Step 4 — Equations
+
+Equations uses the same `BaseLevel` file pattern as Algebra.
+
+### 4a. Create the level file
+
+`equations/levels/{key}.js` — filename must match the registry `key` exactly.
+
+```js
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel(
+    'myNewLevelEasy',
+    'My New Level (Easy)',
+    [
+        { problem: 'x + 3 = 7', answer: { x: '4' } },
+        // …more
+    ]
+);
+```
+
+For levels with irrational answers (e.g. quadratic formula, cube roots), pass `{ toleranceDp: 2 }` as the fourth argument to `BaseLevel`. This stamps `toleranceDp: 2` on every generated question so the checker accepts a decimal answer correct to 2 d.p. as an alternative to the exact form.
+
+```js
+export default new BaseLevel('myIrrationalLevel', 'My Level', [...], { toleranceDp: 2 });
+```
+
+### 4b. Re-export from the barrel
+
+Add a line to `equations/levels/index.js`:
+
+```js
+export { default as myNewLevelEasy } from './myNewLevelEasy.js';
+```
+
+### 4c. Add a difficulty multiplier
+
+Edit `equations/config.js` → `CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS`:
+
+```js
+'myNewLevelEasy': 2.0,
+```
+
+---
+
+## Step 5 — Calculus
+
+Calculus is identical in structure to Equations.
+
+### 5a. Create the level file
+
+`calculus/levels/{key}.js` — filename must match the registry `key` exactly.
+
+```js
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel(
+    'myCalculusLevel',
+    'My Calculus Level',
+    [
+        { problem: 'Differentiate x³', answer: '3x²' },
+        // …more
+    ]
+);
+```
+
+Use `{ toleranceDp: 2 }` for levels where exact symbolic answers can't be expected (e.g. answers involving e or ln).
+
+### 5b. Re-export from the barrel
+
+Add a line to `calculus/levels/index.js`:
+
+```js
+export { default as myCalculusLevel } from './myCalculusLevel.js';
+```
+
+### 5c. Add a difficulty multiplier
+
+Edit `calculus/config.js` → `CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS`:
+
+```js
+'myCalculusLevel': 2.0,
+```
+
+---
+
+## Step 6 — TrigFacts
 
 TrigFacts doesn't have per-level files. The dispatcher in `trigfacts/questions/trigQuestionGenerator.js` switches on the entry's `type`:
 
@@ -133,7 +221,7 @@ Add a multiplier to `CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS` in `trigfacts/config.j
 
 ---
 
-## Step 5 — Verify end-to-end
+## Step 7 — Verify end-to-end
 
 The app has no build step, so a hard refresh is enough.
 
@@ -155,5 +243,7 @@ The app has no build step, so a hard refresh is enough.
 - [ ] **Algebra**: level file in `algebra/levels/{key}.js` + barrel export in `algebra/levels/index.js` + multiplier in `algebra/config.js`
 - [ ] **MathsFacts**: generator (new or reused) + `generatorMap` entry in `mathsfacts/gameController.js` + abbreviation + multiplier in `mathsfacts/config.js`
 - [ ] **TrigFacts**: registry `type` covers it (reuse), otherwise new case in `trigQuestionGenerator.js` + multiplier in `trigfacts/config.js`
+- [ ] **Equations**: level file in `equations/levels/{key}.js` + barrel export in `equations/levels/index.js` + multiplier in `equations/config.js` (add `{ toleranceDp: 2 }` if irrational answers)
+- [ ] **Calculus**: level file in `calculus/levels/{key}.js` + barrel export in `calculus/levels/index.js` + multiplier in `calculus/config.js` (add `{ toleranceDp: 2 }` if irrational answers)
 - [ ] Notation follows the project's LaTeX conventions (see `CLAUDE.md` Math Notation Guide)
 - [ ] Verified in browser: tile renders, streak completes, rating displays, best time persists, leaderboard accepts the new key
