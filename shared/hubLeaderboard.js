@@ -266,6 +266,7 @@ class HubPanels {
                 .select('user_id, display_name, rating_key, profiles(avatar_url)')
                 .eq('app', app)
                 .limit(500);
+            if (this._hofApp !== app) return;
             if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
 
             const map = new Map();
