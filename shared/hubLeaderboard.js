@@ -409,7 +409,7 @@ class HubPanels {
     }
 
     _appBadge(app) {
-        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ', equations: '=' }[app] || app;
+        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ', equations: '=', calculus: '∫' }[app] || app;
     }
 }
 
