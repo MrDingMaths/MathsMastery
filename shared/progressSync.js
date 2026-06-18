@@ -8,7 +8,8 @@
         mathsfacts: { storageKey: 'mf_progress_data_v5' },
         algebra:    { storageKey: 'algebra_progress_data_v5' },
         trigfacts:  { storageKey: 'tf_progress_data_v5' },
-        equations:  { storageKey: 'equations_progress_data_v5' }
+        equations:  { storageKey: 'equations_progress_data_v5' },
+        calculus:   { storageKey: 'calculus_progress_data_v5' }
     };
 
     const MAX_SESSIONS     = 1000;
@@ -25,6 +26,7 @@
             if (path.includes('/algebra'))    return 'algebra';
             if (path.includes('/trigfacts'))  return 'trigfacts';
             if (path.includes('/equations'))  return 'equations';
+            if (path.includes('/calculus'))   return 'calculus';
             return null;
         },
 
