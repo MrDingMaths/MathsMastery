@@ -29,16 +29,6 @@ class SiteHeader {
         const activePage = this.getActivePage();
         const base = this.getBasePath();
 
-        const APP_COLORS = {
-            hub:        '#E8443A',
-            mathsfacts: '#3DBD6B',
-            algebra:    '#4A7CF7',
-            equations:  '#14b8a6',
-            trig:       '#F0697A',
-            calculus:   '#7c3aed',
-        };
-        const ringColor = APP_COLORS[activePage] || APP_COLORS.hub;
-
         const header = document.createElement('header');
         header.className = 'site-header';
 
@@ -46,7 +36,7 @@ class SiteHeader {
         const brand = document.createElement('a');
         brand.href = base;
         brand.className = 'site-header-brand';
-        brand.innerHTML = `<svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><circle class="brand-ring-track" cx="24" cy="24" r="16" stroke="#e7e3da" stroke-width="4"/><circle cx="24" cy="24" r="16" stroke="${ringColor}" stroke-width="4" stroke-linecap="round" stroke-dasharray="88 101" transform="rotate(-90 24 24)"/><text class="brand-m" x="24" y="24.2" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, sans-serif" font-weight="600" font-size="19" fill="#11131a">M</text></svg><span class="site-header-brand-text">Maths<span class="site-header-brand-accent">Mastery</span></span>`;
+        brand.innerHTML = `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><circle class="brand-ring-track" cx="24" cy="24" r="20" stroke-width="3.5"/><circle cx="24" cy="24" r="20" stroke="#E8443A" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="103 130" transform="rotate(-90 24 24)"/><text class="brand-m" x="24" y="22" text-anchor="middle" dominant-baseline="central" font-family="serif" font-size="32">𝑥</text></svg><span class="site-header-brand-text">Maths<span class="site-header-brand-accent">Mastery</span></span>`;
 
         // Nav links
         const nav = document.createElement('nav');
@@ -185,7 +175,7 @@ class SiteHeader {
         document.body.insertBefore(header, document.body.firstChild);
 
         // Push body content below the fixed header
-        document.body.style.paddingTop = '56px';
+        document.body.style.paddingTop = '72px';
     }
 }
 

@@ -5,12 +5,12 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 56px;
+    height: 72px;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 0rem 1rem;
     z-index: 1000;
     font-family: 'Inter', sans-serif;
 }
@@ -30,7 +30,6 @@
     font-weight: 600;
     font-size: 1.35rem;
     color: #11131a;
-    letter-spacing: -0.01em;
     line-height: 1;
 }
 
@@ -42,7 +41,7 @@
 .brand-m { fill: #11131a; }
 
 [data-theme="dark"] .brand-ring-track { stroke: #2c2f39; }
-[data-theme="dark"] .brand-m { fill: #f3f4f6; }
+[data-theme="dark"] .brand-m { fill: #ffffff; }
 [data-theme="dark"] .site-header-brand-text { color: #f3f4f6; }
 
 .site-header-brand:hover .site-header-brand-text {
