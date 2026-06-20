@@ -30,7 +30,7 @@ class SiteHeader {
         const base = this.getBasePath();
 
         const APP_COLORS = {
-            hub:        '#ECA02E',
+            hub:        '#E8443A',
             mathsfacts: '#3DBD6B',
             algebra:    '#4A7CF7',
             equations:  '#14b8a6',

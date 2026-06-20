@@ -1,13 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <style>
-    .ring-track { stroke: #e7e3da; }
-    .m-letter { fill: #11131a; }
-    @media (prefers-color-scheme: dark) {
-      .ring-track { stroke: #2c2f39; }
-      .m-letter { fill: #f3f4f6; }
-    }
-  </style>
-  <circle class="ring-track" cx="24" cy="24" r="16" stroke-width="4"/>
-  <circle cx="24" cy="24" r="16" stroke="#ECA02E" stroke-width="4" stroke-linecap="round" stroke-dasharray="88 101" transform="rotate(-90 24 24)"/>
-  <text class="m-letter" x="24" y="24.2" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, sans-serif" font-weight="600" font-size="19">M</text>
+  <rect width="48" height="48" rx="11" fill="#E8443A"/>
+  <circle cx="24" cy="24" r="16" stroke="rgba(255,255,255,0.32)" stroke-width="4"/>
+  <circle cx="24" cy="24" r="16" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-dasharray="88 101" transform="rotate(-90 24 24)"/>
+  <text x="24" y="24.2" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, sans-serif" font-weight="600" font-size="19" fill="#ffffff">M</text>
 </svg>
