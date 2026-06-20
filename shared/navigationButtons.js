@@ -93,8 +93,13 @@ class SiteHeader {
         darkToggle.className = 'dark-mode-toggle';
         darkToggle.setAttribute('aria-label', 'Toggle dark mode');
         darkToggle.setAttribute('role', 'switch');
-        darkToggle.innerHTML = '<span class="dark-mode-toggle-knob"><span class="dark-mode-toggle-icon">🌙</span></span>';
+        darkToggle.innerHTML = '<span class="dark-mode-toggle-knob"><span class="dark-mode-toggle-icon"></span></span>';
         darkToggle.addEventListener('click', () => DarkMode.toggle());
+
+        // Sync with theme already applied by darkMode.js (which ran before the header existed)
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        darkToggle.querySelector('.dark-mode-toggle-icon').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        darkToggle.setAttribute('aria-checked', currentTheme === 'dark' ? 'true' : 'false');
 
         // Auth button (hidden until supabase-auth-change fires)
         const authContainer = document.createElement('div');
