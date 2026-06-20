@@ -265,6 +265,13 @@ export class UI extends BaseUI {
         if (fracMatch) {
             return `\\frac{${this._convertSqrt(fracMatch[1])}}{${fracMatch[2]}}`;
         }
+
+        // simple integer fraction: -?\d+ / \d+  e.g. '4/3', '-3/2'
+        const simpleFrac = s.match(/^(-?\d+)\/(\d+)$/);
+        if (simpleFrac) {
+            return `\\frac{${simpleFrac[1]}}{${simpleFrac[2]}}`;
+        }
+
         return this._convertSqrt(s);
     }
 

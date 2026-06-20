@@ -130,6 +130,7 @@ export class UI extends BaseUI {
         answerField.mathVirtualKeyboardPolicy = 'manual';
         answerField.inlineShortcuts = { ...answerField.inlineShortcuts, ...INLINE_SHORTCUTS };
         answerField.menuItems = [];
+        answerField.smartSuperscript = false;   // keep cursor inside exponent; right-arrow to exit
 
         answerField.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
