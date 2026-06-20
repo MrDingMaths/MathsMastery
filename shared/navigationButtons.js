@@ -88,11 +88,12 @@ class SiteHeader {
             nav.appendChild(a);
         });
 
-        // Dark mode toggle button
+        // Dark mode toggle slider
         const darkToggle = document.createElement('button');
         darkToggle.className = 'dark-mode-toggle';
         darkToggle.setAttribute('aria-label', 'Toggle dark mode');
-        darkToggle.innerHTML = '<span class="dark-mode-toggle-icon">🌙</span>';
+        darkToggle.setAttribute('role', 'switch');
+        darkToggle.innerHTML = '<span class="dark-mode-toggle-knob"><span class="dark-mode-toggle-icon">🌙</span></span>';
         darkToggle.addEventListener('click', () => DarkMode.toggle());
 
         // Auth button (hidden until supabase-auth-change fires)

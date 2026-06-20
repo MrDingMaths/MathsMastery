@@ -12,7 +12,10 @@ const DarkMode = (() => {
     function apply(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         document.querySelectorAll('.dark-mode-toggle-icon').forEach(el => {
-            el.textContent = theme === 'dark' ? '☀️' : '🌙';
+            el.textContent = theme === 'dark' ? '🌙' : '☀️';
+        });
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
         });
         localStorage.setItem(KEY, theme);
     }
