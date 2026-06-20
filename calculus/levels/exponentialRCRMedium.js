@@ -23,7 +23,7 @@ export default new BaseLevel('exponentialRCRMedium', 'Exponential Reverse Chain 
   { problem: '\\int(-\\sin x)e^{\\cos x}\\,dx', answer: 'e^{\\cos x}+C' },
   { problem: '\\int\\sec^2 x\\cdot e^{2\\tan x}\\,dx', answer: '\\frac{1}{2}e^{2\\tan x}+C' },
   { problem: '\\int\\cos x\\cdot e^{3+\\sin x}\\,dx', answer: 'e^{3+\\sin x}+C' },
-  { problem: '\\int\\frac{1}{x}\\cdot e^{\\ln x}\\,dx', answer: 'x+C' },
+  { problem: '\\int\\sin x\\cdot e^{3\\cos x}\\,dx', answer: '-\\frac{1}{3}e^{3\\cos x}+C' },
   // e^x as the inner function's derivative
   { problem: '\\int e^x(e^x+1)^6\\,dx', answer: '\\frac{(e^x+1)^7}{7}+C' },
   { problem: '\\int e^x(e^x+2)^3\\,dx', answer: '\\frac{(e^x+2)^4}{4}+C' },

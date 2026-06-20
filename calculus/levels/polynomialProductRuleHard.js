@@ -20,7 +20,7 @@ export default new BaseLevel('polynomialProductRuleHard', 'Polynomial Product Ru
   { problem: '\\frac{d}{dx}(x\\sqrt{4-x})', answer: '\\frac{8-3x}{2\\sqrt{4-x}}' },
   { problem: '\\frac{d}{dx}(4x\\sqrt{2x-1})', answer: '\\frac{4(3x-1)}{\\sqrt{2x-1}}' },
   { problem: '\\frac{d}{dx}(x^2\\sqrt{3-x})', answer: '\\frac{x(12-5x)}{2\\sqrt{3-x}}' },
-  { problem: '\\frac{d}{dx}(5x\\sqrt{2x-1})', answer: '\\frac{5(3x-1)}{\\sqrt{2x-1}}' },
+  { problem: '\\frac{d}{dx}(3x^2\\sqrt{3x-2})', answer: '\\frac{3x(15x-8)}{2\\sqrt{3x-2}}' },
   { problem: '\\frac{d}{dx}(x\\sqrt{3x+2})', answer: '\\frac{9x+4}{2\\sqrt{3x+2}}' },
   { problem: '\\frac{d}{dx}(x^2\\sqrt{x+4})', answer: '\\frac{x(5x+16)}{2\\sqrt{x+4}}' },
   { problem: '\\frac{d}{dx}(2x^2\\sqrt{x+2})', answer: '\\frac{x(5x+8)}{\\sqrt{x+2}}' },

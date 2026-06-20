@@ -3,7 +3,7 @@ import { BaseLevel } from './BaseLevel.js';
 export default new BaseLevel('trigDiffRulesHard', 'Trigonometric with Rules — Hard', [
   { problem: '\\frac{d}{dx}(\\sin(3x)\\cos(5x))', answer: '3\\cos(3x)\\cos(5x)-5\\sin(3x)\\sin(5x)' },
   { problem: '\\frac{d}{dx}(\\sin(2x)\\sin(4x))', answer: '2\\cos(2x)\\sin(4x)+4\\sin(2x)\\cos(4x)' },
-  { problem: '\\frac{d}{dx}\\left(\\frac{\\sin(2x)}{x}\\right)', answer: '\\frac{2x\\cos(2x)-\\sin(2x)}{x^2}' },
+  { problem: '\\frac{d}{dx}(\\cos(2x)\\sin(5x))', answer: '5\\cos(2x)\\cos(5x)-2\\sin(2x)\\sin(5x)' },
   { problem: '\\frac{d}{dx}\\left(\\frac{1}{1+\\sin x}\\right)', answer: '-\\frac{\\cos x}{(1+\\sin x)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sin x}{1+\\cos x}\\right)', answer: '\\frac{1}{1+\\cos x}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{1-\\sin x}{\\cos x}\\right)', answer: '-\\frac{1}{1+\\sin x}' },

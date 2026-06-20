@@ -48,5 +48,5 @@ export default new BaseLevel('polynomialRCRHard', 'Polynomial Reverse Chain Rule
   { problem: '\\int x^2(x^3-1)^{-\\frac{3}{2}}\\,dx', answer: '-\\frac{2}{3\\sqrt{x^3-1}}+C' },
   { problem: '\\int_0^2 x(2x^2+3)^2\\,dx', answer: '\\frac{326}{3}' },
   { problem: '\\int_0^1 x^2(x^3-1)^5\\,dx', answer: '-\\frac{1}{18}' },
-  { problem: '\\int_1^2 x^4(x^5+2)^3\\,dx', answer: '66812.75' },
+  { problem: '\\int_0^1 x(x^2+1)^3\\,dx', answer: '\\frac{15}{8}' },
 ], { mode: 'integral', toleranceDp: 2 });

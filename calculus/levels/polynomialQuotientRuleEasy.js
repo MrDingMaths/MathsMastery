@@ -4,7 +4,7 @@ export default new BaseLevel('polynomialQuotientRuleEasy', 'Polynomial Quotient 
   // §5.1
   { problem: '\\frac{d}{dx}\\left(\\frac{3x}{x+5}\\right)', answer: '\\frac{15}{(x+5)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{x}{2x^2-1}\\right)', answer: '\\frac{-2x^2-1}{(2x^2-1)^2}' },
-  { problem: '\\frac{d}{dx}\\left(\\frac{x^3}{x^2-4}\\right)', answer: '\\frac{x^2(x^2-12)}{(x^2-4)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{4x}{x-1}\\right)', answer: '-\\frac{4}{(x-1)^2}' },
   // §5.2 (a–b)
   { problem: '\\frac{d}{dx}\\left(\\frac{x+1}{x-1}\\right)', answer: '-\\frac{2}{(x-1)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{2x}{x+2}\\right)', answer: '\\frac{4}{(x+2)^2}' },

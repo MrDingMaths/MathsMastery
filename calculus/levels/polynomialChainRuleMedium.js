@@ -26,7 +26,7 @@ export default new BaseLevel('polynomialChainRuleMedium', 'Polynomial Chain Rule
   { problem: '\\frac{d}{dx}((3x^2+2x+1)^5)', answer: '10(3x+1)(3x^2+2x+1)^4' },
   { problem: '\\frac{d}{dx}((3x^2-2x+1)^5)', answer: '10(3x-1)(3x^2-2x+1)^4' },
   { problem: '\\frac{d}{dx}(6(3x^2-2x+1)^5)', answer: '60(3x-1)(3x^2-2x+1)^4' },
-  { problem: '\\frac{d}{dx}((3x^4-2x^3-x^2)^5)', answer: '10x(6x^2-3x-1)(3x^4-2x^3-x^2)^4' },
+  { problem: '\\frac{d}{dx}((2x^2+x-3)^4)', answer: '4(4x+1)(2x^2+x-3)^3' },
   // §3.4 (d,e,f — a,b migrated to Easy as linear-inner; c has abstract parameters)
   { problem: '\\frac{d}{dx}((x^2-1)^3)', answer: '6x(x^2-1)^2' },
   { problem: '\\frac{d}{dx}((x^2-4x)^4)', answer: '4(2x-4)(x^2-4x)^3' },

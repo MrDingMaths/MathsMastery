@@ -23,7 +23,7 @@ export default new BaseLevel('exponentialDiffRulesHard', 'Exponential with Rules
   { problem: '\\frac{d}{dx}\\left(\\frac{e^{2x}}{\\ln(3x)}\\right)', answer: '\\frac{e^{2x}(2x\\ln(3x)-1)}{x(\\ln(3x))^2}' },
   { problem: '\\frac{d}{dx}(e^{-2x}\\cos 3x)', answer: '-e^{-2x}(2\\cos 3x+3\\sin 3x)' },
   { problem: '\\frac{d}{dx}(e^{-x}\\tan 2x)', answer: 'e^{-x}(2\\sec^2 2x-\\tan 2x)' },
-  { problem: '\\frac{d}{dx}(e^{4x}\\sin(x^2))', answer: '2e^{4x}(2\\sin(x^2)+x\\cos(x^2))' },
+  { problem: '\\frac{d}{dx}(e^{3x}\\cos x)', answer: 'e^{3x}(3\\cos x-\\sin x)' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sin x}{e^x}\\right)', answer: '\\frac{\\cos x-\\sin x}{e^x}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\cos x}{e^{2x}}\\right)', answer: '-\\frac{\\sin x+2\\cos x}{e^{2x}}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{e^{2x}}{\\ln(x+1)}\\right)', answer: '\\frac{e^{2x}(2(x+1)\\ln(x+1)-1)}{(x+1)(\\ln(x+1))^2}' },

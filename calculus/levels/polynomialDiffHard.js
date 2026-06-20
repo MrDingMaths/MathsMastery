@@ -25,7 +25,7 @@ export default new BaseLevel('polynomialDiffHard', 'Polynomial Functions — Har
   { problem: '\\frac{d}{dx}\\left(-\\frac{7}{3x}\\right)', answer: '\\frac{7}{3x^2}' },
   // §2.9 — expand expressions with fractions then differentiate
   { problem: '\\frac{d}{dx}\\left(\\left(x+\\frac{1}{x}\\right)^2\\right)', answer: '2x-\\frac{2}{x^3}' },
-  { problem: '\\frac{d}{dx}\\left(\\left(1+\\frac{1}{x}\\right)^2-\\left(x-\\frac{1}{x}\\right)^2\\right)', answer: '-\\frac{2}{x^2}-2x' },
+  { problem: '\\frac{d}{dx}\\left(\\left(x-\\frac{2}{x}\\right)^2\\right)', answer: '2x-\\frac{8}{x^3}' },
   { problem: '\\frac{d}{dx}\\left(\\left(\\sqrt{x}-\\frac{1}{\\sqrt{x}}\\right)^2\\right)', answer: '1-\\frac{1}{x^2}' },
   // §2.10 — divide then differentiate
   { problem: '\\frac{d}{dx}\\left(\\frac{x^3-3x+8}{x^2}\\right)', answer: '1+3x^{-2}-16x^{-3}' },
