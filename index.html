@@ -228,6 +228,42 @@
         [data-theme="dark"] .mm-ring-label { color: #9ca3af; }
         [data-theme="dark"] .mm-mastery-ring svg text { fill: #f3f4f6; }
 
+        /* Rich featured card: header row + hero ring + full-width CTA */
+        .mm-featured-rich {
+            align-items: stretch;
+            text-align: left;
+            padding-top: 30px;
+        }
+
+        .mm-featured-head {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            align-self: stretch;
+        }
+
+        .mm-featured-rich .mm-featured-head .mm-glyph {
+            width: 64px; height: 64px;
+            font-size: 30px; border-radius: 18px;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .mm-featured-rich .mm-featured-head h3 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .mm-featured-rich .mm-mastery-ring {
+            margin: auto 0;
+            align-self: center;
+        }
+
+        .mm-featured-rich .mm-start {
+            align-self: stretch;
+            justify-content: center;
+        }
+
         /* ===== RAILS ===== */
         .mm-rails {
             display: grid;
@@ -879,19 +915,25 @@
             }
 
             function buildFeatured(app, showTag) {
-                const a = el('a', { href: app.href, className: `mm-card ${app.cls} mm-featured` });
+                const a = el('a', {
+                    href: app.href,
+                    className: `mm-card ${app.cls} mm-featured${showTag ? ' mm-featured-rich' : ''}`
+                });
 
                 if (showTag) {
                     a.appendChild(el('span', { className: 'mm-lp-tag', textContent: 'Last played' }));
                 }
 
-                a.appendChild(el('div', { className: 'mm-glyph', textContent: app.glyph }));
-                a.appendChild(el('h3', { textContent: app.label }));
+                const glyph = el('div', { className: 'mm-glyph', textContent: app.glyph });
+                const title = el('h3', { textContent: app.label });
 
                 if (showTag) {
+                    // Header row: glyph + title side-by-side, left-aligned.
+                    a.appendChild(el('div', { className: 'mm-featured-head' }, [glyph, title]));
+
                     const { practiced, total } = getPracticedStats(app);
                     const ring = el('div', { className: 'mm-mastery-ring' });
-                    ring.appendChild(makeRingSVG(total > 0 ? practiced / total : 0, 76, app.color));
+                    ring.appendChild(makeRingSVG(total > 0 ? practiced / total : 0, 92, app.color));
                     const label = el('span', { className: 'mm-ring-label' });
                     const strong = document.createElement('strong');
                     strong.textContent = `${practiced} / ${total}`;
@@ -899,6 +941,9 @@
                     label.appendChild(el('span', { textContent: 'practised' }));
                     ring.appendChild(label);
                     a.appendChild(ring);
+                } else {
+                    a.appendChild(glyph);
+                    a.appendChild(title);
                 }
 
                 const start = el('span', { className: 'mm-start' }, ['Start ']);
