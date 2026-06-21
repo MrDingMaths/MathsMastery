@@ -2,7 +2,6 @@ import { BaseLevel } from './BaseLevel.js';
 
 export default new BaseLevel('trigDiffHard', 'Trigonometric Functions — Hard', [
   { problem: '\\frac{d}{dx}(-5\\tan(x^3+2x))', answer: '-5(3x^2+2)\\sec^2(x^3+2x)' },
-  { problem: '\\frac{d}{dx}(\\tan(e^{2x}))', answer: '2e^{2x}\\sec^2(e^{2x})' },
   { problem: '\\frac{d}{dx}\\left(\\sin\\left(\\frac{1}{x}\\right)\\right)', answer: '-\\frac{1}{x^2}\\cos\\left(\\frac{1}{x}\\right)' },
   { problem: '\\frac{d}{dx}\\left(\\tan(\\sqrt{x})\\right)', answer: '\\frac{1}{2\\sqrt{x}}\\sec^2(\\sqrt{x})' },
   { problem: '\\frac{d}{dx}(\\sin^4(2x))', answer: '8\\cos(2x)\\sin^3(2x)' },

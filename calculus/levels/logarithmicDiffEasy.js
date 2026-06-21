@@ -32,7 +32,6 @@ export default new BaseLevel('logarithmicDiffEasy', 'Logarithmic Functions — E
   { problem: '\\frac{d}{dx}(2x^4+1+3\\ln x)', answer: '8x^3+\\frac{3}{x}' },
   { problem: '\\frac{d}{dx}(\\ln(2x-1)+3x^2)', answer: '\\frac{2}{2x-1}+6x' },
   { problem: '\\frac{d}{dx}(x^3-3x+4+\\ln(5x-7))', answer: '3x^2-3+\\frac{5}{5x-7}' },
-  { problem: '\\frac{d}{dx}(\\ln(e^x))', answer: '1' },
   { problem: '\\frac{d}{dx}(\\log_5 x)', answer: '\\frac{1}{x\\ln 5}' },
   { problem: '\\frac{d}{dx}(\\log_8 x)', answer: '\\frac{1}{x\\ln 8}' },
   { problem: '\\frac{d}{dx}(\\log_{52} x)', answer: '\\frac{1}{x\\ln 52}' },

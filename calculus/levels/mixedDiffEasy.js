@@ -21,4 +21,6 @@ export default new BaseLevel('mixedDiffEasy', 'Mixed Differentiation — Easy', 
     ...logarithmicDiffRulesEasy.questions,
     ...trigDiffEasy.questions,
     ...trigDiffRulesEasy.questions,
+    // ── Migrated cross-family mixes (formerly in single-family levels) ──
+    { problem: '\\frac{d}{dx}(\\ln(e^x))', answer: '1' },
 ], { mode: 'derivative', toleranceDp: 2 });

@@ -4,7 +4,6 @@ export default new BaseLevel('trigDiffMedium', 'Trigonometric Functions — Medi
   { problem: '\\frac{d}{dx}(x^3+2x-\\sin x)', answer: '3x^2+2-\\cos x' },
   { problem: '\\frac{d}{dx}\\left(2x^4-\\frac{\\sin x}{5}\\right)', answer: '8x^3-\\frac{1}{5}\\cos x' },
   { problem: '\\frac{d}{dx}((4x)^2-13\\tan x)', answer: '32x-13\\sec^2 x' },
-  { problem: '\\frac{d}{dx}\\left(\\frac{\\tan x}{51}+3e^x\\right)', answer: '\\frac{1}{51}\\sec^2 x+3e^x' },
   { problem: '\\frac{d}{dx}(\\sin(2x))', answer: '2\\cos(2x)' },
   { problem: '\\frac{d}{dx}(\\cos(2x))', answer: '-2\\sin(2x)' },
   { problem: '\\frac{d}{dx}(\\tan(7x))', answer: '7\\sec^2(7x)' },
@@ -52,7 +51,4 @@ export default new BaseLevel('trigDiffMedium', 'Trigonometric Functions — Medi
   { problem: '\\frac{d}{dx}(2\\cos(x^3))', answer: '-6x^2\\sin(x^3)' },
   { problem: '\\frac{d}{dx}(7\\tan(x^2+5))', answer: '14x\\sec^2(x^2+5)' },
   { problem: '\\frac{d}{dx}(\\tan(\\pi+x)+x^2)', answer: '\\sec^2(\\pi+x)+2x' },
-  { problem: '\\frac{d}{dx}(e^x-\\cos 2x)', answer: 'e^x+2\\sin 2x' },
-  { problem: '\\frac{d}{dx}(\\sin(1-\\ln x))', answer: '-\\frac{1}{x}\\cos(1-\\ln x)' },
-  { problem: '\\frac{d}{dx}(\\sin(e^x+x))', answer: '(e^x+1)\\cos(e^x+x)' },
 ], { mode: 'derivative', toleranceDp: 2 });

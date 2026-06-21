@@ -38,4 +38,11 @@ export default new BaseLevel('polynomialQuotientRuleHard', 'Polynomial Quotient 
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sqrt{x}-1}{\\sqrt{x}+1}\\right)', answer: '\\frac{1}{\\sqrt{x}(\\sqrt{x}+1)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sqrt{x}+2}{\\sqrt{x}-1}\\right)', answer: '-\\frac{3}{2\\sqrt{x}(\\sqrt{x}-1)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sqrt{x}+3}{\\sqrt{x}+1}\\right)', answer: '-\\frac{1}{\\sqrt{x}(\\sqrt{x}+1)^2}' },
+  // §5.17 — cubed linear factor, and powers in both numerator and denominator (chain rule)
+  { problem: '\\frac{d}{dx}\\left(\\frac{(2x-5)^3}{x}\\right)', answer: '\\frac{(2x-5)^2(4x+5)}{x^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x+1)^3}{x-2}\\right)', answer: '\\frac{(x+1)^2(2x-7)}{(x-2)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(2x-1)^3}{x+1}\\right)', answer: '\\frac{(2x-1)^2(4x+7)}{(x+1)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x}{(x-1)^3}\\right)', answer: '-\\frac{2x+1}{(x-1)^4}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x^2}{(x+1)^3}\\right)', answer: '\\frac{x(2-x)}{(x+1)^4}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x-1)^2}{(x+2)^2}\\right)', answer: '\\frac{6(x-1)}{(x+2)^3}' },
 ], { mode: 'derivative', toleranceDp: 2 });

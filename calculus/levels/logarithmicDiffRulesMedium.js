@@ -3,8 +3,6 @@ import { BaseLevel } from './BaseLevel.js';
 export default new BaseLevel('logarithmicDiffRulesMedium', 'Logarithmic with Rules — Medium', [
   { problem: '\\frac{d}{dx}(x\\ln(2x+1))', answer: '\\ln(2x+1)+\\frac{2x}{2x+1}' },
   { problem: '\\frac{d}{dx}((x-1)\\ln(2x+7))', answer: '\\ln(2x+7)+\\frac{2(x-1)}{2x+7}' },
-  { problem: '\\frac{d}{dx}(e^x\\ln x)', answer: 'e^x\\left(\\ln x+\\frac{1}{x}\\right)' },
-  { problem: '\\frac{d}{dx}(e^{-x}\\ln x)', answer: 'e^{-x}\\left(\\frac{1}{x}-\\ln x\\right)' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(2x)}{x^3}\\right)', answer: '\\frac{1-3\\ln(2x)}{x^4}' },
   { problem: '\\frac{d}{dx}(\\ln(x^x))', answer: '1+\\ln x' },
   { problem: '\\frac{d}{dx}(x\\ln(x+1))', answer: '\\ln(x+1)+\\frac{x}{x+1}' },
@@ -18,8 +16,6 @@ export default new BaseLevel('logarithmicDiffRulesMedium', 'Logarithmic with Rul
   { problem: '\\frac{d}{dx}((x^2+1)\\ln x)', answer: '2x\\ln x+\\frac{x^2+1}{x}' },
   { problem: '\\frac{d}{dx}((x^2-x)\\ln x)', answer: '(2x-1)\\ln x+x-1' },
   { problem: '\\frac{d}{dx}\\left(\\frac{x}{\\ln(2x)}\\right)', answer: '\\frac{\\ln(2x)-1}{(\\ln(2x))^2}' },
-  { problem: '\\frac{d}{dx}(e^x\\ln(x+1))', answer: 'e^x\\left(\\ln(x+1)+\\frac{1}{x+1}\\right)' },
-  { problem: '\\frac{d}{dx}(e^x\\ln(2x+1))', answer: 'e^x\\left(\\ln(2x+1)+\\frac{2}{2x+1}\\right)' },
   { problem: '\\frac{d}{dx}((x^2+x)\\ln(x+1))', answer: '(2x+1)\\ln(x+1)+x' },
   { problem: '\\frac{d}{dx}(x\\ln(x^2+1))', answer: '\\ln(x^2+1)+\\frac{2x^2}{x^2+1}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(x+1)}{x}\\right)', answer: '\\frac{x-(x+1)\\ln(x+1)}{x^2(x+1)}' },

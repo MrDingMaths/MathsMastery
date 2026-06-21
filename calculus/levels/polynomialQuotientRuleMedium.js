@@ -36,4 +36,13 @@ export default new BaseLevel('polynomialQuotientRuleMedium', 'Polynomial Quotien
   { problem: '\\frac{d}{dx}\\left(\\frac{x^3}{x^2+1}\\right)', answer: '\\frac{x^2(x^2+3)}{(x^2+1)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{x^3}{x+1}\\right)', answer: '\\frac{x^2(2x+3)}{(x+1)^2}' },
   { problem: '\\frac{d}{dx}\\left(\\frac{3x^2}{x^2+1}\\right)', answer: '\\frac{6x}{(x^2+1)^2}' },
+  // §5.16 — squared linear factor in the numerator or denominator (chain rule)
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x+1)^2}{x-1}\\right)', answer: '\\frac{(x+1)(x-3)}{(x-1)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x-2)^2}{x+1}\\right)', answer: '\\frac{(x-2)(x+4)}{(x+1)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x+2)^2}{x-1}\\right)', answer: '\\frac{(x+2)(x-4)}{(x-1)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x-3)^2}{x+2}\\right)', answer: '\\frac{(x-3)(x+7)}{(x+2)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(2x+1)^2}{x}\\right)', answer: '\\frac{(2x+1)(2x-1)}{x^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x}{(x+1)^2}\\right)', answer: '\\frac{1-x}{(x+1)^3}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x}{(x-2)^2}\\right)', answer: '-\\frac{x+2}{(x-2)^3}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{2x}{(x+3)^2}\\right)', answer: '\\frac{2(3-x)}{(x+3)^3}' },
 ], { mode: 'derivative', toleranceDp: 2 });
