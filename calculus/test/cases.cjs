@@ -124,6 +124,8 @@ module.exports = [
     { cat: 'K notation', name: 'bare \\cos^3 x power',     mode: 'integral', toleranceDp: 2, model: '-\\frac{\\cos^3 x}{3}+C',   student: '-\\frac{\\cos^3(x)}{3}+C',    expect: 'accept' },
     { cat: 'K notation', name: 'bare \\sec^2 x',           mode: 'integral', toleranceDp: 2, model: '\\tan x+C',                student: '\\tan(x)+C',                  expect: 'accept' },
     { cat: 'K notation', name: 'ln(number) bound result',  mode: 'integral', toleranceDp: 2, model: '2\\ln 2',                  student: '2\\ln(2)',                    expect: 'accept' },
+    { cat: 'K notation', name: 'rounded decimal bound result accepts exact form', mode: 'integral', toleranceDp: 4, model: '1.443', student: '\\frac{2}{\\ln2}-\\frac{1}{\\ln2}', expect: 'accept' },
+    { cat: 'K notation', name: 'rounded decimal bound result rejects nearby decimal', mode: 'integral', toleranceDp: 4, model: '1.443', student: '1.444', expect: 'reject' },
     { cat: 'K notation', name: 'e^{sin x} RCR answer',     mode: 'integral', toleranceDp: 2, model: 'e^{\\sin x}+C',            student: 'e^{\\sin(x)}+C',              expect: 'accept' },
     { cat: 'K notation', name: 'ln|f| wrong coeff reject', mode: 'integral', toleranceDp: 2, model: '\\ln|x+7|+C',              student: '2\\ln|x+7|+C',                expect: 'reject' },
 ];
