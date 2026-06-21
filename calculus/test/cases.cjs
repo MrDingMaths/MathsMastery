@@ -123,6 +123,8 @@ module.exports = [
     { cat: 'K notation', name: 'bare \\sin 2x',            mode: 'integral', toleranceDp: 2, model: '\\frac{1}{2}\\sin 2x+C',    student: '\\frac{1}{2}\\sin(2x)+C',     expect: 'accept' },
     { cat: 'K notation', name: 'bare \\cos^3 x power',     mode: 'integral', toleranceDp: 2, model: '-\\frac{\\cos^3 x}{3}+C',   student: '-\\frac{\\cos^3(x)}{3}+C',    expect: 'accept' },
     { cat: 'K notation', name: 'bare \\sec^2 x',           mode: 'integral', toleranceDp: 2, model: '\\tan x+C',                student: '\\tan(x)+C',                  expect: 'accept' },
+    { cat: 'K notation', name: 'empty subscript placeholder ignored', mode: 'integral', toleranceDp: 2, model: '\\frac{3^{x+5}}{\\ln 3}+C', student: '\\frac{3^{x+_{}5}}{\\ln3}', expect: 'accept', missingC: true },
+    { cat: 'K notation', name: 'empty power placeholder ignored', mode: 'integral', toleranceDp: 2, model: '\\frac{7^x}{\\ln 7}+C', student: '\\frac{7^{x^{}}}{\\ln7}', expect: 'accept', missingC: true },
     { cat: 'K notation', name: 'ln(number) bound result',  mode: 'integral', toleranceDp: 2, model: '2\\ln 2',                  student: '2\\ln(2)',                    expect: 'accept' },
     { cat: 'K notation', name: 'rounded decimal bound result accepts exact form', mode: 'integral', toleranceDp: 4, model: '1.443', student: '\\frac{2}{\\ln2}-\\frac{1}{\\ln2}', expect: 'accept' },
     { cat: 'K notation', name: 'rounded decimal bound result rejects nearby decimal', mode: 'integral', toleranceDp: 4, model: '1.443', student: '1.444', expect: 'reject' },

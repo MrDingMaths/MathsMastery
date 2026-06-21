@@ -159,6 +159,10 @@ export class CalculusAnswerChecker {
         //    also strips these later; doing it here is harmless.)
         s = s.replace(/\\left|\\right|\\mleft|\\mright/g, '');
 
+        // MathLive can leave empty placeholder scripts while the student is
+        // editing, e.g. x^{} or x+_{}5. They carry no mathematical value.
+        s = s.replace(/\s*[\^_]\s*\{\s*\}/g, '');
+
         // 1b. Absolute-value bars → abs(). Lets the parser read the common ln|…|
         //     antiderivative form (and any student who types it); abs keeps the
         //     argument real for negative values so ln|f| verifies across the whole

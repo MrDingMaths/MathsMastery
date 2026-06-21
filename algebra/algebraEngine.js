@@ -152,6 +152,10 @@ class AlgebraEngine {
         expr = expr.replace(/\\placeholder\{[^}]*\}/g, '');
         expr = expr.replace(/\\placeholder/g, '');
 
+        // MathLive can leave empty placeholder scripts while editing, e.g.
+        // x^{} or x+_{}5. They carry no mathematical value.
+        expr = expr.replace(/\s*[\^_]\s*\{\s*\}/g, '');
+
         // Convert multiplication operators
         expr = expr.replace(/\\times|\\cdot|×/g, '*');
         expr = expr.replace(/÷/g, '/');
