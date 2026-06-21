@@ -1,6 +1,12 @@
 import { BaseLevel } from './BaseLevel.js';
 
 export default new BaseLevel('trigDiffRulesEasy', 'Trigonometric with Rules — Easy', [
+  { problem: '\\frac{d}{dx}(\\sec x)', answer: '\\sec x\\tan x' },
+  { problem: '\\frac{d}{dx}(\\csc x)', answer: '-\\csc x\\cot x' },
+  { problem: '\\frac{d}{dx}(\\cot x)', answer: '-\\csc^2 x' },
+  { problem: '\\frac{d}{dx}(2\\sec x)', answer: '2\\sec x\\tan x' },
+  { problem: '\\frac{d}{dx}(3\\csc x)', answer: '-3\\csc x\\cot x' },
+  { problem: '\\frac{d}{dx}(2\\cot x)', answer: '-2\\csc^2 x' },
   { problem: '\\frac{d}{dx}(x\\sin x)', answer: 'x\\cos x+\\sin x' },
   { problem: '\\frac{d}{dx}(\\sin x\\cos x)', answer: '\\cos^2 x-\\sin^2 x' },
   { problem: '\\frac{d}{dx}\\left(\\frac{\\sin x}{x}\\right)', answer: '\\frac{x\\cos x-\\sin x}{x^2}' },
