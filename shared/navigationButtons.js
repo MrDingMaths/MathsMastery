@@ -36,7 +36,7 @@ class SiteHeader {
         const brand = document.createElement('a');
         brand.href = base;
         brand.className = 'site-header-brand';
-        brand.innerHTML = `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><circle class="brand-ring-track" cx="24" cy="24" r="20" stroke-width="4.5"/><circle cx="24" cy="24" r="20" stroke="#E8443A" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="103 130" transform="rotate(-90 24 24)"/><text class="brand-m" x="24" y="20" text-anchor="middle" dominant-baseline="central" font-family="serif" font-size="32">𝑥</text></svg><span class="site-header-brand-text">Maths<span class="site-header-brand-accent">Mastery</span></span>`;
+        brand.innerHTML = `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><circle class="brand-ring-track" cx="24" cy="24" r="20" stroke-width="4.5"/><circle cx="24" cy="24" r="20" stroke="#E8443A" stroke-width="5" stroke-linecap="round" stroke-dasharray="103 130" transform="rotate(-90 24 24)"/><text class="brand-m" x="24" y="21" text-anchor="middle" dominant-baseline="central" font-family="serif" font-size="32">𝑥</text></svg><span class="site-header-brand-text">Maths<span class="site-header-brand-accent">Mastery</span></span>`;
 
         // Nav links
         const nav = document.createElement('nav');
