@@ -68,8 +68,18 @@ export class CalculusAnswerChecker {
                 // differ-by-constant test below would otherwise pass any answer,
                 // because a constant evaluates identically at every sample point.
                 if (!this._referencesX(model.node)) {
+                    // When toleranceDp is not explicitly set, auto-detect it from the
+                    // model's decimal places. E.g. "2.982" (3dp) → toleranceDp 3.
+                    // This lets exact symbolic answers (e.g. (5−5⁻¹)/ln5) be accepted
+                    // alongside numerical approximations to the same precision.
+                    let effectiveTol = tol;
+                    if (!(expected && typeof expected.toleranceDp === 'number')) {
+                        const dpMatch = String(expected.answer).match(/\.(\d+)$/);
+                        const modelDp = dpMatch ? dpMatch[1].length : 0;
+                        effectiveTol = 0.5 * Math.pow(10, -modelDp);
+                    }
                     for (let i = 0; i < fu.length; i++) {
-                        const allowed = tol * (1 + Math.abs(fc[i]));
+                        const allowed = effectiveTol * (1 + Math.abs(fc[i]));
                         if (Math.abs(fu[i] - fc[i]) > allowed) {
                             console.log(`[CalcChecker] definite integral: mismatch at point ${i} (${fu[i]} vs ${fc[i]}) → reject`);
                             return { correct: false };
