@@ -84,6 +84,7 @@ export class GameController {
     }
 
     startGame(level) {
+        if (level.comingSoon) return;
         this.state.setLevel(level);
         this.ui.showScreen('game');
         this.ui.updateStreak(0);

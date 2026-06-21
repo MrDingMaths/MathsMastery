@@ -504,6 +504,7 @@ export class BaseUI {
     _lsGetNextUp(levelGroups) {
         for (const g in levelGroups) {
             for (const level of levelGroups[g]) {
+                if (level.comingSoon) continue;
                 if (!this._lsIsMastered(this._lsLevelRatingKey(level.key))) return { level, groupName: g };
             }
         }
@@ -791,6 +792,8 @@ export class BaseUI {
     }
 
     _lsBuildHybridTile(level, onSelect, isCurrent) {
+        if (level.comingSoon) return this._lsBuildComingSoonTile(level);
+
         const rk = this._lsLevelRatingKey(level.key);
         const rv = this._lsRatingVisuals(rk);
         const diff = this._lsDiffInfo(level.key);
@@ -825,7 +828,31 @@ export class BaseUI {
         return tile;
     }
 
+    // Locked "coming soon" tile — non-interactive, no rating/best-time shown.
+    _lsBuildComingSoonTile(level) {
+        const diff = this._lsDiffInfo(level.key);
+        const tile = createEl('button', { className: 'ls-hybrid-tile ls-coming-soon' });
+        tile.disabled = true;
+
+        const top = createEl('div', { className: 'ls-hybrid-tile-top' });
+        const diffLabel = createEl('div', { className: 'ls-diff-label' });
+        const dot = createEl('span', { className: 'ls-diff-dot' });
+        dot.style.background = diff.color;
+        const diffText = createEl('span', { className: 'ls-diff-text', textContent: diff.label });
+        diffText.style.color = diff.color;
+        diffLabel.append(dot, diffText);
+        const lockIcon = createEl('span', { className: 'ls-tile-rating-icon', textContent: '🔒' });
+        top.append(diffLabel, lockIcon);
+
+        const soonEl = createEl('div', { className: 'ls-hybrid-tile-time ls-coming-soon-label', textContent: 'Soon' });
+
+        tile.append(top, soonEl);
+        return tile;
+    }
+
     _lsBuildLevelTile(level, onSelect, color, isCurrent) {
+        if (level.comingSoon) return this._lsBuildComingSoonTile(level);
+
         const rk = this._lsLevelRatingKey(level.key);
         const rv = this._lsRatingVisuals(rk);
         const bestMs = this._lsLevelBestMs(level.key);
