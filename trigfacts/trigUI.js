@@ -237,19 +237,37 @@ export class TrigUI extends BaseUI {
 
     // --- Feedback ---
 
-    showFeedback(isCorrect, message, correctAnswer = null) {
+    showFeedback(isCorrect, message, correctAnswer = null, userAnswer = null) {
         this.elements.feedbackMessage.innerHTML = '';
         this.elements.feedbackMessage.className = `feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
 
         if (correctAnswer) {
-            const answerLine = document.createElement('div');
+            const grid = document.createElement('div');
+            grid.className = 'feedback-answer-grid';
 
-            const answerSpan = document.createElement('span');
-            answerSpan.className = 'inline-block';
-            answerLine.appendChild(answerSpan);
+            if (userAnswer && String(userAnswer).trim() !== '') {
+                const yourLabel = document.createElement('span');
+                yourLabel.className = 'feedback-answer-label';
+                yourLabel.textContent = 'Your answer:';
+                grid.appendChild(yourLabel);
 
-            this.elements.feedbackMessage.appendChild(answerLine);
-            this.renderMath(correctAnswer, answerSpan);
+                const yourSpan = document.createElement('span');
+                yourSpan.className = 'feedback-answer-your inline-block';
+                grid.appendChild(yourSpan);
+                this.renderMath(userAnswer, yourSpan);
+            }
+
+            const correctLabel = document.createElement('span');
+            correctLabel.className = 'feedback-answer-label';
+            correctLabel.textContent = 'Correct answer:';
+            grid.appendChild(correctLabel);
+
+            const correctSpan = document.createElement('span');
+            correctSpan.className = 'feedback-answer-correct inline-block';
+            grid.appendChild(correctSpan);
+            this.renderMath(correctAnswer, correctSpan);
+
+            this.elements.feedbackMessage.appendChild(grid);
         } else if (message) {
             this.elements.feedbackMessage.textContent = message;
         }

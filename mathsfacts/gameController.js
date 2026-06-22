@@ -334,7 +334,8 @@ export class GameController {
 
                 // Show correct answer with question context
                 const correctAnswerText = this.ui.formatAnswerForDisplay(correctAnswer, this.state.currentLevel.key);
-                this.ui.showFeedback(false, null, correctAnswerText, this.state.currentQuestion?.problem);
+                const userAnswerText = this.ui.formatUserAnswerForDisplay(userAnswer, this.state.currentLevel.key);
+                this.ui.showFeedback(false, null, correctAnswerText, this.state.currentQuestion?.problem, userAnswerText);
 
                 // Reset timer
                 this.timer.reset();

@@ -173,16 +173,26 @@ export class UI extends BaseUI {
 
     // --- Feedback ---
 
-    showFeedback(isCorrect, message, correctAnswer = null, question = null) {
+    showFeedback(isCorrect, message, correctAnswer = null, question = null, userAnswer = null) {
         this.elements.feedbackMessage.innerHTML = '';
         this.elements.feedbackMessage.className = `feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
 
         if (!isCorrect && correctAnswer) {
-            const answerLine = createEl('div');
-            const answerSpan = createEl('span', { className: 'inline-block' });
-            answerLine.appendChild(answerSpan);
-            this.elements.feedbackMessage.appendChild(answerLine);
-            renderStaticLatex(answerSpan, correctAnswer);
+            const grid = createEl('div', { className: 'feedback-answer-grid' });
+
+            if (userAnswer && String(userAnswer).trim() !== '') {
+                grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Your answer:' }));
+                const yourSpan = createEl('span', { className: 'feedback-answer-your inline-block' });
+                grid.appendChild(yourSpan);
+                renderStaticLatex(yourSpan, userAnswer);
+            }
+
+            grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Correct answer:' }));
+            const correctSpan = createEl('span', { className: 'feedback-answer-correct inline-block' });
+            grid.appendChild(correctSpan);
+            renderStaticLatex(correctSpan, correctAnswer);
+
+            this.elements.feedbackMessage.appendChild(grid);
         } else {
             this.elements.feedbackMessage.textContent = message;
         }

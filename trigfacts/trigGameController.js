@@ -171,7 +171,7 @@ export class TrigGameController {
         if (isCorrect) {
             this.handleCorrectAnswer();
         } else {
-            this.handleIncorrectAnswer();
+            this.handleIncorrectAnswer(userAnswer);
         }
     }
 
@@ -195,7 +195,7 @@ export class TrigGameController {
         }
     }
 
-    handleIncorrectAnswer() {
+    handleIncorrectAnswer(userAnswer = null) {
         const incorrectCount = this.state.incrementIncorrectCount();
 
         if (this.state.isSecondIncorrectAttempt()) {
@@ -205,8 +205,8 @@ export class TrigGameController {
 
             this.ui.showInputFeedback(false);
 
-            // Show correct answer
-            this.ui.showFeedback(false, null, this.state.currentAnswer);
+            // Show correct answer alongside what the student entered
+            this.ui.showFeedback(false, null, this.state.currentAnswer, userAnswer);
 
             // Reset timer
             this.timer.reset();

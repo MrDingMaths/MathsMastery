@@ -306,23 +306,34 @@ export class UI extends BaseUI {
 
     // --- Feedback ---
 
-    showFeedback(isCorrect, message, correctAnswer = null, question = null) {
+    showFeedback(isCorrect, message, correctAnswer = null, question = null, userAnswer = null) {
         this.elements.feedbackMessage.innerHTML = '';
         this.elements.feedbackMessage.className = `feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
 
         if (!isCorrect && correctAnswer) {
-            const answerLine = createEl('div');
+            const grid = createEl('div', { className: 'feedback-answer-grid' });
 
-            const answerSpan = createEl('span', { className: 'inline-block' });
-            answerLine.appendChild(answerSpan);
+            const renderInto = (span, latex) => {
+                try {
+                    katex.render(latex, span, { throwOnError: false });
+                } catch (e) {
+                    span.textContent = latex;
+                }
+            };
 
-            this.elements.feedbackMessage.appendChild(answerLine);
-
-            try {
-                katex.render(correctAnswer, answerSpan, { throwOnError: false });
-            } catch (e) {
-                answerSpan.textContent = correctAnswer;
+            if (userAnswer != null && String(userAnswer).trim() !== '') {
+                grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Your answer:' }));
+                const yourSpan = createEl('span', { className: 'feedback-answer-your inline-block' });
+                grid.appendChild(yourSpan);
+                renderInto(yourSpan, String(userAnswer));
             }
+
+            grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Correct answer:' }));
+            const correctSpan = createEl('span', { className: 'feedback-answer-correct inline-block' });
+            grid.appendChild(correctSpan);
+            renderInto(correctSpan, correctAnswer);
+
+            this.elements.feedbackMessage.appendChild(grid);
         } else {
             this.elements.feedbackMessage.textContent = message;
         }
@@ -489,5 +500,18 @@ export class UI extends BaseUI {
         } else {
             return String(answer);
         }
+    }
+
+    // Format the student's submitted answer for display. Reuses formatAnswerForDisplay,
+    // adapting the unitConversions input shape ({operation, factor}) to the shape it
+    // expects ({correctOperation, correctFactor}).
+    formatUserAnswerForDisplay(userAnswer, levelKey) {
+        if (levelKey === 'unitConversions' && userAnswer && typeof userAnswer === 'object') {
+            return this.formatAnswerForDisplay(
+                { correctOperation: userAnswer.operation, correctFactor: userAnswer.factor },
+                levelKey
+            );
+        }
+        return this.formatAnswerForDisplay(userAnswer, levelKey);
     }
 }

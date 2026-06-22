@@ -152,7 +152,7 @@ export class GameController {
                 this.state.resetStreak();
                 this.ui.updateStreak(0);
                 this.ui.showInputFeedback(false);
-                this.ui.showFeedback(false, null, correctAnswer);
+                this.ui.showFeedback(false, null, correctAnswer, userAnswer);
                 this.ui.showTimerPausedMessage();
                 this.timer.reset();
 

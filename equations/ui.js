@@ -227,20 +227,41 @@ export class UI extends BaseUI {
 
     // --- Feedback ---
 
-    showFeedback(isCorrect, message, correctAnswer = null) {
+    showFeedback(isCorrect, message, correctAnswer = null, userAnswer = null) {
         this.elements.feedbackMessage.innerHTML = '';
         this.elements.feedbackMessage.className = `feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
 
         if (!isCorrect && correctAnswer) {
-            const latex = this._renderCorrectAnswerLatex(correctAnswer);
-            const answerLine = createEl('div');
-            const answerSpan = createEl('span', { className: 'inline-block' });
-            answerLine.appendChild(answerSpan);
-            this.elements.feedbackMessage.appendChild(answerLine);
-            renderStaticLatex(answerSpan, latex);
+            const grid = createEl('div', { className: 'feedback-answer-grid' });
+
+            const userLatex = userAnswer ? this._renderUserAnswerLatex(userAnswer) : '';
+            if (userLatex) {
+                grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Your answer:' }));
+                const yourSpan = createEl('span', { className: 'feedback-answer-your inline-block' });
+                grid.appendChild(yourSpan);
+                renderStaticLatex(yourSpan, userLatex);
+            }
+
+            grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Correct answer:' }));
+            const correctSpan = createEl('span', { className: 'feedback-answer-correct inline-block' });
+            grid.appendChild(correctSpan);
+            renderStaticLatex(correctSpan, this._renderCorrectAnswerLatex(correctAnswer));
+
+            this.elements.feedbackMessage.appendChild(grid);
         } else if (message) {
             this.elements.feedbackMessage.textContent = message;
         }
+    }
+
+    // Render the student's raw per-variable MathLive input as "x = …, y = …".
+    _renderUserAnswerLatex(userAnswerObj) {
+        const parts = [];
+        for (const v of this.mathFieldOrder) {
+            const val = userAnswerObj ? userAnswerObj[v] : '';
+            if (val == null || String(val).trim() === '') continue;
+            parts.push(`${v} = ${val}`);
+        }
+        return parts.join(', \\quad ');
     }
 
     _toLatex(expr) {

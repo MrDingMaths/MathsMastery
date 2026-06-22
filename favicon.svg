@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
   <style>
-    .x-char { fill: #000000; }
-    @media (prefers-color-scheme: dark) { .x-char { fill: #ffffff; } }
+    .x-char { fill: #ffffff; }
   </style>
   <rect width="48" height="48" rx="11" fill="#E8443A"/>
   <circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.32)" stroke-width="3.5"/>
