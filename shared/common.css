@@ -490,3 +490,35 @@ h1, h2, h3, h4, .level-section-title {
 .success-back-btn:hover { color: #374151; }
 
 #success-screen { max-width: 700px; }
+
+
+/* ============================
+   Subtle UI animations
+   ============================ */
+
+/* Answer feedback — shake on incorrect, gentle pop on correct.
+   The .correct/.incorrect classes are removed then re-added on each
+   answer (see app ui.js files), which restarts the animation. */
+@keyframes answer-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+@keyframes answer-pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+math-field.incorrect,
+input.incorrect { animation: answer-shake 0.3s ease; }
+math-field.correct,
+input.correct   { animation: answer-pop 0.25s ease; }
+
+/* Screen transitions — entrance played when a screen becomes visible.
+   BaseUI.showScreen() re-adds the .screen-enter class with a reflow so
+   this restarts on every settings/game/success swap. */
+@keyframes screen-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.screen-enter { animation: screen-fade-in 0.25s ease; }

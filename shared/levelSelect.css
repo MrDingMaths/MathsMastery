@@ -475,6 +475,23 @@
     animation: ls-pulse-current 2s ease-in-out infinite;
 }
 
+/* Staggered entrance for level tiles when the grid renders.
+   The .ls-current rule above overrides `animation` for the next-up tile,
+   so that tile keeps its pulse instead of the entrance — no conflict.
+   Delays restart per container, so each hybrid row / level grid cascades. */
+@keyframes ls-tile-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.ls-hybrid-tile,
+.ls-level-tile { animation: ls-tile-in 0.3s ease both; }
+.ls-hybrid-tile:nth-child(2),  .ls-level-tile:nth-child(2)  { animation-delay: 0.04s; }
+.ls-hybrid-tile:nth-child(3),  .ls-level-tile:nth-child(3)  { animation-delay: 0.08s; }
+.ls-level-tile:nth-child(4)  { animation-delay: 0.12s; }
+.ls-level-tile:nth-child(5)  { animation-delay: 0.16s; }
+.ls-level-tile:nth-child(6)  { animation-delay: 0.20s; }
+.ls-level-tile:nth-child(n+7) { animation-delay: 0.24s; }
+
 /* ── Right sidebar ────────────────────────────────────────────── */
 .ls-right {
     width: 184px;

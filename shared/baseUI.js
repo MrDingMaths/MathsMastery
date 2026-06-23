@@ -34,6 +34,14 @@ export class BaseUI {
         ['settings', 'game', 'success'].forEach(s => {
             this.elements[`${s}Screen`].classList.toggle('hidden', s !== screenName);
         });
+        // Play the entrance animation on the screen we just revealed.
+        // Remove + reflow + re-add restarts the CSS animation on every swap.
+        const shown = this.elements[`${screenName}Screen`];
+        if (shown) {
+            shown.classList.remove('screen-enter');
+            void shown.offsetWidth;
+            shown.classList.add('screen-enter');
+        }
         // Clean up leaderboard side-card when leaving success screen
         if (screenName !== 'success') {
             const container = this.elements.successScreen?.parentElement;
