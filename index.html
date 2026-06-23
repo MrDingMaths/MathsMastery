@@ -351,6 +351,15 @@
 
         [data-theme="dark"] .panel-body { scrollbar-color: rgba(255,255,255,.18) transparent; }
 
+        /* Pin the whole Hall of Fame panel to 710px; the body fills the remaining space
+           and scrolls, so nothing resizes while data loads on tab switch. */
+        #panel-hof { height: 710px; }
+        #panel-hof .panel-body { flex: 1; min-height: 0; max-height: none; }
+
+        /* Match the Recent panel to the fixed-height Hall of Fame panel. */
+        #panel-recent { height: 710px; }
+        #panel-recent .panel-body { flex: 1; min-height: 0; max-height: none; }
+
         .panel-body::-webkit-scrollbar { width: 4px; }
         .panel-body::-webkit-scrollbar-track { background: transparent; }
         .panel-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 9999px; }
@@ -428,6 +437,12 @@
             background: var(--chalk-surface);
             color: var(--chalk-heading);
             box-shadow: 0 2px 6px rgba(34,42,66,.12);
+            animation: hofTabPop .18s cubic-bezier(.34,1.56,.64,1);
+        }
+
+        @keyframes hofTabPop {
+            from { transform: scale(.97); }
+            to   { transform: scale(1); }
         }
 
         /* ===== HALL OF FAME ENTRIES (rendered by hubLeaderboard.js) ===== */
@@ -437,7 +452,23 @@
             gap: .5rem;
             padding: .4rem .375rem;
             border-radius: .375rem;
+            animation: hofEntryIn .32s cubic-bezier(.3,.7,.4,1) both;
         }
+        .panel-hof-section-label { animation: hofEntryIn .32s cubic-bezier(.3,.7,.4,1) both; }
+
+        @keyframes hofEntryIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cascade: stagger the first several entries, then cap the delay */
+        .panel-hof-entry:nth-child(1) { animation-delay: .02s; }
+        .panel-hof-entry:nth-child(2) { animation-delay: .06s; }
+        .panel-hof-entry:nth-child(3) { animation-delay: .10s; }
+        .panel-hof-entry:nth-child(4) { animation-delay: .14s; }
+        .panel-hof-entry:nth-child(5) { animation-delay: .18s; }
+        .panel-hof-entry:nth-child(6) { animation-delay: .22s; }
+        .panel-hof-entry:nth-child(n+7) { animation-delay: .26s; }
         .panel-hof-entry:hover { background: rgba(0,0,0,.03); }
         [data-theme="dark"] .panel-hof-entry:hover { background: rgba(255,255,255,.04); }
         .panel-hof-entry + .panel-hof-entry { border-top: 1px solid var(--line); }

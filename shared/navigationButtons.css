@@ -40,6 +40,25 @@
 .brand-ring-track { stroke: #e7e3da; }
 .brand-m { fill: #11131a; }
 
+@keyframes brand-ring-fill {
+    from { stroke-dashoffset: 103; }
+    to   { stroke-dashoffset: 0; }
+}
+
+/* Plays once on initial load */
+.brand-ring {
+    animation: brand-ring-fill 0.9s ease-out both;
+}
+
+/* Replay trigger (class toggled by JS on hover) */
+.brand-ring.replay {
+    animation: brand-ring-fill 0.9s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brand-ring, .brand-ring.replay { animation: none; }
+}
+
 [data-theme="dark"] .brand-ring-track { stroke: #2c2f39; }
 [data-theme="dark"] .brand-m { fill: #ffffff; }
 [data-theme="dark"] .site-header-brand-text { color: #f3f4f6; }
