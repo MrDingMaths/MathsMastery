@@ -38,14 +38,9 @@ class SiteHeader {
         brand.className = 'site-header-brand';
         brand.innerHTML = `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><circle class="brand-ring-track" cx="24" cy="24" r="20" stroke-width="4.5"/><circle class="brand-ring" cx="24" cy="24" r="20" stroke="#E8443A" stroke-width="5" stroke-linecap="round" stroke-dasharray="103 130" transform="rotate(-90 24 24)"/><text class="brand-m" x="24" y="21" text-anchor="middle" dominant-baseline="central" font-family="serif" font-size="32">𝑥</text></svg><span class="site-header-brand-text">Maths<span class="site-header-brand-accent">Mastery</span></span>`;
 
-        // Replay the ring-fill animation on hover
-        brand.addEventListener('mouseenter', () => {
-            const ring = brand.querySelector('.brand-ring');
-            if (!ring) return;
-            ring.classList.remove('replay');
-            void ring.offsetWidth; // force reflow so the animation restarts
-            ring.classList.add('replay');
-        });
+        // Play the ring-fill animation on page load
+        const ring = brand.querySelector('.brand-ring');
+        if (ring) ring.classList.add('animate');
 
         // Nav links
         const nav = document.createElement('nav');

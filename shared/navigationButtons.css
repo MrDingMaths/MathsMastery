@@ -45,18 +45,9 @@
     to   { stroke-dashoffset: 0; }
 }
 
-/* Plays once on initial load */
-.brand-ring {
+/* Animation runs whenever this class is present (added by JS on load + hover) */
+.brand-ring.animate {
     animation: brand-ring-fill 0.9s ease-out both;
-}
-
-/* Replay trigger (class toggled by JS on hover) */
-.brand-ring.replay {
-    animation: brand-ring-fill 0.9s ease-out both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .brand-ring, .brand-ring.replay { animation: none; }
 }
 
 [data-theme="dark"] .brand-ring-track { stroke: #2c2f39; }
