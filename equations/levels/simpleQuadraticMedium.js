@@ -27,7 +27,7 @@ export default new BaseLevel('simpleQuadraticMedium', 'Simple Quadratic (Medium)
     Q('2x^{2} - 5 = 13', ['3', '-3']),
     Q('5x^{2} + 5 = 30', ['\\sqrt{5}', '-\\sqrt{5}']),
     Q('x^{2} - 7 = 9', ['4', '-4']),
-    Q('2x^{2} - 3 = 21', ['3', '-3']),
+    Q('2x^{2} + 3 = 21', ['3', '-3']),
     // ax² + bx = bx + c  (cancel x terms, divide, root)
     Q('3x^{2} = 2x^{2} + 9', ['3', '-3']),
     Q('x^{2} + 3x = 3x + 4', ['2', '-2']),
