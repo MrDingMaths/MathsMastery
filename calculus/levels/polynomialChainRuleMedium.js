@@ -16,7 +16,7 @@ export default new BaseLevel('polynomialChainRuleMedium', 'Polynomial Chain Rule
   // §3.2 — non-linear inner functions (c,d,e,f,k,l)
   { problem: '\\frac{d}{dx}((x^2+1)^{12})', answer: '24x(x^2+1)^{11}' },
   { problem: '\\frac{d}{dx}(8(7-x^2)^4)', answer: '-64x(7-x^2)^3' },
-  { problem: '\\frac{d}{dx}((x^2+4x+1)^9)', answer: '9(2x+4)(x^2+4x+1)^8' },
+  { problem: '\\frac{d}{dx}((x^2+4x+1)^9)', answer: '18(x+2)(x^2+4x+1)^8' },
   { problem: '\\frac{d}{dx}(-3(x^3+x+1)^6)', answer: '-18(3x^2+1)(x^3+x+1)^5' },
   { problem: '\\frac{d}{dx}\\left(6\\left(\\frac{x}{2}-1\\right)^4\\right)', answer: '12\\left(\\frac{x}{2}-1\\right)^3' },
   { problem: '\\frac{d}{dx}\\left(\\frac{2}{3}\\left(5-\\frac{x}{3}\\right)^4\\right)', answer: '-\\frac{8}{9}\\left(5-\\frac{x}{3}\\right)^3' },
@@ -29,7 +29,7 @@ export default new BaseLevel('polynomialChainRuleMedium', 'Polynomial Chain Rule
   { problem: '\\frac{d}{dx}((2x^2+x-3)^4)', answer: '4(4x+1)(2x^2+x-3)^3' },
   // §3.4 (d,e,f — a,b migrated to Easy as linear-inner; c has abstract parameters)
   { problem: '\\frac{d}{dx}((x^2-1)^3)', answer: '6x(x^2-1)^2' },
-  { problem: '\\frac{d}{dx}((x^2-4x)^4)', answer: '4(2x-4)(x^2-4x)^3' },
+  { problem: '\\frac{d}{dx}((x^2-4x)^4)', answer: '8(x-2)(x^2-4x)^3' },
   { problem: '\\frac{d}{dx}((2x+x^2)^5)', answer: '10(1+x)(2x+x^2)^4' },
   // §3.5 — chain rule with negative integer powers
   { problem: '\\frac{d}{dx}((7x-5)^{-6})', answer: '-42(7x-5)^{-7}' },

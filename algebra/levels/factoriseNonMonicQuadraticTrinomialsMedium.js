@@ -42,10 +42,10 @@ export default new BaseLevel(
             // Larger coefficients
             {problem: "14x^2 + 9x + 1", answer: "(2x + 1)(7x + 1)"},
             {problem: "18x^2 + 9x + 1", answer: "(3x + 1)(6x + 1)"},
-            {problem: "20x^2 + 11x + 1", answer: "20x^2 + 11x + 1"},
+            {problem: "20x^2 + 12x + 1", answer: "(2x + 1)(10x + 1)"},
             {problem: "14x^2 - 9x + 1", answer: "(2x - 1)(7x - 1)"},
             {problem: "18x^2 - 9x + 1", answer: "(3x - 1)(6x - 1)"},
-            {problem: "20x^2 - 11x + 1", answer: "20x^2 - 11x + 1"},
+            {problem: "20x^2 - 12x + 1", answer: "(2x - 1)(10x - 1)"},
     
             // Different variables for variety
             {problem: "6a^2 + 13a + 6", answer: "(2a + 3)(3a + 2)"},

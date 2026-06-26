@@ -12,7 +12,7 @@ export default new BaseLevel('exponentialDiffMedium', 'Exponential Functions —
   { problem: '\\frac{d}{dx}(e^{x^3})', answer: '3x^2e^{x^3}' },
   { problem: '\\frac{d}{dx}(e^{x^2+x})', answer: '(2x+1)e^{x^2+x}' },
   { problem: '\\frac{d}{dx}(e^{3x^2-x})', answer: '(6x-1)e^{3x^2-x}' },
-  { problem: '\\frac{d}{dx}(e^{x^2+2x+1})', answer: '(2x+2)e^{x^2+2x+1}' },
+  { problem: '\\frac{d}{dx}(e^{x^2+2x+1})', answer: '2(x+1)e^{x^2+2x+1}' },
   { problem: '\\frac{d}{dx}(e^{x^4+3})', answer: '4x^3e^{x^4+3}' },
   { problem: '\\frac{d}{dx}(3^x)', answer: '3^x\\ln 3' },
   { problem: '\\frac{d}{dx}(5^x)', answer: '5^x\\ln 5' },
