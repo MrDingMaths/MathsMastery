@@ -47,7 +47,8 @@ export class TrigGameController {
         });
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
         this.ui.showScreen('settings');
     }
@@ -273,6 +274,9 @@ export class TrigGameController {
 
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
 
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
+
         this.ui.showSuccess(
             this.state.currentLevel.name,
             time,
@@ -301,6 +305,15 @@ export class TrigGameController {
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
         } else {
             this.quitGame();
         }

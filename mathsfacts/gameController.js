@@ -42,7 +42,8 @@ export class GameController {
         // Set up success screen callbacks
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
 
         // Initialize the learning path interface
@@ -475,6 +476,15 @@ export class GameController {
         }
     }
 
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
+        } else {
+            this.quitGame();
+        }
+    }
+
     // Update showSuccess to include mastery tracking
     showSuccess() {
         this.timer.stop();
@@ -505,6 +515,9 @@ export class GameController {
         if (window.progressUI) window.progressUI.updateContent();
 
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
+
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
 
         // Show success screen
         try {

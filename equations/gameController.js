@@ -41,7 +41,8 @@ export class GameController {
     initializeLearningPath() {
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
         this.updateLearningPathInterface();
     }
@@ -214,6 +215,9 @@ export class GameController {
 
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
 
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
+
         try {
             this.ui.showSuccess(
                 this.state.currentLevel.name,
@@ -305,6 +309,15 @@ export class GameController {
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
         } else {
             this.quitGame();
         }

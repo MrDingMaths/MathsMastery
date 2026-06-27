@@ -22,6 +22,18 @@ export class BaseGameState {
         this.currentLevel = level;
     }
 
+    /**
+     * Returns the level immediately after the current level in the flattened
+     * LEVEL_GROUPS ordering (group insertion order, then array order within
+     * each group), or null if there is no current level or it is the last one.
+     */
+    getNextLevel(levelGroups) {
+        if (!this.currentLevel || !levelGroups) return null;
+        const all = Object.values(levelGroups).flat();
+        const i = all.findIndex(l => l.key === this.currentLevel.key);
+        return i >= 0 ? (all[i + 1] || null) : null;
+    }
+
     incrementQuestionsAttempted() {
         this.questionsAttempted++;
         return this.questionsAttempted;

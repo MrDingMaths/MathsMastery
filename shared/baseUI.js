@@ -114,9 +114,10 @@ export class BaseUI {
 
     // --- Success screen ---
 
-    setSuccessScreenCallbacks(onReplayLevel, onBackToLevels) {
+    setSuccessScreenCallbacks(onReplayLevel, onBackToLevels, onNextLevel) {
         this.onReplayLevel = onReplayLevel;
         this.onBackToLevels = onBackToLevels;
+        this.onNextLevel = onNextLevel;
     }
 
     setupSuccessScreenButtons() {
@@ -126,18 +127,31 @@ export class BaseUI {
             });
         }
 
+        if (this.elements.nextLevelBtn) {
+            this.elements.nextLevelBtn.addEventListener('click', () => {
+                if (this.onNextLevel) this.onNextLevel();
+            });
+        }
+
         if (this.elements.playAgainBtn) {
             this.elements.playAgainBtn.addEventListener('click', () => {
                 if (this.onBackToLevels) this.onBackToLevels();
             });
         }
 
-        // Keyboard shortcuts: Enter = replay, Escape = back to levels
+        // Keyboard shortcuts: Enter = replay, Tab = next level, Escape = back to levels
         this.handleSuccessScreenKey = (e) => {
             if (this.elements.successScreen.classList.contains('hidden')) return;
             if (e.key === 'Enter') {
                 e.preventDefault();
                 if (this.onReplayLevel) this.onReplayLevel();
+            } else if (e.key === 'Tab') {
+                // Only when a next level is available (button visible)
+                const btn = this.elements.nextLevelBtn;
+                if (btn && !btn.classList.contains('hidden')) {
+                    e.preventDefault();
+                    if (this.onNextLevel) this.onNextLevel();
+                }
             } else if (e.key === 'Escape') {
                 e.preventDefault();
                 if (this.onBackToLevels) this.onBackToLevels();

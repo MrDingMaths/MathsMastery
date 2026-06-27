@@ -57,6 +57,7 @@ export class UI extends BaseUI {
             skillPathContainer: document.getElementById('skill-path-container'),
             masteryProgressBars: document.getElementById('mastery-progress-bars'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
+            nextLevelBtn: document.getElementById('next-level-btn'),
         };
         this.storage = StorageManager;
         this.mathField = null;

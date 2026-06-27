@@ -55,6 +55,7 @@ export class UI extends BaseUI {
             ratingHint: document.getElementById('rating-hint'),
             ratingHintText: document.getElementById('rating-hint-text'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
+            nextLevelBtn: document.getElementById('next-level-btn'),
         };
         this.storage = StorageManager;
         this.mathFields = {};         // { x: math-field, y: math-field }

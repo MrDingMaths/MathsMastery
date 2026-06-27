@@ -36,6 +36,7 @@ export class TrigUI extends BaseUI {
             timerPausedMessage: document.getElementById('timer-paused-message'),
             quitBtn: document.getElementById('quit-btn'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
+            nextLevelBtn: document.getElementById('next-level-btn'),
             playAgainBtn: document.getElementById('play-again-btn'),
             completedLevel: document.getElementById('completed-level'),
             finalTime: document.getElementById('final-time'),

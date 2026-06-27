@@ -39,6 +39,7 @@ export class UI extends BaseUI {
             skillPathContainer: document.getElementById('skill-path-container'),
             masteryProgressBars: document.getElementById('mastery-progress-bars'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
+            nextLevelBtn: document.getElementById('next-level-btn'),
             levelName: document.getElementById('level-name'),
             levelMeta: document.getElementById('level-meta'),
         };
