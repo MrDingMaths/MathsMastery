@@ -7,7 +7,6 @@ export default new BaseLevel(
             {problem: "\\frac{2x^2+14x+24}{x^2-5x-36}", answer: "\\frac{2(x+3)}{x-9}"},
             {problem: "\\frac{2x^2+14x+24}{3x^2-15x-108}", answer: "\\frac{2(x+3)}{3(x-9)}"},
             {problem: "\\frac{2x^2+14x+24}{3x^2+4x-15}", answer: "\\frac{2(x+4)}{3x-5}"},
-            {problem: "\\frac{14x-24-2x^2}{3x^2+4x-15}", answer: "\\frac{14x-24-2x^2}{3x^2+4x-15}"},
             {problem: "\\frac{14x-24-2x^2}{3x^2-4x-15}", answer: "\\frac{-2(x-4)}{3x+5}"},
             {problem: "\\frac{xy-xa+by-ba}{y^2-a^2}", answer: "\\frac{x+b}{y+a}"},
             {problem: "\\frac{x^2+5x-24}{2x^2-18}", answer: "\\frac{x+8}{2(x+3)}"},

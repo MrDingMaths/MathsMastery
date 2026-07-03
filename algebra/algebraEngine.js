@@ -901,6 +901,21 @@ class AlgebraEngine {
                         transformedNode = this._canonicalizeDivision(transformedNode);
                     }
 
+                    // Handle powers: an even integer exponent removes the sign of the
+                    // base, so (a-b)^2 ≡ (b-a)^2. Normalize a binary-difference base
+                    // to its canonical order even when the flip carries sign=-1, since
+                    // the even power cancels it. This keeps (6-x)^2 ≡ (x-6)^2.
+                    if (transformedNode.fn === 'pow' && transformedNode.args.length === 2) {
+                        const exp = transformedNode.args[1];
+                        if (exp.isConstantNode && typeof exp.value === 'number' &&
+                            Number.isInteger(exp.value) && exp.value % 2 === 0) {
+                            const canonResult = this.canonicalizeBinaryDifference(transformedNode.args[0]);
+                            if (canonResult.transformed) {
+                                transformedNode.args[0] = canonResult.result;
+                            }
+                        }
+                    }
+
                     break;
 
                 case 'ParenthesisNode':
