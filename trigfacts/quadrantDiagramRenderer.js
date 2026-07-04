@@ -152,52 +152,6 @@ export class QuadrantDiagramRenderer {
         this.ctx.fill();
     }
 
-    drawReferenceAngleArc(angleDeg) {
-        const angleRad = angleDeg * Math.PI / 180;
-        let refAngleRad;
-
-        // Calculate reference angle based on which quadrant the angle is in
-        if (angleDeg <= 90) {
-            // Q1: reference angle = angle
-            refAngleRad = angleRad;
-        } else if (angleDeg <= 180) {
-            // Q2: reference angle = 180 - angle
-            refAngleRad = (180 - angleDeg) * Math.PI / 180;
-        } else if (angleDeg <= 270) {
-            // Q3: reference angle = angle - 180
-            refAngleRad = (angleDeg - 180) * Math.PI / 180;
-        } else {
-            // Q4: reference angle = 360 - angle
-            refAngleRad = (360 - angleDeg) * Math.PI / 180;
-        }
-
-        // Draw reference angle arc with different style
-        this.ctx.fillStyle = 'rgba(34, 197, 94, 0.15)';
-        this.ctx.strokeStyle = '#22c55e';
-        this.ctx.lineWidth = 2.5;
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.center, this.center);
-
-        // Draw arc based on quadrant
-        if (angleDeg <= 90) {
-            // Q1: arc from 0 to reference angle
-            this.ctx.arc(this.center, this.center, this.radius * 0.25, 0, -refAngleRad, true);
-        } else if (angleDeg <= 180) {
-            // Q2: arc from 180 to angle
-            this.ctx.arc(this.center, this.center, this.radius * 0.25, -Math.PI, -Math.PI + refAngleRad, false);
-        } else if (angleDeg <= 270) {
-            // Q3: arc from 180 to angle
-            this.ctx.arc(this.center, this.center, this.radius * 0.25, -Math.PI, -Math.PI - refAngleRad, true);
-        } else {
-            // Q4: arc from 360/0 to angle
-            this.ctx.arc(this.center, this.center, this.radius * 0.25, 0, -refAngleRad, true);
-        }
-
-        this.ctx.closePath();
-        this.ctx.fill();
-        this.ctx.stroke();
-    }
-
     highlightQuadrant(quadrant) {
         this.ctx.fillStyle = 'rgba(251, 191, 36, 0.1)';
         this.ctx.beginPath();

@@ -81,16 +81,6 @@ export class RatingUtils {
     }
 
     /**
-     * Calculate average time per question from total time
-     * @param {number} totalTime - Total time in seconds
-     * @param {number} questionCount - Number of questions
-     * @returns {number} Average time per question
-     */
-    static calculateAverageTime(totalTime, questionCount = 15) {
-        return totalTime / questionCount;
-    }
-
-    /**
      * Apply difficulty multiplier to time
      * @param {number} avgTime - Average time per question
      * @param {string} levelKey - Level identifier

@@ -632,17 +632,11 @@ class ProgressUI {
         if (confirm('Are you sure you want to clear all progress data? This action cannot be undone.')) {
             if (confirm('This will permanently delete all your progress. Are you absolutely sure?')) {
                 this.progressTracker.resetData();
-                this.clearBestTimes();
                 alert('All progress data has been cleared.');
                 this.updateContent();
                 this.populateSelectors();
             }
         }
-    }
-
-    clearBestTimes() {
-        // Individual bestTime keys no longer exist.
-        // Blob is cleared by progressTracker.resetData() in confirmClearData().
     }
 
     // --- Mistakes methods (only called when enableMistakes is true) ---

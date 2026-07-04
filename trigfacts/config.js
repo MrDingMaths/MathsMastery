@@ -15,7 +15,6 @@ export const CONFIG = {
         { maxAvg: 5, name: "Developing", key: "developing" },
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],
-    STORAGE_PREFIX: 'tf_bestTime_v5_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 },
     LEVEL_DIFFICULTY_MULTIPLIERS: {
         'reference_angles':     1.0,

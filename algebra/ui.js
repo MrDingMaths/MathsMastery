@@ -40,7 +40,6 @@ export class UI extends BaseUI {
             timerPausedMessage: document.getElementById('timer-paused-message'),
             questionText: document.getElementById('question-text'),
             feedbackMessage: document.getElementById('feedback-message'),
-            testAnswerContent: document.getElementById('test-answer-content'),
             quitBtn: document.getElementById('quit-btn'),
             playAgainBtn: document.getElementById('play-again-btn'),
             completedLevel: document.getElementById('completed-level'),
@@ -200,12 +199,6 @@ export class UI extends BaseUI {
 
     clearFeedback() {
         this.elements.feedbackMessage.textContent = '';
-    }
-
-    updateTestAnswer(answer) {
-        if (this.elements.testAnswerContent) {
-            renderStaticLatex(this.elements.testAnswerContent, answer);
-        }
     }
 
     showInputFeedback(isCorrect) {

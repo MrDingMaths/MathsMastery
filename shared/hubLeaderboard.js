@@ -13,7 +13,7 @@ const HUB_LEVELS = (function buildFromRegistry() {
             groups: Object.fromEntries(
                 Object.entries(data.LEVEL_GROUPS).map(([groupName, levels]) => [
                     groupName,
-                    levels.map(l => ({ key: l.key, name: l.name.replace(/<br>/g, ' ') })),
+                    levels.map(l => ({ key: l.key, name: l.name.replace(/<br>/g, ' '), comingSoon: !!l.comingSoon })),
                 ])
             ),
         };
@@ -24,7 +24,10 @@ const HUB_LEVELS = (function buildFromRegistry() {
 const HOF_TOTAL_LEVELS = Object.fromEntries(
     Object.entries(HUB_LEVELS).map(([app, data]) => [
         app,
-        Object.values(data.groups).reduce((sum, levels) => sum + levels.length, 0),
+        Object.values(data.groups).reduce(
+            (sum, levels) => sum + levels.filter(l => !l.comingSoon).length,
+            0
+        ),
     ])
 );
 
@@ -254,6 +257,7 @@ class HubPanels {
                 .from('leaderboard_entries')
                 .select('display_name, app, level_key, rating_key, rating_name, updated_at')
                 .in('rating_key', ['mastery', 'true-mastery'])
+                .lte('updated_at', new Date().toISOString())
                 .order('updated_at', { ascending: false })
                 .limit(20);
             if (error || !data) { body.innerHTML = '<div class="panel-empty">Could not load.</div>'; return; }
@@ -401,7 +405,7 @@ class HubPanels {
     _timeAgo(iso) {
         if (!iso) return '';
         const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-        if (mins < 1)  return 'just now';
+        if (mins < 1)  return 'just now';   // includes future timestamps from client clock skew
         if (mins < 60) return `${mins}m ago`;
         const hours = Math.floor(mins / 60);
         if (hours < 24) return `${hours}h ago`;

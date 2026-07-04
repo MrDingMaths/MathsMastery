@@ -6,6 +6,7 @@ import { Confetti } from '../shared/confetti.js';
 import { AnswerChecker } from './trigAnswerChecker.js';
 import { StorageManager } from './storageManager.js';
 import { TrigQuestionGenerator } from './questions/trigQuestionGenerator.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 
 /**
  * TrigGameController - Main game orchestrator managing game flow and user interactions
@@ -15,6 +16,7 @@ export class TrigGameController {
         // Make CONFIG and StorageManager globally available for progress tracking modules
         window.CONFIG = CONFIG;
         window.StorageManager = StorageManager;
+        window.RatingUtils = RatingUtils;
 
         this.state = new GameState();
         this.ui = new TrigUI();
@@ -230,6 +232,10 @@ export class TrigGameController {
                     if (e.key === 'Escape') {
                         return;
                     }
+
+                    // Stop the dismissing keystroke leaking into the next question's input
+                    e.preventDefault();
+                    e.stopPropagation();
 
                     // Execute transition sequence
                     this.ui.hideTimerPausedMessage();

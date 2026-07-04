@@ -120,8 +120,6 @@ export const CONFIG = {
         // Fallback multiplier for any levels not explicitly configured
         'default': 1.0
     },
-    // localStorage key prefix for best time records (includes version for data migration)
-    STORAGE_PREFIX: 'mf_bestTime_v1_',
     // Confetti animation particle counts for different celebration levels
     CONFETTI: { 
         CORRECT: 40,     // Moderate celebration for individual correct answers

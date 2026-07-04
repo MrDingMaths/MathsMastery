@@ -241,6 +241,5 @@ export const CONFIG = {
         'splittingTheNumeratorMedium': 6,
         'splittingTheNumeratorHard': 6,
     },
-    STORAGE_PREFIX: 'algebra_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }
 };

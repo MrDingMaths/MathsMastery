@@ -219,17 +219,31 @@
                     mergedAttempts = mergedAttempts.slice(-MAX_ATTEMPTS);
                 }
 
-                // Preserve the earliest firstAttemptTime across both datasets
-                const localFirst  = localDrill?.firstAttemptTime  ?? Infinity;
-                const cloudFirst  = cloudDrill?.firstAttemptTime  ?? Infinity;
-                const localFirstDate  = localDrill?.firstAttemptDate  ?? null;
-                const cloudFirstDate  = cloudDrill?.firstAttemptDate  ?? null;
-                const firstAttemptTime = localFirst <= cloudFirst ? localFirst : cloudFirst;
-                const firstAttemptDate = localFirst <= cloudFirst ? localFirstDate : cloudFirstDate;
+                // Preserve the earliest baseline (firstAttemptTime + firstAttemptDate pair)
+                // across both datasets, choosing chronologically by date, not by time value.
+                const localFirstDate = localDrill?.firstAttemptDate ?? null;
+                const cloudFirstDate = cloudDrill?.firstAttemptDate ?? null;
+
+                let firstAttemptTime = null;
+                let firstAttemptDate = null;
+                if (localFirstDate != null && cloudFirstDate != null) {
+                    const useLocal = new Date(localFirstDate).getTime() <= new Date(cloudFirstDate).getTime();
+                    firstAttemptTime = useLocal ? (localDrill?.firstAttemptTime ?? null) : (cloudDrill?.firstAttemptTime ?? null);
+                    firstAttemptDate = useLocal ? localFirstDate : cloudFirstDate;
+                } else if (localFirstDate != null) {
+                    firstAttemptTime = localDrill?.firstAttemptTime ?? null;
+                    firstAttemptDate = localFirstDate;
+                } else if (cloudFirstDate != null) {
+                    firstAttemptTime = cloudDrill?.firstAttemptTime ?? null;
+                    firstAttemptDate = cloudFirstDate;
+                } else {
+                    // Neither side has a date (legacy data): keep whichever time exists
+                    firstAttemptTime = localDrill?.firstAttemptTime ?? cloudDrill?.firstAttemptTime ?? null;
+                }
 
                 mergedDrillHistory[levelKey] = this._recomputeDrillStats(
                     mergedAttempts,
-                    firstAttemptTime === Infinity ? null : firstAttemptTime,
+                    firstAttemptTime,
                     firstAttemptDate
                 );
             }

@@ -95,6 +95,5 @@ export const CONFIG = {
         'trigEquationsMedium': 17,
         'trigEquationsHard': 22,
     },
-    STORAGE_PREFIX: 'equations_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }
 };

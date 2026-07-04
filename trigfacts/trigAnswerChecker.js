@@ -162,7 +162,6 @@ export class AnswerChecker {
     normalizeLaTeX(latex) {
         return latex
             .replace(/\s+/g, '')
-            .replace(/\\frac\{1\}\{\\sqrt\{2\}\}/g, '\\frac{\\sqrt{2}}{2}')
             .replace(/\\frac\{\\sqrt\{2\}\}\{2\}/g, '\\frac{1}{\\sqrt{2}}')
             .replace(/\{1\}/g, '1')
             .replace(/\{2\}/g, '2')

@@ -56,6 +56,5 @@ export const CONFIG = {
         'sinCosSquaredIntEasy': 20,         'sinCosSquaredIntMedium': 20,         'sinCosSquaredIntHard': 20,
         'extensionMixedIntEasy': 20,        'extensionMixedIntMedium': 20,        'extensionMixedIntHard': 20,
     },
-    STORAGE_PREFIX: 'calculus_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }
 };

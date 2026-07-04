@@ -16,7 +16,9 @@ export function generateBonds(value, customMixedRange, inputPlaceholder) {
     } else {
         total = value;
     }
-    const num1 = Math.floor(Math.random() * (Math.abs(total) + 1));
+    const num1 = total < 0
+        ? -Math.floor(Math.random() * (Math.abs(total) + 1))
+        : Math.floor(Math.random() * (Math.abs(total) + 1));
     const num2 = total - num1;
 
     const formatType = Math.floor(Math.random() * 6); // 0, 1, 2, 3, 4, or 5

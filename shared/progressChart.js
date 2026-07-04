@@ -12,8 +12,6 @@ class ProgressChart {
 
     // Initialize chart for a specific drill with animation
     initChart(levelKey, levelName) {
-        console.log('InitChart called for:', levelKey, levelName);
-        
         // Make sure we have a canvas
         if (!this.canvas) {
             this.canvas = document.getElementById('progress-chart');
@@ -65,17 +63,14 @@ class ProgressChart {
     loadNewChart(levelKey, levelName) {
         this.currentDrill = levelKey;
         const drillData = this.progressTracker.getDrillProgress(levelKey);
-        
-        console.log('Drill data:', drillData);
-        
+
         if (!drillData || !drillData.attempts || drillData.attempts.length === 0) {
             this.showNoDataMessage();
             return;
         }
-        
+
         const chartData = this.prepareChartData(drillData, levelName);
-        console.log('Chart data prepared:', chartData);
-        
+
         this.createChart(chartData);
     }
 
@@ -91,11 +86,8 @@ class ProgressChart {
 
     // Create Chart.js chart
     createChart(chartData) {
-        console.log('Creating chart with data:', chartData);
-        
         // Destroy existing chart if it exists
         if (this.chart) {
-            console.log('Destroying existing chart');
             try {
                 this.chart.destroy();
             } catch (e) {
@@ -108,7 +100,6 @@ class ProgressChart {
         if (this.canvas && Chart.getChart) {
             const existingChart = Chart.getChart(this.canvas);
             if (existingChart) {
-                console.log('Found existing chart instance, destroying it');
                 existingChart.destroy();
             }
         }
@@ -273,7 +264,6 @@ class ProgressChart {
                                     const minutes = Math.floor(timeSec / 60);
                                     const seconds = Math.floor(timeSec % 60);
                                     const timePerQuestion = timeSec / (window.CONFIG?.REQUIRED_STREAK || 15);
-                                    const zone = context.raw.zone || 'Unknown';
                                     return [
                                         `${context.dataset.label}: ${minutes}:${seconds.toString().padStart(2, '0')}`,
                                         `⏱️ ${timePerQuestion.toFixed(1)}s per question`,
@@ -346,8 +336,6 @@ class ProgressChart {
                     }
                 }
             });
-            
-            console.log('Chart created successfully');
         } catch (error) {
             console.error('Error creating chart:', error);
         }
@@ -362,8 +350,6 @@ class ProgressChart {
 
     // Show no data message
     showNoDataMessage() {
-        console.log('Showing no data message');
-        
         if (this.chart) {
             this.chart.destroy();
             this.chart = null;
@@ -394,7 +380,7 @@ class ProgressChart {
         }
         
         // Use CONFIG.LEVEL_GROUPS to dynamically find the level name
-        const config = CONFIG || window.CONFIG;
+        const config = window.CONFIG;
         if (!config || !config.LEVEL_GROUPS) {
             return key; // Fallback to key if CONFIG not available
         }

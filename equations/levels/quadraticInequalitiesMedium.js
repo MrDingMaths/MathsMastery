@@ -31,4 +31,4 @@ export default new BaseLevel('quadraticInequalitiesMedium', 'Quadratic Inequalit
     QB('4x^{2} - 1 \\leq 0', '-1/2', '1/2', false, false),
     QU('2x^{2} - 7x + 6 > 0', '<', '3/2', '>', '2'),
     QB('3x^{2} + 7x - 6 \\leq 0', '-3', '2/3', false, false),
-]);
+], { toleranceDp: 2 });

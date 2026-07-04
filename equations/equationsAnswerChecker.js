@@ -79,7 +79,7 @@ export class EquationsAnswerChecker {
             if (userLatex == null || String(userLatex).trim() === '') return false;
             const exp = expected[key];
             if (exp && typeof exp === 'object' && !Array.isArray(exp) && exp.ineq) {
-                if (!this._inequalityCheck(userLatex, exp)) return false;
+                if (!this._inequalityCheck(userLatex, exp, tolerance)) return false;
             } else if (Array.isArray(exp)) {
                 if (!this._multiRootCheck(userLatex, exp, tolerance)) return false;
             } else {
@@ -125,24 +125,24 @@ export class EquationsAnswerChecker {
 
     // --- Inequality checking ---
 
-    _inequalityCheck(userLatex, expected) {
+    _inequalityCheck(userLatex, expected, tolerance = null) {
         try {
-            if (expected.ineq === 'union') return this._unionIneqCheck(userLatex, expected);
-            if (expected.ineq === 'between') return this._betweenIneqCheck(userLatex, expected);
-            return this._linearIneqCheck(userLatex, expected);
+            if (expected.ineq === 'union') return this._unionIneqCheck(userLatex, expected, tolerance);
+            if (expected.ineq === 'between') return this._betweenIneqCheck(userLatex, expected, tolerance);
+            return this._linearIneqCheck(userLatex, expected, tolerance);
         } catch (e) {
             return false;
         }
     }
 
-    _linearIneqCheck(userLatex, expected) {
+    _linearIneqCheck(userLatex, expected, tolerance = null) {
         const parsed = _parseLinearIneq(userLatex);
         if (!parsed) return false;
         if (parsed.op !== expected.ineq) return false;
-        return this._scalarEqual(parsed.rhs, expected.rhs);
+        return this._scalarEqual(parsed.rhs, expected.rhs, tolerance);
     }
 
-    _unionIneqCheck(userLatex, expected) {
+    _unionIneqCheck(userLatex, expected, tolerance = null) {
         const pieces = this._splitTopLevelCommas(userLatex)
             .map(s => s.trim()).filter(Boolean);
         if (pieces.length !== expected.parts.length) return false;
@@ -153,7 +153,7 @@ export class EquationsAnswerChecker {
         const remaining = [...expected.parts];
         for (const userPart of parsed) {
             const idx = remaining.findIndex(
-                ep => userPart.op === ep.ineq && this._scalarEqual(userPart.rhs, ep.rhs)
+                ep => userPart.op === ep.ineq && this._scalarEqual(userPart.rhs, ep.rhs, tolerance)
             );
             if (idx === -1) return false;
             remaining.splice(idx, 1);
@@ -161,13 +161,13 @@ export class EquationsAnswerChecker {
         return remaining.length === 0;
     }
 
-    _betweenIneqCheck(userLatex, expected) {
+    _betweenIneqCheck(userLatex, expected, tolerance = null) {
         const parsed = _parseBoundedIneq(userLatex);
         if (!parsed) return false;
         if (parsed.loStrict !== expected.loStrict) return false;
         if (parsed.hiStrict !== expected.hiStrict) return false;
-        return this._scalarEqual(parsed.lo, expected.lo) &&
-               this._scalarEqual(parsed.hi, expected.hi);
+        return this._scalarEqual(parsed.lo, expected.lo, tolerance) &&
+               this._scalarEqual(parsed.hi, expected.hi, tolerance);
     }
 
     // --- Scalar / multi-root checking ---
@@ -175,19 +175,15 @@ export class EquationsAnswerChecker {
     _scalarEqual(userLatex, expectedLatex, tolerance = null) {
         try {
             const symbolic = this.engine.compareExpressions(userLatex, expectedLatex);
-            console.log(`[AnswerChecker] symbolic "${userLatex}" vs "${expectedLatex}":`, symbolic);
             if (symbolic) return true;
             if (tolerance === null) {
-                console.log(`[AnswerChecker] no tolerance — rejecting`);
                 return false;
             }
             const userVal = this.engine.evaluateNumeric(userLatex);
             const expectedVal = this.engine.evaluateNumeric(expectedLatex);
-            console.log(`[AnswerChecker] numeric user=${userVal} expected=${expectedVal} tolerance=${tolerance}`);
             if (userVal === null || expectedVal === null) return false;
             return Math.abs(userVal - expectedVal) < tolerance;
         } catch (e) {
-            console.log(`[AnswerChecker] error:`, e);
             return false;
         }
     }

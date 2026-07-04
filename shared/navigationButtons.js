@@ -120,7 +120,7 @@ class SiteHeader {
                 const firstName = (user.user_metadata?.full_name || user.user_metadata?.name || '').split(' ')[0] || 'Account';
                 const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
                 pill.innerHTML = avatarUrl
-                    ? `<img class="auth-avatar" src="${avatarUrl}" alt="${_escapeAttr(firstName)}">`
+                    ? `<img class="auth-avatar" src="${_escapeAttr(avatarUrl)}" alt="${_escapeAttr(firstName)}">`
                     : `<span class="auth-avatar auth-avatar-initial">${_escapeAttr(firstName[0].toUpperCase())}</span>`;
                 pill.innerHTML += `<span class="auth-user-name">${_escapeHtmlNav(firstName)}</span>`;
 

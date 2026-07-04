@@ -263,18 +263,6 @@ export class GameController {
             isCorrect = userAnswer &&
                         userAnswer.operation === correctAnswer.correctOperation &&
                         Math.abs(userAnswer.factor - correctAnswer.correctFactor) < 1e-9;
-
-            // Debug logging
-            if (userAnswer) {
-                console.log('Unit conversion check:');
-                console.log('User operation:', JSON.stringify(userAnswer.operation), 'Type:', typeof userAnswer.operation);
-                console.log('Correct operation:', JSON.stringify(correctAnswer.correctOperation), 'Type:', typeof correctAnswer.correctOperation);
-                console.log('User factor:', userAnswer.factor, 'Type:', typeof userAnswer.factor);
-                console.log('Correct factor:', correctAnswer.correctFactor, 'Type:', typeof correctAnswer.correctFactor);
-                console.log('Operation match:', userAnswer.operation === correctAnswer.correctOperation);
-                console.log('Factor match:', Math.abs(userAnswer.factor - correctAnswer.correctFactor) < 1e-9);
-                console.log('Is correct:', isCorrect);
-            }
         } else if (this.state.currentLevel.key === 'fdpConversions' || this.state.currentLevel.key === 'fdpConversionsMultiples') {
             isCorrect = true;
             for (const key in correctAnswer) {

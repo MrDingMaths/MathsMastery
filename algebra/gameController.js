@@ -73,23 +73,6 @@ export class GameController {
             }
         };
         document.addEventListener('keydown', this.handleGlobalKeys);
-
-        // Capture phase so MathLive doesn't swallow the Ctrl+\ key
-        /* this.handleSkipKey = (e) => {
-            if (e.key === '\\' && e.ctrlKey && !this.ui.elements.gameScreen.classList.contains('hidden')) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (this._moveToNextQuestion) {
-                    document.removeEventListener('keydown', this._moveToNextQuestion);
-                    this._moveToNextQuestion = null;
-                }
-                this.ui.hideTimerPausedMessage();
-                this.answerSubmitted = false;
-                this.isChecking = false;
-                this.generateQuestion();
-            }
-        };
-        document.addEventListener('keydown', this.handleSkipKey, { capture: true }); */
     }
 
     startGame(level) {
@@ -116,16 +99,15 @@ export class GameController {
         for (let i = 0; i < 5 && this.lastQuestionProblem && question.problem === this.lastQuestionProblem; i++) {
             question = this.questionGen.generateQuestion(this.state.currentLevel.key);
         }
-        this.lastQuestionProblem = question.problem;
         if (!question) {
             console.error("Failed to generate question");
             return;
         }
-        
+        this.lastQuestionProblem = question.problem;
+
         this.state.currentQuestion = question;
         this.state.currentAnswer = question.answer;
         this.ui.displayQuestion(question);
-        this.ui.updateTestAnswer(question.answer);
     }
 
     checkAnswer() {
@@ -145,7 +127,7 @@ export class GameController {
         this.state.incrementQuestionsAttempted();
 
         const correctAnswer = this.state.currentAnswer;
-        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer, this.state.currentLevel.value);
+        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer);
 
         if (isCorrect) {
             // Reset incorrect count on correct answer
@@ -245,7 +227,6 @@ export class GameController {
         // Add progress tracking
         try {
             if (window.progressTracker) {
-                console.log('Recording progress for:', this.state.currentLevel.key, 'Time:', time);
                 window.progressTracker.recordProgress(
                     this.state.currentLevel.key,
                     time,
@@ -297,7 +278,6 @@ export class GameController {
         // Record mistake for progress tracking
         try {
             if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
-                console.log('Recording mistake for:', this.state.currentLevel.key);
                 window.progressTracker.recordMistake(
                     this.state.currentLevel.key,
                     this.state.currentLevel.name,

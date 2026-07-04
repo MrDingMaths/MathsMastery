@@ -26,8 +26,8 @@ class Leaderboard {
                 best_time: bestTime,
                 rating_key: rating.key,
                 rating_name: rating.name,
-                display_name: displayName,
-                updated_at: new Date().toISOString()
+                display_name: displayName
+                // updated_at set server-side by trg_leaderboard_entries_updated_at (client clocks untrusted)
             }, { onConflict: 'user_id,app,level_key' });
     }
 
@@ -107,7 +107,7 @@ class Leaderboard {
             const entries = await this.fetchTop10(app, levelKey);
 
             if (entries.length === 0) {
-                container.innerHTML = '<p class="leaderboard-empty">Sign in to be the first on the leaderboard!</p>';
+                container.innerHTML = '<p class="leaderboard-empty">Be the first on the leaderboard!</p>';
             } else {
                 const ratingEmojis = {
                     'true-mastery': '💖',

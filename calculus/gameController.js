@@ -66,22 +66,6 @@ export class GameController {
         };
         document.addEventListener('keydown', this.handleGlobalKeys);
 
-        // Capture phase so MathLive doesn't swallow the \ key (skip question)
-        /* this.handleSkipKey = (e) => {
-            if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
-                e.stopPropagation();
-                if (this._moveToNextQuestion) {
-                    document.removeEventListener('keydown', this._moveToNextQuestion);
-                    this._moveToNextQuestion = null;
-                }
-                this.ui.hideTimerPausedMessage();
-                this.timer.start();
-                this.answerSubmitted = false;
-                this.isChecking = false;
-                this.generateQuestion();
-            }
-        };
-        document.addEventListener('keydown', this.handleSkipKey, { capture: true }); */
     }
 
     startGame(level) {
@@ -108,16 +92,15 @@ export class GameController {
         for (let i = 0; i < 5 && this.lastQuestionProblem && question.problem === this.lastQuestionProblem; i++) {
             question = this.questionGen.generateQuestion(this.state.currentLevel.key);
         }
-        this.lastQuestionProblem = question.problem;
         if (!question) {
             console.error("Failed to generate question");
             return;
         }
+        this.lastQuestionProblem = question.problem;
 
         this.state.currentQuestion = question;
         this.state.currentAnswer = question.answer;
         this.ui.displayQuestion(question);
-        this.ui.updateTestAnswer(question.answer);
     }
 
     checkAnswer() {

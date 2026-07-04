@@ -2146,7 +2146,7 @@ class AlgebraEngine {
     evaluateNumeric(latexStr) {
         try {
             const mathExpr = this.latexToMathJS(latexStr);
-            console.log(`[evaluateNumeric] latex="${latexStr}" → mathExpr="${mathExpr}"`);
+            this.log(`[evaluateNumeric] latex="${latexStr}" → mathExpr="${mathExpr}"`);
             const ast = this.math.parse(mathExpr);
             const MATH_CONSTANTS = new Set(['pi', 'e', 'i', 'Infinity', 'NaN', 'phi', 'tau']);
             let hasVariable = false;
@@ -2160,18 +2160,18 @@ class AlgebraEngine {
                 symbolsFound.push(node.name);
             });
             if (hasVariable) {
-                console.log(`[evaluateNumeric] → null (has variables: ${symbolsFound.join(', ')})`);
+                this.log(`[evaluateNumeric] → null (has variables: ${symbolsFound.join(', ')})`);
                 return null;
             }
             const result = ast.evaluate();
             if (typeof result !== 'number' || !isFinite(result)) {
-                console.log(`[evaluateNumeric] → null (result not finite number: ${result}, type: ${typeof result})`);
+                this.log(`[evaluateNumeric] → null (result not finite number: ${result}, type: ${typeof result})`);
                 return null;
             }
-            console.log(`[evaluateNumeric] → ${result}`);
+            this.log(`[evaluateNumeric] → ${result}`);
             return result;
         } catch (e) {
-            console.log(`[evaluateNumeric] → null (exception: ${e.message})`);
+            this.log(`[evaluateNumeric] → null (exception: ${e.message})`);
             return null;
         }
     }

@@ -9,7 +9,7 @@ const DarkMode = (() => {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
 
-    function apply(theme) {
+    function apply(theme, persist = false) {
         document.documentElement.setAttribute('data-theme', theme);
         document.querySelectorAll('.dark-mode-toggle-icon').forEach(el => {
             el.textContent = theme === 'dark' ? '🌙' : '☀️';
@@ -17,22 +17,24 @@ const DarkMode = (() => {
         document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
             btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
         });
-        localStorage.setItem(KEY, theme);
+        if (persist) {
+            localStorage.setItem(KEY, theme);
+        }
     }
 
     function toggle() {
         const current = document.documentElement.getAttribute('data-theme');
-        apply(current === 'dark' ? 'light' : 'dark');
+        apply(current === 'dark' ? 'light' : 'dark', true);
     }
 
     function init() {
         const saved = localStorage.getItem(KEY);
-        apply(saved || getSystemPreference());
+        apply(saved || getSystemPreference(), false);
 
         // Track system preference changes only when user hasn't set an explicit preference
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             if (!localStorage.getItem(KEY)) {
-                apply(e.matches ? 'dark' : 'light');
+                apply(e.matches ? 'dark' : 'light', false);
             }
         });
     }

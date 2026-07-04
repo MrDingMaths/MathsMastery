@@ -104,7 +104,6 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `gameState.js` | Extends `BaseGameState`; also re-exports `Timer` and a `StorageManager` stub |
 | `ui.js` | Level grid + dynamic FDP-conversion form rendering |
 | `questionGenerator.js` | Dynamic generation per level type |
-| `effects.js` | One-line re-export of `shared/confetti.js` |
 | `utils.js` | Small utilities |
 | `levels/numberBonds.js` | Bonds to 10/20/100, negatives |
 | `levels/multiplication.js` | Group facts (2-12), negatives, doubling, perfect squares |
@@ -241,7 +240,7 @@ The landing page (`index.html`) has a hub leaderboard modal (`HubLeaderboard` cl
 |--------|------|-------|
 | `id` | UUID PK | Default `gen_random_uuid()` |
 | `user_id` | UUID | FK → `profiles.user_id` |
-| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, or `trigfacts` |
+| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, `trigfacts`, `equations`, or `calculus` |
 | `level_key` | TEXT | Matches config level keys |
 | `best_time` | INTEGER | Seconds |
 | `rating_key` | TEXT | e.g. `mastery`, `expert` |
