@@ -37,14 +37,14 @@ export default new BaseLevel(
             {problem: "x^2 - \\frac{1}{4}", answer: "(x - \\frac{1}{2})(x + \\frac{1}{2})"},
             {problem: "x^2 - \\frac{4}{25}", answer: "(x - \\frac{2}{5})(x + \\frac{2}{5})"},
             {problem: "25x^2 - \\frac{9}{16}", answer: "(5x - \\frac{3}{4})(5x + \\frac{3}{4})"},
-            {problem: "\\frac{x^2}{9} - 1", answer: "(\\frac{x}{3} - 1)(\\frac{x}{3} + 1)"},
-            {problem: "\\frac{a^2}{4} - \\frac{b^2}{9}", answer: "(\\frac{a}{2} - \\frac{b}{3})(\\frac{a}{2} + \\frac{b}{3})"},
+            {problem: "\\frac{x^2}{9} - 1", answer: "\\left(\\frac{x}{3} - 1\\right)\\left(\\frac{x}{3} + 1\\right)"},
+            {problem: "\\frac{a^2}{4} - \\frac{b^2}{9}", answer: "\\left(\\frac{a}{2} - \\frac{b}{3}\\right)\\left(\\frac{a}{2} + \\frac{b}{3}\\right)"},
             {problem: "x^2 - \\frac{1}{9}", answer: "(x - \\frac{1}{3})(x + \\frac{1}{3})"},
-            {problem: "\\frac{x^2}{16} - \\frac{1}{4}", answer: "(\\frac{x}{4} - \\frac{1}{2})(\\frac{x}{4} + \\frac{1}{2})"},
+            {problem: "\\frac{x^2}{16} - \\frac{1}{4}", answer: "\\left(\\frac{x}{4} - \\frac{1}{2}\\right)\\left(\\frac{x}{4} + \\frac{1}{2}\\right)"},
             {problem: "4x^2 - \\frac{1}{9}", answer: "(2x - \\frac{1}{3})(2x + \\frac{1}{3})"},
-            {problem: "\\frac{9x^2}{4} - 1", answer: "(\\frac{3x}{2} - 1)(\\frac{3x}{2} + 1)"},
+            {problem: "\\frac{9x^2}{4} - 1", answer: "\\left(\\frac{3x}{2} - 1\\right)\\left(\\frac{3x}{2} + 1\\right)"},
             {problem: "x^2 - \\frac{9}{25}", answer: "(x - \\frac{3}{5})(x + \\frac{3}{5})"},
-            {problem: "\\frac{x^2}{25} - \\frac{4}{9}", answer: "(\\frac{x}{5} - \\frac{2}{3})(\\frac{x}{5} + \\frac{2}{3})"},
+            {problem: "\\frac{x^2}{25} - \\frac{4}{9}", answer: "\\left(\\frac{x}{5} - \\frac{2}{3}\\right)\\left(\\frac{x}{5} + \\frac{2}{3}\\right)"},
             
             // Common factor first
             {problem: "3x^2 - 108", answer: "3(x-6)(x+6)"},
@@ -73,7 +73,10 @@ export default new BaseLevel(
             {problem: "40x^2 - 10", answer: "10(2x-1)(2x+1)"},
             {problem: "16 - 4y^2", answer: "4(2-y)(2+y)"},
             {problem: "27x^2 - 3", answer: "3(3x-1)(3x+1)"},
-            
+            {problem: "3x^2 - 75", answer: "3(x-5)(x+5)"},
+            {problem: "7x^2 - 63", answer: "7(x-3)(x+3)"},
+            {problem: "-20 + 5x^2", answer: "5(x-2)(x+2)"},
+
             // Additional higher powers with coefficients
             {problem: "9x^6 - y^4", answer: "(3x^3 - y^2)(3x^3 + y^2)"},
             {problem: "a^4 - 25b^2", answer: "(a^2 - 5b)(a^2 + 5b)"},

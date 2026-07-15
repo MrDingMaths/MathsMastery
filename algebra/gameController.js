@@ -24,7 +24,7 @@ export class GameController {
         this.lastQuestionProblem = null;
         
         // Initialize MathQuill after DOM is ready
-        this.ui.initializeMathQuill();
+        this.ui.initializeMathInputs();
         
         this.setupEventListeners();
         this.initializeProgressTracking();
@@ -45,7 +45,8 @@ export class GameController {
         // Set up success screen callbacks (Enter = replay, Escape = back to levels)
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
 
         // Initialize the learning path interface
@@ -56,8 +57,8 @@ export class GameController {
         // Quit button (game screen)
         this.ui.elements.quitBtn.addEventListener('click', () => this.confirmQuit());
 
-        // Listen for Enter key from MathQuill
-        document.addEventListener('mathquill-enter', () => {
+        // Listen for Enter key from the math field
+        document.addEventListener('math-enter', () => {
             if (!this.isChecking && !this.answerSubmitted) {
                 this.checkAnswer();
             }
@@ -78,6 +79,7 @@ export class GameController {
         this.state.setLevel(level);
         this.ui.showScreen('game');
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.ui.updateLevelName(level.name);
         this.timer.start();
         this.generateQuestion();
@@ -91,21 +93,21 @@ export class GameController {
 
         // Reset incorrect count when moving to new question
         this.state.resetIncorrectCount();
-        
+        this.ui.updateSecondChances();
+
         let question = this.questionGen.generateQuestion(this.state.currentLevel.key);
         for (let i = 0; i < 5 && this.lastQuestionProblem && question.problem === this.lastQuestionProblem; i++) {
             question = this.questionGen.generateQuestion(this.state.currentLevel.key);
         }
-        this.lastQuestionProblem = question.problem;
         if (!question) {
             console.error("Failed to generate question");
             return;
         }
-        
+        this.lastQuestionProblem = question.problem;
+
         this.state.currentQuestion = question;
         this.state.currentAnswer = question.answer;
         this.ui.displayQuestion(question);
-        this.ui.updateTestAnswer(question.answer);
     }
 
     checkAnswer() {
@@ -125,7 +127,7 @@ export class GameController {
         this.state.incrementQuestionsAttempted();
 
         const correctAnswer = this.state.currentAnswer;
-        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer, this.state.currentLevel.value);
+        const isCorrect = this.algebraEngine.compareExpressions(userAnswer, correctAnswer);
 
         if (isCorrect) {
             // Reset incorrect count on correct answer
@@ -155,7 +157,7 @@ export class GameController {
                 this.state.resetStreak();
                 this.ui.updateStreak(0);
                 this.ui.showInputFeedback(false);
-                this.ui.showFeedback(false, null, correctAnswer, this.state.currentQuestion.problem);
+                this.ui.showFeedback(false, null, correctAnswer, this.state.currentQuestion.problem, userAnswer);
                 this.ui.showTimerPausedMessage();
                 this.timer.reset();
 
@@ -193,6 +195,7 @@ export class GameController {
                 }, 50);
             } else {
                 // First incorrect attempt - give second chance
+                this.ui.updateSecondChances(0);
                 this.ui.showInputFeedback(false);
                 this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
 
@@ -224,7 +227,6 @@ export class GameController {
         // Add progress tracking
         try {
             if (window.progressTracker) {
-                console.log('Recording progress for:', this.state.currentLevel.key, 'Time:', time);
                 window.progressTracker.recordProgress(
                     this.state.currentLevel.key,
                     time,
@@ -237,6 +239,9 @@ export class GameController {
         }
         
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
+
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
 
         try {
             this.ui.showSuccess(
@@ -273,7 +278,6 @@ export class GameController {
         // Record mistake for progress tracking
         try {
             if (window.progressTracker && this.state.currentLevel && this.state.currentQuestion) {
-                console.log('Recording mistake for:', this.state.currentLevel.key);
                 window.progressTracker.recordMistake(
                     this.state.currentLevel.key,
                     this.state.currentLevel.name,
@@ -324,20 +328,20 @@ export class GameController {
     updateLearningPathInterface() {
         const keyboardTableHTML = `<table>
             <tr>
-                <td><span class="mathquill-static" id="power-example">a^n</span></td>
+                <td><span class="math-static" id="power-example">a^n</span></td>
                 <td><span class="dcg">^</span> (<span class="dcg">shift</span><span class="dcg">6</span>)</td>
-                <td><span class="mathquill-static" id="fraction-example">\\frac{a}{b}</span></td>
+                <td><span class="math-static" id="fraction-example">\\frac{a}{b}</span></td>
                 <td><span class="dcg">a</span><span class="dcg">/</span><span class="dcg">b</span></td>
             </tr>
             <tr>
-                <td><span class="mathquill-static" id="sqrt-example">\\sqrt{a}</span></td>
+                <td><span class="math-static" id="sqrt-example">\\sqrt{a}</span></td>
                 <td><span class="dcg">s</span><span class="dcg">q</span><span class="dcg">r</span><span class="dcg">t</span></td>
-                <td><span class="mathquill-static" id="nthroot-example">\\sqrt[n]{a}</span></td>
+                <td><span class="math-static" id="nthroot-example">\\sqrt[n]{a}</span></td>
                 <td><span class="dcg">n</span><span class="dcg">t</span><span class="dcg">h</span><span class="dcg">r</span><span class="dcg">o</span><span class="dcg">o</span><span class="dcg">t</span></td>
             </tr>
         </table>`;
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Algebra Skills',
+            subjectName: 'Algebra',
             subjectSubtitle: 'Expand, simplify & factorise',
             subjectIcon: '𝑥',
             accentColor: '#4A7CF7',
@@ -349,6 +353,15 @@ export class GameController {
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
         } else {
             this.quitGame();
         }

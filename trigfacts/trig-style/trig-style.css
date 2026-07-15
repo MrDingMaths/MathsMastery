@@ -57,50 +57,57 @@ body {
     display: none;
 }
 
-/* Selectively reset Tailwind preflight styles inside MathQuill containers */
-.mathquill-editable {
-    margin: 0;
+/* MathLive math-field input styles */
+math-field.math-field-input {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    min-height: 56px;
     border: 2px solid var(--color-primary);
-    padding: 10px;
-    line-height: normal;
-}
-
-/* MathQuill Input Styles */
-.mathquill-input {
-    min-width: 100px;
-    height: 100px;
-    border: 2px solid var(--color-primary);
-    border-radius: 0.5rem;
-    padding: 0.2rem;
+    border-radius: 6px;
+    padding: 10px 52px 10px 12px;
     font-size: 2rem;
     background-color: white;
     margin: 0 0.25rem;
-    transition: all 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     box-sizing: border-box;
     vertical-align: middle;
     text-align: center;
     white-space: nowrap;
+    cursor: text;
+    --primary: var(--color-primary);
+    --caret-color: var(--color-primary);
+    --contains-highlight-background-color: rgba(59, 130, 246, 0.08);
+    --selection-background-color: rgba(59, 130, 246, 0.25);
+    --selection-color: var(--color-gray-900);
 }
 
-.mathquill-input .mq-root-block {
-    text-align: center !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 100% !important;
+math-field.math-field-input::part(menu-toggle) {
+    display: none;
 }
 
-.mathquill-input:focus-within {
+math-field.math-field-input::part(virtual-keyboard-toggle) {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+math-field.math-field-input:focus,
+math-field.math-field-input:focus-within {
     border-color: var(--color-primary-dark);
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    outline: none;
 }
 
-.mathquill-input.correct {
+math-field.math-field-input.correct {
     border-color: var(--color-success);
     background-color: rgba(16, 185, 129, 0.05);
 }
 
-.mathquill-input.incorrect {
+math-field.math-field-input.incorrect {
     border-color: var(--color-error);
     background-color: rgba(239, 68, 68, 0.05);
 }
@@ -162,6 +169,11 @@ body {
     margin-bottom: 2rem;
 }
 
+.my-12 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
 .p-4 {
     padding: 1rem;
 }
@@ -195,12 +207,9 @@ body {
         font-size: 0.8rem;
     }
 
-    .mathquill-input {
+    math-field.math-field-input {
         min-width: 80px;
-        width: 80px;
-        min-height: 60px;
-        height: 60px;
-        font-size: 1.2rem;
+        min-height: 50px;
     }
 }
 
@@ -222,12 +231,9 @@ body {
         font-size: clamp(1.2rem, 3vw, 1.8rem);
     }
 
-    .mathquill-input {
+    math-field.math-field-input {
         min-width: 70px;
-        width: 70px;
-        min-height: 50px;
-        height: 50px;
-        font-size: 1rem;
+        min-height: 44px;
     }
 }
 

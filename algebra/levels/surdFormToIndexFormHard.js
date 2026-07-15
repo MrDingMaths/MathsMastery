@@ -16,11 +16,7 @@ export default new BaseLevel(
             {problem: "6\\sqrt[7]{x^8y^{12}}", answer: "6x^{\\frac{8}{7}}y^{\\frac{12}{7}}"},
             {problem: "7\\sqrt[3]{x^{10}y^8a^5}", answer: "7x^{\\frac{10}{3}}y^{\\frac{8}{3}}a^{\\frac{5}{3}}"},
             
-            // Multi-variable with constants
-            {problem: "\\sqrt[4]{81x^8y^{12}}", answer: "3x^2y^3"},
-            {problem: "\\sqrt[3]{125x^6y^9}", answer: "5x^2y^3"},
-            {problem: "\\sqrt[5]{243x^{10}y^{15}}", answer: "3x^2y^3"},
-            {problem: "\\sqrt[6]{64x^{12}y^{18}}", answer: "2x^2y^3"},
+            // Multi-variable with constants (large less-common roots)
             {problem: "\\sqrt[7]{128x^{14}y^{21}}", answer: "2x^2y^3"},
             {problem: "\\sqrt[8]{256x^{16}y^{24}}", answer: "2x^2y^3"},
             
@@ -50,7 +46,9 @@ export default new BaseLevel(
             {problem: "32\\sqrt{2}", answer: "2^{\\frac{11}{2}}"},
             {problem: "125\\sqrt{5}", answer: "5^{\\frac{7}{2}}"},
             
-            // Cube and higher same base
+            // Cube and higher same base (coefficient = base^k, k≥2)
+            {problem: "9\\sqrt[4]{3}", answer: "3^{\\frac{9}{4}}"},
+            {problem: "4\\sqrt[5]{2}", answer: "2^{\\frac{11}{5}}"},
             {problem: "8\\sqrt[3]{2}", answer: "2^{\\frac{10}{3}}"},
             {problem: "9\\sqrt[3]{3}", answer: "3^{\\frac{7}{3}}"},
             {problem: "27\\sqrt[3]{3}", answer: "3^{\\frac{10}{3}}"},
@@ -84,8 +82,8 @@ export default new BaseLevel(
             {problem: "\\sqrt[{11}]{2048x^{33}}", answer: "2x^3"},
             
             // Extreme multi-step conversions
-            {problem: "\\frac{x^3\\sqrt[4]{x^7}}{\\sqrt[3]{x^8}}", answer: "x^{\\frac{25}{12}}"},
-            {problem: "\\frac{\\sqrt[5]{x^{12}}}{x^2\\sqrt{x^3}}", answer: "x^{-\\frac{11}{10}}"},
-            {problem: "\\frac{x\\sqrt[6]{x^{11}}}{\\sqrt[4]{x^9}}", answer: "\\x^{\\frac{7}{12}}"}
+            {problem: "x^4 \\sqrt[5]{x^3}", answer: "x^{\\frac{23}{5}}"},
+            {problem: "\\frac{x^5}{\\sqrt[4]{x^9}}", answer: "x^{\\frac{11}{4}}"},
+            {problem: "x^2 \\sqrt[3]{x^7}", answer: "x^{\\frac{13}{3}}"}
         ]
 );

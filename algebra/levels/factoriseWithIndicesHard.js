@@ -1,0 +1,38 @@
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel(
+    'factoriseWithIndicesHard',
+    'Factorise with Indices (Hard)',
+    [
+        { problem: "\\frac{6^{2n} \\times 2^{n+1}}{12^n \\times 3^n}",  answer: "2^{n+1}" },
+        { problem: "\\frac{10^n \\times 45^n}{9^n \\times 2^n}",                  answer: "5^{2n}" },
+        { problem: "\\frac{35^2 \\times 5^2 \\times 7^6}{25^4 \\times 49^3}",                  answer: "\\frac{49}{625}" },
+        { problem: "\\frac{18^{n-1} \\times 12^{n+1}}{9^n \\times 8^n}",                      answer: "2 \\times 3^{n-1}" },
+        { problem: "\\frac{15^{2n} \\times 4^{n-1}}{9^n \\times 10^n}",                       answer: "5^n \\times 2^{n-2}" },
+        { problem: "\\frac{6^{2n-1} \\times 2^{n+3}}{4^{n+1} \\times 3^{2n}}",                answer: "\\frac{2^n}{3}" },
+        { problem: "\\frac{6^{2n} \\times 15^n}{9^n \\times 10^n}",                            answer: "6^n" },
+        { problem: "\\frac{2^{n+3} - 4 \\times 2^n}{2^{2n} - 4^{n-1}}",                       answer: "\\frac{16}{3 \\times 2^n}" },
+        { problem: "\\frac{12^x + 1}{6^{2x} + 3^x}",                                          answer: "\\frac{1}{3^x}" },
+        { problem: "\\frac{12^n - 18^n}{3^n - 2^n}",                                          answer: "-2^n \\times 3^n" },
+        { problem: "\\frac{6^n - 9^n}{3^n - 2^n}",                                            answer: "-3^n" },
+        { problem: "\\frac{2^{3n} + 4^n}{2^{n+1} + 2}",                                       answer: "2^{2n-1}" },
+        { problem: "\\frac{10^n - 2^n}{5^n - 1}",                                              answer: "2^n" },
+        { problem: "\\frac{6^n + 2^n}{3^n + 1}",                                              answer: "2^n" },
+        { problem: "\\frac{18^n - 2^n}{3^n - 1}",                                              answer: "2^n(3^n + 1)" },
+        { problem: "\\frac{20^n - 4^n}{5^n - 1}",                                              answer: "2^{2n}" },
+        { problem: "\\frac{9^n - 1}{3^n - 1}",                                                 answer: "3^n + 1" },
+        { problem: "\\frac{5^{2n} - 5^n}{5^n - 1}",                                           answer: "5^n" },
+        { problem: "\\frac{4^n - 9}{2^n - 3}",                                                 answer: "2^n + 3" },
+        { problem: "\\frac{3^{2n} - 4}{3^n - 2}",                                              answer: "3^n + 2" },
+        { problem: "\\frac{4^n - 1}{2^n - 1}",                                                 answer: "2^n + 1" },
+        { problem: "\\frac{2^{4n} - 9}{2^{2n} - 3}",                                          answer: "2^{2n} + 3" },
+        { problem: "\\frac{5^{2n} - 9}{5^n - 3}",                                              answer: "5^n + 3" },
+        { problem: "\\frac{2^{2n} - 25}{2^n - 5}",                                             answer: "2^n + 5" },
+        { problem: "5^{2x} - 2^{2y}",                                                          answer: "(5^x + 2^y)(5^x - 2^y)" },
+        { problem: "25^n - 4^n",                                                               answer: "(5^n + 2^n)(5^n - 2^n)" },
+        { problem: "49^n - 4^n",                                                               answer: "(7^n + 2^n)(7^n - 2^n)" },
+        { problem: "3^{2n} - 1",                                                               answer: "(3^n + 1)(3^n - 1)" },
+        { problem: "2^{4x} - 2^{6x}",                                                          answer: "2^{4x}(1 + 2^x)(1 - 2^x)" },
+        { problem: "4^n - 6 \\times 2^n + 9",                                                  answer: "(2^n - 3)^2" },
+    ]
+);

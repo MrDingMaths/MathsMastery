@@ -9,224 +9,237 @@ export const CONFIG = {
     POSITIVE_FEEDBACK: ["Awesome!", "Great Job!", "You got it!", "Fantastic!", "Brilliant!", "Keep it up!", "Nice!", "Correct!"],
     SECOND_CHANCE_FEEDBACK: ["Try again", "Not quite right", "Have another go!", "Take another shot at it!"],
     RATING_THRESHOLDS: [
-        { maxAvg: 1.5, name: "Maths Queen", key: "true-mastery" },
-        { maxAvg: 2.5, name: "Mastery", key: "mastery" },
-        { maxAvg: 3.5, name: "Expert", key: "expert" },
+        { maxAvg: 2, name: "Maths Queen", key: "true-mastery" },
+        { maxAvg: 3, name: "Mastery", key: "mastery" },
+        { maxAvg: 4, name: "Expert", key: "expert" },
         { maxAvg: 5, name: "Developing", key: "developing" },
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],
     LEVEL_DIFFICULTY_MULTIPLIERS: {
         // Foundational Skills - Add Subtract Terms
-        'addSubtractTermsEasy': 1.8,
-        'addSubtractTermsMedium': 2.6,
-        'addSubtractTermsHard': 4.2,
+        'addSubtractTermsEasy': 2.0,
+        'addSubtractTermsMedium': 2.5,
+        'addSubtractTermsHard': 4,
 
         // Foundational Skills - Multiply Terms
         'multiplyTermsEasy': 1.5,
-        'multiplyTermsMedium': 2.2,
-        'multiplyTermsHard': 4.0,
+        'multiplyTermsMedium': 2.0,
+        'multiplyTermsHard': 4,
 
         // Foundational Skills - Divide Terms
-        'divideTermsEasy': 1.8,
-        'divideTermsMedium': 3,
-        'divideTermsHard': 4.2,
+        'divideTermsEasy': 2.0,
+        'divideTermsMedium': 2.5,
+        'divideTermsHard': 4,
 
         // Foundational Skills - Mixed Simplification
         'mixedSimplificationEasy': 1.5,
-        'mixedSimplificationMedium': 2,
+        'mixedSimplificationMedium': 2.0,
         'mixedSimplificationHard': 4,
 
         // Foundational Skills - Expand Single Brackets
-        'expandSingleBracketsEasy': 1.8,
-        'expandSingleBracketsMedium': 2.4,
-        'expandSingleBracketsHard': 5,
+        'expandSingleBracketsEasy': 2.0,
+        'expandSingleBracketsMedium': 2.0,
+        'expandSingleBracketsHard': 4.5,
 
         // Foundational Skills - Multiplication Index Law
-        'multiplicationIndexLawEasy': 2,
-        'multiplicationIndexLawMedium': 3.4,
-        'multiplicationIndexLawHard': 5.5,
+        'multiplicationIndexLawEasy': 2.0,
+        'multiplicationIndexLawMedium': 3.0,
+        'multiplicationIndexLawHard': 5,
 
         // Foundational Skills - Division Index Law
-        'divisionIndexLawEasy': 2,
+        'divisionIndexLawEasy': 1.5,
         'divisionIndexLawMedium': 4,
-        'divisionIndexLawHard': 4.5,
+        'divisionIndexLawHard': 4,
 
         // Foundational Skills - Power of Power & Zero Power
         'powerOfPowerAndZeroPowerEasy': 1.5,
-        'powerOfPowerAndZeroPowerMedium': 2.5,
-        'powerOfPowerAndZeroPowerHard': 6,
+        'powerOfPowerAndZeroPowerMedium': 2.0,
+        'powerOfPowerAndZeroPowerHard': 5,
 
         // Foundational Skills - Mixed Index Laws
-        'mixedIndexLawsEasy': 1.8,
-        'mixedIndexLawsMedium': 3,
-        'mixedIndexLawsHard': 11,
+        'mixedIndexLawsEasy': 1.5,
+        'mixedIndexLawsMedium': 2.0,
+        'mixedIndexLawsHard': 9,
 
         // Foundational Skills - Order of Operations
-        'orderOfOperationsEasy': 2,
-        'orderOfOperationsMedium': 3.8,
-        'orderOfOperationsHard': 8.3,
+        'orderOfOperationsEasy': 2.0,
+        'orderOfOperationsMedium': 3.0,
+        'orderOfOperationsHard': 7,
 
         // Foundational Skills - Factorise into Single Brackets
-        'factoriseIntoSingleBracketsEasy': 2.5,
+        'factoriseIntoSingleBracketsEasy': 2.0,
         'factoriseIntoSingleBracketsMedium': 5,
-        'factoriseIntoSingleBracketsHard': 6,
+        'factoriseIntoSingleBracketsHard': 5,
 
         // Intermediate Skills - Expand & Simplify
-        'expandAndSimplifyEasy': 3,
+        'expandAndSimplifyEasy': 2.5,
         'expandAndSimplifyMedium': 4,
-        'expandAndSimplifyHard': 6,
+        'expandAndSimplifyHard': 5,
 
         // Intermediate Skills - Expand Binomial Products
-        'expandBinomialProductsEasy': 3,
-        'expandBinomialProductsMedium': 7,
-        'expandBinomialProductsHard': 24,
+        'expandBinomialProductsEasy': 2.5,
+        'expandBinomialProductsMedium': 6,
+        'expandBinomialProductsHard': 20,
 
         // Intermediate Skills - Power of Products and Quotients
-        'powerOfProductsAndQuotientsEasy': 2.5,
-        'powerOfProductsAndQuotientsMedium': 4,
-        'powerOfProductsAndQuotientsHard': 15,
+        'powerOfProductsAndQuotientsEasy': 2.0,
+        'powerOfProductsAndQuotientsMedium': 3.0,
+        'powerOfProductsAndQuotientsHard': 11,
 
         // Intermediate Skills - Add Subtract Algebraic Fractions
-        'addSubtractAlgebraicFractionsEasy': 2,
-        'addSubtractAlgebraicFractionsMedium': 7,
-        'addSubtractAlgebraicFractionsHard': 10,
+        'addSubtractAlgebraicFractionsEasy': 1.5,
+        'addSubtractAlgebraicFractionsMedium': 6,
+        'addSubtractAlgebraicFractionsHard': 8,
 
         // Intermediate Skills - Multiply Divide Algebraic Fractions
-        'multiplyDivideAlgebraicFractionsEasy': 4,
-        'multiplyDivideAlgebraicFractionsMedium': 8,
-        'multiplyDivideAlgebraicFractionsHard': 24,
+        'multiplyDivideAlgebraicFractionsEasy': 2.0,
+        'multiplyDivideAlgebraicFractionsMedium': 7,
+        'multiplyDivideAlgebraicFractionsHard': 20,
 
         // Intermediate Skills - Negative Indices
-        'negativeIndicesEasy': 2,
-        'negativeIndicesMedium': 4.0,
-        'negativeIndicesHard': 20,
+        'negativeIndicesEasy': 1.5,
+        'negativeIndicesMedium': 2.5,
+        'negativeIndicesHard': 15,
 
         // Intermediate Skills - Factorise Monic Quadratic Trinomials
-        'factoriseMonicQuadraticTrinomialsEasy': 3,
-        'factoriseMonicQuadraticTrinomialsMedium': 5,
-        'factoriseMonicQuadraticTrinomialsHard': 8,
-
+        'factoriseMonicQuadraticTrinomialsEasy': 2.5,
+        'factoriseMonicQuadraticTrinomialsMedium': 4,
+        'factoriseMonicQuadraticTrinomialsHard': 7,
 
         // Advanced Skills - Add Subtract Fractions with Binomial Numerator
-        'addSubtractFractionsWithBinomialNumeratorEasy': 10,
-        'addSubtractFractionsWithBinomialNumeratorMedium': 20,
-        'addSubtractFractionsWithBinomialNumeratorHard': 25,
+        'addSubtractFractionsWithBinomialNumeratorEasy': 8,
+        'addSubtractFractionsWithBinomialNumeratorMedium': 13,
+        'addSubtractFractionsWithBinomialNumeratorHard': 14,
 
         // Advanced Skills - Expand Perfect Squares
-        'expandPerfectSquaresEasy': 3,
-        'expandPerfectSquaresMedium': 5,
-        'expandPerfectSquaresHard': 8,
+        'expandPerfectSquaresEasy': 2.5,
+        'expandPerfectSquaresMedium': 4,
+        'expandPerfectSquaresHard': 7,
 
         // Advanced Skills - Expand Difference of Two Squares
-        'expandDifferenceOfTwoSquaresEasy': 2,
-        'expandDifferenceOfTwoSquaresMedium': 3,
-        'expandDifferenceOfTwoSquaresHard': 5,
+        'expandDifferenceOfTwoSquaresEasy': 2.0,
+        'expandDifferenceOfTwoSquaresMedium': 2.0,
+        'expandDifferenceOfTwoSquaresHard': 3.0,
 
         // Advanced Skills - Factorise Difference of Two Squares
-        'factoriseDifferenceOfTwoSquaresEasy': 4,
-        'factoriseDifferenceOfTwoSquaresMedium': 7,
-        'factoriseDifferenceOfTwoSquaresHard': 12,
+        'factoriseDifferenceOfTwoSquaresEasy': 3.5,
+        'factoriseDifferenceOfTwoSquaresMedium': 6,
+        'factoriseDifferenceOfTwoSquaresHard': 10,
 
         // Advanced Skills - Factorise Perfect Squares
-        'factorisePerfectSquaresEasy': 2,
-        'factorisePerfectSquaresMedium': 4,
-        'factorisePerfectSquaresHard': 6,
+        'factorisePerfectSquaresEasy': 2.0,
+        'factorisePerfectSquaresMedium': 2.5,
+        'factorisePerfectSquaresHard': 4,
 
         // Advanced Skills - Mixed Expansion
-        'mixedExpansionEasy': 3,
-        'mixedExpansionMedium': 8,
-        'mixedExpansionHard': 8,
+        'mixedExpansionEasy': 2.0,
+        'mixedExpansionMedium': 7,
+        'mixedExpansionHard': 6,
 
         // Advanced Skills - Notice Binomial Factors
-        'noticeBinomialFactorsEasy': 3,
+        'noticeBinomialFactorsEasy': 2.5,
         'noticeBinomialFactorsMedium': 4,
-        'noticeBinomialFactorsHard': 33,
+        'noticeBinomialFactorsHard': 27,
 
         // Advanced Skills - Group in Pairs
-        'groupInPairsEasy': 8,
-        'groupInPairsMedium': 10,
-        'groupInPairsHard': 20,
+        'groupInPairsEasy': 4,
+        'groupInPairsMedium': 7,
+        'groupInPairsHard': 16,
 
         // Advanced Skills - Factorise Non-monic Quadratic Trinomials
-        'factoriseNonMonicQuadraticTrinomialsEasy': 10,
-        'factoriseNonMonicQuadraticTrinomialsMedium': 24,
-        'factoriseNonMonicQuadraticTrinomialsHard': 40,
+        'factoriseNonMonicQuadraticTrinomialsEasy': 7,
+        'factoriseNonMonicQuadraticTrinomialsMedium': 19,
+        'factoriseNonMonicQuadraticTrinomialsHard': 24,
 
         // Advanced Skills - Mixed Factorisation
-        'mixedFactorisationEasy': 5,
-        'mixedFactorisationMedium': 20,
-        'mixedFactorisationHard': 38,
+        'mixedFactorisationEasy': 3.0,
+        'mixedFactorisationMedium': 15,
+        'mixedFactorisationHard': 30,
 
         // Advanced Skills - Finish Factorising
-        'finishFactorisingEasy': 4,
-        'finishFactorisingMedium': 6,
-        'finishFactorisingHard': 10,
+        'finishFactorisingEasy': 3.0,
+        'finishFactorisingMedium': 5,
+        'finishFactorisingHard': 6,
 
         // Advanced Skills - Simplify Algebraic Fractions by Factorising
-        'simplifyAlgebraicFractionsByFactorisingEasy': 4,
-        'simplifyAlgebraicFractionsByFactorisingMedium': 6,
-        'simplifyAlgebraicFractionsByFactorisingHard': 12,
+        'simplifyAlgebraicFractionsByFactorisingEasy': 2.0,
+        'simplifyAlgebraicFractionsByFactorisingMedium': 4,
+        'simplifyAlgebraicFractionsByFactorisingHard': 8,
 
         // Advanced Skills - Multiply Divide Algebraic Fractions by Factorising
-        'multiplyDivideAlgebraicFractionsByFactorisingEasy': 5,
-        'multiplyDivideAlgebraicFractionsByFactorisingMedium': 17,
-        'multiplyDivideAlgebraicFractionsByFactorisingHard': 37,
+        'multiplyDivideAlgebraicFractionsByFactorisingEasy': 3.0,
+        'multiplyDivideAlgebraicFractionsByFactorisingMedium': 14,
+        'multiplyDivideAlgebraicFractionsByFactorisingHard': 30,
 
         // Advanced Skills - Add Subtract Fractions by Factorising Denominator
-        'addSubtractFractionsByFactorisingDenominatorEasy': 15,
-        'addSubtractFractionsByFactorisingDenominatorMedium': 18,
-        'addSubtractFractionsByFactorisingDenominatorHard': 30,
+        'addSubtractFractionsByFactorisingDenominatorEasy': 11,
+        'addSubtractFractionsByFactorisingDenominatorMedium': 13,
+        'addSubtractFractionsByFactorisingDenominatorHard': 23,
 
         // Advanced Skills - Compound Fractions
-        'compoundFractionsEasy': 5,
-        'compoundFractionsMedium': 8,
-        'compoundFractionsHard': 30,
+        'compoundFractionsEasy': 2.0,
+        'compoundFractionsMedium': 5,
+        'compoundFractionsHard': 22,
 
         // Advanced Skills - Simplify Surds
-        'simplifySurdsEasy': 3,
-        'simplifySurdsMedium': 5,
-        'simplifySurdsHard': 6,
+        'simplifySurdsEasy': 1.5,
+        'simplifySurdsMedium': 4,
+        'simplifySurdsHard': 4,
 
         // Advanced Skills - Add Subtract Surds
-        'addSubtractSurdsEasy': 4,
-        'addSubtractSurdsMedium': 10,
-        'addSubtractSurdsHard': 13,
+        'addSubtractSurdsEasy': 2.0,
+        'addSubtractSurdsMedium': 7,
+        'addSubtractSurdsHard': 11,
 
         // Advanced Skills - Multiply Divide Surds
-        'multiplyDivideSurdsEasy': 4,
-        'multiplyDivideSurdsMedium': 8,
-        'multiplyDivideSurdsHard': 34,
+        'multiplyDivideSurdsEasy': 2.0,
+        'multiplyDivideSurdsMedium': 6,
+        'multiplyDivideSurdsHard': 18,
 
         // Advanced Skills - Expand Brackets with Surds
-        'expandBracketsWithSurdsEasy': 4,
-        'expandBracketsWithSurdsMedium': 10,
-        'expandBracketsWithSurdsHard': 22,
+        'expandBracketsWithSurdsEasy': 2.0,
+        'expandBracketsWithSurdsMedium': 8,
+        'expandBracketsWithSurdsHard': 16,
 
         // Advanced Skills - Rationalise the Denominator
-        'rationaliseTheDenominatorEasy': 5,
-        'rationaliseTheDenominatorMedium': 12,
-        'rationaliseTheDenominatorHard': 18,
+        'rationaliseTheDenominatorEasy': 2.5,
+        'rationaliseTheDenominatorMedium': 6,
+        'rationaliseTheDenominatorHard': 9,
 
         // Advanced Skills - Rationalise Binomial Denominator
-        'rationaliseBinomialDenominatorEasy': 19,
-        'rationaliseBinomialDenominatorMedium': 28,
-        'rationaliseBinomialDenominatorHard': 46,
+        'rationaliseBinomialDenominatorEasy': 5,
+        'rationaliseBinomialDenominatorMedium': 8,
+        'rationaliseBinomialDenominatorHard': 10,
 
         // Advanced Skills - Evaluate Fractional Indices
-        'evaluateFractionalIndicesEasy': 1.5,
-        'evaluateFractionalIndicesMedium': 4,
+        'evaluateFractionalIndicesEasy': 1.0,
+        'evaluateFractionalIndicesMedium': 2.5,
         'evaluateFractionalIndicesHard': 6,
 
         // Advanced Skills - Surd Form to Index Form
-        'surdFormToIndexFormEasy': 3,
-        'surdFormToIndexFormMedium': 4,
-        'surdFormToIndexFormHard': 12,
+        'surdFormToIndexFormEasy': 2.0,
+        'surdFormToIndexFormMedium': 3.0,
+        'surdFormToIndexFormHard': 3.0,
 
         // Advanced Skills - Index Form to Surd Form
-        'indexFormToSurdFormEasy': 4,
-        'indexFormToSurdFormMedium': 8,
-        'indexFormToSurdFormHard': 15,
+        'indexFormToSurdFormEasy': 2.0,
+        'indexFormToSurdFormMedium': 4,
+        'indexFormToSurdFormHard': 5,
+
+        // Advanced Skills - Complete the Square
+        'completeTheSquareEasy': 4,
+        'completeTheSquareMedium': 11,
+        'completeTheSquareHard': 21,
+
+        // Advanced Skills - Factorise with Indices
+        'factoriseWithIndicesEasy': 5,
+        'factoriseWithIndicesMedium': 8,
+        'factoriseWithIndicesHard': 7,
+
+        // Advanced Skills - Splitting the Numerator
+        'splittingTheNumeratorEasy': 2.5,
+        'splittingTheNumeratorMedium': 6,
+        'splittingTheNumeratorHard': 6,
     },
-    STORAGE_PREFIX: 'algebra_bestTime_v1_',
     CONFETTI: { CORRECT: 40, SUCCESS: 150 }
 };

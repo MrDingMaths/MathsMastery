@@ -80,9 +80,16 @@ export default new BaseLevel(
             {problem: "(-5)^{-1}", answer: "-\\frac{1}{5}"},
             {problem: "-5^{-1}", answer: "-\\frac{1}{5}"},
             
-            // Review questions            {problem: "x^{-4}", answer: "\\frac{1}{x^4}"},
+            // Review questions
+            {problem: "x^{-4}", answer: "\\frac{1}{x^4}"},
             {problem: "6^{-1}", answer: "\\frac{1}{6}"},
             {problem: "8^{-2}", answer: "\\frac{1}{64}"},
-            {problem: "\\frac{7}{x^{-1}}", answer: "7x"}
+            {problem: "\\frac{7}{x^{-1}}", answer: "7x"},
+            {problem: "x^{-2}", answer: "\\frac{1}{x^2}"},
+            {problem: "6^{-3}", answer: "\\frac{1}{216}"},
+            {problem: "7^{-2}", answer: "\\frac{1}{49}"},
+            {problem: "8x^{-3}", answer: "\\frac{8}{x^3}"},
+            {problem: "9y^{-2}", answer: "\\frac{9}{y^2}"},
+            {problem: "\\frac{8}{x^{-3}}", answer: "8x^3"}
         ]
 );

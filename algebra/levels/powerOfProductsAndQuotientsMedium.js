@@ -12,18 +12,19 @@ export default new BaseLevel(
             {problem: "(5y^2)^4", answer: "625y^8"},
             
             // Multi-variable quotients
-            {problem: "(\\frac{a^2}{b^3})^2", answer: "\\frac{a^4}{b^6}"},
-            {problem: "(\\frac{x^3}{y^4})^3", answer: "\\frac{x^9}{y^{12}}"},
-            {problem: "(\\frac{x^5}{y^2})^2", answer: "\\frac{x^{10}}{y^4}"},
-            {problem: "(\\frac{x^4}{y^3})^3", answer: "\\frac{x^{12}}{y^9}"},
-            {problem: "(\\frac{x^6}{y^5})^2", answer: "\\frac{x^{12}}{y^{10}}"},
+            {problem: "\\left(\\frac{x^3}{y^2}\\right)^2", answer: "\\frac{x^6}{y^4}"},
+            {problem: "\\left(\\frac{a^2}{b^3}\\right)^2", answer: "\\frac{a^4}{b^6}"},
+            {problem: "\\left(\\frac{x^3}{y^4}\\right)^3", answer: "\\frac{x^9}{y^{12}}"},
+            {problem: "\\left(\\frac{x^5}{y^2}\\right)^2", answer: "\\frac{x^{10}}{y^4}"},
+            {problem: "\\left(\\frac{x^4}{y^3}\\right)^3", answer: "\\frac{x^{12}}{y^9}"},
+            {problem: "\\left(\\frac{x^6}{y^5}\\right)^2", answer: "\\frac{x^{12}}{y^{10}}"},
             
             // Complex numerator quotients
-            {problem: "(\\frac{x^2y^3}{a^4})^2", answer: "\\frac{x^4y^6}{a^8}"},
-            {problem: "(\\frac{x^4y^2}{a^2})^4", answer: "\\frac{x^{16}y^8}{a^8}"},
-            {problem: "(\\frac{a^3b^2}{x^5})^3", answer: "\\frac{a^9b^6}{x^{15}}"},
-            {problem: "(\\frac{x^2y^4}{a^3})^2", answer: "\\frac{x^4y^8}{a^6}"},
-            {problem: "(\\frac{xy^2a}{b^3})^3", answer: "\\frac{x^3y^6a^3}{b^9}"},
+            {problem: "\\left(\\frac{x^2y^3}{a^4}\\right)^2", answer: "\\frac{x^4y^6}{a^8}"},
+            {problem: "\\left(\\frac{x^4y^2}{a^2}\\right)^4", answer: "\\frac{x^{16}y^8}{a^8}"},
+            {problem: "\\left(\\frac{a^3b^2}{x^5}\\right)^3", answer: "\\frac{a^9b^6}{x^{15}}"},
+            {problem: "\\left(\\frac{x^2y^4}{a^3}\\right)^2", answer: "\\frac{x^4y^8}{a^6}"},
+            {problem: "\\left(\\frac{xy^2a}{b^3}\\right)^3", answer: "\\frac{x^3y^6a^3}{b^9}"},
             
             // Negative signs and powers
             {problem: "-(3b)^4", answer: "-81b^4"},
@@ -57,11 +58,11 @@ export default new BaseLevel(
             {problem: "b(3b^4)^3", answer: "27b^{13}"},
             
             // Complex quotient powers with coefficients
-            {problem: "(\\frac{2x}{y})^5", answer: "\\frac{32x^5}{y^5}"},
-            {problem: "(\\frac{-2x}{y})^4", answer: "\\frac{16x^4}{y^4}"},
-            {problem: "(\\frac{3x^2}{y^3})^2", answer: "\\frac{9x^4}{y^6}"},
-            {problem: "(\\frac{4a^3}{b^2})^3", answer: "\\frac{64a^9}{b^6}"},
-            {problem: "(\\frac{5x^2}{y})^2", answer: "\\frac{25x^4}{y^2}"},
+            {problem: "\\left(\\frac{2x}{y}\\right)^5", answer: "\\frac{32x^5}{y^5}"},
+            {problem: "\\left(\\frac{-2x}{y}\\right)^4", answer: "\\frac{16x^4}{y^4}"},
+            {problem: "\\left(\\frac{3x^2}{y^3}\\right)^2", answer: "\\frac{9x^4}{y^6}"},
+            {problem: "\\left(\\frac{4a^3}{b^2}\\right)^3", answer: "\\frac{64a^9}{b^6}"},
+            {problem: "\\left(\\frac{5x^2}{y}\\right)^2", answer: "\\frac{25x^4}{y^2}"},
             
             // Multi-variable products
             {problem: "(3xy)^4", answer: "81x^4y^4"},
@@ -71,11 +72,11 @@ export default new BaseLevel(
             {problem: "(5xya)^3", answer: "125x^3y^3a^3"},
             
             // Mixed coefficient and variable quotients
-            {problem: "(\\frac{3x}{2y})^3", answer: "\\frac{27x^3}{8y^3}"},
-            {problem: "(\\frac{4a}{3b})^2", answer: "\\frac{16a^2}{9b^2}"},
-            {problem: "(\\frac{5x}{2y})^2", answer: "\\frac{25x^2}{4y^2}"},
-            {problem: "(\\frac{2x}{5y})^4", answer: "\\frac{16x^4}{625y^4}"},
-            {problem: "(\\frac{6x}{y})^2", answer: "\\frac{36x^2}{y^2}"},
+            {problem: "\\left(\\frac{3x}{2y}\\right)^3", answer: "\\frac{27x^3}{8y^3}"},
+            {problem: "\\left(\\frac{4a}{3b}\\right)^2", answer: "\\frac{16a^2}{9b^2}"},
+            {problem: "\\left(\\frac{5x}{2y}\\right)^2", answer: "\\frac{25x^2}{4y^2}"},
+            {problem: "\\left(\\frac{2x}{5y}\\right)^4", answer: "\\frac{16x^4}{625y^4}"},
+            {problem: "\\left(\\frac{6x}{y}\\right)^2", answer: "\\frac{36x^2}{y^2}"},
             
             // Products with multiple variables and powers
             {problem: "(x^2y)^3", answer: "x^6y^3"},

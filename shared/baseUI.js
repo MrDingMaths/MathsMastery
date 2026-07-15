@@ -13,6 +13,13 @@
 import { Timer } from './timer.js';
 import { createEl } from './createEl.js';
 
+// Number of filled circles required to complete a level (matches CONFIG.REQUIRED_STREAK).
+export const STREAK_TARGET = 10;
+
+// Second chances available per question. Derived from BaseGameState.isSecondIncorrectAttempt()
+// which triggers the reset at consecutiveIncorrect >= 2, i.e. one free retry per question.
+export const MAX_SECOND_CHANCES = 1;
+
 export class BaseUI {
 
     // --- Rating class hook ---
@@ -27,6 +34,14 @@ export class BaseUI {
         ['settings', 'game', 'success'].forEach(s => {
             this.elements[`${s}Screen`].classList.toggle('hidden', s !== screenName);
         });
+        // Play the entrance animation on the screen we just revealed.
+        // Remove + reflow + re-add restarts the CSS animation on every swap.
+        const shown = this.elements[`${screenName}Screen`];
+        if (shown) {
+            shown.classList.remove('screen-enter');
+            void shown.offsetWidth;
+            shown.classList.add('screen-enter');
+        }
         // Clean up leaderboard side-card when leaving success screen
         if (screenName !== 'success') {
             const container = this.elements.successScreen?.parentElement;
@@ -53,18 +68,56 @@ export class BaseUI {
     }
 
     updateStreak(streak) {
-        this.elements.streakCounter.textContent = streak;
+        const container = this.elements.streakCounter;
+        if (container) {
+            // Build the 10 segments once, then just toggle .filled so CSS transitions run.
+            if (container.childElementCount !== STREAK_TARGET) {
+                container.textContent = '';
+                for (let i = 0; i < STREAK_TARGET; i++) {
+                    container.appendChild(createEl('span', { className: 'streak-seg' }));
+                }
+            }
+            const segs = container.children;
+            for (let i = 0; i < segs.length; i++) {
+                segs[i].classList.toggle('filled', i < streak);
+            }
+        }
+
+        if (this.elements.streakCount) {
+            this.elements.streakCount.textContent = `${streak} / ${STREAK_TARGET}`;
+        }
+    }
+
+    updateSecondChances(remaining = MAX_SECOND_CHANCES) {
+        const container = this.elements.secondChanceCounter;
+        if (!container) return;
+
+        const available = remaining > 0;
+
+        // Build the retry indicator (dot + label) once, then update state.
+        if (container.childElementCount !== 2) {
+            container.textContent = '';
+            container.appendChild(createEl('span', { className: 'retry-dot' }));
+            container.appendChild(createEl('span', { className: 'retry-label' }));
+        }
+        container.classList.toggle('spent', !available);
+        container.lastChild.textContent = available ? 'retry ready' : 'retry used';
     }
 
     updateLevelName(name) {
-        this.elements.levelName.innerHTML = name;
+        // Flatten the grid's two-line "Topic<br>Easy" form into one header line.
+        this.elements.levelName.innerHTML = (name || '').replace(/<br\s*\/?>/gi, ' ');
+        if (this.elements.levelMeta) {
+            this.elements.levelMeta.textContent = this.subjectName || '';
+        }
     }
 
     // --- Success screen ---
 
-    setSuccessScreenCallbacks(onReplayLevel, onBackToLevels) {
+    setSuccessScreenCallbacks(onReplayLevel, onBackToLevels, onNextLevel) {
         this.onReplayLevel = onReplayLevel;
         this.onBackToLevels = onBackToLevels;
+        this.onNextLevel = onNextLevel;
     }
 
     setupSuccessScreenButtons() {
@@ -74,18 +127,31 @@ export class BaseUI {
             });
         }
 
+        if (this.elements.nextLevelBtn) {
+            this.elements.nextLevelBtn.addEventListener('click', () => {
+                if (this.onNextLevel) this.onNextLevel();
+            });
+        }
+
         if (this.elements.playAgainBtn) {
             this.elements.playAgainBtn.addEventListener('click', () => {
                 if (this.onBackToLevels) this.onBackToLevels();
             });
         }
 
-        // Keyboard shortcuts: Enter = replay, Escape = back to levels
+        // Keyboard shortcuts: Enter = replay, Tab = next level, Escape = back to levels
         this.handleSuccessScreenKey = (e) => {
             if (this.elements.successScreen.classList.contains('hidden')) return;
             if (e.key === 'Enter') {
                 e.preventDefault();
                 if (this.onReplayLevel) this.onReplayLevel();
+            } else if (e.key === 'Tab') {
+                // Only when a next level is available (button visible)
+                const btn = this.elements.nextLevelBtn;
+                if (btn && !btn.classList.contains('hidden')) {
+                    e.preventDefault();
+                    if (this.onNextLevel) this.onNextLevel();
+                }
             } else if (e.key === 'Escape') {
                 e.preventDefault();
                 if (this.onBackToLevels) this.onBackToLevels();
@@ -374,6 +440,8 @@ export class BaseUI {
             keyboardTableHTML = null,
         } = config;
 
+        this.subjectName = subjectName;
+
         const screen = this.elements.settingsScreen;
         if (!screen) return;
         screen.innerHTML = '';
@@ -458,6 +526,7 @@ export class BaseUI {
     _lsGetNextUp(levelGroups) {
         for (const g in levelGroups) {
             for (const level of levelGroups[g]) {
+                if (level.comingSoon) continue;
                 if (!this._lsIsMastered(this._lsLevelRatingKey(level.key))) return { level, groupName: g };
             }
         }
@@ -494,7 +563,7 @@ export class BaseUI {
 
     _lsDiffInfo(levelKey) {
         if (levelKey.endsWith('Easy'))   return { label: 'Easy', color: '#16a34a' };
-        if (levelKey.endsWith('Medium')) return { label: 'Med',  color: '#d97706' };
+        if (levelKey.endsWith('Medium')) return { label: 'Medium', color: '#d97706' };
         if (levelKey.endsWith('Hard'))   return { label: 'Hard', color: '#dc2626' };
         return { label: '', color: '#6b7280' };
     }
@@ -745,6 +814,8 @@ export class BaseUI {
     }
 
     _lsBuildHybridTile(level, onSelect, isCurrent) {
+        if (level.comingSoon) return this._lsBuildComingSoonTile(level);
+
         const rk = this._lsLevelRatingKey(level.key);
         const rv = this._lsRatingVisuals(rk);
         const diff = this._lsDiffInfo(level.key);
@@ -779,7 +850,31 @@ export class BaseUI {
         return tile;
     }
 
+    // Locked "coming soon" tile — non-interactive, no rating/best-time shown.
+    _lsBuildComingSoonTile(level) {
+        const diff = this._lsDiffInfo(level.key);
+        const tile = createEl('button', { className: 'ls-hybrid-tile ls-coming-soon' });
+        tile.disabled = true;
+
+        const top = createEl('div', { className: 'ls-hybrid-tile-top' });
+        const diffLabel = createEl('div', { className: 'ls-diff-label' });
+        const dot = createEl('span', { className: 'ls-diff-dot' });
+        dot.style.background = diff.color;
+        const diffText = createEl('span', { className: 'ls-diff-text', textContent: diff.label });
+        diffText.style.color = diff.color;
+        diffLabel.append(dot, diffText);
+        const lockIcon = createEl('span', { className: 'ls-tile-rating-icon', textContent: '🔒' });
+        top.append(diffLabel, lockIcon);
+
+        const soonEl = createEl('div', { className: 'ls-hybrid-tile-time ls-coming-soon-label', textContent: 'Soon' });
+
+        tile.append(top, soonEl);
+        return tile;
+    }
+
     _lsBuildLevelTile(level, onSelect, color, isCurrent) {
+        if (level.comingSoon) return this._lsBuildComingSoonTile(level);
+
         const rk = this._lsLevelRatingKey(level.key);
         const rv = this._lsRatingVisuals(rk);
         const bestMs = this._lsLevelBestMs(level.key);
@@ -800,7 +895,7 @@ export class BaseUI {
         top.appendChild(emojiEl);
 
         const nameEl = createEl('div', { className: 'ls-tile-name', textContent: topicName });
-        nameEl.style.color = showCurrentStyle ? '#1d4ed8' : (bestMs ? rv.tc : '#1f2937');
+        nameEl.style.color = showCurrentStyle ? '#1d4ed8' : (bestMs ? rv.tc : '');
 
         const timeEl = createEl('div', { className: 'ls-tile-time' });
         timeEl.style.color = showCurrentStyle ? '#2563eb' : (bestMs ? rv.tc : '#6b7280');
@@ -848,7 +943,10 @@ export class BaseUI {
         // Overall ring
         const overallWrap = createEl('div', { className: 'ls-overall-ring' });
         overallWrap.appendChild(this._lsProgressRingSVG(totalCount > 0 ? masteredCount / totalCount : 0, 76, color));
-        overallWrap.appendChild(createEl('span', { className: 'ls-ring-label', textContent: `${masteredCount} / ${totalCount} mastered` }));
+        const ringLabel = createEl('span', { className: 'ls-ring-label' });
+        ringLabel.appendChild(document.createTextNode(`${masteredCount} / ${totalCount}`));
+        ringLabel.appendChild(createEl('span', { textContent: 'mastered' }));
+        overallWrap.appendChild(ringLabel);
         aside.appendChild(overallWrap);
         aside.appendChild(createEl('div', { className: 'ls-hr' }));
 

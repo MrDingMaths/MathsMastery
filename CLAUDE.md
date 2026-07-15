@@ -4,7 +4,7 @@
 
 Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step. Supabase backend for Google OAuth and leaderboards. Local progress still persisted in browser localStorage; Supabase is additive (app works fully offline).
 
-**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), jQuery (CDN), MathQuill (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
+**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), MathLive v0.109.2 (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
 
 ## Directory Structure
 
@@ -65,7 +65,7 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `darkMode.css` | Dark mode styles via `[data-theme="dark"]` selectors |
 | `progressStyles.css` | Progress modal/chart styles |
 | `lib/math.js` | Bundled Math.js library |
-| `lib/mathquill/` | MathQuill library (Desmos fork) |
+| `lib/mathlive/` | MathLive v0.109.2 — `<math-field>` Web Component, fonts, static-render CSS |
 
 **CSS design tokens:**
 ```css
@@ -79,20 +79,18 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 ### Algebra (`algebra/`)
 | File | Purpose |
 |------|---------|
-| `index.html` | Entry HTML; loads KaTeX, MathQuill, jQuery, Chart.js |
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
 | `main.js` | ES module entry; wires gameController to UI |
 | `config.js` | Reads `window.LevelRegistry.algebra.LEVEL_GROUPS`; level group config |
 | `gameController.js` | Main orchestrator |
 | `gameState.js` | Extends `BaseGameState`; adds `currentQuestion`, `lastQuestionFormat` |
-| `ui.js` | MathQuill input management + level grid rendering |
+| `ui.js` | `<math-field>` input management + level grid rendering |
 | `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
 | `algebraEngine.js` | Expression comparison engine (~92KB, classic script — see below) |
 | `storage.js` | Stub `StorageManager` delegating best-time/rating reads to `window.progressTracker` |
-| `mobileDetection.js` | Touch/mobile UA + small-screen detection for mobile keyboard |
 | `levels/BaseLevel.js` | Level template class |
 | `levels/index.js` | Dynamic level loader (injects `<script src="levels/{key}.js">` per registry key) |
 | `levels/*.js` | 128 individual level files |
-| `mobile-keyboard/` | Custom on-screen keyboard for algebra input |
 | `progress-tracking/progressTracker.js` | Thin wrapper: calls `window.initProgressTracker('algebra', { enableMistakes: true, oldVersionKeys: […] })` |
 | `debug-algebra-engine.html`, `styleguide.md`, `package.json`, `node_modules/` | Dev tooling for the algebra engine (not shipped on the page) |
 
@@ -106,7 +104,6 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `gameState.js` | Extends `BaseGameState`; also re-exports `Timer` and a `StorageManager` stub |
 | `ui.js` | Level grid + dynamic FDP-conversion form rendering |
 | `questionGenerator.js` | Dynamic generation per level type |
-| `effects.js` | One-line re-export of `shared/confetti.js` |
 | `utils.js` | Small utilities |
 | `levels/numberBonds.js` | Bonds to 10/20/100, negatives |
 | `levels/multiplication.js` | Group facts (2-12), negatives, doubling, perfect squares |
@@ -135,12 +132,31 @@ levelRegistry (global) → config.js → questionGenerator.js → gameState.js �
 | `trig-style/trig-style.css` | Trig-specific styles |
 | `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('trigfacts', …)` |
 
+### Equations (`equations/`)
+| File | Purpose |
+|------|---------|
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
+| `main.js` | ES module entry |
+| `config.js` | Reads `window.LevelRegistry.equations.LEVEL_GROUPS` |
+| `gameController.js` | Main orchestrator |
+| `gameState.js` | Extends `BaseGameState` |
+| `ui.js` | `<math-field>` input management; renders variable input rows |
+| `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
+| `equationsAnswerChecker.js` | Answer checker: scalar, multi-root, inequality; delegates to `AlgebraEngine` |
+| `storage.js` | Stub `StorageManager` delegating to `window.progressTracker` |
+| `levels/BaseLevel.js` | Level template class; accepts optional `{ toleranceDp }` option |
+| `levels/index.js` | Dynamic level loader |
+| `levels/*.js` | Individual level files |
+| `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('equations', …)` |
+
+**Irrational-answer levels** pass `{ toleranceDp: 2 }` as the 4th argument to `BaseLevel`. This causes `generateQuestion()` to stamp `toleranceDp: 2` onto every returned question's answer object, enabling the checker to accept a decimal answer correct to 2dp as an alternative to the exact form (e.g. `1.62` accepted alongside `(1+√5)/2`). Levels that need this flag: `quadraticFormula`, `equationsLogs`, `simpleCubic` (all difficulties). Levels solved by matching bases (`exponentialNoLogs`) always give exact rational answers and do not need the flag.
+
 ## Algebra Engine (`algebra/algebraEngine.js`)
 
 The most sophisticated component (~90KB). Compares student LaTeX answers algebraically.
 
 **Pipeline:**
-1. **LaTeX Parser** — MathQuill output → Math.js syntax (handles `\frac`, `\sqrt`, unicode superscripts)
+1. **LaTeX Parser** — MathLive output → Math.js syntax (handles `\frac` braced/shorthand forms, `\sqrt`, `\mleft`/`\mright`, `\placeholder{}` stripping, unicode superscripts)
 2. **AST Utilities** — Math.js expression tree traversal
 3. **Simplification Validator** — Rejects unsimplified forms (e.g. `2+2` instead of `4`)
 4. **Binary Difference Canonicalization** — `(a−x)` ≡ `−(x−a)`
@@ -224,7 +240,7 @@ The landing page (`index.html`) has a hub leaderboard modal (`HubLeaderboard` cl
 |--------|------|-------|
 | `id` | UUID PK | Default `gen_random_uuid()` |
 | `user_id` | UUID | FK → `profiles.user_id` |
-| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, or `trigfacts` |
+| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, `trigfacts`, `equations`, or `calculus` |
 | `level_key` | TEXT | Matches config level keys |
 | `best_time` | INTEGER | Seconds |
 | `rating_key` | TEXT | e.g. `mastery`, `expert` |

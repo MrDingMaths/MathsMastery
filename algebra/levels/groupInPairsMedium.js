@@ -59,12 +59,12 @@ export default new BaseLevel(
             {problem: "7xy - 21x + 2y - 6", answer: "(7x+2)(y-3)"},
             {problem: "8xy - 24x + 3y - 9", answer: "(8x+3)(y-3)"},
             {problem: "9yx - 27y + 4x - 12", answer: "(9y+4)(x-3)"},
-            {problem: "10ya - 30y + x - 3", answer: "10y(a-3) + x - 3"},
+            {problem: "10ay - 30y + ax - 3x", answer: "(a-3)(10y+x)"},
             
             // Larger coefficients requiring careful grouping
-            {problem: "12x^2 - 18x + 8x - 12", answer: "(6x+4)(2x-3)"},
+            {problem: "12x^2 - 18x + 8x - 12", answer: "2(3x+2)(2x-3)"},
             {problem: "15x^2 - 20x + 9x - 12", answer: "(5x+3)(3x-4)"},
-            {problem: "18x^2 - 24x + 5x - \\frac{20}{3}", answer: "(6x+\\frac{5}{3})(3x-4)"},
+            {problem: "20x^2 - 16x + 5x - 4", answer: "(4x+1)(5x-4)"},
             {problem: "21x^2 - 28x + 6x - 8", answer: "(7x+2)(3x-4)"},
             {problem: "24x^2 - 30x + 4x - 5", answer: "(6x+1)(4x-5)"},
             
@@ -76,6 +76,15 @@ export default new BaseLevel(
             {problem: "7xy - 14y + 3xa - 6a", answer: "(x-2)(7y+3a)"},
             {problem: "8xy - 24y + 9xa - 27a", answer: "(x-3)(8y+9a)"},
             {problem: "10xy - 20y + 7xa - 14a", answer: "(x-2)(10y+7a)"},
-            {problem: "12xy - 36y + 5xa - 15a", answer: "(x-3)(12y+5a)"}
+            {problem: "12xy - 36y + 5xa - 15a", answer: "(x-3)(12y+5a)"},
+
+            // Migrated from Easy — mixed-sign two-variable expressions
+            {problem: "4ab - 7ax + 4by - 7xy", answer: "(a+y)(4b-7x)"},
+            {problem: "2xy - 8xa + 3by - 12ba", answer: "(2x+3b)(y-4a)"},
+            {problem: "5xy - 10x + ya - 2a", answer: "(5x+a)(y-2)"},
+            // Migrated from Hard — numeric mixed-sign single-variable
+            {problem: "-5x^2 + 4x - 5x + 4", answer: "(4-5x)(x+1)"},
+            {problem: "3x - 8x - 6x^2 + 4", answer: "(1-2x)(3x+4)"},
+            {problem: "-2x^2 + 3x - 4x + 6", answer: "-(2x-3)(x+2)"},
         ]
 );

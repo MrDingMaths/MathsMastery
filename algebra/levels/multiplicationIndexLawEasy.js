@@ -88,18 +88,6 @@ export default new BaseLevel(
             {problem: "x^7 \\times x^1", answer: "x^8"},
             {problem: "x^1 \\times x^9", answer: "x^{10}"},
             
-            // Moved from Multiply Terms - Basic same variable products            {problem: "3a \\times 4a", answer: "12a^2"},
-            {problem: "5y \\times 2y", answer: "10y^2"},
-            {problem: "3x \\times 5x", answer: "15x^2"},
-            {problem: "4x \\times 3x", answer: "12x^2"},
-            {problem: "9x \\times x", answer: "9x^2"},
-            {problem: "2x \\times 8x", answer: "16x^2"},
             {problem: "a \\times a", answer: "a^2"},
-            {problem: "3x \\times x", answer: "3x^2"},
-            {problem: "2x \\times x", answer: "2x^2"},
-            {problem: "x \\times 7x", answer: "7x^2"},
-            {problem: "x \\times 3x", answer: "3x^2"},
-            {problem: "6x \\times 2x", answer: "12x^2"},
-            {problem: "9x \\times 4x", answer: "36x^2"},
-            {problem: "5x \\times 2x", answer: "10x^2"},        ]
+        ]
 );

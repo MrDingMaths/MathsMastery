@@ -6,10 +6,6 @@ export default new BaseLevel(
     [
             // Your textbook questions
             {problem: "11ab - 5ba + ab", answer: "7ab"},
-            {problem: "10x + 3x + 5y + 3y", answer: "13x + 8y"},
-            {problem: "2a + 5a + 13b - 2b", answer: "7a + 11b"},
-            {problem: "10 + 5x - 2 + 7x", answer: "12x + 8"},
-            {problem: "10x + 31y - y + 4x", answer: "14x + 30y"},
             {problem: "7x^2y + 5x + 10yx^2", answer: "17x^2y + 5x"},
             {problem: "12xy - 3yx + 5xy - yx", answer: "13xy"},
             {problem: "-2a + 4b - 7ab + 4a", answer: "2a + 4b - 7ab"},
@@ -61,12 +57,6 @@ export default new BaseLevel(
             {problem: "\\frac{-18x^4y^2}{9x^2y}", answer: "-2x^2y"},
             {problem: "\\frac{45x^3y^4}{-15x^2y^3}", answer: "-3xy"},
             
-            // Mixed operations with negatives
-            {problem: "-7x + 4y - 2x - 9y", answer: "-9x - 5y"},
-            {problem: "8a - 3b - 12a + 7b", answer: "-4a + 4b"},
-            {problem: "-5x + 9y + 2x - 6y", answer: "-3x + 3y"},
-            {problem: "6x - 8y - 4x + 12y", answer: "2x + 4y"},
-            
             // Complex coefficient operations
             {problem: "7y^3 - 4y^3 + 9y^3 - 6y^3", answer: "6y^3"},
             
@@ -93,6 +83,10 @@ export default new BaseLevel(
             // Very complex mixed operations
             {problem: "12xya + 8ayx - 5xya + 3axy", answer: "18xya"},
             {problem: "15abx - 9bxa + 6abx - 4xab", answer: "8abx"},
-            {problem: "20xya - 12yax + 8axy - 6xay", answer: "10xya"}
+            {problem: "20xya - 12yax + 8axy - 6xay", answer: "10xya"},
+
+            // Compound multi-variable exponents (migrated from Medium — requires adding indices on both variables)
+            {problem: "4a^2b \\times 2ab^2", answer: "8a^3b^3"},
+            {problem: "6a^3b \\times 4ab", answer: "24a^4b^2"}
         ]
 );

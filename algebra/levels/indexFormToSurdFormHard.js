@@ -44,9 +44,9 @@ export default new BaseLevel(
             {problem: "\\frac{(2x)^{\\frac{3}{2}}}{(2x)^{\\frac{1}{2}}}", answer: "2x"},
             
             // Complex coefficient manipulations
-            {problem: "(\\frac{1}{27}x^3)^{\\frac{1}{3}}", answer: "\\frac{x}{3}"},
-            {problem: "(\\frac{16}{81}x^4y^8)^{\\frac{1}{4}}", answer: "\\frac{2xy^2}{3}"},
-            {problem: "(\\frac{8}{125}x^6)^{\\frac{1}{3}}", answer: "\\frac{2x^2}{5}"},
+            {problem: "\\left(\\frac{1}{27}x^3\\right)^{\\frac{1}{3}}", answer: "\\frac{x}{3}"},
+            {problem: "\\left(\\frac{16}{81}x^4y^8\\right)^{\\frac{1}{4}}", answer: "\\frac{2xy^2}{3}"},
+            {problem: "\\left(\\frac{8}{125}x^6\\right)^{\\frac{1}{3}}", answer: "\\frac{2x^2}{5}"},
             {problem: "(0.001x^3)^{\\frac{1}{3}}", answer: "0.1x"},
             
             // Multi-step complex operations
@@ -58,8 +58,8 @@ export default new BaseLevel(
             {problem: "((x^{\\frac{1}{2}})^{\\frac{2}{3}})^{\\frac{3}{4}} \\times x^{-\\frac{1}{4}}", answer: "1"},
             
             // Additional complex expressions
-            {problem: "(x^{\\frac{3}{8}}y^{\\frac{5}{12}})^{24}", answer: "x^9y^{10}"},
+            {problem: "(x^{\\frac{1}{2}}y^{\\frac{3}{4}})^8", answer: "x^4y^6"},
             {problem: "\\frac{x^{\\frac{11}{6}}}{x^{\\frac{5}{6}}} \\times x^{-\\frac{1}{3}}", answer: "\\sqrt[3]{x^2}"},
-            {problem: "(\\frac{x^{\\frac{2}{3}}}{y^{\\frac{1}{4}}})^{12}", answer: "\\frac{x^8}{y^3}"},
+            {problem: "\\left(\\frac{x^{\\frac{2}{3}}}{y^{\\frac{1}{4}}}\\right)^{12}", answer: "\\frac{x^8}{y^3}"},
         ]
 );

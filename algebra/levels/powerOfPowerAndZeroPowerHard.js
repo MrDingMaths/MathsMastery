@@ -14,7 +14,7 @@ export default new BaseLevel(
             {problem: "x^5y^3 \\times (x^2)^4 \\times (y^3)^2", answer: "x^{13}y^9"},
             {problem: "x^2y \\times (x^4)^3 \\times (y^2)^5", answer: "x^{14}y^{11}"},
             {problem: "(x^3)^2 \\times x^4 \\times (x^2)^3 \\times x", answer: "x^{17}"},
-            {problem: "x^3y^2a \\times (x^2)^5 \\times (y^4)^2 \\times (a^3)^4", answer: "x^{13}y^{10}a^{13}"},
+            {problem: "x^3y^2 \\times (x^2)^4 \\times (y^3)^2", answer: "x^{11}y^8"},
             
             // Cognitive Level 2: Coefficient Power of a Power Products
             {problem: "(2x^2)^2 \\times (3x^3)^2", answer: "36x^{10}"},
@@ -46,11 +46,11 @@ export default new BaseLevel(
             {problem: "\\frac{(2x^2)^3}{4x} \\times \\frac{y^3}{(y^2)^1}", answer: "2x^5y"},
             {problem: "\\frac{(3x^2)^2}{9} \\times \\frac{(y^3)^2}{y^2}", answer: "x^4y^4"},
             
-            // Cognitive Level 4: Zero Powers and Simple Expressions
-            {problem: "\\frac{6x^3 \\times 4x^2}{8x^4}", answer: "3x"},
-            {problem: "\\frac{12a^4 \\times 3b^2}{9a^2b}", answer: "4a^2b"},
-            {problem: "2(xy^2a^3)^0 \\times 3x^2", answer: "6x^2"},
+            // Cognitive Level 4: Zero Powers in Multi-Step Expressions
             {problem: "\\frac{8(a^2b)^2}{4ab^2} \\times (3a)^0", answer: "2a^3"},
-            {problem: "3(x^3y^2)^0 \\times 4", answer: "12"}
+            {problem: "2(a^3)^2 \\times 3(a^2)^4", answer: "6a^{14}"},
+            {problem: "\\frac{6(x^5)^3}{2(x^3)^5}", answer: "3"},
+            {problem: "8(x^4)^2 \\div 4(x^2)^4", answer: "2"},
+            {problem: "(3x^2y)^2 \\times (2xy^3)^3", answer: "72x^7y^{11}"}
         ]
 );

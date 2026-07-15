@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
     <title>Maths Mastery: Algebra</title>
 
     <script src="../shared/darkMode.js"></script>
@@ -11,14 +12,15 @@
     <link rel="stylesheet" href="../shared/darkMode.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- MathQuill CSS and JS (Desmos fork - local) -->
-    <link rel="stylesheet" href="../shared/lib/mathquill/mathquill.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../shared/lib/mathquill/mathquill.min.js"></script>
+    <!-- MathLive (vendored, v0.109.2) -->
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-static.css">
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-fonts.css">
+    <script defer src="../shared/lib/mathlive/mathlive.min.js"></script>
+    <script defer src="../shared/mathRenderer.js"></script>
 
     <!-- Math.js for algebraic evaluation -->
     <script src="../shared/lib/math.js"></script>
-    
+
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
@@ -26,9 +28,6 @@
     <link rel="stylesheet" href="../shared/common.css">
     <link rel="stylesheet" href="../shared/progressStyles.css">
     <link rel="stylesheet" href="algebra-style.css">
-
-    <!-- Mobile keyboard styles -->
-    <link rel="stylesheet" href="mobile-keyboard/mobileKeyboard.css">
 
     <!-- Navigation buttons styles -->
     <link rel="stylesheet" href="../shared/navigationButtons.css">
@@ -44,11 +43,18 @@
         <div id="settings-screen"></div>
 
         <div id="game-screen" class="card mx-auto hidden">
-            <div class="flex justify-between items-center mb-6 text-lg">
-                <div class="font-semibold text-gray-700">Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥</div>
-                <div class="font-semibold text-gray-700">Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span></div>
+            <div class="game-header">
+                <div class="game-header-title">
+                    <div id="level-name" class="game-level-name"></div>
+                    <div id="level-meta" class="game-level-meta"></div>
+                </div>
+                <div class="game-time">Time <span id="timer">0s</span></div>
             </div>
-            <div id="level-name" class="text-center text-gray-700 text-xl mb-2"></div>
+            <div class="streak-row">
+                <div id="streak-counter" class="streak-bar"></div>
+                <span id="streak-count" class="streak-count">0 / 10</span>
+                <span id="second-chance-counter" class="retry-indicator"></span>
+            </div>
             <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
                 Timer will reset
             </span>
@@ -103,6 +109,9 @@
                 <button id="replay-level-btn" class="btn btn-primary flex items-center justify-center gap-2 flex-1">
                     <span class="dcg">Enter</span><span>Replay Level</span>
                 </button>
+                <button id="next-level-btn" class="btn btn-secondary flex items-center justify-center gap-2">
+                    <span class="dcg">Tab</span><span>Next Level</span>
+                </button>
                 <button id="play-again-btn" tabindex="-1" class="success-back-btn">
                     <span class="dcg">Esc</span>
                     <span>Back to Levels</span>
@@ -117,7 +126,6 @@
 
     <!-- Classic-script helpers -->
     <script src="algebraEngine.js"></script>
-    <script src="mobile-keyboard/mobileKeyboard.js"></script>
 
     <!-- App entry: imports config.js + levels barrel + game modules -->
     <script type="module" src="main.js"></script>

@@ -9,8 +9,8 @@ export default new BaseLevel(
             {problem: "x^2 - \\frac{3}{4}", answer: "(x - \\frac{\\sqrt{3}}{2})(x + \\frac{\\sqrt{3}}{2})"},
             {problem: "x^2 - \\frac{7}{16}", answer: "(x - \\frac{\\sqrt{7}}{4})(x + \\frac{\\sqrt{7}}{4})"},
             {problem: "x^2 - \\frac{5}{16}", answer: "(x - \\frac{\\sqrt{5}}{4})(x + \\frac{\\sqrt{5}}{4})"},
-            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "(\\frac{x}{2} - \\frac{\\sqrt{7}}{3})(\\frac{x}{2} + \\frac{\\sqrt{7}}{3})"},
-            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2})(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2})"},
+            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "\\left(\\frac{x}{2} - \\frac{\\sqrt{7}}{3}\\right)\\left(\\frac{x}{2} + \\frac{\\sqrt{7}}{3}\\right)"},
+            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "\\left(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2}\\right)\\left(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2}\\right)"},
             
             // Irrational coefficients
             {problem: "x^2 - 7", answer: "(x-\\sqrt{7})(x+\\sqrt{7})"},
@@ -23,16 +23,9 @@ export default new BaseLevel(
             {problem: "x^2 - 32", answer: "(x-4\\sqrt{2})(x+4\\sqrt{2})"},
             {problem: "x^2 - 50", answer: "(x-5\\sqrt{2})(x+5\\sqrt{2})"},
             
-            // Complex coefficient expressions
-            {problem: "3x^2 - 75", answer: "3(x - 5)(x + 5)"},
-            {problem: "7x^2 - 63", answer: "7(x - 3)(x + 3)"},
-            
             // Complex binomial expressions
             {problem: "6(x-2)^2 - 54", answer: "6(x-5)(x+1)"},
             {problem: "2(x+1)^2 - 32", answer: "2(x-3)(x+5)"},
-            
-            // Negative leading terms
-            {problem: "-20 + 5x^2", answer: "5(x - 2)(x + 2)"},
             
             // Difference of binomial squares
             {problem: "(x+2)^2 - (x+3)^2", answer: "-(2x+5)"},
@@ -50,8 +43,8 @@ export default new BaseLevel(
             {problem: "b^4 - 16", answer: "(b-2)(b+2)(b^2+4)"},
             {problem: "81 - x^4", answer: "(3-x)(3+x)(9+x^2)"},
             {problem: "16x^4 - 81y^4", answer: "(2x-3y)(2x+3y)(4x^2+9y^2)"},
-            {problem: "y^8 - 256", answer: "(y-2)(y+2)(y^2+4)(y^4+16)"},
-            {problem: "x^{16} - 1", answer: "(x-1)(x+1)(x^2+1)(x^4+1)(x^8+1)"},
+            {problem: "x^4 - 256", answer: "(x-4)(x+4)(x^2+16)"},
+            {problem: "16x^4 - 1", answer: "(2x-1)(2x+1)(4x^2+1)"},
             {problem: "x^4 - 81", answer: "(x-3)(x+3)(x^2+9)"},
             {problem: "625 - a^4", answer: "(5-a)(5+a)(25+a^2)"},
             
@@ -59,15 +52,15 @@ export default new BaseLevel(
             {problem: "2x^4 - 32", answer: "2(x-2)(x+2)(x^2+4)"},
             {problem: "ax^4 - 81a", answer: "a(x-3)(x+3)(x^2+9)"},
             {problem: "x^5 - x", answer: "x(x-1)(x+1)(x^2+1)"},
-            {problem: "3x^8 - 3", answer: "3(x-1)(x+1)(x^2+1)(x^4+1)"},
-            {problem: "\\frac{y^4}{81} - 1", answer: "(\\frac{y}{3}-1)(\\frac{y}{3}+1)(\\frac{y^2}{9}+1)"},
-            {problem: "5x^9 - 5x", answer: "5x(x-1)(x+1)(x^2+1)(x^4+1)"},
+            {problem: "5x^4 - 80", answer: "5(x-2)(x+2)(x^2+4)"},
+            {problem: "\\frac{y^4}{81} - 1", answer: "\\left(\\frac{y}{3}-1\\right)\\left(\\frac{y}{3}+1\\right)\\left(\\frac{y^2}{9}+1\\right)"},
+            {problem: "x^5 - 16x", answer: "x(x-2)(x+2)(x^2+4)"},
             {problem: "4a^4 - 64", answer: "4(a-2)(a+2)(a^2+4)"},
             {problem: "3x^4 - 243", answer: "3(x-3)(x+3)(x^2+9)"},
             
             // Complex fractional fourth powers
             {problem: "\\frac{x^4}{3} - \\frac{y^4}{3}", answer: "\\frac{1}{3}(x-y)(x+y)(x^2+y^2)"},
             {problem: "2a^4 - 32b^4", answer: "2(a-2b)(a+2b)(a^2+4b^2)"},
-            {problem: "\\frac{3a^8}{16} - \\frac{3b^4}{625}", answer: "3(\\frac{a^2}{2} - \\frac{b}{5})(\\frac{a^2}{2} + \\frac{b}{5})(\\frac{a^4}{4} + \\frac{b^2}{25})"}
+            {problem: "\\frac{a^4}{16} - \\frac{b^4}{81}", answer: "\\left(\\frac{a}{2}-\\frac{b}{3}\\right)\\left(\\frac{a}{2}+\\frac{b}{3}\\right)\\left(\\frac{a^2}{4}+\\frac{b^2}{9}\\right)"}
         ]
 );

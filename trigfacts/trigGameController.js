@@ -6,6 +6,7 @@ import { Confetti } from '../shared/confetti.js';
 import { AnswerChecker } from './trigAnswerChecker.js';
 import { StorageManager } from './storageManager.js';
 import { TrigQuestionGenerator } from './questions/trigQuestionGenerator.js';
+import { RatingUtils } from '../shared/ratingUtils.js';
 
 /**
  * TrigGameController - Main game orchestrator managing game flow and user interactions
@@ -15,6 +16,7 @@ export class TrigGameController {
         // Make CONFIG and StorageManager globally available for progress tracking modules
         window.CONFIG = CONFIG;
         window.StorageManager = StorageManager;
+        window.RatingUtils = RatingUtils;
 
         this.state = new GameState();
         this.ui = new TrigUI();
@@ -39,7 +41,7 @@ export class TrigGameController {
 
     initialize() {
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Trig Skills',
+            subjectName: 'Trigonometry',
             subjectSubtitle: 'Exact values, radians & degrees',
             subjectIcon: 'θ',
             accentColor: '#F0697A',
@@ -47,7 +49,8 @@ export class TrigGameController {
         });
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
         this.ui.showScreen('settings');
     }
@@ -59,6 +62,28 @@ export class TrigGameController {
 
         // Keyboard listeners
         document.addEventListener('keydown', (e) => this.handleKeypress(e));
+
+        // Submit when the MathLive virtual keyboard's Return key commits the field
+        // (it dispatches 'change' rather than a DOM keydown, so handleKeypress misses it).
+        document.addEventListener('math-enter', () => {
+            if (!this.ui.elements.gameScreen.classList.contains('hidden') && !this.state.isAnswering) {
+                this.checkAnswer();
+            }
+        });
+
+        // Capture phase so MathLive doesn't swallow the \ key
+        /* document.addEventListener('keydown', (e) => {
+            if (e.key === '\\' && !this.ui.elements.gameScreen.classList.contains('hidden')) {
+                e.stopPropagation();
+                if (this._moveToNextQuestion) {
+                    document.removeEventListener('keydown', this._moveToNextQuestion);
+                    this._moveToNextQuestion = null;
+                }
+                this.ui.hideTimerPausedMessage();
+                this.timer.start();
+                this.generateQuestion();
+            }
+        }, { capture: true }); */
     }
 
     handleKeypress(e) {
@@ -73,6 +98,8 @@ export class TrigGameController {
             return;
         }
 
+        // Backslash handled in capture-phase listener above
+
         // Enter key to submit answer
         if (e.key === 'Enter' && !this.state.isAnswering) {
             e.preventDefault();
@@ -85,6 +112,7 @@ export class TrigGameController {
         this.ui.showScreen('game');
         this.ui.updateLevelName(level.name);
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.ui.hideTimerPausedMessage();
         this.timer.start();
         this.generateQuestion();
@@ -93,6 +121,9 @@ export class TrigGameController {
     generateQuestion() {
         this.ui.clearFeedback();
         this.state.setAnswering(false);
+        // Reset the per-question second-chance counter (trig previously never did this).
+        this.state.resetIncorrectCount();
+        this.ui.updateSecondChances();
 
         try {
             let question = this.questionGen.generate(this.state.currentLevel);
@@ -133,7 +164,6 @@ export class TrigGameController {
 
         this.state.incrementQuestionsAttempted();
         this.state.setAnswering(true);
-        this.ui.disableInput();
 
         const isCorrect = this.answerChecker.checkAnswer(
             userAnswer,
@@ -144,7 +174,7 @@ export class TrigGameController {
         if (isCorrect) {
             this.handleCorrectAnswer();
         } else {
-            this.handleIncorrectAnswer();
+            this.handleIncorrectAnswer(userAnswer);
         }
     }
 
@@ -168,7 +198,7 @@ export class TrigGameController {
         }
     }
 
-    handleIncorrectAnswer() {
+    handleIncorrectAnswer(userAnswer = null) {
         const incorrectCount = this.state.incrementIncorrectCount();
 
         if (this.state.isSecondIncorrectAttempt()) {
@@ -178,8 +208,8 @@ export class TrigGameController {
 
             this.ui.showInputFeedback(false);
 
-            // Show correct answer
-            this.ui.showFeedback(false, null, this.state.currentAnswer);
+            // Show correct answer alongside what the student entered
+            this.ui.showFeedback(false, null, this.state.currentAnswer, userAnswer);
 
             // Reset timer
             this.timer.reset();
@@ -203,6 +233,10 @@ export class TrigGameController {
                         return;
                     }
 
+                    // Stop the dismissing keystroke leaking into the next question's input
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     // Execute transition sequence
                     this.ui.hideTimerPausedMessage();
                     this.state.setAnswering(false);
@@ -217,6 +251,7 @@ export class TrigGameController {
             }, 50);
         } else {
             // First incorrect attempt - show hint and let user try again
+            this.ui.updateSecondChances(0);
             this.ui.showInputFeedback(false);
             this.ui.showFeedback(false, CONFIG.SECOND_CHANCE_FEEDBACK[Math.floor(Math.random() * CONFIG.SECOND_CHANCE_FEEDBACK.length)]);
 
@@ -244,6 +279,9 @@ export class TrigGameController {
         }
 
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
+
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
 
         this.ui.showSuccess(
             this.state.currentLevel.name,
@@ -273,6 +311,15 @@ export class TrigGameController {
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
         } else {
             this.quitGame();
         }

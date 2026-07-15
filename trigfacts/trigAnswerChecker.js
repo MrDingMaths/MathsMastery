@@ -81,7 +81,11 @@ export class AnswerChecker {
         try {
             // Handle common LaTeX expressions
             let expr = latex
-                .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+                .replace(/\\frac(\{[^}]*\}|[0-9])(\{[^}]*\}|[0-9])/g, (_, n, d) => {
+                    const num = n.startsWith('{') ? n.slice(1, -1) : n;
+                    const den = d.startsWith('{') ? d.slice(1, -1) : d;
+                    return `(${num})/(${den})`;
+                })
                 .replace(/\\sqrt\{([^}]+)\}/g, 'sqrt($1)')
                 .replace(/\\pi/g, 'pi')
                 .replace(/\\theta/g, 'theta')
@@ -158,7 +162,6 @@ export class AnswerChecker {
     normalizeLaTeX(latex) {
         return latex
             .replace(/\s+/g, '')
-            .replace(/\\frac\{1\}\{\\sqrt\{2\}\}/g, '\\frac{\\sqrt{2}}{2}')
             .replace(/\\frac\{\\sqrt\{2\}\}\{2\}/g, '\\frac{1}{\\sqrt{2}}')
             .replace(/\{1\}/g, '1')
             .replace(/\{2\}/g, '2')
@@ -186,7 +189,10 @@ export class AnswerChecker {
     }
 
     _isFractionSimplified(latex) {
-        const match = latex.replace(/\s/g, '').match(/^\\frac\{(\d+)\}\{(\d+)\}$/);
+        // Normalize MathLive's shorthand \fracXY → \frac{X}{Y} before checking
+        const normalized = latex.replace(/\s/g, '')
+            .replace(/\\frac([0-9])([0-9])/g, '\\frac{$1}{$2}');
+        const match = normalized.match(/^\\frac\{(\d+)\}\{(\d+)\}$/);
         if (!match) return true; // not a fraction form — let compareExact handle it
         const n = parseInt(match[1]), d = parseInt(match[2]);
         return this._gcd(n, d) === 1;

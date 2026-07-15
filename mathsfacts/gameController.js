@@ -42,7 +42,8 @@ export class GameController {
         // Set up success screen callbacks
         this.ui.setSuccessScreenCallbacks(
             () => this.replayCurrentLevel(),
-            () => this.quitGame()
+            () => this.quitGame(),
+            () => this.startNextLevel()
         );
 
         // Initialize the learning path interface
@@ -71,6 +72,7 @@ export class GameController {
             'unitConversions': () => this.questionGen.generateUnitConversions(),
             'integerOperations': () => this.questionGen.generateIntegerOperations(),
             'roundingDecimals': () => this.questionGen.generateRoundingDecimals(),
+            'negAddSub': () => this.questionGen.generateNegativeAddSub(),
             'bonds': (level) => this.questionGen.generateBonds(level.value, level.customMixedRange)
         };
     }
@@ -141,6 +143,7 @@ export class GameController {
         this.ui.showScreen('game');
         this.ui.updateLevelName(level.name);
         this.ui.updateStreak(0);
+        this.ui.updateSecondChances();
         this.isWaitingForKeystroke = false;
         this.timer.start();
         this.generateQuestion();
@@ -152,6 +155,7 @@ export class GameController {
         this.ui.hideTimerPausedMessage();  // Ensure message is hidden when generating new question
         this.answerSubmitted = false;
         this.state.resetIncorrectCount();  // Reset mistake counter for new question
+        this.ui.updateSecondChances();
         const levelKey = this.state.currentLevel.key;
 
         let generatorFn = this.generatorMap[levelKey];
@@ -259,18 +263,6 @@ export class GameController {
             isCorrect = userAnswer &&
                         userAnswer.operation === correctAnswer.correctOperation &&
                         Math.abs(userAnswer.factor - correctAnswer.correctFactor) < 1e-9;
-
-            // Debug logging
-            if (userAnswer) {
-                console.log('Unit conversion check:');
-                console.log('User operation:', JSON.stringify(userAnswer.operation), 'Type:', typeof userAnswer.operation);
-                console.log('Correct operation:', JSON.stringify(correctAnswer.correctOperation), 'Type:', typeof correctAnswer.correctOperation);
-                console.log('User factor:', userAnswer.factor, 'Type:', typeof userAnswer.factor);
-                console.log('Correct factor:', correctAnswer.correctFactor, 'Type:', typeof correctAnswer.correctFactor);
-                console.log('Operation match:', userAnswer.operation === correctAnswer.correctOperation);
-                console.log('Factor match:', Math.abs(userAnswer.factor - correctAnswer.correctFactor) < 1e-9);
-                console.log('Is correct:', isCorrect);
-            }
         } else if (this.state.currentLevel.key === 'fdpConversions' || this.state.currentLevel.key === 'fdpConversionsMultiples') {
             isCorrect = true;
             for (const key in correctAnswer) {
@@ -331,7 +323,8 @@ export class GameController {
 
                 // Show correct answer with question context
                 const correctAnswerText = this.ui.formatAnswerForDisplay(correctAnswer, this.state.currentLevel.key);
-                this.ui.showFeedback(false, null, correctAnswerText, this.state.currentQuestion?.problem);
+                const userAnswerText = this.ui.formatUserAnswerForDisplay(userAnswer, this.state.currentLevel.key);
+                this.ui.showFeedback(false, null, correctAnswerText, this.state.currentQuestion?.problem, userAnswerText);
 
                 // Reset timer
                 this.timer.reset();
@@ -389,6 +382,9 @@ export class GameController {
             }
             // SUB-BRANCH: First Incorrect Attempt (show encouragement and allow retry)
             else {
+                // Consume the second chance
+                this.ui.updateSecondChances(0);
+
                 // Show red input feedback
                 this.ui.showInputFeedback(false);
 
@@ -452,7 +448,7 @@ export class GameController {
 
     updateLearningPathInterface() {
         this.ui.renderLevelSelectScreen(CONFIG.LEVEL_GROUPS, (level) => this.startGame(level), {
-            subjectName: 'Number Skills',
+            subjectName: 'Number',
             subjectSubtitle: 'Bonds, multiplication & fractions',
             subjectIcon: '±',
             accentColor: '#3DBD6B',
@@ -463,6 +459,15 @@ export class GameController {
     replayCurrentLevel() {
         if (this.state.currentLevel) {
             this.startGame(this.state.currentLevel);
+        } else {
+            this.quitGame();
+        }
+    }
+
+    startNextLevel() {
+        const next = this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        if (next) {
+            this.startGame(next);
         } else {
             this.quitGame();
         }
@@ -498,6 +503,9 @@ export class GameController {
         if (window.progressUI) window.progressUI.updateContent();
 
         const rating = StorageManager.getRating(time, this.state.currentLevel.key);
+
+        const hasNext = !!this.state.getNextLevel(CONFIG.LEVEL_GROUPS);
+        this.ui.elements.nextLevelBtn?.classList.toggle('hidden', !hasNext);
 
         // Show success screen
         try {

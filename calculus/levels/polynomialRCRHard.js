@@ -1,0 +1,52 @@
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel('polynomialRCRHard', 'Polynomial Reverse Chain Rule — Hard', [
+  // Definite integrals of (ax+b)^n
+  { problem: '\\int_0^2(x+1)^4\\,dx', answer: '\\frac{242}{5}' },
+  { problem: '\\int_2^3(2x-5)^3\\,dx', answer: '0' },
+  { problem: '\\int_{-2}^2(1-x)^5\\,dx', answer: '\\frac{364}{3}' },
+  { problem: '\\int_0^5\\left(1-\\frac{x}{5}\\right)^4\\,dx', answer: '1' },
+  { problem: '\\int_0^1\\sqrt{9-8x}\\,dx', answer: '\\frac{13}{6}' },
+  { problem: '\\int_2^7\\frac{1}{\\sqrt{x+2}}\\,dx', answer: '2' },
+  { problem: '\\int_{-2}^0\\sqrt[3]{x+1}\\,dx', answer: '0' },
+  { problem: '\\int_1^5\\sqrt{3x+1}\\,dx', answer: '\\frac{112}{9}' },
+  { problem: '\\int_{-3}^0\\sqrt{1-5x}\\,dx', answer: '\\frac{42}{5}' },
+  // f'(x)·[f(x)]^n recognition — exact derivative
+  { problem: '\\int 5(5x+4)^3\\,dx', answer: '\\frac{1}{4}(5x+4)^4+C' },
+  { problem: '\\int(-3)(1-3x)^5\\,dx', answer: '\\frac{1}{6}(1-3x)^6+C' },
+  { problem: '\\int 2x(x^2-5)^7\\,dx', answer: '\\frac{1}{8}(x^2-5)^8+C' },
+  { problem: '\\int 3x^2(x^3+7)^4\\,dx', answer: '\\frac{1}{5}(x^3+7)^5+C' },
+  { problem: '\\int\\frac{6x}{(3x^2+2)^2}\\,dx', answer: '-\\frac{1}{3x^2+2}+C' },
+  { problem: '\\int\\frac{-6x^2}{\\sqrt{9-2x^3}}\\,dx', answer: '2\\sqrt{9-2x^3}+C' },
+  // f'(x)·[f(x)]^n with scalar adjustment
+  { problem: '\\int 10x(5x^2+3)^2\\,dx', answer: '\\frac{1}{3}(5x^2+3)^3+C' },
+  { problem: '\\int 2x(x^2+1)^3\\,dx', answer: '\\frac{1}{4}(x^2+1)^4+C' },
+  { problem: '\\int 12x^2(1+4x^3)^5\\,dx', answer: '\\frac{1}{6}(1+4x^3)^6+C' },
+  { problem: '\\int x(1+3x^2)^4\\,dx', answer: '\\frac{1}{30}(1+3x^2)^5+C' },
+  { problem: '\\int x^3(1-x^4)^7\\,dx', answer: '-\\frac{1}{32}(1-x^4)^8+C' },
+  { problem: '\\int 3x^2\\sqrt{x^3-1}\\,dx', answer: '\\frac{2}{3}(x^3-1)^{\\frac{3}{2}}+C' },
+  { problem: '\\int x\\sqrt{5x^2+1}\\,dx', answer: '\\frac{1}{15}(5x^2+1)^{\\frac{3}{2}}+C' },
+  { problem: '\\int\\frac{2x}{\\sqrt{x^2+3}}\\,dx', answer: '2\\sqrt{x^2+3}+C' },
+  { problem: '\\int\\frac{x+1}{\\sqrt{4x^2+8x+1}}\\,dx', answer: '\\frac{1}{4}\\sqrt{4x^2+8x+1}+C' },
+  // Definite RCR
+  { problem: '\\int_{-1}^1 x^2(x^3+1)^4\\,dx', answer: '\\frac{32}{15}' },
+  { problem: '\\int_0^1\\frac{x}{(5x^2+1)^3}\\,dx', answer: '\\frac{7}{144}' },
+  { problem: '\\int_0^{\\frac{1}{2}} x\\sqrt{1-4x^2}\\,dx', answer: '\\frac{1}{12}' },
+  { problem: '\\int_{-3}^{-1}(x+5)(x^2+10x+3)^2\\,dx', answer: '936' },
+  // Additional from Mixed Practice section
+  { problem: '\\int 2x(x^2+1)^5\\,dx', answer: '\\frac{(x^2+1)^6}{6}+C' },
+  { problem: '\\int 3x^2(x^3+1)^3\\,dx', answer: '\\frac{(x^3+1)^4}{4}+C' },
+  { problem: '\\int 4x^3(x^4+5)^2\\,dx', answer: '\\frac{(x^4+5)^3}{3}+C' },
+  { problem: '\\int(2x+3)(x^2+3x-2)^4\\,dx', answer: '\\frac{(x^2+3x-2)^5}{5}+C' },
+  { problem: '\\int x(3x^2-7)^6\\,dx', answer: '\\frac{(3x^2-7)^7}{42}+C' },
+  { problem: '\\int x\\sqrt{x^2+4}\\,dx', answer: '\\frac{(x^2+4)^{\\frac{3}{2}}}{3}+C' },
+  { problem: '\\int x^2(4-5x^3)^2\\,dx', answer: '-\\frac{(4-5x^3)^3}{45}+C' },
+  { problem: '\\int 3x(5x^2+3)^7\\,dx', answer: '\\frac{3(5x^2+3)^8}{80}+C' },
+  { problem: '\\int 4x^5(2x^6-3)^4\\,dx', answer: '\\frac{(2x^6-3)^5}{15}+C' },
+  { problem: '\\int(x+2)(x^2+4x)^5\\,dx', answer: '\\frac{(x^2+4x)^6}{12}+C' },
+  { problem: '\\int(3x^2-2)(3x^3-6x-2)^3\\,dx', answer: '\\frac{(3x^3-6x-2)^4}{12}+C' },
+  { problem: '\\int x^2(x^3-1)^{-\\frac{3}{2}}\\,dx', answer: '-\\frac{2}{3\\sqrt{x^3-1}}+C' },
+  { problem: '\\int_0^2 x(2x^2+3)^2\\,dx', answer: '\\frac{326}{3}' },
+  { problem: '\\int_0^1 x^2(x^3-1)^5\\,dx', answer: '-\\frac{1}{18}' },
+  { problem: '\\int_0^1 x(x^2+1)^3\\,dx', answer: '\\frac{15}{8}' },
+], { mode: 'integral', toleranceDp: 2 });

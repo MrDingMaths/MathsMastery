@@ -4,74 +4,43 @@ export default new BaseLevel(
     'rationaliseTheDenominatorEasy',
     'Rationalising the Denominator (Easy)',
     [
-            // Basic single square root denominators with integer numerators
+            // Integer numerator over a single variable surd
+            {problem: "\\frac{1}{\\sqrt{x}}", answer: "\\frac{\\sqrt{x}}{x}"},
+            {problem: "\\frac{2}{\\sqrt{x}}", answer: "\\frac{2\\sqrt{x}}{x}"},
+            {problem: "\\frac{3}{\\sqrt{a}}", answer: "\\frac{3\\sqrt{a}}{a}"},
+            {problem: "\\frac{5}{\\sqrt{x}}", answer: "\\frac{5\\sqrt{x}}{x}"},
+            {problem: "\\frac{1}{\\sqrt{a}}", answer: "\\frac{\\sqrt{a}}{a}"},
+            {problem: "\\frac{4}{\\sqrt{y}}", answer: "\\frac{4\\sqrt{y}}{y}"},
+            {problem: "\\frac{7}{\\sqrt{x}}", answer: "\\frac{7\\sqrt{x}}{x}"},
+            // Variable numerator cancels
+            {problem: "\\frac{x}{\\sqrt{x}}", answer: "\\sqrt{x}"},
+            {problem: "\\frac{a}{\\sqrt{a}}", answer: "\\sqrt{a}"},
+            {problem: "\\frac{2x}{\\sqrt{x}}", answer: "2\\sqrt{x}"},
+            {problem: "\\frac{3a}{\\sqrt{a}}", answer: "3\\sqrt{a}"},
+            // Numeric coefficient with variable surd numerator
+            {problem: "\\frac{a}{\\sqrt{x}}", answer: "\\frac{a\\sqrt{x}}{x}"},
+            {problem: "\\frac{b}{\\sqrt{a}}", answer: "\\frac{b\\sqrt{a}}{a}"},
+            // Surd over surd (variables)
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{y}}", answer: "\\frac{\\sqrt{xy}}{y}"},
+            {problem: "\\frac{\\sqrt{a}}{\\sqrt{b}}", answer: "\\frac{\\sqrt{ab}}{b}"},
+            {problem: "\\frac{\\sqrt{2}}{\\sqrt{x}}", answer: "\\frac{\\sqrt{2x}}{x}"},
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{2}}", answer: "\\frac{\\sqrt{2x}}{2}"},
+            {problem: "\\frac{\\sqrt{3}}{\\sqrt{a}}", answer: "\\frac{\\sqrt{3a}}{a}"},
+            {problem: "\\frac{\\sqrt{y}}{\\sqrt{x}}", answer: "\\frac{\\sqrt{xy}}{x}"},
+            // Square root of a fraction with variables
+            {problem: "\\sqrt{\\frac{a}{x}}", answer: "\\frac{\\sqrt{ax}}{x}"},
+            {problem: "\\sqrt{\\frac{2}{x}}", answer: "\\frac{\\sqrt{2x}}{x}"},
+            {problem: "\\sqrt{\\frac{x}{y}}", answer: "\\frac{\\sqrt{xy}}{y}"},
+            // A handful of numeric questions for fluency
             {problem: "\\frac{1}{\\sqrt{2}}", answer: "\\frac{\\sqrt{2}}{2}"},
             {problem: "\\frac{2}{\\sqrt{2}}", answer: "\\sqrt{2}"},
-            {problem: "\\frac{5}{\\sqrt{2}}", answer: "\\frac{5\\sqrt{2}}{2}"},
-            {problem: "\\frac{6}{\\sqrt{2}}", answer: "3\\sqrt{2}"},
             {problem: "\\frac{4}{\\sqrt{3}}", answer: "\\frac{4\\sqrt{3}}{3}"},
             {problem: "\\frac{6}{\\sqrt{3}}", answer: "2\\sqrt{3}"},
-            {problem: "\\frac{4}{\\sqrt{5}}", answer: "\\frac{4\\sqrt{5}}{5}"},
             {problem: "\\frac{5}{\\sqrt{5}}", answer: "\\sqrt{5}"},
-            {problem: "\\frac{4}{\\sqrt{6}}", answer: "\\frac{2\\sqrt{6}}{3}"},
-            {problem: "\\frac{5}{\\sqrt{6}}", answer: "\\frac{5\\sqrt{6}}{6}"},
-            {problem: "\\frac{1}{\\sqrt{7}}", answer: "\\frac{\\sqrt{7}}{7}"},
-            {problem: "\\frac{3}{\\sqrt{11}}", answer: "\\frac{3\\sqrt{11}}{11}"},
-            {problem: "\\frac{93}{\\sqrt{93}}", answer: "\\sqrt{93}"},
-            {problem: "\\frac{ab}{\\sqrt{ab}}", answer: "\\sqrt{ab}"},
-            
-            // Basic surd over surd fractions
             {problem: "\\frac{\\sqrt{2}}{\\sqrt{7}}", answer: "\\frac{\\sqrt{14}}{7}"},
-            {problem: "\\frac{\\sqrt{5}}{\\sqrt{3}}", answer: "\\frac{\\sqrt{15}}{3}"},
-            
-            // Nested square roots (simplifying form)
             {problem: "\\sqrt{\\frac{2}{3}}", answer: "\\frac{\\sqrt{6}}{3}"},
-            {problem: "\\sqrt{\\frac{2}{5}}", answer: "\\frac{\\sqrt{10}}{5}"},
-            {problem: "\\sqrt{\\frac{5}{7}}", answer: "\\frac{\\sqrt{35}}{7}"},
-            {problem: "\\sqrt{\\frac{6}{7}}", answer: "\\frac{\\sqrt{42}}{7}"},
-            {problem: "\\sqrt{\\frac{7}{3}}", answer: "\\frac{\\sqrt{21}}{3}"},
-            {problem: "\\sqrt{\\frac{17}{2}}", answer: "\\frac{\\sqrt{34}}{2}"},
-            
-            // Additional easy level questions - simple denominators
-            {problem: "\\frac{3}{\\sqrt{2}}", answer: "\\frac{3\\sqrt{2}}{2}"},
-            {problem: "\\frac{7}{\\sqrt{2}}", answer: "\\frac{7\\sqrt{2}}{2}"},
-            {problem: "\\frac{8}{\\sqrt{2}}", answer: "4\\sqrt{2}"},
-            {problem: "\\frac{9}{\\sqrt{3}}", answer: "3\\sqrt{3}"},
-            {problem: "\\frac{12}{\\sqrt{3}}", answer: "4\\sqrt{3}"},
-            {problem: "\\frac{15}{\\sqrt{3}}", answer: "5\\sqrt{3}"},
-            {problem: "\\frac{2}{\\sqrt{5}}", answer: "\\frac{2\\sqrt{5}}{5}"},
-            {problem: "\\frac{3}{\\sqrt{5}}", answer: "\\frac{3\\sqrt{5}}{5}"},
-            {problem: "\\frac{6}{\\sqrt{5}}", answer: "\\frac{6\\sqrt{5}}{5}"},
-            {problem: "\\frac{10}{\\sqrt{5}}", answer: "2\\sqrt{5}"},
-            {problem: "\\frac{20}{\\sqrt{5}}", answer: "4\\sqrt{5}"},
-            
-            // Basic square root of 6
-            {problem: "\\frac{3}{\\sqrt{6}}", answer: "\\frac{\\sqrt{6}}{2}"},
-            {problem: "\\frac{6}{\\sqrt{6}}", answer: "\\sqrt{6}"},
-            {problem: "\\frac{12}{\\sqrt{6}}", answer: "2\\sqrt{6}"},
-            
-            // Other basic denominators
-            {problem: "\\frac{2}{\\sqrt{7}}", answer: "\\frac{2\\sqrt{7}}{7}"},
-            {problem: "\\frac{7}{\\sqrt{7}}", answer: "\\sqrt{7}"},
-            {problem: "\\frac{14}{\\sqrt{7}}", answer: "2\\sqrt{7}"},
-            {problem: "\\frac{1}{\\sqrt{10}}", answer: "\\frac{\\sqrt{10}}{10}"},
-            {problem: "\\frac{2}{\\sqrt{10}}", answer: "\\frac{\\sqrt{10}}{5}"},
-            {problem: "\\frac{5}{\\sqrt{10}}", answer: "\\frac{\\sqrt{10}}{2}"},
-            {problem: "\\frac{10}{\\sqrt{10}}", answer: "\\sqrt{10}"},
-            
-            // More nested square roots
-            {problem: "\\sqrt{\\frac{3}{2}}", answer: "\\frac{\\sqrt{6}}{2}"},
             {problem: "\\sqrt{\\frac{3}{5}}", answer: "\\frac{\\sqrt{15}}{5}"},
-            {problem: "\\sqrt{\\frac{2}{7}}", answer: "\\frac{\\sqrt{14}}{7}"},
-            {problem: "\\sqrt{\\frac{3}{7}}", answer: "\\frac{\\sqrt{21}}{7}"},
-            {problem: "\\sqrt{\\frac{5}{2}}", answer: "\\frac{\\sqrt{10}}{2}"},
-            {problem: "\\sqrt{\\frac{7}{2}}", answer: "\\frac{\\sqrt{14}}{2}"},
-            
-            // Simple surd over surd - more examples
             {problem: "\\frac{\\sqrt{3}}{\\sqrt{2}}", answer: "\\frac{\\sqrt{6}}{2}"},
-            {problem: "\\frac{\\sqrt{7}}{\\sqrt{2}}", answer: "\\frac{\\sqrt{14}}{2}"},
-            {problem: "\\frac{\\sqrt{2}}{\\sqrt{5}}", answer: "\\frac{\\sqrt{10}}{5}"},
-            {problem: "\\frac{\\sqrt{3}}{\\sqrt{5}}", answer: "\\frac{\\sqrt{15}}{5}"},
-            {problem: "\\frac{\\sqrt{7}}{\\sqrt{5}}", answer: "\\frac{\\sqrt{35}}{5}"}
+            {problem: "\\frac{3}{\\sqrt{6}}", answer: "\\frac{\\sqrt{6}}{2}"}
         ]
 );

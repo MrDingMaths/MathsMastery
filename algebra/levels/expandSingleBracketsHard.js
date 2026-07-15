@@ -68,17 +68,7 @@ export default new BaseLevel(
             { problem: "-x(x^2 + xy - y^2)", answer: "-x^3 - x^2y + xy^2" },
             { problem: "5xy(x + y - 1)", answer: "5x^2y + 5xy^2 - 5xy" },
             
-            // Additional hard problems with multiple variables and complex coefficients
-            {problem: "6(x-2y)", answer: "6x - 12y"},
-            {problem: "6(5x-2y)", answer: "30x - 12y"},
-            {problem: "-6(2y-5x)", answer: "30x - 12y"},
-            {problem: "-6(2y-5x-7a)", answer: "30x - 12y + 42a"},
-            {problem: "-6(5x-2y-7a)", answer: "-30x + 12y + 42a"},
-            {problem: "-6(-5x-2y-7a)", answer: "30x + 12y + 42a"},
-            {problem: "-(-5x-2y-7a)", answer: "5x + 2y + 7a"},
-            {problem: "3x(x-2y)", answer: "3x^2 - 6xy"},
-            {problem: "3x(5x-2y)", answer: "15x^2 - 6xy"},
-            {problem: "-3x(2y-5x)", answer: "15x^2 - 6xy"},
+            // Degree-2+ outer factor producing cubics
             {problem: "-3x^2(2y-5x)", answer: "15x^3 - 6x^2y"},
             {problem: "-3y^2(2y-5x)", answer: "15xy^2 - 6y^3"},
             {problem: "-3y^2(2y-5xy)", answer: "15xy^3 - 6y^3"},

@@ -13,10 +13,18 @@ export default new BaseLevel(
             {problem: "(9x + 6)(5x + 10)", answer: "15(3x + 2)(x + 2)"},
             {problem: "(4 - y^2)(y + 2)", answer: "(2 - y)(y + 2)^2"},
             {problem: "(1 - x^2)(x + 1)", answer: "(1 - x)(x + 1)^2"},
-            {problem: "x^2 + 18x + 81", answer: "(x + 9)^2"},
             {problem: "7(2x + 4)^2", answer: "28(x + 2)^2"},
-            
+
             // Additional questions for medium complexity progression
+            {problem: "(x + 2)(x^2 + 7x + 10)", answer: "(x + 2)^2(x + 5)"},
+            {problem: "(x + 1)(x^2 + 5x + 6)", answer: "(x + 1)(x + 2)(x + 3)"},
+            {problem: "(x + 4)(x^2 + 7x + 12)", answer: "(x + 3)(x + 4)^2"},
+            {problem: "(x + 5)(x^2 + 9x + 20)", answer: "(x + 4)(x + 5)^2"},
+            {problem: "(4x + 6)(3x + 9)", answer: "6(2x + 3)(x + 3)"},
+            {problem: "(6x + 15)(2x + 4)", answer: "6(2x + 5)(x + 2)"},
+            {problem: "(10x + 15)(6x + 18)", answer: "30(2x + 3)(x + 3)"},
+            {problem: "3(2x + 4)^2", answer: "12(x + 2)^2"},
+            {problem: "2(x + 1)(3x^2 + 9x)", answer: "6x(x + 1)(x + 3)"},
             {problem: "(x + 2)(x^2 + 6x + 9)", answer: "(x + 2)(x + 3)^2"},
             {problem: "(x + 4)(x^2 + 4x + 4)", answer: "(x + 4)(x + 2)^2"},
             {problem: "3(x + 1)(2x^2 + 4x)", answer: "6x(x + 1)(x + 2)"},

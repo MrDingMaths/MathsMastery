@@ -142,6 +142,10 @@ export class QuestionGenerator {
         return levels.generateBonds(value, customMixedRange, this.inputPlaceholder);
     }
 
+    generateNegativeAddSub() {
+        return levels.generateNegativeAddSub(this.inputPlaceholder);
+    }
+
     // ========== POWER & SQUARE METHODS ==========
 
     /**

@@ -4,39 +4,23 @@ export default new BaseLevel(
     'multiplyDivideAlgebraicFractionsMedium',
     'Multiply Divide Algebraic Fractions (Medium)',
     [
-
-            // Fraction multiplication with simple cancellation
-            {problem: "\\frac{x}{y} \\times \\frac{3}{6}", answer: "\\frac{x}{2y}"},
             {problem: "\\frac{x}{y} \\times \\frac{3}{6x}", answer: "\\frac{1}{2y}"},
             {problem: "\\frac{x}{xy} \\times \\frac{3}{6}", answer: "\\frac{1}{2y}"},
             {problem: "\\frac{7x}{xy} \\times \\frac{3}{6}", answer: "\\frac{7}{2y}"},
             {problem: "\\frac{3x}{2} \\times \\frac{1}{6x}", answer: "\\frac{1}{4}"},
             {problem: "\\frac{4}{9x} \\times \\frac{3x}{2}", answer: "\\frac{2}{3}"},
 
-            // Same variable squared terms
             {problem: "\\frac{3a}{2} \\times \\frac{7a}{5}", answer: "\\frac{21a^2}{10}"},
-            {problem: "\\frac{6x}{5} \\times \\frac{7y}{6}", answer: "\\frac{7xy}{5}"},
-            {problem: "\\frac{2b}{5} \\times \\frac{7x}{6}", answer: "\\frac{7bx}{15}"},
-            {problem: "\\frac{8a}{5} \\times \\frac{3b}{4x}", answer: "\\frac{6ab}{5x}"},
-            {problem: "\\frac{9x}{2} \\times \\frac{4y}{7}", answer: "\\frac{18xy}{7}"},
 
-            // Division with cancellation
-            {problem: "\\frac{4x}{5} \\div 3", answer: "\\frac{4x}{15}"},
-            {problem: "5 \\times \\frac{7}{10x}", answer: "\\frac{7}{2x}"},
-            {problem: "\\frac{9a}{10} \\div \\frac{1}{4}", answer: "\\frac{18a}{5}"},
-            {problem: "\\frac{2}{3} \\div \\frac{4x}{7}", answer: "\\frac{7}{6x}"},
-            {problem: "\\frac{4}{5} \\div \\frac{2y}{3}", answer: "\\frac{6}{5y}"},
-            {problem: "\\frac{4a}{7} \\div \\frac{2}{5}", answer: "\\frac{10a}{7}"},
-            {problem: "\\frac{4b}{7} \\div \\frac{2x}{5}", answer: "\\frac{10b}{7x}"},
-            {problem: "\\frac{2x}{5} \\div \\frac{4y}{3}", answer: "\\frac{3x}{10y}"},
+            {problem: "\\frac{2y}{x} \\div \\frac{3}{y}", answer: "\\frac{2y^2}{3x}"},
+            {problem: "\\frac{5}{12x} \\div \\frac{7x}{2}", answer: "\\frac{5}{42x^2}"},
+            {problem: "\\frac{4a}{5} \\div \\frac{2b}{7a}", answer: "\\frac{14a^2}{5b}"},
 
-            // More complex operations
             {problem: "\\frac{7x}{xy} \\times \\frac{3}{6y}", answer: "\\frac{7}{2y^2}"},
             {problem: "\\frac{7x}{xy} \\div \\frac{6y}{3}", answer: "\\frac{7}{2y^2}"},
             {problem: "\\frac{7x}{xy} \\times \\frac{6y}{3}", answer: "14"},
             {problem: "\\frac{7x}{xy} \\div \\frac{3}{6y}", answer: "14"},
 
-            // Additional generated questions with intermediate complexity
             {problem: "\\frac{5a}{6} \\times \\frac{4b}{15a}", answer: "\\frac{2b}{9}"},
             {problem: "\\frac{8x}{9} \\times \\frac{3y}{4x}", answer: "\\frac{2y}{3}"},
             {problem: "\\frac{12a}{7} \\times \\frac{5b}{8a}", answer: "\\frac{15b}{14}"},
@@ -48,12 +32,6 @@ export default new BaseLevel(
             {problem: "\\frac{18b}{5} \\div \\frac{9b}{10}", answer: "4"},
             {problem: "\\frac{21x}{4} \\div \\frac{7x}{8}", answer: "6"},
             {problem: "\\frac{16y}{9} \\div \\frac{4y}{3}", answer: "\\frac{4}{3}"},
-
-            {problem: "\\frac{3a^2}{4} \\times \\frac{8}{9a}", answer: "\\frac{2a}{3}"},
-            {problem: "\\frac{5x^2}{6} \\times \\frac{12}{10x}", answer: "x"},
-            {problem: "\\frac{7b^2}{8} \\times \\frac{16}{21b}", answer: "\\frac{2b}{3}"},
-            {problem: "\\frac{9y^2}{10} \\times \\frac{20}{27y}", answer: "\\frac{2y}{3}"},
-            {problem: "\\frac{4a^2}{5} \\times \\frac{15}{8a}", answer: "\\frac{3a}{2}"},
 
             {problem: "\\frac{6ab}{5} \\times \\frac{10x}{9ab}", answer: "\\frac{4x}{3}"},
             {problem: "\\frac{8xy}{7} \\times \\frac{21a}{12xy}", answer: "2a"},

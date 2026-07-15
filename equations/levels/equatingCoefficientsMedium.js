@@ -1,0 +1,55 @@
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel('equatingCoefficientsMedium', 'Equating Coefficients (Medium)', [
+    // existing
+    { problem: '(x-2)^2+x+a(x+b)=x^2+1',               inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '-1' } },
+    // Pattern A: (x+p)²+a(x+b)=known  —  find a from x-coeff, then substitute into const for b
+    { problem: '(x+2)^2+a(x+b)=x^2+5x+1',              inputs: { vars: ['a', 'b'] }, answer: { a: '1',  b: '-3' } },
+    { problem: '(x+3)^2+a(x+b)=x^2+7x+1',              inputs: { vars: ['a', 'b'] }, answer: { a: '1',  b: '-8' } },
+    { problem: '(x+1)^2+a(x+b)=x^2+4x-3',              inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '-2' } },
+    { problem: '(x-2)^2+a(x+b)=x^2+x-1',               inputs: { vars: ['a', 'b'] }, answer: { a: '5',  b: '-1' } },
+    { problem: '(x+4)^2+a(x+b)=x^2+2x+4',              inputs: { vars: ['a', 'b'] }, answer: { a: '-6', b: '2'  } },
+    { problem: '(x+1)^2+a(x+b)=x^2+7x-14',             inputs: { vars: ['a', 'b'] }, answer: { a: '5',  b: '-3' } },
+    { problem: '(x+3)^2+a(x+b)=x^2+8x+1',              inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '-4' } },
+    { problem: '(x+5)^2+a(x+b)=x^2+6x+13',             inputs: { vars: ['a', 'b'] }, answer: { a: '-4', b: '3'  } },
+    { problem: '(x-3)^2+a(x+b)=x^2+2x+17',             inputs: { vars: ['a', 'b'] }, answer: { a: '8',  b: '1'  } },
+    { problem: '(x-1)^2+a(x+b)=x^2+x+13',              inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '4'  } },
+    { problem: '(x+2)^2+a(x+b)=x^2+10x+22',            inputs: { vars: ['a', 'b'] }, answer: { a: '6',  b: '3'  } },
+    { problem: '(x+3)^2+a(x+b)=x^2+9x+3',              inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '-2' } },
+    { problem: '(x+4)^2+a(x+b)=x^2+5x+10',             inputs: { vars: ['a', 'b'] }, answer: { a: '-3', b: '2'  } },
+    { problem: '(x-2)^2+a(x+b)=x^2+2x+16',             inputs: { vars: ['a', 'b'] }, answer: { a: '6',  b: '2'  } },
+    { problem: '(x-3)^2+a(x+b)=x^2-2x+21',             inputs: { vars: ['a', 'b'] }, answer: { a: '4',  b: '3'  } },
+    { problem: '(x+6)^2+a(x+b)=x^2+8x+44',             inputs: { vars: ['a', 'b'] }, answer: { a: '-4', b: '-2' } },
+    { problem: '(x+4)^2+a(x+b)=x^2+10x+6',             inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '-5' } },
+    { problem: '(x+4)^2+a(x+b)=x^2+3x+1',              inputs: { vars: ['a', 'b'] }, answer: { a: '-5', b: '3'  } },
+    // Pattern B: (x+a)(x+p)+q(x+b)=known  —  find a from x-coeff, then b from const
+    { problem: '(x+a)(x+3)+2(x+b)=x^2+9x+10',          inputs: { vars: ['a', 'b'] }, answer: { a: '4',  b: '-1' } },
+    { problem: '(x+a)(x+3)+2(x+b)=x^2+7x+12',          inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '3'  } },
+    { problem: '(x+a)(x-2)+3(x+b)=x^2+6x-4',           inputs: { vars: ['a', 'b'] }, answer: { a: '5',  b: '2'  } },
+    { problem: '(x+a)(x-2)+3(x+b)=x^2+4x-3',           inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '1'  } },
+    { problem: '(x+a)(x+4)-(x+b)=x^2+5x+5',            inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '3'  } },
+    { problem: '(x+a)(x+1)+4(x+b)=x^2+8x+11',          inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '2'  } },
+    { problem: '(x+a)(x+5)-2(x+b)=x^2+6x+7',           inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '4'  } },
+    // Pattern C: a or bracket coefficient unknown, sequential solve
+    { problem: '2(x+a)^2+(x+b)=2x^2+9x+11',            inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '3'  } },
+    { problem: '3(x+a)^2+(x+b)=3x^2+13x+17',           inputs: { vars: ['a', 'b'] }, answer: { a: '2',  b: '5'  } },
+    { problem: '(x+a)^2+2(x+b)=x^2+8x+7',              inputs: { vars: ['a', 'b'] }, answer: { a: '3',  b: '-1' } },
+    { problem: '(x+a)^2+4(x+b)=x^2+14x+21',            inputs: { vars: ['a', 'b'] }, answer: { a: '5',  b: '-1' } },
+    // ---- Partial fractions: with fractions (full rational identity) ----
+    { problem: '\\frac{2x-7}{(x+1)(x-2)}=\\frac{A}{x+1}+\\frac{B}{x-2}',  inputs: { vars: ['A', 'B'] }, answer: { A: '3',  B: '-1' } },
+    { problem: '\\frac{3x-17}{(x-3)(x+1)}=\\frac{A}{x-3}+\\frac{B}{x+1}', inputs: { vars: ['A', 'B'] }, answer: { A: '-2', B: '5'  } },
+    { problem: '\\frac{6x-18}{(x-1)(x-4)}=\\frac{A}{x-1}+\\frac{B}{x-4}', inputs: { vars: ['A', 'B'] }, answer: { A: '4',  B: '2'  } },
+    { problem: '\\frac{3x-14}{(x+2)(x-3)}=\\frac{A}{x+2}+\\frac{B}{x-3}', inputs: { vars: ['A', 'B'] }, answer: { A: '4',  B: '-1' } },
+    { problem: '\\frac{2x-10}{(x-2)(x+4)}=\\frac{A}{x-2}+\\frac{B}{x+4}', inputs: { vars: ['A', 'B'] }, answer: { A: '-1', B: '3'  } },
+    // ---- Partial fractions: split the numerator (numerator identity) ----
+    { problem: '3x+13=A(x+3)+B(x+1)', inputs: { vars: ['A', 'B'] }, answer: { A: '5',  B: '-2' } },
+    { problem: '5x+20=A(x+3)+B(x-2)', inputs: { vars: ['A', 'B'] }, answer: { A: '6',  B: '-1' } },
+    { problem: 'x+16=A(x-4)+B(x+1)',  inputs: { vars: ['A', 'B'] }, answer: { A: '-3', B: '4'  } },
+    { problem: '5x-19=A(x-3)+B(x-1)', inputs: { vars: ['A', 'B'] }, answer: { A: '7',  B: '-2' } },
+    { problem: 'x-22=A(x+3)+B(x-2)',  inputs: { vars: ['A', 'B'] }, answer: { A: '-4', B: '5'  } },
+    // ---- Partial fractions: decomposition given (unfactored denominator) ----
+    { problem: '\\frac{5x-13}{x^2-3x+2}=\\frac{A}{x-1}+\\frac{B}{x-2}',  inputs: { vars: ['A', 'B'] }, answer: { A: '8',  B: '-3' } },
+    { problem: '\\frac{5x-32}{x^2-2x-8}=\\frac{A}{x-4}+\\frac{B}{x+2}',  inputs: { vars: ['A', 'B'] }, answer: { A: '-2', B: '7'  } },
+    { problem: '\\frac{5x-49}{x^2-4x-5}=\\frac{A}{x+1}+\\frac{B}{x-5}',  inputs: { vars: ['A', 'B'] }, answer: { A: '9',  B: '-4' } },
+    { problem: '\\frac{2x-48}{x^2+x-12}=\\frac{A}{x-3}+\\frac{B}{x+4}',  inputs: { vars: ['A', 'B'] }, answer: { A: '-6', B: '8'  } },
+    { problem: '\\frac{7x+43}{x^2+3x-4}=\\frac{A}{x-1}+\\frac{B}{x+4}',  inputs: { vars: ['A', 'B'] }, answer: { A: '10', B: '-3' } },
+]);

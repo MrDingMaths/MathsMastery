@@ -25,9 +25,6 @@ export default new BaseLevel(
             {problem: "\\frac{x-2}{12} - \\frac{x-3}{8}", answer: "\\frac{-x+5}{24}"},
             {problem: "\\frac{2x+1}{2} - \\frac{x-2}{3}", answer: "\\frac{4x+7}{6}"},
             {problem: "\\frac{3-x}{14} - \\frac{x-1}{7}", answer: "\\frac{5-3x}{14}"},
-            {problem: "\\frac{2x}{5} - \\frac{3x}{2} - \\frac{x}{3}", answer: "-\\frac{43x}{30}"},
-            {problem: "\\frac{x}{4} - \\frac{2x}{3} + \\frac{5x}{6}", answer: "\\frac{5x}{12}"},
-            {problem: "\\frac{5x}{8} - \\frac{5x}{6} + \\frac{3x}{4}", answer: "\\frac{13x}{24}"},
             {problem: "\\frac{x+1}{4} + \\frac{2x-1}{3} - \\frac{x}{5}", answer: "\\frac{43x-5}{60}"},
             {problem: "\\frac{2x-1}{3} - \\frac{2x}{7} + \\frac{x-3}{6}", answer: "\\frac{23x-35}{42}"},
             {problem: "\\frac{1-2x}{5} - \\frac{3x}{8} + \\frac{3x+1}{2}", answer: "\\frac{29x+28}{40}"},
@@ -42,6 +39,9 @@ export default new BaseLevel(
             {problem: "\\frac{2x+7}{15} + \\frac{x-4}{10}", answer: "\\frac{7x+2}{30}"},
             {problem: "\\frac{4x-1}{9} - \\frac{3x+2}{12}", answer: "\\frac{7x-10}{36}"},
             {problem: "\\frac{3x+2}{8} - \\frac{x-5}{6}", answer: "\\frac{5x+26}{24}"},
-            {problem: "\\frac{6x-4}{10} + \\frac{2x+3}{15}", answer: "\\frac{11x-3}{15}"}
+            {problem: "\\frac{6x-4}{10} + \\frac{2x+3}{15}", answer: "\\frac{11x-3}{15}"},
+            {problem: "\\frac{3x-4}{7} - \\frac{2x+1}{5}", answer: "\\frac{x-27}{35}"},
+            {problem: "\\frac{4x-3}{9} - \\frac{x+4}{6}", answer: "\\frac{5x-18}{18}"},
+            {problem: "\\frac{x+3}{4} - \\frac{3x-1}{10} + \\frac{x+2}{5}", answer: "\\frac{3x+25}{20}"}
         ]
 );

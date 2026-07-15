@@ -400,6 +400,8 @@ window.initProgressTracker = function (app, opts) {
         algebra:    { storageKey: 'algebra_progress_data_v5', obsoleteBestTimePrefixes: ['algebra_bestTime_v1_'] },
         mathsfacts: { storageKey: 'mf_progress_data_v5',      obsoleteBestTimePrefixes: ['mf_bestTime_v1_', 'mf_bestTime_v5_'] },
         trigfacts:  { storageKey: 'tf_progress_data_v5',      obsoleteBestTimePrefixes: ['tf_bestTime_v5_'] },
+        equations:  { storageKey: 'equations_progress_data_v5', obsoleteBestTimePrefixes: [] },
+        calculus:   { storageKey: 'calculus_progress_data_v5', obsoleteBestTimePrefixes: [] },
     };
     const cfg = APP_STORAGE[app];
     if (!cfg) throw new Error(`initProgressTracker: unknown app "${app}"`);

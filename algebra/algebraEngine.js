@@ -29,6 +29,18 @@ if (typeof require !== 'undefined') {
 }
 
 class AlgebraEngine {
+    // Multi-letter math.js function names that must survive implicit-multiplication
+    // splitting (see insertImpliedMultiplication). `sqrt` is the only one emitted
+    // by latexToMathJS today; the rest future-proof the parser.
+    static KNOWN_FUNCTIONS = new Set([
+        'sqrt', 'cbrt', 'nthRoot', 'abs', 'sin', 'cos', 'tan', 'log', 'ln', 'exp',
+        // Extra trig / inverse-trig / hyperbolic names (all valid Math.js functions)
+        // so they survive implicit-multiplication splitting when emitted by the
+        // calculus answer checker. Additive — no algebra/equations level uses these
+        // identifiers as variables.
+        'sec', 'csc', 'cot', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh'
+    ]);
+
     constructor(mathObj = null) {
         this.logDepth = 0;
         // Store math object - use provided math or the global one
@@ -57,6 +69,70 @@ class AlgebraEngine {
      * Convert LaTeX string to Math.js expression string
      * Handles: superscripts, fractions, roots, operators, implicit multiplication
      */
+    /**
+     * Consume one TeX argument starting at `pos`: either a {braced group},
+     * a \command, or a single character. Returns the raw text and next position.
+     */
+    consumeTexArg(str, pos) {
+        if (pos >= str.length) return { raw: '', inner: '', nextPos: pos };
+        const ch = str[pos];
+        if (ch === '{') {
+            let depth = 1;
+            let i = pos + 1;
+            while (i < str.length) {
+                const c = str[i];
+                if (c === '\\') { i += 2; continue; }
+                if (c === '{') depth++;
+                else if (c === '}') {
+                    depth--;
+                    if (depth === 0) {
+                        return { raw: str.slice(pos, i + 1), inner: str.slice(pos + 1, i), nextPos: i + 1 };
+                    }
+                }
+                i++;
+            }
+            // Unbalanced — take rest of string as inner
+            return { raw: str.slice(pos), inner: str.slice(pos + 1), nextPos: str.length };
+        }
+        if (ch === '\\') {
+            let i = pos + 1;
+            while (i < str.length && /[a-zA-Z]/.test(str[i])) i++;
+            const cmd = str.slice(pos, i);
+            return { raw: cmd, inner: cmd, nextPos: i };
+        }
+        return { raw: ch, inner: ch, nextPos: pos + 1 };
+    }
+
+    /**
+     * Normalise compact \frac shorthand to always-braced form.
+     * Examples:
+     *   \frac12         → \frac{1}{2}
+     *   \frac\pi2       → \frac{\pi}{2}
+     *   \frac1{2x}      → \frac{1}{2x}
+     *   \frac{a+b}{c}   → \frac{a+b}{c}  (unchanged)
+     * Recurses into braced groups so nested fractions also normalise.
+     */
+    normalizeFracBraces(expr) {
+        let result = '';
+        let i = 0;
+        while (i < expr.length) {
+            if (expr.startsWith('\\frac', i)) {
+                result += '\\frac';
+                i += 5;
+                const arg1 = this.consumeTexArg(expr, i);
+                result += '{' + this.normalizeFracBraces(arg1.inner) + '}';
+                i = arg1.nextPos;
+                const arg2 = this.consumeTexArg(expr, i);
+                result += '{' + this.normalizeFracBraces(arg2.inner) + '}';
+                i = arg2.nextPos;
+            } else {
+                result += expr[i];
+                i++;
+            }
+        }
+        return result;
+    }
+
     latexToMathJS(latex) {
         let expr = latex.trim();
 
@@ -69,12 +145,23 @@ class AlgebraEngine {
             expr = expr.replace(new RegExp(unicode, 'g'), replacement);
         }
 
-        // Remove \left and \right
-        expr = expr.replace(/\\left|\\right/g, '');
+        // Strip \left/\right (MathQuill) and \mleft/\mright (MathLive context-aware variant)
+        expr = expr.replace(/\\left|\\right|\\mleft|\\mright/g, '');
+
+        // Strip MathLive \placeholder{...} tokens
+        expr = expr.replace(/\\placeholder\{[^}]*\}/g, '');
+        expr = expr.replace(/\\placeholder/g, '');
+
+        // MathLive can leave empty placeholder scripts while editing, e.g.
+        // x^{} or x+_{}5. They carry no mathematical value.
+        expr = expr.replace(/\s*[\^_]\s*\{\s*\}/g, '');
 
         // Convert multiplication operators
         expr = expr.replace(/\\times|\\cdot|×/g, '*');
         expr = expr.replace(/÷/g, '/');
+
+        // Normalise bare \sqrtN → \sqrt{N} (MathLive omits braces for single-char arguments)
+        expr = expr.replace(/\\sqrt([^{(\\\s\[}])/g, '\\sqrt{$1}');
 
         // Convert roots: \sqrt[n]{x} → (x^(1/n)), \sqrt{x} → sqrt(x)
         expr = expr.replace(
@@ -86,21 +173,26 @@ class AlgebraEngine {
             'sqrt($1)'
         );
 
-        // Convert fractions: \frac{a}{b} → ((a)/(b))
+        // MathLive emits TeX shorthand like \frac12; normalise to \frac{1}{2} so the brace regex matches.
+        expr = this.normalizeFracBraces(expr);
+
+        // Convert fractions inside-out: \frac{a}{b} → ((a)/(b))
+        const FRAC_MAX = 100;
+        let fracIter = 0;
         while (expr.includes('\\frac')) {
+            const before = expr;
             expr = expr.replace(
                 /\\frac\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g,
                 '(($1)/($2))'
             );
+            if (expr === before || ++fracIter >= FRAC_MAX) break;
         }
 
         // Handle explicit exponents: ^{expr} → ^(expr)
         expr = expr.replace(/\^{([^}]*)}/g, '^($1)');
 
-        // Remove remaining backslashes
+        // Remove remaining backslashes and whitespace
         expr = expr.replace(/\\/g, '');
-
-        // Remove whitespace
         expr = expr.replace(/\s+/g, '');
 
         return this.insertImpliedMultiplication(expr);
@@ -109,29 +201,87 @@ class AlgebraEngine {
     /**
      * Insert implicit multiplication between adjacent terms
      * Examples: "2x" → "2*x", "(x)(y)" → "(x)*(y)", "xy" → "x*y"
+     *
+     * Multi-letter math.js function names (e.g. sqrt) are recognised and kept
+     * intact when followed by "(": their letters are NOT split and no "*" is
+     * inserted before the "(". Without this, "sqrt(5)" would become
+     * "s*q*r*t*(5)" — four phantom variables that break numeric evaluation.
      */
     insertImpliedMultiplication(expr) {
-        let result = '';
         if (expr.length === 0) return '';
 
-        for (let i = 0; i < expr.length; i++) {
+        let result = '';
+        let i = 0;
+        while (i < expr.length) {
+            // Detect a maximal run of letters.
+            const runMatch = expr.slice(i).match(/^[a-zA-Z]+/);
+            if (runMatch) {
+                const run = runMatch[0];
+                const after = expr[i + run.length]; // char following the run (may be undefined)
+
+                // Protected function call: known name immediately followed by "(".
+                if (AlgebraEngine.KNOWN_FUNCTIONS.has(run) && after === '(') {
+                    // Leading "*" if the previous emitted char was a digit or ")".
+                    if (result.length && /[)\d]/.test(result[result.length - 1])) result += '*';
+                    result += run; // emit name verbatim; no "*" before "("
+                    i += run.length;
+                    continue;
+                }
+                // Otherwise treat each letter as its own variable (split with "*").
+                if (result.length && /[)\d]/.test(result[result.length - 1])) result += '*';
+                result += run.split('').join('*');
+                // Implicit multiplication before a following letter/"(".
+                if (after && /[a-zA-Z(]/.test(after)) result += '*';
+                i += run.length;
+                continue;
+            }
+
+            // Non-letter character: apply digit/paren rules.
             const char = expr[i];
             result += char;
-
-            if (i === expr.length - 1) break;
-
             const nextChar = expr[i + 1];
-
-            // Insert * between: digit and letter/paren, paren and letter/digit/paren, letter and letter/paren
-            if (char.match(/\d/) && nextChar.match(/[a-zA-Z(]/)) result += '*';
-            else if (char === ')' && nextChar.match(/[a-zA-Z\d(]/)) result += '*';
-            else if (char.match(/[a-zA-Z]/) && nextChar.match(/[a-zA-Z(]/)) result += '*';
+            if (nextChar !== undefined) {
+                if (/\d/.test(char) && /[a-zA-Z(]/.test(nextChar)) result += '*';
+                else if (char === ')' && /[a-zA-Z\d(]/.test(nextChar)) result += '*';
+            }
+            i++;
         }
 
         return result;
     }
 
     // ==================== MODULE 2: AST UTILITIES ====================
+
+    /**
+     * If `node` is a ConstantNode holding a non-integer number (e.g. 5.5),
+     * return an equivalent exact rational as a divide node (e.g. 11/2), with any
+     * sign carried on the numerator. This routes a decimal constant through the
+     * same canonicalization path as the same value typed as a fraction, so a
+     * decimal answer matches its fractional equivalent (5.5 ≡ 11/2) while pure
+     * fraction forms are left untouched. Returns null for nulls, non-constants,
+     * and integer / non-finite constants (nothing to convert).
+     *
+     * math.fraction() rationalises the float, so a truncated decimal stays
+     * genuinely unequal: 0.33 → 33/100 (≠ 1/3).
+     */
+    decimalConstantToFraction(node) {
+        if (!node || !node.isConstantNode) return null;
+        const v = node.value;
+        if (typeof v !== 'number' || !isFinite(v) || Number.isInteger(v)) return null;
+
+        try {
+            const f = this.math.fraction(v);
+            const num = Number(f.s) * Number(f.n);
+            const den = Number(f.d);
+            if (!Number.isFinite(num) || !Number.isFinite(den) || den === 0) return null;
+            return new this.math.OperatorNode('divide', 'divide', [
+                new this.math.ConstantNode(num),
+                new this.math.ConstantNode(den)
+            ]);
+        } catch (e) {
+            return null;
+        }
+    }
 
     /**
      * Convert AST node to readable string representation
@@ -718,6 +868,14 @@ class AlgebraEngine {
                 transformedNode.content = canonicalizeNode(transformedNode.content);
             }
 
+            // Rewrite a decimal constant (e.g. 5.5) as its exact rational form
+            // (11/2) so it canonicalizes identically to the same value typed as a
+            // fraction. Runs after the simplification validator, so it cannot
+            // bypass the "reject 2+2 instead of 4" rejection — it only affects
+            // equivalence. Pure fraction forms are unaffected.
+            const asFraction = this.decimalConstantToFraction(transformedNode);
+            if (asFraction) return canonicalizeNode(asFraction);
+
             switch (transformedNode.type) {
                 case 'OperatorNode':
                     // Convert subtract to add with negation
@@ -741,6 +899,21 @@ class AlgebraEngine {
                     // Handle division
                     if (transformedNode.fn === 'divide') {
                         transformedNode = this._canonicalizeDivision(transformedNode);
+                    }
+
+                    // Handle powers: an even integer exponent removes the sign of the
+                    // base, so (a-b)^2 ≡ (b-a)^2. Normalize a binary-difference base
+                    // to its canonical order even when the flip carries sign=-1, since
+                    // the even power cancels it. This keeps (6-x)^2 ≡ (x-6)^2.
+                    if (transformedNode.fn === 'pow' && transformedNode.args.length === 2) {
+                        const exp = transformedNode.args[1];
+                        if (exp.isConstantNode && typeof exp.value === 'number' &&
+                            Number.isInteger(exp.value) && exp.value % 2 === 0) {
+                            const canonResult = this.canonicalizeBinaryDifference(transformedNode.args[0]);
+                            if (canonResult.transformed) {
+                                transformedNode.args[0] = canonResult.result;
+                            }
+                        }
                     }
 
                     break;
@@ -1917,6 +2090,92 @@ class AlgebraEngine {
 
     // ==================== MODULE 8: MAIN ORCHESTRATOR ====================
 
+    _primeFactorize(n) {
+        const factors = {};
+        for (let d = 2; d * d <= n; d++) {
+            while (n % d === 0) { factors[d] = (factors[d] || 0) + 1; n = Math.floor(n / d); }
+        }
+        if (n > 1) factors[n] = (factors[n] || 0) + 1;
+        return factors;
+    }
+
+    // Rewrites composite-integer-base powers to products of prime-base powers so that
+    // e.g. 4^x and 2^(2x) canonicalise to the same form before comparison.
+    toPrimeBaseCanonical(ast) {
+        try {
+            return ast.transform(node => {
+                if (!node.isOperatorNode || node.fn !== 'pow') return node;
+                const base = node.args[0];
+                const exponent = node.args[1];
+                if (!base.isConstantNode) return node;
+                const n = base.value;
+                if (!Number.isInteger(n) || n < 2) return node;
+
+                const factors = this._primeFactorize(n);
+                const pairs = Object.entries(factors); // [[prime, count], ...]
+
+                // Base is already prime — nothing to do
+                if (pairs.length === 1 && pairs[0][1] === 1) return node;
+
+                // Build one prime^(count*exponent) node per prime factor
+                // Expand multiplication into the exponent so 4^(n+1) → 2^(2n+2) not 2^(2*(n+1))
+                const expandRules = [
+                    'n1 * (n2 + n3) -> n1 * n2 + n1 * n3',
+                    'n1 * (n2 - n3) -> n1 * n2 - n1 * n3',
+                    '(n1 + n2) * n3 -> n1 * n3 + n2 * n3',
+                    '(n1 - n2) * n3 -> n1 * n3 - n2 * n3',
+                ];
+                const expStr = this.astToString(exponent);
+                const primeNodes = pairs.map(([prime, count]) => {
+                    const newExpStr = count === 1 ? expStr : `${count} * (${expStr})`;
+                    const simplified = this.math.simplify(newExpStr, expandRules);
+                    return this.math.parse(`${prime} ^ (${this.astToString(simplified)})`);
+                });
+
+                if (primeNodes.length === 1) return primeNodes[0];
+
+                return primeNodes.reduce((acc, node) =>
+                    this.math.parse(`(${this.astToString(acc)}) * (${this.astToString(node)})`)
+                );
+            });
+        } catch (e) {
+            return null;
+        }
+    }
+
+    evaluateNumeric(latexStr) {
+        try {
+            const mathExpr = this.latexToMathJS(latexStr);
+            this.log(`[evaluateNumeric] latex="${latexStr}" → mathExpr="${mathExpr}"`);
+            const ast = this.math.parse(mathExpr);
+            const MATH_CONSTANTS = new Set(['pi', 'e', 'i', 'Infinity', 'NaN', 'phi', 'tau']);
+            let hasVariable = false;
+            const symbolsFound = [];
+            ast.traverse((node, path, parent) => {
+                if (!node.isSymbolNode || MATH_CONSTANTS.has(node.name)) return;
+                // A FunctionNode's name is a child SymbolNode (path 'fn'); that's a
+                // function identifier (e.g. sqrt), not a free variable — skip it.
+                if (parent && parent.isFunctionNode && path === 'fn') return;
+                hasVariable = true;
+                symbolsFound.push(node.name);
+            });
+            if (hasVariable) {
+                this.log(`[evaluateNumeric] → null (has variables: ${symbolsFound.join(', ')})`);
+                return null;
+            }
+            const result = ast.evaluate();
+            if (typeof result !== 'number' || !isFinite(result)) {
+                this.log(`[evaluateNumeric] → null (result not finite number: ${result}, type: ${typeof result})`);
+                return null;
+            }
+            this.log(`[evaluateNumeric] → ${result}`);
+            return result;
+        } catch (e) {
+            this.log(`[evaluateNumeric] → null (exception: ${e.message})`);
+            return null;
+        }
+    }
+
     /**
      * Full pipeline: Parse LaTeX → Build AST → Validate Simplification →
      * Canonicalize → Compare with detailed logging
@@ -1973,8 +2232,28 @@ class AlgebraEngine {
 
             // Final comparison
             const result = this.astEquals(userCanonical, correctCanonical);
-            this.log(`[RESULT] Final Match: ${result}\n`);
-            return result;
+            if (result) {
+                this.log(`[RESULT] Final Match: true\n`);
+                return true;
+            }
+
+            // Fallback: try prime-base canonicalization (e.g. 4^x ≡ 2^(2x))
+            try {
+                const userPrime = this.toPrimeBaseCanonical(userCanonical);
+                const correctPrime = this.toPrimeBaseCanonical(correctCanonical);
+                if (userPrime && correctPrime) {
+                    const userPrimeCanon = this.toCanonicalForm(userPrime);
+                    const correctPrimeCanon = this.toCanonicalForm(correctPrime);
+                    const primeResult = this.astEquals(userPrimeCanon, correctPrimeCanon);
+                    if (primeResult) {
+                        this.log(`[RESULT] Final Match: true (prime-base equivalence)\n`);
+                        return true;
+                    }
+                }
+            } catch (e) { /* fallback failed silently */ }
+
+            this.log(`[RESULT] Final Match: false\n`);
+            return false;
 
         } catch (error) {
             console.error('[FATAL ERROR] Error during expression comparison.');

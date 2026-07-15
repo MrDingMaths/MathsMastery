@@ -4,42 +4,6 @@ export default new BaseLevel(
     'addSubtractTermsMedium',
     'Like Terms (Medium)',
     [
-            // Linear terms with larger coefficients
-            {problem: "7x + 8x", answer: "15x"},
-            {problem: "12a - 5a", answer: "7a"},
-            {problem: "9b + 6b", answer: "15b"},
-            {problem: "15y - 8y", answer: "7y"},
-            {problem: "11x + 4x", answer: "15x"},
-            {problem: "18x - 9x", answer: "9x"},
-            {problem: "13x - 7x", answer: "6x"},
-            {problem: "20x - 12x", answer: "8x"},
-            {problem: "14x + 9x", answer: "23x"},
-            {problem: "25x - 16x", answer: "9x"},
-            
-            // Quadratic terms with larger coefficients
-            {problem: "8x^2 + 7x^2", answer: "15x^2"},
-            {problem: "12a^2 - 5a^2", answer: "7a^2"},
-            {problem: "15b^2 + 9b^2", answer: "24b^2"},
-            {problem: "18y^2 - 11y^2", answer: "7y^2"},
-            {problem: "10x^2 + 13x^2", answer: "23x^2"},
-            {problem: "22x^2 - 14x^2", answer: "8x^2"},
-            {problem: "16x^2 + 7x^2", answer: "23x^2"},
-            {problem: "25x^2 - 18x^2", answer: "7x^2"},
-            {problem: "19x^2 + 12x^2", answer: "31x^2"},
-            {problem: "30x^2 - 17x^2", answer: "13x^2"},
-            
-            // More complex mixed expressions
-            {problem: "5x + 8 - 2x", answer: "3x + 8"},
-            {problem: "12a - 7 + 3a", answer: "15a - 7"},
-            {problem: "9b + 15 - 4b", answer: "5b + 15"},
-            {problem: "7y - 12 + 8y", answer: "15y - 12"},
-            {problem: "11x + 6 - 7x", answer: "4x + 6"},
-            {problem: "18x - 9 - 5x", answer: "13x - 9"},
-            {problem: "14x + 11 + 3x", answer: "17x + 11"},
-            {problem: "20x - 15 - 8x", answer: "12x - 15"},
-            {problem: "16x + 7 + 9x", answer: "25x + 7"},
-            {problem: "22x - 18 - 6x", answer: "16x - 18"},
-            
             // Four term expressions
             {problem: "3x + 5x - 2x + 4x", answer: "10x"},
             {problem: "8a - 3a + 6a - a", answer: "10a"},
@@ -51,7 +15,7 @@ export default new BaseLevel(
             {problem: "18x + 5x - 9x + 2x", answer: "16x"},
             {problem: "13x - 6x - 2x + 11x", answer: "16x"},
             {problem: "20x + 8x - 12x - 3x", answer: "13x"},
-            
+
             // Mixed with multiple constants
             {problem: "4x + 7 + 6x - 3", answer: "10x + 4"},
             {problem: "9a - 5 + 2a + 8", answer: "11a + 3"},
@@ -63,7 +27,7 @@ export default new BaseLevel(
             {problem: "12x - 14 + 4x + 9", answer: "16x - 5"},
             {problem: "10x + 6 - 7x - 2", answer: "3x + 4"},
             {problem: "17x - 13 + 8x - 5", answer: "25x - 18"},
-            
+
             // Negative coefficients
             {problem: "-3x + 8x", answer: "5x"},
             {problem: "7a - 12a", answer: "-5a"},
@@ -75,7 +39,7 @@ export default new BaseLevel(
             {problem: "9x - 17x", answer: "-8x"},
             {problem: "-12x - 3x", answer: "-15x"},
             {problem: "-4x + 19x", answer: "15x"},
-            
+
             // Multiple variables (different types)
             {problem: "3x + 5y + 2x", answer: "5x + 5y"},
             {problem: "7a - 4b + 3a", answer: "10a - 4b"},
@@ -87,7 +51,7 @@ export default new BaseLevel(
             {problem: "12x + 5y - 8x", answer: "4x + 5y"},
             {problem: "15a - 9b + 6a", answer: "21a - 9b"},
             {problem: "10x + 7y - 4x", answer: "6x + 7y"},
-            
+
             // ADD YOUR TEXTBOOK QUESTIONS HERE using the format:
             {problem: "2x - 5x", answer: "-3x"},
             {problem: "-4y + 3y", answer: "-y"},
@@ -113,9 +77,6 @@ export default new BaseLevel(
             {problem: "-3xy + 7xy", answer: "4xy"},
             {problem: "6a + 4a", answer: "10a"},
             {problem: "8x + 7x", answer: "15x"},
-            {problem: "4a^2b - 2a^2b", answer: "2a^2b"},
-            {problem: "5x^2y - 4x^2y", answer: "x^2y"},
-            {problem: "3xy^2 - 4xy^2", answer: "-xy^2"},
             {problem: "7xy + 5xy - 3y", answer: "12xy - 3y"},
             {problem: "12y - 4y", answer: "8y"},
             {problem: "6ab - 2ab - ba", answer: "3ab"},
@@ -124,8 +85,6 @@ export default new BaseLevel(
             {problem: "2 - 5x - x", answer: "2 - 6x"},
             {problem: "6x + 5 - 2x + 1", answer: "4x + 6"},
             {problem: "5x + 1 + 6x + 3", answer: "11x + 4"},
-            {problem: "5xy^2 - 4xy^2", answer: "xy^2"},
-            {problem: "3a^2b + 4ba^2", answer: "7a^2b"},
             {problem: "7a + 12a", answer: "19a"},
             {problem: "15x - 6x", answer: "9x"},
             {problem: "16xy - 3xy", answer: "13xy"},
@@ -143,6 +102,22 @@ export default new BaseLevel(
             {problem: "10a + 3 + 4b - 2a", answer: "8a + 4b + 3"},
             {problem: "4 + 10x - 3x", answer: "4 + 7x"},
             {problem: "11a + 4 - 3a + 9", answer: "8a + 13"},
-            {problem: "7ab + 32 - ab + 4", answer: "6ab + 36"}
+            {problem: "7ab + 32 - ab + 4", answer: "6ab + 36"},
+
+            // Two-variable expressions — moved from Hard
+            {problem: "8a + b - 4b - 7a", answer: "a - 3b"},
+            {problem: "4a + 5b - a + 2b", answer: "3a + 7b"},
+            {problem: "2a + 4b + 3a + 5b", answer: "5a + 9b"},
+            {problem: "4x + 3y + 2x + 2y", answer: "6x + 5y"},
+            {problem: "10x + 3x + 5y + 3y", answer: "13x + 8y"},
+            {problem: "2a + 5a + 13b - 2b", answer: "7a + 11b"},
+            {problem: "10a + 5b + 3a + 4b", answer: "13a + 9b"},
+            {problem: "2a + a + 4b + b", answer: "3a + 5b"},
+            {problem: "5a + 2a + b + 8b", answer: "7a + 9b"},
+            {problem: "3x - 2x + 2y + 4y", answer: "x + 6y"},
+            {problem: "3x + 7x + 3y - 4x + y", answer: "6x + 4y"},
+            {problem: "10 + 7y + 5x + 5x + 2y", answer: "10x + 9y + 10"},
+            {problem: "3b + 4b + x + 5b - x", answer: "12b"},
+            {problem: "6x + 2y + 3x - 5y", answer: "9x - 3y"}
         ]
 );

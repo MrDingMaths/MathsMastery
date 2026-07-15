@@ -74,6 +74,19 @@ export default new BaseLevel(
             {problem: "\\frac{2x}{15} - \\frac{x}{10}", answer: "\\frac{x}{30}"},
             {problem: "\\frac{x}{14} + \\frac{3x}{21}", answer: "\\frac{3x}{14}"},
             {problem: "\\frac{4x}{9} - \\frac{x}{6}", answer: "\\frac{5x}{18}"},
-            {problem: "\\frac{5x}{18} - \\frac{2x}{12}", answer: "\\frac{x}{9}"}
+            {problem: "\\frac{5x}{18} - \\frac{2x}{12}", answer: "\\frac{x}{9}"},
+
+            // Migrated from Hard: numeric denominators, single variable
+            {problem: "5 - \\frac{2x}{7}", answer: "\\frac{35-2x}{7}"},
+            {problem: "-\\frac{2a}{3} + \\frac{5a}{4}", answer: "\\frac{7a}{12}"},
+            {problem: "\\frac{3b}{5} - \\frac{7b}{2}", answer: "-\\frac{29b}{10}"},
+            {problem: "-\\frac{4x}{7} - \\frac{2x}{9}", answer: "-\\frac{50x}{63}"},
+            {problem: "\\frac{6x}{11} + \\frac{3x}{8}", answer: "\\frac{81x}{88}"},
+
+            // Migrated from addSubtractFractionsWithBinomialNumerator (no binomial numerators)
+            {problem: "\\frac{x}{2} + \\frac{3x}{4}", answer: "\\frac{5x}{4}"},
+            {problem: "\\frac{2x}{5} - \\frac{3x}{2} - \\frac{x}{3}", answer: "-\\frac{43x}{30}"},
+            {problem: "\\frac{x}{4} - \\frac{2x}{3} + \\frac{5x}{6}", answer: "\\frac{5x}{12}"},
+            {problem: "\\frac{5x}{8} - \\frac{5x}{6} + \\frac{3x}{4}", answer: "\\frac{13x}{24}"}
         ]
 );

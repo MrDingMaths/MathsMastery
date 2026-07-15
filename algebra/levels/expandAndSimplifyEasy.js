@@ -4,12 +4,10 @@ export default new BaseLevel(
     'expandAndSimplifyEasy',
     'Expanding & Simplifying (Easy)',
     [
-            // Basic expanding with constants and single variables
+            // Single bracket + constant or lone term, positive outer factor
             {problem: "3 + 2(x + 4)", answer: "2x + 11"},
             {problem: "5 + (3x - 4)", answer: "3x + 1"},
             {problem: "2(x + 1) - x", answer: "x + 2"},
-            
-            // Simple addition after expanding
             {problem: "x + 2(x + 1)", answer: "3x + 2"},
             {problem: "3 + (2x + 5)", answer: "2x + 8"},
             {problem: "2a + (a + 3)", answer: "3a + 3"},
@@ -24,20 +22,52 @@ export default new BaseLevel(
             {problem: "3(x + 5) - 10", answer: "3x + 5"},
             {problem: "2(x - 3) + x", answer: "3x - 6"},
             {problem: "8 + 3(x - 2)", answer: "3x + 2"},
-            // Constants with simple expansion
             {problem: "1 + 2(x + 1)", answer: "2x + 3"},
             {problem: "4 + 3(y + 2)", answer: "3y + 10"},
             {problem: "6 + 2(a - 1)", answer: "2a + 4"},
-            {problem: "8 - 2(x - 3)", answer: "14 - 2x"},
             {problem: "5(x + 2) - 3x", answer: "2x + 10"},
-            {problem: "10 - 2(y + 3)", answer: "4 - 2y"},
             {problem: "4(a - 1) - a", answer: "3a - 4"},
             {problem: "3(2x + 1) + 4", answer: "6x + 7"},
             {problem: "2y + 3(y - 2)", answer: "5y - 6"},
-            {problem: "12 - (x + 5)", answer: "7 - x"},
             {problem: "5(b - 3) + 2b", answer: "7b - 15"},
-            {problem: "9 - 4(x - 1)", answer: "13 - 4x"},
             {problem: "2(3x + 4) - 5x", answer: "x + 8"},
-            {problem: "6 - (2 - 3x)", answer: "3x + 4"},
+
+            // Single bracket, larger coefficients
+            {problem: "7(9x + 10) + 2x", answer: "65x + 70"},
+            {problem: "8(2 + 5x) + 4x", answer: "16 + 44x"},
+            {problem: "4(2a + 8) + 7a", answer: "15a + 32"},
+            {problem: "6(3x + 10) + 6x", answer: "24x + 60"},
+            {problem: "7(10a + 10) + 6a", answer: "76a + 70"},
+            {problem: "6(3x - 5) + 2x", answer: "20x - 30"},
+            {problem: "6(4x - 5) + 8x", answer: "32x - 30"},
+            {problem: "4(8 + 7x) - 6x", answer: "32 + 22x"},
+            {problem: "4 + 6(x - 3)", answer: "6x - 14"},
+            {problem: "2 + 5(3x - 1)", answer: "15x - 3"},
+            {problem: "3 + 4(x - 2)", answer: "4x - 5"},
+            {problem: "7 + 2(x - 3)", answer: "2x + 1"},
+            {problem: "3a + 5 + 4(a - 2)", answer: "7a - 3"},
+            {problem: "2 + 2(x - 3)", answer: "2x - 4"},
+
+            // Single bracket + two separate like-term groups to collect
+            {problem: "5(2x + 3) - 3x", answer: "7x + 15"},
+            {problem: "3(4y - 1) + 2y", answer: "14y - 3"},
+            {problem: "2x + 3(x + 4) - 5", answer: "5x + 7"},
+            {problem: "6 + 3(2a - 1) - a", answer: "5a + 3"},
+            {problem: "5(x + 2) - 3x + 4", answer: "2x + 14"},
+            {problem: "3(2x + 5) + 4x - 7", answer: "10x + 8"},
+            {problem: "5(a - 3) - 2a + 10", answer: "3a - 5"},
+            {problem: "4(3y + 1) - 6y + 2", answer: "6y + 6"},
+            {problem: "2(5b - 4) + 3b - 1", answer: "13b - 9"},
+            {problem: "6(x + 2) - 4x + 5", answer: "2x + 17"},
+            {problem: "8(2x - 3) - 10x + 12", answer: "6x - 12"},
+
+            // Bracketed expression alongside a variable; collect x terms
+            {problem: "3(x - 4) + 1", answer: "3x - 11"},
+            {problem: "3(x - 4) - 2", answer: "3x - 14"},
+            {problem: "3(x - 4) - x", answer: "2x - 12"},
+            {problem: "3(x - 4) - 3x", answer: "-12"},
+            {problem: "-3 + 3(x - 4)", answer: "3x - 15"},
+            {problem: "x + 3(x - 4)", answer: "4x - 12"},
+            {problem: "-2x + 3(x - 4)", answer: "x - 12"},
         ]
 );

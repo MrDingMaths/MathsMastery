@@ -11,10 +11,6 @@ export default new BaseLevel(
             {problem: "(y+3)(y-1) + (y-2)(y-4)", answer: "2y^2 - 4y + 5"},
             {problem: "(y-7)(y+4) + (y+5)(y-3)", answer: "2y^2 - y - 43"},
             
-            // Perfect squares with constants
-            {problem: "(x+5)^2 - 7", answer: "x^2 + 10x + 18"},
-            {problem: "(x-7)^2 - 9", answer: "x^2 - 14x + 40"},
-            
             // Scalar multiplication of double brackets
             {problem: "2(x+3)(x+4)", answer: "2x^2 + 14x + 24"},
             {problem: "3(x+2)(x+7)", answer: "3x^2 + 27x + 42"},

@@ -7,18 +7,21 @@ class ProgressUI {
         this.progressShare = progressShare;
         this.isVisible = false;
         this.currentView = 'drills';
-        this.MQ = null;
         this.init();
     }
 
     init() {
         this.createProgressModal();
         this.attachEventListeners();
-        // Only init MathQuill if mistakes are enabled (needed for rendering LaTeX in mistakes table)
-        if (this.progressTracker.enableMistakes && typeof MathQuill !== 'undefined') {
-            this.MQ = MathQuill.getInterface(2);
-        }
         this.updateContent();
+    }
+
+    _renderStaticLatex(element, latex) {
+        if (window.MathRenderer) {
+            window.MathRenderer.renderStaticLatex(element, latex);
+            return true;
+        }
+        return false;
     }
 
     // Create progress button that appears on the main screen
@@ -629,17 +632,11 @@ class ProgressUI {
         if (confirm('Are you sure you want to clear all progress data? This action cannot be undone.')) {
             if (confirm('This will permanently delete all your progress. Are you absolutely sure?')) {
                 this.progressTracker.resetData();
-                this.clearBestTimes();
                 alert('All progress data has been cleared.');
                 this.updateContent();
                 this.populateSelectors();
             }
         }
-    }
-
-    clearBestTimes() {
-        // Individual bestTime keys no longer exist.
-        // Blob is cleared by progressTracker.resetData() in confirmClearData().
     }
 
     // --- Mistakes methods (only called when enableMistakes is true) ---
@@ -658,13 +655,22 @@ class ProgressUI {
                 mistakesTable.style.display = 'block';
                 noMistakesMessage.classList.add('hidden');
 
+                const toText = (value) => {
+                    if (Array.isArray(value)) return value.join(', ');
+                    if (value == null) return '';
+                    return String(value);
+                };
+
                 const tableRows = mistakes.map(mistake => {
                     const date = new Date(mistake.timestamp);
+                    const question = toText(mistake.question);
+                    const correctAnswer = toText(mistake.correctAnswer);
+                    const studentAnswer = toText(mistake.studentAnswer);
                     return `<tr data-mistake-id="${mistake.id}">` +
                         `<td class="level-column">${mistake.levelName}</td>` +
-                        `<td class="question-column"><div class="math-display" data-latex="${mistake.question.replace(/"/g, '&quot;')}">${mistake.question}</div></td>` +
-                        `<td class="correct-answer-column"><div class="math-display" data-latex="${mistake.correctAnswer.replace(/"/g, '&quot;')}">${mistake.correctAnswer}</div></td>` +
-                        `<td class="student-answer-column"><div class="math-display" data-latex="${mistake.studentAnswer.replace(/"/g, '&quot;')}">${mistake.studentAnswer}</div></td>` +
+                        `<td class="question-column"><div class="math-display" data-latex="${question.replace(/"/g, '&quot;')}">${question}</div></td>` +
+                        `<td class="correct-answer-column"><div class="math-display" data-latex="${correctAnswer.replace(/"/g, '&quot;')}">${correctAnswer}</div></td>` +
+                        `<td class="student-answer-column"><div class="math-display" data-latex="${studentAnswer.replace(/"/g, '&quot;')}">${studentAnswer}</div></td>` +
                         `<td class="date-column">${date.toLocaleDateString()}</td>` +
                         `<td class="actions-column">
                             <button class="btn btn-small btn-danger delete-mistake-btn" data-mistake-id="${mistake.id}" title="Remove this mistake">
@@ -688,15 +694,11 @@ class ProgressUI {
     }
 
     renderMistakesMath() {
-        if (!this.MQ) return;
-
         document.querySelectorAll('#mistakes-tbody .math-display').forEach(element => {
             try {
                 let latex = element.getAttribute('data-latex');
                 if (!latex) latex = element.textContent.trim();
-                element.textContent = '';
-                const staticMath = this.MQ.StaticMath(element);
-                staticMath.latex(latex);
+                this._renderStaticLatex(element, latex);
             } catch (error) {
                 console.warn('Error rendering math:', error);
             }

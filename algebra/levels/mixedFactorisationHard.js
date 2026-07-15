@@ -40,9 +40,9 @@ export default new BaseLevel(
             {problem: "36x^3y^2 - 9x", answer: "9x(2xy - 1)(2xy + 1)"},
             
             // Very complex fractions
-            {problem: "\\frac{64b^2}{25} - \\frac{4y^2}{81}", answer: "(\\frac{8b}{5} - \\frac{2y}{9})(\\frac{8b}{5} + \\frac{2y}{9})"},
+            {problem: "\\frac{64b^2}{25} - \\frac{4y^2}{81}", answer: "\\left(\\frac{8b}{5} - \\frac{2y}{9}\\right)\\left(\\frac{8b}{5} + \\frac{2y}{9}\\right)"},
             {problem: "3x^2 - \\frac{48}{x^2}", answer: "3(x - \\frac{4}{x})(x + \\frac{4}{x})"},
-            {problem: "\\frac{4x^2}{9} - \\frac{y^2}{36}", answer: "(\\frac{2x}{3} - \\frac{y}{6})(\\frac{2x}{3} + \\frac{y}{6})"},
+            {problem: "\\frac{4x^2}{9} - \\frac{y^2}{36}", answer: "\\left(\\frac{2x}{3} - \\frac{y}{6}\\right)\\left(\\frac{2x}{3} + \\frac{y}{6}\\right)"},
             
             // Complex algebraic manipulation
             {problem: "(y + x)^2 - (y - x)^2", answer: "4yx"},
@@ -57,13 +57,13 @@ export default new BaseLevel(
             
             // Mixed higher degree factorisation
             {problem: "4x^3 - 12x^2 - x + 3", answer: "(x - 3)(2x - 1)(2x + 1)"},
-            {problem: "x^4 - x^2 - 2x - 1", answer: "(x^2 - x - 1)(x^2 + x + 1)"},
+            {problem: "x^4 - 5x^2 + 4", answer: "(x - 1)(x + 1)(x - 2)(x + 2)"},
             
             // Additional challenging problems for comprehensive coverage
             {problem: "2x^4 - 32", answer: "2(x - 2)(x + 2)(x^2 + 4)"},
             {problem: "3x^3 + 24x^2 + 48x", answer: "3x(x + 4)^2"},
             {problem: "4x^4 - 4x^2 + 1", answer: "(2x^2 - 1)^2"},
-            {problem: "x^6 - 64", answer: "(x - 2)(x + 2)(x^2 + 2x + 4)(x^2 - 2x + 4)"},
+            {problem: "2x^3 - 16", answer: "2(x - 2)(x^2 + 2x + 4)"},
             {problem: "3x^4 - 3x^2 - 36", answer: "3(x^2 - 4)(x^2 + 3)"},
             {problem: "x^4 - 2x^2 + 1", answer: "(x^2 - 1)^2"},
             {problem: "4x^6 - 1", answer: "(2x^3 - 1)(2x^3 + 1)"},
@@ -93,16 +93,16 @@ export default new BaseLevel(
             {problem: "x^2 - ax + bx - ab", answer: "(x-a)(x+b)"},
             {problem: "x^2 + ax - bx - ab", answer: "(x+a)(x-b)"},
             {problem: "x^2 - ax - bx + ab", answer: "(x-a)(x-b)"},
-            {problem: "2x^2 + ax + bx + \\frac{ab}{2}", answer: "(2x+a)(x+\\frac{b}{2})"},
+            {problem: "6x^2 + 2ax + 3bx + ab", answer: "(3x+a)(2x+b)"},
             {problem: "3x^2 + ax + bx + \\frac{ab}{3}", answer: "(3x+a)(x+\\frac{b}{3})"},
-            {problem: "4x^2 - ax + bx - \\frac{ab}{4}", answer: "(4x-a)(x+\\frac{b}{4})"},
+            {problem: "6x^2 - 3ax + 2bx - ab", answer: "(2x-a)(3x+b)"},
             {problem: "5x^2 - ax - bx + \\frac{ab}{5}", answer: "(5x-a)(x-\\frac{b}{5})"},
             
-            // Complex parameter relationships
-            {problem: "x^2 + (a+b)x + ax + ab", answer: "x^2 + 2ax + bx + ab"},
-            {problem: "x^2 - (a+b)x + ax - ab", answer: "x^2 - bx - ab"},
-            {problem: "x^2 + (a-b)x - bx - ab", answer: "x^2 + ax - 2bx - ab"},
-            {problem: "x^2 - (a-b)x - bx + ab", answer: "x^2 - ax + ab"},
+            // Abstract literal parameters: complete the square then DOTS, two-variable quadratic, degree-4 non-monic
+            {problem: "x^2 + 2ax + a^2 - b^2", answer: "(x + a - b)(x + a + b)"},
+            {problem: "a^3 - 10a^2b + 24ab^2", answer: "a(a - 4b)(a - 6b)"},
+            {problem: "6x^4 - x^3 - 2x^2", answer: "x^2(3x - 2)(2x + 1)"},
+            {problem: "2x^4 + 4x^3 - 2x^2 - 4x", answer: "2x(x - 1)(x + 1)(x + 2)"},
             
             // Negative leading coefficients
             {problem: "-x^2 + ax + bx - ab", answer: "-(x-a)(x-b)"},
@@ -133,17 +133,17 @@ export default new BaseLevel(
             {problem: "axy - ay - bxy + by", answer: "y(a-b)(x-1)"},
             {problem: "2axy + 3ay + 2bxy + 3by", answer: "y(a+b)(2x+3)"},
             
-            // Advanced parameter manipulation
-            {problem: "x^2 + (a+2)x + 2x + 2a", answer: "x^2+ax+4x+2a"},
-            {problem: "x^2 + (b+3)x + 3x + 3b", answer: "x^2+bx+6x+3b"},
-            {problem: "x^2 - (y+4)x + 4x - 4y", answer: "x^2-yx-4y"},
-            {problem: "x^2 - (y+5)x - 5x + 5y", answer: "x^2-yx-10x+5y"},
-            {problem: "2x^2 + (2a+1)x + ax + \\frac{a}{2}", answer: "2x^2+3ax+x+\\frac{a}{2}"},
-            {problem: "3x^2 - (3b+2)x + 2x - \\frac{2b}{3}", answer: "3x^2-3bx-\\frac{2b}{3}"},
+            // Multi-step multi-technique Hard questions
+            {problem: "x^4 + x^3 - x - 1", answer: "(x - 1)(x + 1)(x^2 + x + 1)"},
+            {problem: "(x^2 - 1)^2 - (x - 1)^2", answer: "x(x - 1)^2(x + 2)"},
+            {problem: "4(x + 1)^2 - 9(x - 1)^2", answer: "(5 - x)(5x - 1)"},
+            {problem: "x^2y^2 - x^2 - y^2 + 1", answer: "(x - 1)(x + 1)(y - 1)(y + 1)"},
+            {problem: "x^3 + x^2y - xy^2 - y^3", answer: "(x - y)(x + y)^2"},
+            {problem: "2x^4 - 8x^3 - 2x^2 + 8x", answer: "2x(x - 4)(x - 1)(x + 1)"},
             
             // Very complex parameter relationships
-            {problem: "x^2y + axy + bxy + ab", answer: "(xy+a)(x+b)"},
-            {problem: "x^2y - axy + bxy - ab", answer: "x^2y - axy + bxy - ab"},
+            {problem: "x^2y + bxy + ax + ab", answer: "(xy+a)(x+b)"},
+            {problem: "81a^4 - b^4", answer: "(3a - b)(3a + b)(9a^2 + b^2)"},
             {problem: "ay^2 + a^2y + by^2 + aby", answer: "y(a+b)(y+a)"},
             {problem: "bx^2 - abx + yx^2 - ayx", answer: "x(b+y)(x-a)"},
             {problem: "3x(5x + 2)^2 - 2(5x + 2)", answer: "(5x + 2)(15x^2 + 6x - 2)"},
@@ -155,7 +155,7 @@ export default new BaseLevel(
             {problem: "5ax(2x + 1)^3 - 3a(2x + 1)^2", answer: "a(2x + 1)^2(10x^2 + 5x - 3)"},
             {problem: "5x\\sqrt{2x + 1} - 3\\sqrt{2x + 1}", answer: "(5x - 3)\\sqrt{2x + 1}"},
             {problem: "5x(2x - 1)^2 - 3x(1 - 2x)", answer: "2x(2x - 1)(5x - 1)"},
-            {problem: "5x(2x + 1)(5x - 2) - 3(2x + 1)^2(5x - 2)^2", answer: "-2(2x + 1)(5x - 2)(15x^2 - 2x - 3)"},
+            {problem: "5x(3x - 1)^2 - 2(3x - 1)", answer: "(3x - 1)(15x^2 - 5x - 2)"},
             
             // Additional generated questions for variety and complexity
             {problem: "4x(3x + 1)^2 - 3(3x + 1)", answer: "(3x + 1)(12x^2 + 4x - 3)"},
@@ -167,7 +167,7 @@ export default new BaseLevel(
             {problem: "7bx(x + 4)^3 - 5b(x + 4)^2", answer: "b(x + 4)^2(7x^2 + 28x - 5)"},
             {problem: "3x\\sqrt{3x - 2} + 7\\sqrt{3x - 2}", answer: "(3x + 7)\\sqrt{3x - 2}"},
             {problem: "8x(x + 1)^2 + 5x(1 + x)", answer: "x(x + 1)(8x + 13)"},
-            {problem: "6x(3x + 2)(x - 1) - 4(3x + 2)^2(x - 1)^2", answer: "2(3x + 2)(x - 1)(-6x^2 + 5x + 4)"},
+            {problem: "4x(5x + 3)^2 - 3(5x + 3)", answer: "(5x + 3)(20x^2 + 12x - 3)"},
             {problem: "5x(2x + 3)^2 - 7(2x + 3)", answer: "(2x + 3)(10x^2 + 15x - 7)"},
             {problem: "6x(x - 4)^2 + 2(x - 4)", answer: "2(x - 4)(3x^2 - 12x + 1)"},
             {problem: "20x(2x + 5)^2 + 35(2x + 5)", answer: "5(2x + 5)(8x^2 + 20x + 7)"},
@@ -177,7 +177,7 @@ export default new BaseLevel(
             {problem: "9yx(3x + 1)^3 + 6y(3x + 1)^2", answer: "3y(3x + 1)^2(9x^2 + 3x + 2)"},
             {problem: "7x\\sqrt{x + 5} - 4\\sqrt{x + 5}", answer: "(7x - 4)\\sqrt{x + 5}"},
             {problem: "10x(x - 3)^2 - 8x(3 - x)", answer: "2x(x - 3)(5x - 11)"},
-            {problem: "8x(x + 2)(2x - 1) + 12(x + 2)^2(2x - 1)^2", answer: "4(x + 2)(2x - 1)(6x^2 + 11x - 6)"},
+            {problem: "7x(2x - 3)^2 - 4(2x - 3)", answer: "(2x - 3)(14x^2 - 21x - 4)"},
             {problem: "9x(x + 6)^2 + 4(x + 6)", answer: "(x + 6)(9x^2 + 54x + 4)"},
             {problem: "7x(3x - 5)^2 - 11(3x - 5)", answer: "(3x - 5)(21x^2 - 35x - 11)"},
             {problem: "24x(x + 7)^2 - 16(x + 7)", answer: "8(x + 7)(3x^2 + 21x - 2)"},
@@ -185,9 +185,9 @@ export default new BaseLevel(
             {problem: "42x(x - 5) - 28(x - 5)^2", answer: "14(x - 5)(x + 10)"},
             {problem: "54x(x + 8)^3 - 36(x + 8)^2", answer: "18(x + 8)^2(3x^2 + 24x - 2)"},
             {problem: "11yx(2x + 3)^3 - 7y(2x + 3)^2", answer: "y(2x + 3)^2(22x^2 + 33x - 7)"},
-            {problem: "6x\\sqrt{2x - 1} + 9\\sqrt{2x - 1}", answer: "(6x + 9)\\sqrt{2x - 1}"},
+            {problem: "6x\\sqrt{2x - 1} + 9\\sqrt{2x - 1}", answer: "3(2x + 3)\\sqrt{2x - 1}"},
             {problem: "12x(2x + 1)^2 - 15x(1 + 2x)", answer: "3x(2x + 1)(8x - 1)"},
-            {problem: "10x(x - 6)(3x + 2) - 15(x - 6)^2(3x + 2)^2", answer: "5(x - 6)(3x + 2)(-9x^2 + 50x + 36)"},
+            {problem: "8x(x - 5)^2 + 3(x - 5)", answer: "(x - 5)(8x^2 - 40x + 3)"},
             {problem: "13x(4x + 7)^2 + 8(4x + 7)", answer: "(4x + 7)(52x^2 + 91x + 8)"},
             {problem: "9x(x - 8)^2 - 5(x - 8)", answer: "(x - 8)(9x^2 - 72x - 5)"},
             {problem: "30x(3x + 4)^2 + 45(3x + 4)", answer: "15(3x + 4)(6x^2 + 8x + 3)"},
@@ -195,9 +195,9 @@ export default new BaseLevel(
             {problem: "9x(2x + 1) - 6(2x + 1)^2", answer: "-3(2x + 1)(x + 2)"},
             {problem: "36x(x + 10)^3 + 24(x + 10)^2", answer: "12(x + 10)^2(3x^2 + 30x + 2)"},
             {problem: "13yx(3x - 2)^3 + 9y(3x - 2)^2", answer: "y(3x - 2)^2(39x^2 - 26x + 9)"},
-            {problem: "8x\\sqrt{4x + 3} - 12\\sqrt{4x + 3}", answer: "(8x - 12)\\sqrt{4x + 3}"},
+            {problem: "8x\\sqrt{4x + 3} - 12\\sqrt{4x + 3}", answer: "4(2x - 3)\\sqrt{4x + 3}"},
             {problem: "14x(3x - 4)^2 + 21x(4 - 3x)", answer: "7x(3x - 4)(6x - 11)"},
-            {problem: "16x(2x - 5)(x + 3) + 24(2x - 5)^2(x + 3)^2", answer: "8(2x - 5)(x + 3)(6x^2 + 5x - 45)"},
+            {problem: "9x(x + 4)^2 + 2(x + 4)", answer: "(x + 4)(9x^2 + 36x + 2)"},
             {problem: "6x^2 + 38x + 40", answer: "2(x + 5)(3x + 4)"},
             {problem: "6x^2 - 15x - 36", answer: "3(x - 4)(2x + 3)"},
             {problem: "48x^2 - 18x - 3", answer: "3(2x - 1)(8x + 1)"},
@@ -229,8 +229,8 @@ export default new BaseLevel(
             {problem: "30x^2 + 72x + 42", answer: "6(x + 1)(5x + 7)"},
     
             // Large coefficients with common factors
-            {problem: "50x^2 + 85x + 35", answer: "5(2x + 1)(5x + 7)"},
-            {problem: "60x^2 + 102x + 42", answer: "6(2x + 1)(5x + 7)"},
+            {problem: "50x^2 + 85x + 35", answer: "5(x + 1)(10x + 7)"},
+            {problem: "60x^2 + 102x + 42", answer: "6(x + 1)(10x + 7)"},
     
             // Negative common factors
             {problem: "-8x^2 - 24x - 16", answer: "-8(x + 1)(x + 2)"},
@@ -247,10 +247,10 @@ export default new BaseLevel(
             {problem: "36 - 12x + x^2", answer: "(x-6)^2"},
             {problem: "49x^6 - 14x^3 + 1", answer: "(7x^3-1)^2"},
             {problem: "81x^2 - 36xy + 4y^2", answer: "(9x-2y)^2"},
-            {problem: "144x^6 - 72x^3 + 9", answer: "(12x^3-3)^2"},
-            {problem: "x^2 + x + \\frac{1}{4}", answer: "(x+\\frac{1}{2})^2"},
-            {problem: "x^2 - \\frac{4x}{3} + \\frac{4}{9}", answer: "(x-\\frac{2}{3})^2"},
-            {problem: "9y^2 + \\frac{6y}{5} + \\frac{1}{25}", answer: "(3y+\\frac{1}{5})^2"},
+            {problem: "49x^6 + 28x^3 + 4", answer: "(7x^3+2)^2"},
+            {problem: "x^3a - x^3b - xa + xb", answer: "x(a - b)(x - 1)(x + 1)"},
+            {problem: "16x^4 - 625", answer: "(2x - 5)(2x + 5)(4x^2 + 25)"},
+            {problem: "a^4 - 2a^2b^2 + b^4", answer: "(a - b)^2(a + b)^2"},
             {problem: "x^2 + 2 + \\frac{1}{x^2}", answer: "(x+\\frac{1}{x})^2"},
             {problem: "25x^2 - 20 + \\frac{4}{x^2}", answer: "(5x-\\frac{2}{x})^2"},
             
@@ -279,8 +279,8 @@ export default new BaseLevel(
             {problem: "x^2 - \\frac{3}{4}", answer: "(x - \\frac{\\sqrt{3}}{2})(x + \\frac{\\sqrt{3}}{2})"},
             {problem: "x^2 - \\frac{7}{16}", answer: "(x - \\frac{\\sqrt{7}}{4})(x + \\frac{\\sqrt{7}}{4})"},
             {problem: "x^2 - \\frac{5}{16}", answer: "(x - \\frac{\\sqrt{5}}{4})(x + \\frac{\\sqrt{5}}{4})"},
-            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "(\\frac{x}{2} - \\frac{\\sqrt{7}}{3})(\\frac{x}{2} + \\frac{\\sqrt{7}}{3})"},
-            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2})(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2})"},
+            {problem: "\\frac{x^2}{4} - \\frac{7}{9}", answer: "\\left(\\frac{x}{2} - \\frac{\\sqrt{7}}{3}\\right)\\left(\\frac{x}{2} + \\frac{\\sqrt{7}}{3}\\right)"},
+            {problem: "\\frac{9x^2}{16} - \\frac{5}{4}", answer: "\\left(\\frac{3x}{4} - \\frac{\\sqrt{5}}{2}\\right)\\left(\\frac{3x}{4} + \\frac{\\sqrt{5}}{2}\\right)"},
             
             // Irrational coefficients
             {problem: "x^2 - 7", answer: "(x-\\sqrt{7})(x+\\sqrt{7})"},
@@ -320,8 +320,8 @@ export default new BaseLevel(
             {problem: "b^4 - 16", answer: "(b-2)(b+2)(b^2+4)"},
             {problem: "81 - x^4", answer: "(3-x)(3+x)(9+x^2)"},
             {problem: "16x^4 - 81y^4", answer: "(2x-3y)(2x+3y)(4x^2+9y^2)"},
-            {problem: "y^8 - 256", answer: "(y-2)(y+2)(y^2+4)(y^4+16)"},
-            {problem: "x^{16} - 1", answer: "(x-1)(x+1)(x^2+1)(x^4+1)(x^8+1)"},
+            {problem: "x^4 - 256", answer: "(x-4)(x+4)(x^2+16)"},
+            {problem: "16x^4 - 1", answer: "(2x-1)(2x+1)(4x^2+1)"},
             {problem: "x^4 - 81", answer: "(x-3)(x+3)(x^2+9)"},
             {problem: "625 - a^4", answer: "(5-a)(5+a)(25+a^2)"},
             
@@ -329,15 +329,15 @@ export default new BaseLevel(
             {problem: "2x^4 - 32", answer: "2(x-2)(x+2)(x^2+4)"},
             {problem: "ax^4 - 81a", answer: "a(x-3)(x+3)(x^2+9)"},
             {problem: "x^5 - x", answer: "x(x-1)(x+1)(x^2+1)"},
-            {problem: "3x^8 - 3", answer: "3(x-1)(x+1)(x^2+1)(x^4+1)"},
-            {problem: "\\frac{y^4}{81} - 1", answer: "(\\frac{y}{3}-1)(\\frac{y}{3}+1)(\\frac{y^2}{9}+1)"},
-            {problem: "5x^9 - 5x", answer: "5x(x-1)(x+1)(x^2+1)(x^4+1)"},
+            {problem: "5x^4 - 80", answer: "5(x-2)(x+2)(x^2+4)"},
+            {problem: "\\frac{y^4}{81} - 1", answer: "\\left(\\frac{y}{3}-1\\right)\\left(\\frac{y}{3}+1\\right)\\left(\\frac{y^2}{9}+1\\right)"},
+            {problem: "x^5 - 16x", answer: "x(x-2)(x+2)(x^2+4)"},
             {problem: "4a^4 - 64", answer: "4(a-2)(a+2)(a^2+4)"},
             {problem: "3x^4 - 243", answer: "3(x-3)(x+3)(x^2+9)"},
             
             // Complex fractional fourth powers
             {problem: "\\frac{x^4}{3} - \\frac{y^4}{3}", answer: "\\frac{1}{3}(x-y)(x+y)(x^2+y^2)"},
             {problem: "2a^4 - 32b^4", answer: "2(a-2b)(a+2b)(a^2+4b^2)"},
-            {problem: "\\frac{3a^8}{16} - \\frac{3b^4}{625}", answer: "3(\\frac{a^2}{2} - \\frac{b}{5})(\\frac{a^2}{2} + \\frac{b}{5})(\\frac{a^4}{4} + \\frac{b^2}{25})"},
+            {problem: "\\frac{a^4}{16} - \\frac{b^4}{81}", answer: "\\left(\\frac{a}{2}-\\frac{b}{3}\\right)\\left(\\frac{a}{2}+\\frac{b}{3}\\right)\\left(\\frac{a^2}{4}+\\frac{b^2}{9}\\right)"},
         ]
 );

@@ -4,69 +4,53 @@ export default new BaseLevel(
     'addSubtractSurdsEasy',
     'Adding/Subtracting Surds (Easy)',
     [
-            // Direct like surd operations (from textbook)
+            // Direct like-surd collection (variable radicands)
+            {problem: "2\\sqrt{x} + 4\\sqrt{x}", answer: "6\\sqrt{x}"},
+            {problem: "5\\sqrt{a} - 2\\sqrt{a}", answer: "3\\sqrt{a}"},
+            {problem: "7\\sqrt{x} - 3\\sqrt{x}", answer: "4\\sqrt{x}"},
+            {problem: "3\\sqrt{y} + 4\\sqrt{y}", answer: "7\\sqrt{y}"},
+            {problem: "\\sqrt{a} + 3\\sqrt{a}", answer: "4\\sqrt{a}"},
+            {problem: "6\\sqrt{x} - 2\\sqrt{x}", answer: "4\\sqrt{x}"},
+            {problem: "9\\sqrt{y} - 4\\sqrt{y}", answer: "5\\sqrt{y}"},
+            {problem: "5\\sqrt{a} - \\sqrt{a}", answer: "4\\sqrt{a}"},
+            {problem: "2\\sqrt{x} + \\sqrt{x}", answer: "3\\sqrt{x}"},
+            {problem: "8\\sqrt{y} - 3\\sqrt{y}", answer: "5\\sqrt{y}"},
+            // Three-term collection
+            {problem: "\\sqrt{x} + 3\\sqrt{x} + 2\\sqrt{x}", answer: "6\\sqrt{x}"},
+            {problem: "4\\sqrt{a} - \\sqrt{a} + 2\\sqrt{a}", answer: "5\\sqrt{a}"},
+            {problem: "2\\sqrt{y} + \\sqrt{y} - \\sqrt{y}", answer: "2\\sqrt{y}"},
+            {problem: "6\\sqrt{x} - 2\\sqrt{x} - 3\\sqrt{x}", answer: "\\sqrt{x}"},
+            {problem: "5\\sqrt{a} + 3\\sqrt{a} - 4\\sqrt{a}", answer: "4\\sqrt{a}"},
+            // Coefficient-variable like surds
+            {problem: "a\\sqrt{3} + 2a\\sqrt{3}", answer: "3a\\sqrt{3}"},
+            {problem: "5x\\sqrt{2} - 2x\\sqrt{2}", answer: "3x\\sqrt{2}"},
+            {problem: "4a\\sqrt{5} - a\\sqrt{5}", answer: "3a\\sqrt{5}"},
+            {problem: "x\\sqrt{7} + 3x\\sqrt{7}", answer: "4x\\sqrt{7}"},
+            // Simplify one term first, then collect
+            {problem: "\\sqrt{4x} + \\sqrt{x}", answer: "3\\sqrt{x}"},
+            {problem: "\\sqrt{9x} - \\sqrt{x}", answer: "2\\sqrt{x}"},
+            {problem: "\\sqrt{16a} - \\sqrt{a}", answer: "3\\sqrt{a}"},
+            {problem: "\\sqrt{25y} + \\sqrt{y}", answer: "6\\sqrt{y}"},
+            {problem: "\\sqrt{4a} + 3\\sqrt{a}", answer: "5\\sqrt{a}"},
+            {problem: "2\\sqrt{x} + \\sqrt{9x}", answer: "5\\sqrt{x}"},
+            {problem: "\\sqrt{36x} - 2\\sqrt{x}", answer: "4\\sqrt{x}"},
+            {problem: "\\sqrt{49a} - 3\\sqrt{a}", answer: "4\\sqrt{a}"},
+            // Two unlike variable surds (cannot combine)
+            {problem: "2\\sqrt{x} + 3\\sqrt{y}", answer: "2\\sqrt{x} + 3\\sqrt{y}"},
+            {problem: "5\\sqrt{a} - \\sqrt{b}", answer: "5\\sqrt{a} - \\sqrt{b}"},
+            // Negative result
+            {problem: "\\sqrt{x} - 5\\sqrt{x} + 2\\sqrt{x}", answer: "-2\\sqrt{x}"},
+            {problem: "2\\sqrt{a} - 6\\sqrt{a}", answer: "-4\\sqrt{a}"},
+            // A handful of numeric questions for fluency (small radicands)
             {problem: "2\\sqrt{5} + 4\\sqrt{5}", answer: "6\\sqrt{5}"},
             {problem: "5\\sqrt{3} - 2\\sqrt{3}", answer: "3\\sqrt{3}"},
             {problem: "7\\sqrt{2} - 3\\sqrt{2}", answer: "4\\sqrt{2}"},
-            {problem: "8\\sqrt{2} - 5\\sqrt{2}", answer: "3\\sqrt{2}"},
-            {problem: "4\\sqrt{10} + 3\\sqrt{10} - \\sqrt{10}", answer: "6\\sqrt{10}"},
-            {problem: "\\sqrt{21} - 5\\sqrt{21} + 2\\sqrt{21}", answer: "-2\\sqrt{21}"},
-            
-            // Simplification required (from textbook)
-            {problem: "\\sqrt{3} + \\sqrt{48}", answer: "5\\sqrt{3}"},
-            {problem: "\\sqrt{48} - 7\\sqrt{3}", answer: "-3\\sqrt{3}"},
-            {problem: "5\\sqrt{48} - 3\\sqrt{3}", answer: "17\\sqrt{3}"},
             {problem: "\\sqrt{8} - \\sqrt{2}", answer: "\\sqrt{2}"},
             {problem: "\\sqrt{8} + 3\\sqrt{2}", answer: "5\\sqrt{2}"},
             {problem: "\\sqrt{27} + \\sqrt{3}", answer: "4\\sqrt{3}"},
             {problem: "\\sqrt{20} - \\sqrt{5}", answer: "\\sqrt{5}"},
-            {problem: "4\\sqrt{18} - 5\\sqrt{2}", answer: "7\\sqrt{2}"},
-            {problem: "2\\sqrt{75} + 2\\sqrt{3}", answer: "12\\sqrt{3}"},
-            {problem: "3\\sqrt{44} + 2\\sqrt{11}", answer: "8\\sqrt{11}"},
-            
-            // Additional textbook questions
-            {problem: "2\\sqrt{3} + 5\\sqrt{3}", answer: "7\\sqrt{3}"},
-            {problem: "2\\sqrt{3} + 5\\sqrt{6}", answer: "2\\sqrt{3} + 5\\sqrt{6}"},
-            {problem: "2\\sqrt{3} + 5\\sqrt{12}", answer: "12\\sqrt{3}"},
-            {problem: "2\\sqrt{3} + 5\\sqrt{27}", answer: "17\\sqrt{3}"},
-            {problem: "2\\sqrt{3} + 6\\sqrt{27}", answer: "20\\sqrt{3}"},
-            {problem: "6\\sqrt{6} + 2\\sqrt{24}", answer: "10\\sqrt{6}"},
-            
-            // Additional generated questions - basic like surds
-            {problem: "3\\sqrt{2} + 4\\sqrt{2}", answer: "7\\sqrt{2}"},
-            {problem: "6\\sqrt{5} - 2\\sqrt{5}", answer: "4\\sqrt{5}"},
-            {problem: "9\\sqrt{7} - 4\\sqrt{7}", answer: "5\\sqrt{7}"},
-            {problem: "\\sqrt{11} + 3\\sqrt{11}", answer: "4\\sqrt{11}"},
-            {problem: "5\\sqrt{13} - \\sqrt{13}", answer: "4\\sqrt{13}"},
-            {problem: "2\\sqrt{17} + \\sqrt{17}", answer: "3\\sqrt{17}"},
-            {problem: "8\\sqrt{19} - 3\\sqrt{19}", answer: "5\\sqrt{19}"},
-            
-            // Simple three-term combinations
-            {problem: "\\sqrt{2} + 3\\sqrt{2} + 2\\sqrt{2}", answer: "6\\sqrt{2}"},
-            {problem: "4\\sqrt{3} - \\sqrt{3} + 2\\sqrt{3}", answer: "5\\sqrt{3}"},
-            {problem: "2\\sqrt{5} + \\sqrt{5} - \\sqrt{5}", answer: "2\\sqrt{5}"},
-            {problem: "6\\sqrt{7} - 2\\sqrt{7} - 3\\sqrt{7}", answer: "\\sqrt{7}"},
-            
-            // Basic simplification with perfect square factors
-            {problem: "\\sqrt{4} + \\sqrt{16}", answer: "6"},
-            {problem: "\\sqrt{9} + \\sqrt{25}", answer: "8"},
-            {problem: "\\sqrt{36} - \\sqrt{4}", answer: "4"},
-            {problem: "\\sqrt{49} - \\sqrt{9}", answer: "4"},
-            
-            // Simple mixed simplification
             {problem: "\\sqrt{12} + \\sqrt{3}", answer: "3\\sqrt{3}"},
             {problem: "\\sqrt{18} - \\sqrt{2}", answer: "2\\sqrt{2}"},
-            {problem: "\\sqrt{32} + \\sqrt{8}", answer: "6\\sqrt{2}"},
-            {problem: "\\sqrt{50} - \\sqrt{2}", answer: "4\\sqrt{2}"},
-            {problem: "2\\sqrt{8} + \\sqrt{2}", answer: "5\\sqrt{2}"},
-            {problem: "3\\sqrt{12} - \\sqrt{3}", answer: "5\\sqrt{3}"},
-            {problem: "\\sqrt{45} + \\sqrt{5}", answer: "4\\sqrt{5}"},
-            {problem: "2\\sqrt{18} - \\sqrt{2}", answer: "5\\sqrt{2}"},
-            
-            // Simple coefficient operations
-            {problem: "\\sqrt{5} + 2\\sqrt{5}", answer: "3\\sqrt{5}"},
-            {problem: "4\\sqrt{6} - \\sqrt{6}", answer: "3\\sqrt{6}"},
-            {problem: "\\sqrt{8} + 2\\sqrt{8}", answer: "6\\sqrt{2}"},
-            {problem: "5\\sqrt{11} - 2\\sqrt{11}", answer: "3\\sqrt{11}"}
+            {problem: "\\sqrt{50} - \\sqrt{2}", answer: "4\\sqrt{2}"}
         ]
 );

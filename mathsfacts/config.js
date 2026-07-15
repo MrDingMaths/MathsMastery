@@ -21,6 +21,7 @@ export const CONFIG = {
         'Bonds to 100': { text: '100', useKaTeX: false },
         'Bonds to -10': { text: '-10', useKaTeX: false },
         'Bonds to -20': { text: '-20', useKaTeX: false },
+        'Add & Subtract Negatives': { text: '-n \\pm', useKaTeX: true },
 
         // Multiplication & Division
         '× 2 4 5 10': { text: '\\times 2', useKaTeX: true },
@@ -71,10 +72,10 @@ export const CONFIG = {
      * Ratings progress from beginner to true mastery based on speed and accuracy
      */
     RATING_THRESHOLDS: [
-        { maxAvg: 1.5, name: "Maths Queen", key: "true-mastery" },
-        { maxAvg: 2, name: "Mastery", key: "mastery" },
-        { maxAvg: 3, name: "Expert", key: "expert" },
-        { maxAvg: 4, name: "Developing", key: "developing" },
+        { maxAvg: 2, name: "Maths Queen", key: "true-mastery" },
+        { maxAvg: 3, name: "Mastery", key: "mastery" },
+        { maxAvg: 4, name: "Expert", key: "expert" },
+        { maxAvg: 5, name: "Developing", key: "developing" },
         { maxAvg: Infinity, name: "Beginner", key: "beginner" }
     ],
     /**
@@ -83,43 +84,42 @@ export const CONFIG = {
      * Ensures fair assessment across different mathematical domains
      */
     LEVEL_DIFFICULTY_MULTIPLIERS: {
-        // Number Bonds - foundational skills, students should achieve fluency
-        'bonds10': 1,           // Very basic, Year 8s should be fast
-        'bonds20': 1,           // Still basic
-        'mixed10-20': 1.2,        // Mixed requires more thinking
-        'bonds100': 1.4,          // Common benchmark, standard speed
-        'bonds-10': 1.5,          // Negative numbers add complexity
-        'bonds-20': 1.5,          // More negative complexity
+        // Number Bonds
+        'bonds10': 1.0,
+        'bonds20': 1.0,
+        'mixed10-20': 1.0,
+        'bonds100': 1.5,
+        'bonds-10': 1.5,
+        'bonds-20': 1.5,
+        'negAddSub': 1.5,
 
-        // Multiplication & Division - essential facts requiring memorization
-        'group245': 1,          // Easy tables (2,4,5,10)
-        'group369': 1.2,          // Medium tables (3,6,9)
-        'multall': 1.2,           // Full tables (2-12), more variety
-        'mixed-negative-mult': 1.8, // Negatives add significant complexity
-        'integerOperations': 2.5, // Mixed directed-number ops with order of operations
-        'multiplyDivideBy100': 1.8, // Focused on single power, pattern-based
-        'powersOf10': 2,        // Pattern-based, should be quick
-        'double100': 1.5,         // Doubling is systematic
-        'squares': 1.2,           // Need memorization but predictable
-        'unitConversions': 5,   // Requires knowledge + calculation
+        // Multiplication & Division
+        'group245': 1.0,
+        'group369': 1.0,
+        'multall': 1.0,
+        'mixed-negative-mult': 1.5,
+        'integerOperations': 1.5,
+        'multiplyDivideBy100': 1.5,
+        'powersOf10': 2.0,
+        'double100': 1.5,
+        'squares': 1.0,
+        'unitConversions': 3.0,
 
-        // Fractions Decimals Percentages - complex multi-step calculations
-        'hcf': 1.5,               // Requires factorization
-        'lcm': 2,               // Requires multiples
-        'equivFractions': 1.8,    // Two inputs but straightforward concept
-        'simplifyFractions': 2.8, // Two inputs, division/factoring
-        'fdpConversions': 2,    // Multiple inputs (3-4 fields), complex
-        'fdpConversionsMultiples': 2.5, // Even more complex calculations
-        'roundingDecimals': 2, // Single-step decision based on the next digit
-        'fractionOfQuantity': 2, // Multiplication + fractions
-        'percentageOfQuantity': 2, // Percentage calculations
-        'increaseDecreasePercentage': 2.5, // Increase/decrease operations with percentage of questions
+        // Fractions Decimals Percentages
+        'hcf': 1.5,
+        'lcm': 1.5,
+        'equivFractions': 1.5,
+        'simplifyFractions': 2.5,
+        'fdpConversions': 2.0,
+        'fdpConversionsMultiples': 2.0,
+        'roundingDecimals': 2.0,
+        'fractionOfQuantity': 2.0,
+        'percentageOfQuantity': 1.5,
+        'increaseDecreasePercentage': 2.0,
 
         // Fallback multiplier for any levels not explicitly configured
         'default': 1.0
     },
-    // localStorage key prefix for best time records (includes version for data migration)
-    STORAGE_PREFIX: 'mf_bestTime_v1_',
     // Confetti animation particle counts for different celebration levels
     CONFETTI: { 
         CORRECT: 40,     // Moderate celebration for individual correct answers

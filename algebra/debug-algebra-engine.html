@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algebra Engine Debug Tool</title>
     <script src="../shared/lib/math.js"></script>
-    <!-- MathQuill (Desmos fork - local) -->
-    <link rel="stylesheet" type="text/css" href="../shared/lib/mathquill/mathquill.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../shared/lib/mathquill/mathquill.js"></script>
+    <!-- MathLive (vendored, v0.109.2) -->
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-static.css">
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-fonts.css">
+    <script defer src="../shared/lib/mathlive/mathlive.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,7 +45,9 @@
             font-size: 16px;
             box-sizing: border-box;
         }
-        .mathquill-input {
+        math-field.math-field-input {
+            display: inline-flex;
+            align-items: center;
             width: 100%;
             min-height: 40px;
             padding: 10px;
@@ -54,10 +56,18 @@
             font-size: 18px;
             box-sizing: border-box;
             background-color: white;
+            cursor: text;
+            --primary: #007bff;
+            --caret-color: #007bff;
         }
-        .mathquill-input:focus {
+        math-field.math-field-input::part(menu-toggle) {
+            display: none;
+        }
+        math-field.math-field-input:focus,
+        math-field.math-field-input:focus-within {
             border-color: #0056b3;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            outline: none;
         }
         button {
             background-color: #4CAF50;
@@ -279,12 +289,12 @@
         
         <div class="input-group">
             <label for="expression1">Expression 1 (Student Answer):</label>
-            <div id="expression1" class="mathquill-input"></div>
+            <math-field id="expression1" class="math-field-input"></math-field>
         </div>
         
         <div class="input-group">
             <label for="expression2">Expression 2 (Correct Answer):</label>
-            <div id="expression2" class="mathquill-input"></div>
+            <math-field id="expression2" class="math-field-input"></math-field>
         </div>
         
         <div class="controls">
@@ -304,11 +314,11 @@
             <div class="add-example-form">
                 <div class="input-group">
                     <label for="newExpr1">Student Answer:</label>
-                    <div id="newExpr1" class="mathquill-input"></div>
+                    <math-field id="newExpr1" class="math-field-input"></math-field>
                 </div>
                 <div class="input-group">
                     <label for="newExpr2">Correct Answer:</label>
-                    <div id="newExpr2" class="mathquill-input"></div>
+                    <math-field id="newExpr2" class="math-field-input"></math-field>
                 </div>
                 <div class="input-group">
                     <label for="expectedResult">Expected Result:</label>
@@ -341,11 +351,11 @@
                 <div class="edit-form-grid">
                     <div class="input-group">
                         <label for="editExpr1">Student Answer:</label>
-                        <div id="editExpr1" class="mathquill-input"></div>
+                        <math-field id="editExpr1" class="math-field-input"></math-field>
                     </div>
                     <div class="input-group">
                         <label for="editExpr2">Correct Answer:</label>
-                        <div id="editExpr2" class="mathquill-input"></div>
+                        <math-field id="editExpr2" class="math-field-input"></math-field>
                     </div>
                     <div class="input-group">
                         <label for="editExpectedResult">Expected Result:</label>
@@ -476,97 +486,51 @@
         let mathField1, mathField2, newExprField1, newExprField2, editExprField1, editExprField2;
         let currentEditingIndex = -1;
         
-        // Initialize MathQuill when document is ready
-        $(document).ready(function() {
-            const MQ = MathQuill.getInterface(2);
-            
-            // Initialize MathQuill input fields
-            mathField1 = MQ.MathField(document.getElementById('expression1'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-            
-            mathField2 = MQ.MathField(document.getElementById('expression2'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-            
-            // Initialize MathQuill for custom example inputs
-            newExprField1 = MQ.MathField(document.getElementById('newExpr1'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-            
-            newExprField2 = MQ.MathField(document.getElementById('newExpr2'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-            
-            // Initialize MathQuill for edit form inputs
-            editExprField1 = MQ.MathField(document.getElementById('editExpr1'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-            
-            editExprField2 = MQ.MathField(document.getElementById('editExpr2'), {
-                spaceBehavesLikeTab: true,
-                leftRightIntoCmdGoes: 'up',
-                restrictMismatchedBrackets: true,
-                sumStartsWithNEquals: true,
-                supSubsRequireOperand: true,
-                charsThatBreakOutOfSupSub: '+-=<>',
-                autoSubscriptNumerals: true,
-                autoCommands: 'pi theta sqrt sum',
-                autoOperatorNames: 'sin cos tan log ln',
-            });
-        });
+        // Initialize math-field inputs once MathLive has registered the custom element
+        const INLINE_SHORTCUTS = {
+            pi: '\\pi',
+            theta: '\\theta',
+            sqrt: '\\sqrt{#?}',
+        };
+        function configureMathField(field) {
+            if (!field) return;
+            field.mathVirtualKeyboardPolicy = 'manual';
+            field.inlineShortcuts = { ...field.inlineShortcuts, ...INLINE_SHORTCUTS };
+            field.menuItems = [];
+        }
+        function initMathFields() {
+            if (typeof window.MathfieldElement !== 'undefined') {
+                window.MathfieldElement.soundsDirectory = null;
+                window.MathfieldElement.fontsDirectory = null;
+            }
+            mathField1 = document.getElementById('expression1');
+            mathField2 = document.getElementById('expression2');
+            newExprField1 = document.getElementById('newExpr1');
+            newExprField2 = document.getElementById('newExpr2');
+            editExprField1 = document.getElementById('editExpr1');
+            editExprField2 = document.getElementById('editExpr2');
+            [mathField1, mathField2, newExprField1, newExprField2, editExprField1, editExprField2]
+                .forEach(configureMathField);
+        }
+        if (window.customElements && customElements.whenDefined) {
+            customElements.whenDefined('math-field').then(initMathFields);
+        } else if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMathFields);
+        } else {
+            initMathFields();
+        }
         
         function loadExample(expr1, expr2) {
             if (mathField1 && mathField2) {
-                mathField1.latex(expr1);
-                mathField2.latex(expr2);
+                mathField1.value = expr1;
+                mathField2.value = expr2;
             }
         }
         
         function loadExampleAndTest(expr1, expr2, expectedResult) {
             if (mathField1 && mathField2) {
-                mathField1.latex(expr1);
-                mathField2.latex(expr2);
+                mathField1.value = expr1;
+                mathField2.value = expr2;
                 testExpressions();
             }
         }
@@ -609,8 +573,8 @@
                 return;
             }
             
-            const expr1 = mathField1.latex().trim();
-            const expr2 = mathField2.latex().trim();
+            const expr1 = mathField1.value.trim();
+            const expr2 = mathField2.value.trim();
             const resultDiv = document.getElementById('result');
             const debugDiv = document.getElementById('debug');
             const verboseLogging = document.getElementById('verboseLogging').checked;
@@ -668,8 +632,8 @@
         
         function clearResults() {
             if (mathField1 && mathField2) {
-                mathField1.latex('');
-                mathField2.latex('');
+                mathField1.value = '';
+                mathField2.value = '';
             }
             document.getElementById('result').style.display = 'none';
             document.getElementById('debug').style.display = 'none';
@@ -682,8 +646,8 @@
                 return;
             }
             
-            const expr1 = newExprField1.latex().trim();
-            const expr2 = newExprField2.latex().trim();
+            const expr1 = newExprField1.value.trim();
+            const expr2 = newExprField2.value.trim();
             const expectedResult = document.getElementById('expectedResult').value;
             
             if (!expr1 || !expr2) {
@@ -704,8 +668,8 @@
             renderCustomExamples();
             
             // Clear input fields
-            newExprField1.latex('');
-            newExprField2.latex('');
+            newExprField1.value = '';
+            newExprField2.value = '';
             document.getElementById('expectedResult').selectedIndex = 0;
             
             // Test the new example immediately
@@ -788,8 +752,8 @@
             
             // Populate edit form
             if (editExprField1 && editExprField2) {
-                editExprField1.latex(example.expr1);
-                editExprField2.latex(example.expr2);
+                editExprField1.value = example.expr1;
+                editExprField2.value = example.expr2;
                 document.getElementById('editExpectedResult').value = example.expected;
             }
             
@@ -804,8 +768,8 @@
         function saveEdit() {
             if (currentEditingIndex < 0 || !editExprField1 || !editExprField2) return;
             
-            const expr1 = editExprField1.latex().trim();
-            const expr2 = editExprField2.latex().trim();
+            const expr1 = editExprField1.value.trim();
+            const expr2 = editExprField2.value.trim();
             const expectedResult = document.getElementById('editExpectedResult').value;
             
             if (!expr1 || !expr2) {
@@ -835,8 +799,8 @@
             
             // Clear edit form
             if (editExprField1 && editExprField2) {
-                editExprField1.latex('');
-                editExprField2.latex('');
+                editExprField1.value = '';
+                editExprField2.value = '';
                 document.getElementById('editExpectedResult').selectedIndex = 0;
             }
         }
@@ -1120,7 +1084,7 @@
         // Allow Enter key to trigger test (will be handled by MathQuill fields)
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                if (e.target.closest('.mathquill-input')) {
+                if (e.target.closest('.math-field-input')) {
                     testExpressions();
                 } else if (e.target.closest('.add-example-form')) {
                     addCustomExample();

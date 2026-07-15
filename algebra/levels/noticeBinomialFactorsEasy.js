@@ -55,6 +55,12 @@ export default new BaseLevel(
             {problem: "5(y + 6) - y(y + 6)", answer: "(5 - y)(y + 6)"},
             {problem: "a(2a + 5) + (2a + 5)", answer: "(a + 1)(2a + 5)"},
             {problem: "3(x - 4) + x(x - 4)", answer: "(x + 3)(x - 4)"},
-            {problem: "y(y + 7) - 2(y + 7)", answer: "(y - 2)(y + 7)"}
+            {problem: "y(y + 7) - 2(y + 7)", answer: "(y - 2)(y + 7)"},
+            {problem: "x(x + 2) - 5(2 + x)", answer: "(x - 5)(x + 2)"},
+            {problem: "3x(x + 4) + 7(4 + x)", answer: "(3x + 7)(x + 4)"},
+            {problem: "y(4y + 3) - (3 + 4y)", answer: "(y - 1)(4y + 3)"},
+            {problem: "x(5x + 4) + 3(4 + 5x)", answer: "(x + 3)(5x + 4)"},
+            {problem: "2x(x + 3) - 9(3 + x)", answer: "(2x - 9)(x + 3)"},
+            {problem: "5x(x + 1) - 8(1 + x)", answer: "(5x - 8)(x + 1)"}
         ]
 );

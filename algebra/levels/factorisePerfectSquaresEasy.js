@@ -30,6 +30,11 @@ export default new BaseLevel(
             {problem: "x^2 + 24x + 144", answer: "(x+12)^2"},
             {problem: "x^2 - 26x + 169", answer: "(x-13)^2"},
             {problem: "x^2 + 28x + 196", answer: "(x+14)^2"},
-            {problem: "x^2 - 30x + 225", answer: "(x-15)^2"}
+            {problem: "x^2 - 30x + 225", answer: "(x-15)^2"},
+            {problem: "x^2 + 22x + 121", answer: "(x+11)^2"},
+            {problem: "x^2 - 24x + 144", answer: "(x-12)^2"},
+            {problem: "x^2 + 26x + 169", answer: "(x+13)^2"},
+            {problem: "x^2 - 28x + 196", answer: "(x-14)^2"},
+            {problem: "x^2 + 32x + 256", answer: "(x+16)^2"}
         ]
 );
