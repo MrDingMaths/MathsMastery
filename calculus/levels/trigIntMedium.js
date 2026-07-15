@@ -1,0 +1,40 @@
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel('trigIntMedium', 'Trigonometric — Medium', [
+  // Definite integrals — simple bounds
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\cos x\\,dx', answer: '1' },
+  { problem: '\\int_0^{\\frac{\\pi}{6}}\\cos x\\,dx', answer: '\\frac{1}{2}' },
+  { problem: '\\int_{\\frac{\\pi}{4}}^{\\frac{\\pi}{2}}\\sin x\\,dx', answer: '\\frac{1}{\\sqrt{2}}' },
+  { problem: '\\int_0^{\\frac{\\pi}{3}}\\sec^2 x\\,dx', answer: '\\sqrt{3}' },
+  { problem: '\\int_0^{\\frac{\\pi}{4}}2\\cos 2x\\,dx', answer: '1' },
+  { problem: '\\int_0^{\\frac{\\pi}{3}}\\sin 2x\\,dx', answer: '\\frac{3}{4}' },
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\sec^2\\frac{x}{2}\\,dx', answer: '2' },
+  { problem: '\\int_{\\frac{\\pi}{3}}^{\\pi}\\cos\\frac{x}{2}\\,dx', answer: '1' },
+  { problem: '\\int_0^{\\pi}(2\\sin x-\\sin 2x)\\,dx', answer: '4' },
+  // Definite integrals of sin x with varying upper bound
+  { problem: '\\int_0^{\\frac{\\pi}{4}}\\sin x\\,dx', answer: '1-\\frac{1}{\\sqrt{2}}' },
+  { problem: '\\int_0^{\\frac{\\pi}{2}}\\sin x\\,dx', answer: '1' },
+  { problem: '\\int_0^{\\frac{3\\pi}{4}}\\sin x\\,dx', answer: '1+\\frac{1}{\\sqrt{2}}' },
+  { problem: '\\int_0^{\\pi}\\sin x\\,dx', answer: '2' },
+  { problem: '\\int_0^{\\frac{5\\pi}{4}}\\sin x\\,dx', answer: '1+\\frac{1}{\\sqrt{2}}' },
+  { problem: '\\int_0^{\\frac{3\\pi}{2}}\\sin x\\,dx', answer: '1' },
+  { problem: '\\int_0^{\\frac{7\\pi}{4}}\\sin x\\,dx', answer: '1-\\frac{1}{\\sqrt{2}}' },
+  { problem: '\\int_0^{2\\pi}\\sin x\\,dx', answer: '0' },
+  // Indefinite with linear argument
+  { problem: '\\int\\sin(5x+3)\\,dx', answer: '-\\frac{1}{5}\\cos(5x+3)+C' },
+  { problem: '\\int 4\\cos(5x+3)\\,dx', answer: '\\frac{4}{5}\\sin(5x+3)+C' },
+  { problem: '\\int\\cos(-5x)\\,dx', answer: '\\frac{1}{5}\\sin(5x)+C' },
+  { problem: '\\int\\sec^2(-5x)\\,dx', answer: '\\frac{1}{5}\\tan(5x)+C' },
+  { problem: '\\int\\sec^2\\left(-\\frac{x}{5}\\right)\\,dx', answer: '5\\tan\\frac{x}{5}+C' },
+  { problem: '\\int_0^{\\pi}\\cos x\\,dx', answer: '0' },
+  { problem: '\\int_0^{\\frac{\\pi}{3}}4\\sec^2 x\\,dx', answer: '4\\sqrt{3}' },
+  { problem: '\\int\\cos(x+2)\\,dx', answer: '\\sin(x+2)+C' },
+  { problem: '\\int\\cos(2x+1)\\,dx', answer: '\\frac{1}{2}\\sin(2x+1)+C' },
+  { problem: '\\int\\sin(x+2)\\,dx', answer: '-\\cos(x+2)+C' },
+  { problem: '\\int\\sin(2x+1)\\,dx', answer: '-\\frac{1}{2}\\cos(2x+1)+C' },
+  { problem: '\\int\\cos(3x-2)\\,dx', answer: '\\frac{1}{3}\\sin(3x-2)+C' },
+  { problem: '\\int\\sin(7-5x)\\,dx', answer: '\\frac{1}{5}\\cos(7-5x)+C' },
+  { problem: '\\int\\sec^2(4-x)\\,dx', answer: '-\\tan(4-x)+C' },
+  { problem: '\\int\\sec^2\\frac{1-x}{3}\\,dx', answer: '-3\\tan\\frac{1-x}{3}+C' },
+  { problem: '\\int\\sin\\frac{1-x}{3}\\,dx', answer: '3\\cos\\frac{1-x}{3}+C' },
+], { mode: 'integral', toleranceDp: 2 });

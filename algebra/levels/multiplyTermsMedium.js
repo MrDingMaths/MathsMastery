@@ -1,4 +1,5 @@
 // levels/multiplyTermsMedium.js
+import { BaseLevel } from './BaseLevel.js';
 // Custom generateQuestion: 70% chance to convert \times to implied multiplication
 class MultiplyTermsMediumLevel extends BaseLevel {
     constructor() {
@@ -13,7 +14,7 @@ class MultiplyTermsMediumLevel extends BaseLevel {
             {problem: "(-6x) \\times (-2)", answer: "12x"},
             {problem: "(-9x) \\times (-4y)", answer: "36xy"},
             {problem: "(-3x) \\times (-5)", answer: "15x"},
-            {problem: "(-7x) \\times (-2y)", answer: "14yx"},
+            {problem: "(-6x) \\times (-3a)", answer: "18ax"},
 
             // Products of Three Simple Factors
             {problem: "5a \\times (-2) \\times 3b", answer: "-30ab"},
@@ -28,11 +29,12 @@ class MultiplyTermsMediumLevel extends BaseLevel {
             {problem: "7 \\times (-2x) \\times 3", answer: "-42x"},
 
             // Additional problems from user list
-            {problem: "-3x \\times 2y", answer: "-6yx"},
             {problem: "-5a \\times -3b", answer: "15ab"},
-            {problem: "x \\times 2y \\times 7a", answer: "14xya"},
+            {problem: "7x \\times 2y \\times (-3)", answer: "-42xy"},
             {problem: "-4x \\times 3 \\times 2y", answer: "-24xy"},
             {problem: "5x \\times (-4) \\times 2y", answer: "-40xy"},
+            {problem: "-6x \\times (-5y)", answer: "30xy"},
+            {problem: "-5b \\times (-6x)", answer: "30bx"},
         ]);
         this.impliedMultiplicationChance = 0.7;
     }
@@ -56,5 +58,4 @@ class MultiplyTermsMediumLevel extends BaseLevel {
     }
 }
 
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyTermsMedium = new MultiplyTermsMediumLevel();
+export default new MultiplyTermsMediumLevel();

@@ -1,67 +1,36 @@
 // levels/rationaliseBinomialDenominatorMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseBinomialDenominatorMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseBinomialDenominatorMedium',
     'Further Rationalising the Denominator (Medium)',
     [
-            // Provided textbook questions
-            {problem: "\\frac{\\sqrt{5}}{8-\\sqrt{5}}", answer: "\\frac{5+8\\sqrt{5}}{59}"},
+            // Variable surd numerator over a binomial
+            {problem: "\\frac{\\sqrt{x}}{a+\\sqrt{x}}", answer: "\\frac{a\\sqrt{x}-x}{a^2-x}"},
+            {problem: "\\frac{\\sqrt{x}}{a-\\sqrt{x}}", answer: "\\frac{a\\sqrt{x}+x}{a^2-x}"},
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{x}+1}", answer: "\\frac{x-\\sqrt{x}}{x-1}"},
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{x}-2}", answer: "\\frac{x+2\\sqrt{x}}{x-4}"},
+            {problem: "\\frac{\\sqrt{x}}{3-\\sqrt{x}}", answer: "\\frac{3\\sqrt{x}+x}{9-x}"},
+            {problem: "\\frac{2\\sqrt{x}}{a+\\sqrt{x}}", answer: "\\frac{2a\\sqrt{x}-2x}{a^2-x}"},
+            // Two-variable surd combinations
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{x}+\\sqrt{y}}", answer: "\\frac{x-\\sqrt{xy}}{x-y}"},
+            {problem: "\\frac{\\sqrt{x}}{\\sqrt{x}-\\sqrt{y}}", answer: "\\frac{x+\\sqrt{xy}}{x-y}"},
+            {problem: "\\frac{2\\sqrt{x}}{\\sqrt{x}+\\sqrt{y}}", answer: "\\frac{2x-2\\sqrt{xy}}{x-y}"},
+            // Binomial numerator over its conjugate
+            {problem: "\\frac{a+\\sqrt{x}}{a-\\sqrt{x}}", answer: "\\frac{a^2+2a\\sqrt{x}+x}{a^2-x}"},
+            {problem: "\\frac{\\sqrt{x}+1}{\\sqrt{x}-1}", answer: "\\frac{x+2\\sqrt{x}+1}{x-1}"},
+            {problem: "\\frac{\\sqrt{x}-2}{\\sqrt{x}+2}", answer: "\\frac{x-4\\sqrt{x}+4}{x-4}"},
+            {problem: "\\frac{\\sqrt{x}+\\sqrt{y}}{\\sqrt{x}-\\sqrt{y}}", answer: "\\frac{x+2\\sqrt{xy}+y}{x-y}"},
+            {problem: "\\frac{\\sqrt{x}-\\sqrt{y}}{\\sqrt{x}+\\sqrt{y}}", answer: "\\frac{x-2\\sqrt{xy}+y}{x-y}"},
+            // Binomial numerator over a different binomial
+            {problem: "\\frac{1+\\sqrt{x}}{a+\\sqrt{x}}", answer: "\\frac{a+a\\sqrt{x}-\\sqrt{x}-x}{a^2-x}"},
+            {problem: "\\frac{\\sqrt{x}+1}{\\sqrt{x}+2}", answer: "\\frac{x-\\sqrt{x}-2}{x-4}"},
+            // A handful of numeric questions for fluency (kept small)
             {problem: "\\frac{2+\\sqrt{3}}{2-\\sqrt{3}}", answer: "7+4\\sqrt{3}"},
-            {problem: "\\frac{5+\\sqrt{2}}{5-\\sqrt{2}}", answer: "\\frac{27+10\\sqrt{2}}{23}"},
-            {problem: "\\frac{\\sqrt{7}}{\\sqrt{7}-3}", answer: "-\\frac{7+3\\sqrt{7}}{2}"},
-            {problem: "\\frac{\\sqrt{5}}{\\sqrt{5}-3}", answer: "-\\frac{5+3\\sqrt{5}}{4}"},
-            {problem: "\\frac{\\sqrt{5}}{5-\\sqrt{3}}", answer: "\\frac{5\\sqrt{5}+\\sqrt{15}}{22}"},
-            {problem: "\\frac{2\\sqrt{5}}{5-\\sqrt{3}}", answer: "\\frac{5\\sqrt{5}+\\sqrt{15}}{11}"},
-            {problem: "\\frac{4\\sqrt{5}}{5-\\sqrt{3}}", answer: "\\frac{10\\sqrt{5}+2\\sqrt{15}}{11}"},
-            {problem: "\\frac{4\\sqrt{5}}{5-2\\sqrt{3}}", answer: "\\frac{20\\sqrt{5}+8\\sqrt{15}}{13}"},
-            {problem: "\\frac{4\\sqrt{5}}{5-3\\sqrt{3}}", answer: "-10\\sqrt{5}-6\\sqrt{15}"},
-            {problem: "\\frac{4\\sqrt{3}}{5-3\\sqrt{3}}", answer: "-18-10\\sqrt{3}"},
-            
-            // Additional medium questions - surd over binomial
             {problem: "\\frac{\\sqrt{2}}{3+\\sqrt{2}}", answer: "\\frac{3\\sqrt{2}-2}{7}"},
             {problem: "\\frac{\\sqrt{3}}{2+\\sqrt{3}}", answer: "2\\sqrt{3}-3"},
-            {problem: "\\frac{\\sqrt{7}}{4+\\sqrt{7}}", answer: "\\frac{4\\sqrt{7}-7}{9}"},
             {problem: "\\frac{2\\sqrt{2}}{1+\\sqrt{2}}", answer: "4-2\\sqrt{2}"},
-            {problem: "\\frac{3\\sqrt{3}}{2-\\sqrt{3}}", answer: "6\\sqrt{3}+9"},
-            {problem: "\\frac{\\sqrt{6}}{3-\\sqrt{6}}", answer: "\\sqrt{6}+2"},
-            {problem: "\\frac{2\\sqrt{7}}{\\sqrt{7}+2}", answer: "\\frac{14-4\\sqrt{7}}{3}"},
-            {problem: "\\frac{3\\sqrt{5}}{\\sqrt{5}-1}", answer: "\\frac{15+3\\sqrt{5}}{4}"},
-            
-            // Binomial numerator over binomial denominator
-            {problem: "\\frac{1+\\sqrt{2}}{3+\\sqrt{2}}", answer: "\\frac{1+2\\sqrt{2}}{7}"},
-            {problem: "\\frac{2+\\sqrt{3}}{1+\\sqrt{3}}", answer: "\\frac{1+\\sqrt{3}}{2}"},
-            {problem: "\\frac{3+\\sqrt{5}}{2+\\sqrt{5}}", answer: "\\sqrt{5}-1"},
-            {problem: "\\frac{1-\\sqrt{2}}{1+\\sqrt{2}}", answer: "2\\sqrt{2}-3"},
-            {problem: "\\frac{2-\\sqrt{3}}{2+\\sqrt{3}}", answer: "7-4\\sqrt{3}"},
-            {problem: "\\frac{4+\\sqrt{7}}{4-\\sqrt{7}}", answer: "\\frac{23+8\\sqrt{7}}{9}"},
-            {problem: "\\frac{3-\\sqrt{5}}{3+\\sqrt{5}}", answer: "\\frac{7-3\\sqrt{5}}{2}"},
-            
-            // More complex surd combinations
-            {problem: "\\frac{\\sqrt{2}+\\sqrt{3}}{\\sqrt{2}-\\sqrt{3}}", answer: "-5-2\\sqrt{6}"},
             {problem: "\\frac{\\sqrt{5}-\\sqrt{2}}{\\sqrt{5}+\\sqrt{2}}", answer: "\\frac{7-2\\sqrt{10}}{3}"},
-            {problem: "\\frac{\\sqrt{7}+\\sqrt{11}}{\\sqrt{7}-\\sqrt{11}}", answer: "-\\frac{9+\\sqrt{77}}{2}"},
-            {problem: "\\frac{2\\sqrt{3}+1}{\\sqrt{3}-2}", answer: "-8-5\\sqrt{3}"},
-            {problem: "\\frac{\\sqrt{6}-2}{\\sqrt{6}+3}", answer: "\\frac{5\\sqrt{6}-12}{3}"},
-            
-            // Medium complexity with coefficients
-            {problem: "\\frac{3\\sqrt{2}}{4+\\sqrt{2}}", answer: "\\frac{6\\sqrt{2}-3}{7}"},
-            {problem: "\\frac{2\\sqrt{3}}{5-\\sqrt{3}}", answer: "\\frac{5\\sqrt{3}+3}{11}"},
-            {problem: "\\frac{4\\sqrt{7}}{2+\\sqrt{7}}", answer: "\\frac{28-8\\sqrt{7}}{3}"},
-            {problem: "\\frac{5\\sqrt{2}}{3-\\sqrt{2}}", answer: "\\frac{15\\sqrt{2}+10}{7}"},
-            {problem: "\\frac{3\\sqrt{6}}{\\sqrt{6}+4}", answer: "\\frac{6\\sqrt{6}-9}{5}"},
-            
-            // Patterns with negative results
-            {problem: "\\frac{\\sqrt{3}}{\\sqrt{3}-4}", answer: "-\\frac{3+4\\sqrt{3}}{13}"},
-            {problem: "\\frac{\\sqrt{8}}{\\sqrt{8}-5}", answer: "-\\frac{8+10\\sqrt{2}}{17}"},
-            {problem: "\\frac{2\\sqrt{5}}{\\sqrt{5}-3}", answer: "-\\frac{5+3\\sqrt{5}}{2}"},
-            {problem: "\\frac{\\sqrt{11}}{2-\\sqrt{11}}", answer: "-\\frac{11+2\\sqrt{11}}{7}"},
-            
-            // Additional practice with various combinations
-            {problem: "\\frac{1+2\\sqrt{2}}{3-\\sqrt{2}}", answer: "1+\\sqrt{2}"},
-            {problem: "\\frac{2-\\sqrt{7}}{4+\\sqrt{7}}", answer: "\\frac{5-2\\sqrt{7}}{3}"},
-            {problem: "\\frac{3\\sqrt{5}+2}{\\sqrt{5}-1}", answer: "\\frac{17+5\\sqrt{5}}{4}"},
-            {problem: "\\frac{\\sqrt{10}}{2\\sqrt{10}-5}", answer: "\\frac{4+\\sqrt{10}}{3}"},
-            {problem: "\\frac{4+\\sqrt{3}}{2\\sqrt{3}-1}", answer: "\\frac{10+9\\sqrt{3}}{11}"},
-            {problem: "\\frac{2\\sqrt{7}-3}{\\sqrt{7}+2}", answer: "\\frac{20-7\\sqrt{7}}{3}"}
+            {problem: "\\frac{3+\\sqrt{5}}{2+\\sqrt{5}}", answer: "\\sqrt{5}-1"},
+            {problem: "\\frac{\\sqrt{6}}{3-\\sqrt{6}}", answer: "\\sqrt{6}+2"}
         ]
 );

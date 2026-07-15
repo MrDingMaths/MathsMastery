@@ -1,6 +1,6 @@
 // levels/mixedSimplificationMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedSimplificationMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedSimplificationMedium',
     'Mixed Algebraic Simplification (Medium)',
     [
@@ -29,10 +29,8 @@ window.AlgebraLevels.mixedSimplificationMedium = new BaseLevel(
             {problem: "9x \\times 3x", answer: "27x^2"},
             {problem: "4ab \\times 2ab", answer: "8a^2b^2"},
             {problem: "\\frac{4ab}{2ab}", answer: "2"},
-            {problem: "4a^2b \\times 2ab^2", answer: "8a^3b^3"},
             {problem: "\\frac{4a^2b}{2a^2b}", answer: "2"},
             {problem: "\\frac{24a^3b}{6ab}", answer: "4a^2"},
-            {problem: "24a^3b \\times 6ab", answer: "144a^4b^2"},
             {problem: "12xy + 6xy", answer: "18xy"},
             {problem: "\\frac{12xy}{6}", answer: "2xy"},
             {problem: "12xy \\times 6y", answer: "72xy^2"},
@@ -125,6 +123,16 @@ window.AlgebraLevels.mixedSimplificationMedium = new BaseLevel(
             {problem: "3x^2y + 5x^2y", answer: "8x^2y"},
             {problem: "7a^2b - 3a^2b", answer: "4a^2b"},
             {problem: "2xy^2 + 6xy^2", answer: "8xy^2"},
-            {problem: "9x^2y - 4x^2y", answer: "5x^2y"}
+            {problem: "9x^2y - 4x^2y", answer: "5x^2y"},
+
+            // Four-term two-group expressions (migrated from Hard — no commutativity required)
+            {problem: "10x + 3x + 5y + 3y", answer: "13x + 8y"},
+            {problem: "2a + 5a + 13b - 2b", answer: "7a + 11b"},
+            {problem: "10 + 5x - 2 + 7x", answer: "12x + 8"},
+            {problem: "10x + 31y - y + 4x", answer: "14x + 30y"},
+            {problem: "-7x + 4y - 2x - 9y", answer: "-9x - 5y"},
+            {problem: "8a - 3b - 12a + 7b", answer: "-4a + 4b"},
+            {problem: "-5x + 9y + 2x - 6y", answer: "-3x + 3y"},
+            {problem: "6x - 8y - 4x + 12y", answer: "2x + 4y"}
         ]
 );

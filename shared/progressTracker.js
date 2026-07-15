@@ -3,51 +3,23 @@
 class ProgressTracker {
     constructor(storageKey, options = {}) {
         this.STORAGE_KEY = storageKey;
-        this.SCHEMA_VERSION = 4;
+        this.SCHEMA_VERSION = 5;
         this.MAX_ENTRIES_PER_DRILL = 500;
         this.MAX_MISTAKES_PER_LEVEL = 100;
         this.enableMistakes = options.enableMistakes || false;
         this.oldVersionKeys = options.oldVersionKeys || [];
+        this._cache = null;
         this.initializeStorage();
     }
 
-    // Initialize and migrate storage if needed
+    // Initialize storage, clearing any old version data
     initializeStorage() {
-        let storedData = this.loadData();
-
-        // If no data found with current key, check for older storage keys
-        if (!storedData) {
-            storedData = this.loadDataFromOldKeys();
-        }
-
-        if (!storedData || storedData.version < this.SCHEMA_VERSION) {
-            this.migrateData(storedData);
-        }
-    }
-
-    // Check for data in older storage keys
-    loadDataFromOldKeys() {
         for (const oldKey of this.oldVersionKeys) {
-            try {
-                const stored = localStorage.getItem(oldKey);
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    console.log(`Found old progress data in ${oldKey}, migrating...`);
-                    console.log('Old data structure:', {
-                        version: data.version,
-                        sessions: data.sessions?.length || 0,
-                        drillHistory: Object.keys(data.drillHistory || {}).length,
-                        hasTimestamps: data.sessions?.some(s => s.timestamp) || false
-                    });
-                    return data;
-                }
-            } catch (error) {
-                console.warn(`Error loading data from ${oldKey}:`, error);
-            }
+            localStorage.removeItem(oldKey);
         }
-
-        console.log('No old progress data found in localStorage');
-        return null;
+        if (!this.loadData()) {
+            this.resetData();
+        }
     }
 
     // Create default data structure
@@ -61,90 +33,6 @@ class ProgressTracker {
             data.mistakes = {};
         }
         return data;
-    }
-
-    // Data migration system
-    migrateData(oldData) {
-        console.log('Migrating progress data to version', this.SCHEMA_VERSION);
-
-        let newData = this._createDefaultData();
-
-        if (oldData) {
-            console.log('Migrating from version', oldData.version, 'to version', this.SCHEMA_VERSION);
-        } else {
-            console.log('Creating new progress data structure');
-        }
-
-        if (oldData) {
-            // Migrate from v1 to v2
-            if (oldData.version === 1) {
-                if (oldData.sessions) {
-                    newData.sessions = oldData.sessions.map(session => ({
-                        ...session,
-                        timestamp: session.date || session.timestamp,
-                        deviceInfo: this.getDeviceInfo()
-                    }));
-                }
-                if (oldData.drillHistory) {
-                    newData.drillHistory = oldData.drillHistory;
-                }
-            }
-            // Migrate from v2 to v3
-            else if (oldData.version === 2) {
-                newData.sessions = oldData.sessions || [];
-                newData.drillHistory = oldData.drillHistory || {};
-                if (this.enableMistakes) {
-                    newData.mistakes = {};
-                }
-            }
-            // Migrate from v3 to v4 - add baseline tracking for cumulative improvement
-            else if (oldData.version === 3) {
-                newData.sessions = oldData.sessions || [];
-                newData.drillHistory = this.addBaselineTracking(oldData.drillHistory || {});
-                if (this.enableMistakes) {
-                    newData.mistakes = oldData.mistakes || {};
-                }
-            }
-            // For any version, preserve existing data
-            else {
-                if (oldData.sessions) {
-                    newData.sessions = oldData.sessions;
-                }
-                if (oldData.drillHistory) {
-                    newData.drillHistory = oldData.drillHistory;
-                }
-                if (this.enableMistakes && oldData.mistakes) {
-                    newData.mistakes = oldData.mistakes;
-                }
-            }
-        }
-
-        this.saveData(newData);
-    }
-
-    // Add baseline tracking to existing drill history (for v3→v4 migration)
-    addBaselineTracking(drillHistory) {
-        const updated = {};
-        Object.keys(drillHistory).forEach(key => {
-            const drill = drillHistory[key];
-            updated[key] = {
-                ...drill,
-                firstAttemptTime: drill.attempts && drill.attempts.length > 0
-                    ? drill.attempts[0].time
-                    : drill.bestTime,
-                firstAttemptDate: drill.attempts && drill.attempts.length > 0
-                    ? drill.attempts[0].timestamp
-                    : drill.bestTimeDate
-            };
-
-            if (updated[key].improvements && updated[key].firstAttemptTime) {
-                updated[key].improvements = updated[key].improvements.map(imp => ({
-                    ...imp,
-                    percentImprovementFromBaseline: ((updated[key].firstAttemptTime - imp.newBest) / updated[key].firstAttemptTime * 100).toFixed(1)
-                }));
-            }
-        });
-        return updated;
     }
 
     // Save progress data with validation
@@ -420,6 +308,7 @@ class ProgressTracker {
     }
 
     loadData() {
+        if (this._cache) return this._cache;
         try {
             const stored = localStorage.getItem(this.STORAGE_KEY);
             if (!stored) return null;
@@ -428,6 +317,7 @@ class ProgressTracker {
             if (!this.validateData(data)) {
                 throw new Error('Invalid data structure');
             }
+            this._cache = data;
             return data;
         } catch (error) {
             console.error('Error loading progress data:', error);
@@ -437,18 +327,30 @@ class ProgressTracker {
 
     saveData(data) {
         try {
+            this._cache = data;
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
         } catch (error) {
             console.error('Error saving progress data:', error);
+            this._cache = null;
             if (error.name === 'QuotaExceededError') {
                 this.cleanupOldData();
                 try {
                     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+                    this._cache = data;
                 } catch (retryError) {
                     console.error('Failed to save after cleanup:', retryError);
                 }
             }
         }
+    }
+
+    invalidateCache() {
+        this._cache = null;
+    }
+
+    getBestTime(levelKey) {
+        const data = this.loadData();
+        return data?.drillHistory?.[levelKey]?.bestTime ?? null;
     }
 
     cleanupOldData() {
@@ -488,3 +390,26 @@ class ProgressTracker {
         return numbers.reduce((a, b) => a + b, 0) / numbers.length;
     }
 }
+
+// Per-app factory. Constructs window.progressTracker with the canonical
+// storage key for the app and cleans up obsolete bestTime localStorage entries.
+// Per-app wrappers under each app's progress-tracking/progressTracker.js
+// call this with their app name and migration history.
+window.initProgressTracker = function (app, opts) {
+    const APP_STORAGE = {
+        algebra:    { storageKey: 'algebra_progress_data_v5', obsoleteBestTimePrefixes: ['algebra_bestTime_v1_'] },
+        mathsfacts: { storageKey: 'mf_progress_data_v5',      obsoleteBestTimePrefixes: ['mf_bestTime_v1_', 'mf_bestTime_v5_'] },
+        trigfacts:  { storageKey: 'tf_progress_data_v5',      obsoleteBestTimePrefixes: ['tf_bestTime_v5_'] },
+        equations:  { storageKey: 'equations_progress_data_v5', obsoleteBestTimePrefixes: [] },
+        calculus:   { storageKey: 'calculus_progress_data_v5', obsoleteBestTimePrefixes: [] },
+    };
+    const cfg = APP_STORAGE[app];
+    if (!cfg) throw new Error(`initProgressTracker: unknown app "${app}"`);
+    window.progressTracker = new ProgressTracker(cfg.storageKey, opts);
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && cfg.obsoleteBestTimePrefixes.some(p => key.startsWith(p))) {
+            localStorage.removeItem(key);
+        }
+    }
+};

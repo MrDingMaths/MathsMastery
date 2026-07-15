@@ -1,6 +1,6 @@
 // levels/evaluateFractionalIndicesMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.evaluateFractionalIndicesMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'evaluateFractionalIndicesMedium',
     'Fractional Indices (Medium)',
     [
@@ -68,30 +68,30 @@ window.AlgebraLevels.evaluateFractionalIndicesMedium = new BaseLevel(
             {problem: "0.0001^{\\frac{1}{2}}", answer: "\\frac{1}{100}"},
             
             // Simple fractional bases
-            {problem: "(\\frac{16}{25})^{\\frac{1}{2}}", answer: "\\frac{4}{5}"},
-            {problem: "(\\frac{9}{49})^{\\frac{1}{2}}", answer: "\\frac{3}{7}"},
-            {problem: "(\\frac{4}{81})^{\\frac{1}{2}}", answer: "\\frac{2}{9}"},
-            {problem: "(\\frac{8}{27})^{\\frac{1}{3}}", answer: "\\frac{2}{3}"},
-            {problem: "(\\frac{64}{125})^{\\frac{1}{3}}", answer: "\\frac{4}{5}"},
-            {problem: "(\\frac{16}{81})^{\\frac{1}{4}}", answer: "\\frac{2}{3}"},
-            {problem: "(\\frac{256}{625})^{\\frac{1}{4}}", answer: "\\frac{4}{5}"},
-            {problem: "(\\frac{1000}{343})^{\\frac{1}{3}}", answer: "\\frac{10}{7}"},
-            {problem: "(\\frac{1}{4})^{\\frac{1}{2}}", answer: "\\frac{1}{2}"},
-            {problem: "(\\frac{1}{9})^{\\frac{1}{2}}", answer: "\\frac{1}{3}"},
-            {problem: "(\\frac{1}{16})^{\\frac{1}{2}}", answer: "\\frac{1}{4}"},
-            {problem: "(\\frac{1}{25})^{\\frac{1}{2}}", answer: "\\frac{1}{5}"},
-            {problem: "(\\frac{1}{36})^{\\frac{1}{2}}", answer: "\\frac{1}{6}"},
-            {problem: "(\\frac{1}{49})^{\\frac{1}{2}}", answer: "\\frac{1}{7}"},
-            {problem: "(\\frac{1}{64})^{\\frac{1}{2}}", answer: "\\frac{1}{8}"},
-            {problem: "(\\frac{1}{81})^{\\frac{1}{2}}", answer: "\\frac{1}{9}"},
-            {problem: "(\\frac{1}{100})^{\\frac{1}{2}}", answer: "\\frac{1}{10}"},
+            {problem: "\\left(\\frac{16}{25}\\right)^{\\frac{1}{2}}", answer: "\\frac{4}{5}"},
+            {problem: "\\left(\\frac{9}{49}\\right)^{\\frac{1}{2}}", answer: "\\frac{3}{7}"},
+            {problem: "\\left(\\frac{4}{81}\\right)^{\\frac{1}{2}}", answer: "\\frac{2}{9}"},
+            {problem: "\\left(\\frac{8}{27}\\right)^{\\frac{1}{3}}", answer: "\\frac{2}{3}"},
+            {problem: "\\left(\\frac{64}{125}\\right)^{\\frac{1}{3}}", answer: "\\frac{4}{5}"},
+            {problem: "\\left(\\frac{16}{81}\\right)^{\\frac{1}{4}}", answer: "\\frac{2}{3}"},
+            {problem: "\\left(\\frac{256}{625}\\right)^{\\frac{1}{4}}", answer: "\\frac{4}{5}"},
+            {problem: "\\left(\\frac{1000}{343}\\right)^{\\frac{1}{3}}", answer: "\\frac{10}{7}"},
+            {problem: "\\left(\\frac{1}{4}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{2}"},
+            {problem: "\\left(\\frac{1}{9}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{3}"},
+            {problem: "\\left(\\frac{1}{16}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{4}"},
+            {problem: "\\left(\\frac{1}{25}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{5}"},
+            {problem: "\\left(\\frac{1}{36}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{6}"},
+            {problem: "\\left(\\frac{1}{49}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{7}"},
+            {problem: "\\left(\\frac{1}{64}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{8}"},
+            {problem: "\\left(\\frac{1}{81}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{9}"},
+            {problem: "\\left(\\frac{1}{100}\\right)^{\\frac{1}{2}}", answer: "\\frac{1}{10}"},
             
             // Additional cube root fractions
-            {problem: "(\\frac{1}{8})^{\\frac{1}{3}}", answer: "\\frac{1}{2}"},
-            {problem: "(\\frac{1}{27})^{\\frac{1}{3}}", answer: "\\frac{1}{3}"},
-            {problem: "(\\frac{1}{64})^{\\frac{1}{3}}", answer: "\\frac{1}{4}"},
-            {problem: "(\\frac{1}{125})^{\\frac{1}{3}}", answer: "\\frac{1}{5}"},
-            {problem: "(\\frac{1}{216})^{\\frac{1}{3}}", answer: "\\frac{1}{6}"},
+            {problem: "\\left(\\frac{1}{8}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{2}"},
+            {problem: "\\left(\\frac{1}{27}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{3}"},
+            {problem: "\\left(\\frac{1}{64}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{4}"},
+            {problem: "\\left(\\frac{1}{125}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{5}"},
+            {problem: "\\left(\\frac{1}{216}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{6}"},
             
             // Mixed compound operations
             {problem: "125^{\\frac{4}{3}}", answer: "625"},
@@ -99,8 +99,8 @@ window.AlgebraLevels.evaluateFractionalIndicesMedium = new BaseLevel(
             
             // Additional problems
             {problem: "(9^3)^{\\frac{1}{2}}", answer: "27"},
-            {problem: "(-8)^{\\frac{2}{3}}", answer: "4"},
-            {problem: "5^{-2}", answer: "\\frac{1}{25}"},
-            {problem: "\\frac{1}{3^{-3}}", answer: "27"}
+            {problem: "0.008^{\\frac{1}{3}}", answer: "\\frac{1}{5}"},
+            {problem: "\\left(\\frac{1}{343}\\right)^{\\frac{1}{3}}", answer: "\\frac{1}{7}"},
+            {problem: "64^{\\frac{5}{6}}", answer: "32"}
         ]
 );

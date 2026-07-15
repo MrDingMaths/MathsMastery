@@ -4,67 +4,1035 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maths Mastery</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="shared/darkMode.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="shared/darkMode.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/common.css">
     <link rel="stylesheet" href="shared/navigationButtons.css">
+    <link rel="stylesheet" href="shared/leaderboard.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .app-card {
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        *, *::before, *::after { box-sizing: border-box; }
+
+        /* ===== LANDING-PAGE-ONLY TOKENS (shared tokens come from common.css) ===== */
+        :root {
+            --c-green: #3DBD6B;
+            --c-blue:  #4A7CF7;
+            --c-red:   #F0697A;
+            --c-teal:  #14b8a6;
+            --c-purple: #7c5cff;
+            --ink-faint: #9aa1ad;
+            --line: #e7eaf1;
+            --shadow-card: 0 14px 34px -16px rgba(34,42,66,.32), 0 2px 6px rgba(34,42,66,.05);
+            --shadow-rail: 0 8px 22px -14px rgba(34,42,66,.22), 0 1px 3px rgba(34,42,66,.05);
         }
-        .app-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+
+        [data-theme="dark"] {
+            --ink-faint: #6b7280;
+            --line: rgba(255,255,255,.1);
+        }
+
+        /* ===== BASE ===== */
+        html { min-height: 100%; }
+
+        body {
+            font-family: var(--font-ui);
+            color: var(--chalk-heading);
+            background-color: var(--chalk-bg);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+
+
+        /* ===== SHELL ===== */
+        .mm-shell {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 28px 28px 80px;
+        }
+
+        /* ===== HERO ===== */
+        .mm-hero {
+            text-align: center;
+            margin: 28px 0 38px;
+        }
+
+        .mm-hero h1 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 60px;
+            line-height: 1.02;
+            margin: 0;
+            letter-spacing: -.5px;
+            color: var(--chalk-heading);
+        }
+
+        .mm-hero p {
+            margin: 10px 0 0;
+            font-size: 20px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+
+        /* ===== TOPIC CARDS ===== */
+        .mm-topics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 26px;
+        }
+
+        .mm-card {
+            position: relative;
+            background: var(--chalk-surface);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            padding: 34px 30px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.6);
+            transition: transform .18s cubic-bezier(.3,.7,.4,1), box-shadow .18s, border-color .18s;
+        }
+
+        [data-theme="dark"] .mm-card { border-color: rgba(255,255,255,.06); }
+
+        /* Per-card themed glow colour (consumed by :hover shadow + border) */
+        .mm-card.t-green  { --card-glow: rgba(61,189,107,.45); }
+        .mm-card.t-blue   { --card-glow: rgba(74,124,247,.45); }
+        .mm-card.t-red    { --card-glow: rgba(240,105,122,.45); }
+        .mm-card.t-teal   { --card-glow: rgba(20,184,166,.45); }
+        .mm-card.t-purple { --card-glow: rgba(124,92,255,.45); }
+
+        .mm-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 7px;
+            z-index: 1;
+            transition: height .18s;
+        }
+
+        .mm-card.t-green::before { background: var(--c-green); }
+        .mm-card.t-blue::before  { background: var(--c-blue); }
+        .mm-card.t-red::before   { background: var(--c-red); }
+        .mm-card.t-teal::before  { background: var(--c-teal); }
+        .mm-card.t-purple::before { background: var(--c-purple); }
+
+        .mm-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 26px 50px -20px var(--card-glow, rgba(34,42,66,.4)), 0 4px 10px rgba(34,42,66,.07);
+            border-color: var(--card-glow, transparent);
+        }
+
+        .mm-card:hover::before { height: 11px; }
+
+        .mm-glyph {
+            width: 82px;
+            height: 82px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 38px;
+            font-weight: 600;
+            margin: 8px 0 20px;
+            box-shadow: 0 12px 24px -10px rgba(0,0,0,.45);
+            transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+        }
+
+        .mm-card:hover .mm-glyph {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 18px 30px -10px rgba(0,0,0,.5);
+        }
+
+        .t-green .mm-glyph { background: var(--c-green); }
+        .t-blue  .mm-glyph { background: var(--c-blue); }
+        .t-red   .mm-glyph { background: var(--c-red); }
+        .t-teal  .mm-glyph { background: var(--c-teal); }
+        .t-purple .mm-glyph { background: var(--c-purple); }
+
+        .mm-card h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 27px;
+            margin: 0 0 14px;
+            color: var(--chalk-heading);
+        }
+
+        .mm-start {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            border: none;
+            color: #fff;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 18px;
+            padding: 13px 30px;
+            border-radius: 999px;
+            transition: gap .15s, filter .15s, transform .1s;
+            pointer-events: none; /* click handled by <a> parent */
+        }
+
+        .t-green .mm-start { background: var(--c-green); box-shadow: 0 10px 20px -10px var(--c-green); }
+        .t-blue  .mm-start { background: var(--c-blue);  box-shadow: 0 10px 20px -10px var(--c-blue); }
+        .t-red   .mm-start { background: var(--c-red);   box-shadow: 0 10px 20px -10px var(--c-red); }
+        .t-teal  .mm-start { background: var(--c-teal);  box-shadow: 0 10px 20px -10px var(--c-teal); }
+        .t-purple .mm-start { background: var(--c-purple); box-shadow: 0 10px 20px -10px var(--c-purple); }
+
+        .mm-card:hover .mm-start { gap: 14px; filter: brightness(1.06); }
+        .mm-start:active { transform: scale(.97); }
+
+        /* ===== FEATURED + 2×2 LAYOUT ===== */
+        .mm-topics-featured {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 26px;
+        }
+
+        .mm-compact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .mm-card.mm-compact {
+            padding: 20px 16px 18px;
+        }
+
+        .mm-compact .mm-glyph {
+            width: 52px; height: 52px;
+            font-size: 26px; border-radius: 16px;
+            margin: 6px 0 12px;
+        }
+
+        .mm-compact h3 { font-size: 18px; margin: 0 0 8px; }
+        .mm-compact .mm-start { font-size: 14px; padding: 9px 18px; }
+
+        .mm-lp-tag {
+            position: absolute;
+            top: 16px; right: 16px;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: .04em; text-transform: uppercase;
+            background: rgba(0,0,0,.07);
+            color: var(--chalk-heading);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        [data-theme="dark"] .mm-lp-tag { background: rgba(255,255,255,.12); }
+
+        .mm-mastery-ring {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 5px;
+            margin: 16px 0 20px;
+        }
+
+        .mm-ring-label {
+            font-size: 11px; color: #6b7280; font-weight: 500;
+            text-align: center; display: flex; flex-direction: column;
+            align-items: center; gap: 2px;
+        }
+
+        [data-theme="dark"] .mm-ring-label { color: #9ca3af; }
+        [data-theme="dark"] .mm-mastery-ring svg text { fill: #f3f4f6; }
+
+        /* Rich featured card: header row + hero ring + full-width CTA */
+        .mm-featured-rich {
+            align-items: stretch;
+            text-align: left;
+            padding-top: 30px;
+        }
+
+        .mm-featured-head {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            align-self: stretch;
+        }
+
+        .mm-featured-rich .mm-featured-head .mm-glyph {
+            width: 64px; height: 64px;
+            font-size: 30px; border-radius: 18px;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .mm-featured-rich .mm-featured-head h3 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .mm-featured-rich .mm-mastery-ring {
+            margin: auto 0;
+            align-self: center;
+        }
+
+        .mm-featured-rich .mm-start {
+            align-self: stretch;
+            justify-content: center;
+        }
+
+        /* ===== RAILS ===== */
+        .mm-rails {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px;
+            margin-top: 30px;
+        }
+
+        .mm-panel {
+            background: var(--chalk-surface);
+            border-radius: 20px;
+            box-shadow: var(--shadow-rail);
+            border: 1px solid var(--line);
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mm-panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .mm-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 19px;
+            color: var(--chalk-heading);
+        }
+
+        .mm-sublabel {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--c-red);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .mm-link {
+            background: none;
+            border: none;
+            color: var(--c-blue);
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 8px;
+            font-family: var(--font-ui);
+        }
+
+        .mm-link:hover { background: rgba(58,111,224,.08); }
+
+        /* ===== PANEL BODY (populated by hubLeaderboard.js) ===== */
+        .panel-body {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 600px;
+            padding: 4px 2px 2px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,0,0,.18) transparent;
+        }
+
+        [data-theme="dark"] .panel-body { scrollbar-color: rgba(255,255,255,.18) transparent; }
+
+        /* Pin the whole Hall of Fame panel to 710px; the body fills the remaining space
+           and scrolls, so nothing resizes while data loads on tab switch. */
+        #panel-hof { height: 710px; }
+        #panel-hof .panel-body { flex: 1; min-height: 0; max-height: none; }
+
+        /* Match the Recent panel to the fixed-height Hall of Fame panel. */
+        #panel-recent { height: 710px; }
+        #panel-recent .panel-body { flex: 1; min-height: 0; max-height: none; }
+
+        .panel-body::-webkit-scrollbar { width: 4px; }
+        .panel-body::-webkit-scrollbar-track { background: transparent; }
+        .panel-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 9999px; }
+        .panel-body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.32); }
+        [data-theme="dark"] .panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); }
+        [data-theme="dark"] .panel-body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.32); }
+
+        /* ===== RECENT ACTIVITY ENTRIES (rendered by hubLeaderboard.js) ===== */
+        .panel-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: .5rem;
+            padding: .45rem .375rem;
+            border-radius: .375rem;
+            animation: hofEntryIn .32s cubic-bezier(.3,.7,.4,1) both;
+        }
+        /* Cascade: stagger the first several entries, then cap the delay */
+        .panel-entry:nth-child(1) { animation-delay: .02s; }
+        .panel-entry:nth-child(2) { animation-delay: .06s; }
+        .panel-entry:nth-child(3) { animation-delay: .10s; }
+        .panel-entry:nth-child(4) { animation-delay: .14s; }
+        .panel-entry:nth-child(5) { animation-delay: .18s; }
+        .panel-entry:nth-child(6) { animation-delay: .22s; }
+        .panel-entry:nth-child(n+7) { animation-delay: .26s; }
+        .panel-entry:hover { background: rgba(0,0,0,.03); }
+        [data-theme="dark"] .panel-entry:hover { background: rgba(255,255,255,.04); }
+        .panel-entry + .panel-entry { border-top: 1px solid var(--line); }
+
+        .panel-badge {
+            flex-shrink: 0;
+            font-size: .65rem;
+            font-weight: 700;
+            padding: .15rem .35rem;
+            border-radius: .3rem;
+            margin-top: .2rem;
+            line-height: 1.4;
+        }
+        .panel-badge-mathsfacts { background: #dcfce7; color: #15803d; }
+        .panel-badge-algebra    { background: #dbeafe; color: #1d4ed8; }
+        .panel-badge-trigfacts  { background: #fce7f3; color: #be185d; }
+        .panel-badge-equations  { background: #ccfbf1; color: #14b8a6; }
+        .panel-badge-calculus   { background: #ede9fe; color: #6d28d9; }
+        [data-theme="dark"] .panel-badge-mathsfacts { background: rgba(21,128,61,.2);  color: #4ade80; }
+        [data-theme="dark"] .panel-badge-algebra    { background: rgba(29,78,216,.25); color: #93c5fd; }
+        [data-theme="dark"] .panel-badge-trigfacts  { background: rgba(190,24,93,.2);  color: #f9a8d4; }
+        [data-theme="dark"] .panel-badge-equations  { background: rgba(20,184,166,.2);  color: #14b8a6; }
+        [data-theme="dark"] .panel-badge-calculus   { background: rgba(124,92,255,.2); color: #a78bfa; }
+
+        .panel-entry-body { display: flex; flex-direction: column; gap: .05rem; min-width: 0; flex: 1; }
+        .panel-entry-name   { font-size: .85rem; font-weight: 700; color: var(--chalk-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-entry-detail { font-size: .78rem; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-entry-time   { font-size: .72rem; color: var(--ink-faint); }
+        .panel-entry-diff   { font-size: .72rem; color: var(--ink-faint); font-weight: 500; }
+
+        /* ===== HALL OF FAME TABS (class names kept for hubLeaderboard.js) ===== */
+        .panel-hof-tabs {
+            display: flex;
+            gap: 7px;
+            background: rgba(0,0,0,.05);
+            padding: 5px;
+            border-radius: 13px;
+            margin: 10px 0 6px;
+        }
+
+        [data-theme="dark"] .panel-hof-tabs { background: rgba(255,255,255,.07); }
+
+        .panel-hof-tab {
+            flex: 1;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            padding: 9px 4px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all .14s;
+            font-family: var(--font-ui);
+        }
+
+        .panel-hof-tab:hover { color: var(--chalk-heading); }
+
+        .panel-hof-tab.panel-hof-tab-active {
+            background: var(--chalk-surface);
+            color: var(--chalk-heading);
+            box-shadow: 0 2px 6px rgba(34,42,66,.12);
+            animation: hofTabPop .18s cubic-bezier(.34,1.56,.64,1);
+        }
+
+        @keyframes hofTabPop {
+            from { transform: scale(.97); }
+            to   { transform: scale(1); }
+        }
+
+        /* ===== HALL OF FAME ENTRIES (rendered by hubLeaderboard.js) ===== */
+        .panel-hof-entry {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .4rem .375rem;
+            border-radius: .375rem;
+            animation: hofEntryIn .32s cubic-bezier(.3,.7,.4,1) both;
+        }
+        .panel-hof-section-label { animation: hofEntryIn .32s cubic-bezier(.3,.7,.4,1) both; }
+
+        @keyframes hofEntryIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cascade: stagger the first several entries, then cap the delay */
+        .panel-hof-entry:nth-child(1) { animation-delay: .02s; }
+        .panel-hof-entry:nth-child(2) { animation-delay: .06s; }
+        .panel-hof-entry:nth-child(3) { animation-delay: .10s; }
+        .panel-hof-entry:nth-child(4) { animation-delay: .14s; }
+        .panel-hof-entry:nth-child(5) { animation-delay: .18s; }
+        .panel-hof-entry:nth-child(6) { animation-delay: .22s; }
+        .panel-hof-entry:nth-child(n+7) { animation-delay: .26s; }
+        .panel-hof-entry:hover { background: rgba(0,0,0,.03); }
+        [data-theme="dark"] .panel-hof-entry:hover { background: rgba(255,255,255,.04); }
+        .panel-hof-entry + .panel-hof-entry { border-top: 1px solid var(--line); }
+
+        .panel-hof-rank {
+            width: 26px;
+            text-align: center;
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--ink-faint);
+            flex: none;
+            line-height: 1;
+        }
+
+        .panel-hof-avatar {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: var(--c-blue);
+            color: #fff;
+            font-size: .75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .panel-hof-avatar.panel-hof-avatar-img { background: none; object-fit: cover; }
+
+        .panel-hof-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+        .panel-hof-name { font-size: .85rem; font-weight: 700; color: var(--chalk-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-hof-medals { display: flex; flex-wrap: wrap; gap: .2rem; }
+
+        .panel-medal {
+            font-size: .68rem;
+            background: rgba(0,0,0,.05);
+            border-radius: .3rem;
+            padding: .05rem .25rem;
+            color: var(--chalk-heading);
+            line-height: 1.5;
+        }
+        [data-theme="dark"] .panel-medal { background: rgba(255,255,255,.08); }
+
+        .panel-hof-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .75rem;
+        }
+
+        .panel-hof-section-label {
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: var(--c-blue);
+            padding: 6px 0 2px;
+            opacity: .7;
+        }
+        .panel-hof-total-time {
+            font-size: .75rem;
+            color: var(--c-blue);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .panel-loading, .panel-empty {
+            font-size: .85rem;
+            color: var(--color-text-muted);
+            padding: .875rem .5rem;
+            text-align: center;
+        }
+
+        /* ===== SIGN-IN PROMPT ===== */
+        .mm-signin-prompt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 28px 16px;
+            text-align: center;
+        }
+
+        .mm-signin-prompt p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+
+        .mm-signin-prompt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #4285F4;
+            color: #fff;
+            font-weight: 700;
+            font-size: .875rem;
+            font-family: var(--font-ui);
+            border: none;
+            border-radius: 8px;
+            padding: .6rem 1.25rem;
+            cursor: pointer;
+            transition: opacity .15s, box-shadow .15s;
+            box-shadow: 0 2px 8px rgba(66,133,244,.35);
+        }
+
+        .mm-signin-prompt-btn:hover {
+            opacity: .92;
+            box-shadow: 0 4px 16px rgba(66,133,244,.5);
+        }
+
+        /* ===== HUB LEADERBOARD MODAL ===== */
+        .hub-lb-hidden { display: none !important; }
+
+        #hub-lb-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        #hub-lb-modal {
+            background: var(--chalk-surface);
+            border-radius: 1.25rem;
+            width: 100%;
+            max-width: 560px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 60px rgba(0,0,0,.3);
+            overflow: hidden;
+        }
+
+        .hub-lb-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.125rem 1.25rem 1rem;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .hub-lb-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--chalk-heading);
+            margin: 0;
+        }
+
+        #hub-lb-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            line-height: 1;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            padding: .25rem .375rem;
+            border-radius: .375rem;
+        }
+        #hub-lb-close:hover { background: rgba(0,0,0,.06); color: var(--chalk-heading); }
+        [data-theme="dark"] #hub-lb-close:hover { background: rgba(255,255,255,.08); }
+
+        .hub-lb-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .hub-lb-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: .7rem .5rem;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color .15s, border-color .15s;
+            font-family: inherit;
+        }
+        .hub-lb-tab:hover { color: var(--chalk-heading); }
+        .hub-lb-tab-active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        [data-theme="dark"] .hub-lb-tab-active { color: #60a5fa; border-bottom-color: #60a5fa; }
+
+        #hub-lb-content {
+            overflow-y: auto;
+            flex: 1;
+            padding: .75rem 1rem 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,0,0,.18) transparent;
+        }
+        [data-theme="dark"] #hub-lb-content { scrollbar-color: rgba(255,255,255,.18) transparent; }
+        #hub-lb-content::-webkit-scrollbar { width: 4px; }
+        #hub-lb-content::-webkit-scrollbar-track { background: transparent; }
+        #hub-lb-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 9999px; }
+        #hub-lb-content::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.32); }
+        [data-theme="dark"] #hub-lb-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); }
+
+        .hub-lb-group { margin-bottom: .5rem; }
+        .hub-lb-group-name { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); padding: .625rem .25rem .375rem; }
+
+        .hub-lb-level-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem .625rem;
+            border-radius: .5rem;
+            cursor: pointer;
+            font-size: .875rem;
+            color: var(--chalk-heading);
+            transition: background .1s;
+        }
+        .hub-lb-level-row:hover { background: rgba(0,0,0,.04); }
+        [data-theme="dark"] .hub-lb-level-row:hover { background: rgba(255,255,255,.05); }
+        .hub-lb-level-row-open { background: rgba(59,130,246,.07); color: #1d4ed8; }
+        [data-theme="dark"] .hub-lb-level-row-open { background: rgba(59,130,246,.15); color: #93c5fd; }
+
+        .hub-lb-level-name { flex: 1; }
+        .hub-lb-chevron { font-size: 1.1rem; color: var(--color-text-muted); transition: transform .2s; line-height: 1; margin-left: .5rem; }
+        .hub-lb-level-row-open .hub-lb-chevron { transform: rotate(90deg); color: #3b82f6; }
+        [data-theme="dark"] .hub-lb-level-row-open .hub-lb-chevron { color: #60a5fa; }
+
+        .hub-lb-level-panel { padding: .375rem .625rem .75rem; }
+        .hub-lb-loading { text-align: center; font-size: .825rem; color: var(--color-text-muted); padding: .75rem 0; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .mm-topics { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .mm-topics { grid-template-columns: 1fr; }
+            .mm-topics-featured { grid-template-columns: 1fr; }
+            .mm-compact-grid { grid-template-columns: 1fr 1fr; }
+            .mm-rails  { grid-template-columns: 1fr; }
+            .mm-hero h1 { font-size: 46px; }
+            .mm-shell { padding: 20px 20px 80px; }
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
+<body>
 
-    <div class="max-w-3xl w-full">
-        <!-- Header -->
-        <div class="text-center mb-10">
-            <h1 class="text-5xl font-black text-gray-800 mb-2" style="font-size: 3rem;">Maths Mastery</h1>
-            <p class="text-gray-500 text-lg">Choose a topic to practise</p>
+    <div class="mm-shell">
+
+        <div class="mm-hero">
+            <h1>What shall we practise?</h1>
+            <p>Drills for the most important skills in mathematics.</p>
         </div>
 
-        <!-- App cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="mm-topics">
 
-            <!-- Maths Facts -->
-            <a href="./mathsfacts/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #3DBD6B;">
-                    ±
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Number Skills</h2>
-                <p class="text-gray-500 text-sm leading-relaxed">Number bonds, multiplication facts, fractions, decimals, percentages</p>
-                <span class="mt-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #3DBD6B;">Start →</span>
+            <a href="./mathsfacts/" class="mm-card t-green">
+                <div class="mm-glyph">±</div>
+                <h3>Number</h3>
+                <span class="mm-start">Start <span>→</span></span>
             </a>
 
-            <!-- Algebra Mastery -->
-            <a href="./algebra/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #4A7CF7;">
-                    𝑥
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Algebra Skills</h2>
-                <p class="text-gray-500 text-sm leading-relaxed">Expanding, factorising, surds, indices, algebraic fractions</p>
-                <span class="mt-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #4A7CF7;">Start →</span>
+            <a href="./algebra/" class="mm-card t-blue">
+                <div class="mm-glyph">𝑥</div>
+                <h3>Algebra</h3>
+                <span class="mm-start">Start <span>→</span></span>
             </a>
 
-            <!-- Trig Facts -->
-            <a href="./trigfacts/" class="app-card bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center no-underline">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-black mb-4" style="background-color: #F0697A;">
-                    θ
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 mb-2">Trig Skills</h2>
-                <p class="text-gray-500 text-sm leading-relaxed">Exact values, quadrant angles, degree &amp; radian conversions</p>
-                <span class="mt-5 px-4 py-2 rounded-full text-white text-sm font-semibold" style="background-color: #F0697A;">Start →</span>
+            <a href="./equations/" class="mm-card t-teal">
+                <div class="mm-glyph">=</div>
+                <h3>Equations</h3>
+                <span class="mm-start">Start <span>→</span></span>
             </a>
+
+            <a href="./trigfacts/" class="mm-card t-red">
+                <div class="mm-glyph">θ</div>
+                <h3>Trigonometry</h3>
+                <span class="mm-start">Start <span>→</span></span>
+            </a>
+
+            <a href="./calculus/" class="mm-card t-purple">
+                <div class="mm-glyph">∫</div>
+                <h3>Calculus</h3>
+                <span class="mm-start">Start <span>→</span></span>
+            </a>
+
+        </div>
+
+        <div class="mm-rails">
+
+            <!-- Recent Activity -->
+            <div class="mm-panel" id="panel-recent">
+                <div class="mm-panel-head">
+                    <div class="mm-panel-title"><span>🎉</span> Recent Masteries</div>
+                    <span class="mm-sublabel">Live</span>
+                </div>
+                <div class="panel-body">
+                    <div class="mm-signin-prompt">
+                        <p>Sign in to see live activity.</p>
+                        <button class="mm-signin-prompt-btn">Sign in with Google</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hall of Fame -->
+            <div class="mm-panel" id="panel-hof">
+                <div class="mm-panel-head">
+                    <div class="mm-panel-title"><span>👑</span> Hall of Fame</div>
+                    <button class="mm-link" id="hub-lb-open-btn">Full leaderboard →</button>
+                </div>
+                <div class="panel-hof-tabs">
+                    <button class="panel-hof-tab panel-hof-tab-active" data-app="mathsfacts">Number</button>
+                    <button class="panel-hof-tab" data-app="algebra">Algebra</button>
+                    <button class="panel-hof-tab" data-app="equations">Equations</button>
+                    <button class="panel-hof-tab" data-app="trigfacts">Trig</button>
+                    <button class="panel-hof-tab" data-app="calculus">Calculus</button>
+                </div>
+                <div class="panel-body">
+                    <div class="mm-signin-prompt">
+                        <p>Sign in to see the Hall of Fame.</p>
+                        <button class="mm-signin-prompt-btn">Sign in with Google</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 
+    <footer style="position:fixed;bottom:1rem;left:1rem;right:0;text-align:left;z-index:1;">
+        <a href="/privacy-policy.html" style="font-size:.75rem;color:var(--color-text-muted);text-decoration:none;opacity:.6;transition:opacity .15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">Privacy Policy</a>
+    </footer>
+
+    <!-- Hub leaderboard modal -->
+    <div id="hub-lb-overlay" class="hub-lb-hidden">
+        <div id="hub-lb-modal">
+            <div class="hub-lb-header">
+                <h2>🏅 Leaderboards</h2>
+                <button id="hub-lb-close" aria-label="Close leaderboard">✕</button>
+            </div>
+            <div class="hub-lb-tabs">
+                <button class="hub-lb-tab hub-lb-tab-active" data-app="mathsfacts">Number</button>
+                <button class="hub-lb-tab" data-app="algebra">Algebra</button>
+                <button class="hub-lb-tab" data-app="equations">Equations</button>
+                <button class="hub-lb-tab" data-app="trigfacts">Trig</button>
+                <button class="hub-lb-tab" data-app="calculus">Calculus</button>
+            </div>
+            <div id="hub-lb-content"></div>
+        </div>
+    </div>
+
+    <script src="shared/supabaseClient.js"></script>
+    <script src="shared/leaderboard.js"></script>
+    <!-- Level registry feeds hubLeaderboard's HUB_LEVELS — must precede it -->
+    <script src="shared/levelRegistry.js"></script>
+    <script src="shared/hubLeaderboard.js"></script>
     <script src="shared/navigationButtons.js"></script>
+    <script>
+        (function () {
+            function signIn() {
+                if (window.supabaseClient) {
+                    window.supabaseClient.auth.signInWithOAuth({
+                        provider: 'google',
+                        options: { redirectTo: window.location.origin + window.location.pathname }
+                    });
+                }
+            }
+
+            function showSignInPrompts() {
+                const promptHtml = (msg) =>
+                    '<div class="mm-signin-prompt">' +
+                    '<p>' + msg + '</p>' +
+                    '<button class="mm-signin-prompt-btn">Sign in with Google</button>' +
+                    '</div>';
+                const recentBody = document.querySelector('#panel-recent .panel-body');
+                const hofBody    = document.querySelector('#panel-hof .panel-body');
+                if (recentBody) recentBody.innerHTML = promptHtml('Sign in to see live activity.');
+                if (hofBody)    hofBody.innerHTML    = promptHtml('Sign in to see the Hall of Fame.');
+            }
+
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('.mm-signin-prompt-btn')) signIn();
+            });
+
+            function updatePanels(detail) {
+                const user = detail && detail.user;
+                if (user) {
+                    if (window.hubPanels) window.hubPanels.show(user);
+                } else {
+                    if (window.hubPanels) window.hubPanels.hide();
+                    showSignInPrompts();
+                }
+            }
+
+            document.addEventListener('supabase-auth-change', function (e) {
+                updatePanels(e.detail);
+            });
+
+            if (typeof window.supabaseUser !== 'undefined') {
+                updatePanels({ user: window.supabaseUser });
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            const APPS = [
+                { key: 'mathsfacts', href: './mathsfacts/', label: 'Number',       glyph: '±', cls: 't-green',  color: '#3DBD6B', storageKey: 'mf_progress_data_v5' },
+                { key: 'algebra',    href: './algebra/',    label: 'Algebra',      glyph: '𝑥', cls: 't-blue',   color: '#4A7CF7', storageKey: 'algebra_progress_data_v5' },
+                { key: 'equations',  href: './equations/',  label: 'Equations',    glyph: '=', cls: 't-teal',   color: '#14b8a6', storageKey: 'equations_progress_data_v5' },
+                { key: 'trigfacts',  href: './trigfacts/',  label: 'Trigonometry', glyph: 'θ', cls: 't-red',    color: '#F0697A', storageKey: 'tf_progress_data_v5' },
+                { key: 'calculus',   href: './calculus/',   label: 'Calculus',     glyph: '∫', cls: 't-purple', color: '#7c5cff', storageKey: 'calculus_progress_data_v5' },
+            ];
+
+            function findLastPlayed() {
+                let best = null, bestTime = 0;
+                for (const app of APPS) {
+                    try {
+                        const raw = localStorage.getItem(app.storageKey);
+                        if (!raw) continue;
+                        const dh = JSON.parse(raw).drillHistory || {};
+                        for (const level of Object.values(dh)) {
+                            if (level.lastAttempt && level.lastAttempt > bestTime) {
+                                bestTime = level.lastAttempt;
+                                best = app;
+                            }
+                        }
+                    } catch (_) {}
+                }
+                return best;
+            }
+
+            function getPracticedStats(app) {
+                let practiced = 0, total = 0;
+                try {
+                    const raw = localStorage.getItem(app.storageKey);
+                    const dh = raw ? (JSON.parse(raw).drillHistory || {}) : {};
+                    practiced = Object.values(dh).filter(d => d.bestTime != null).length;
+                } catch (_) {}
+                try {
+                    const groups = window.LevelRegistry?.[app.key]?.LEVEL_GROUPS;
+                    if (groups) total = Object.values(groups).reduce((n, lvls) => n + lvls.length, 0);
+                } catch (_) {}
+                return { practiced, total };
+            }
+
+            function makeRingSVG(pct, size, color) {
+                const r = size * 0.36, circ = 2 * Math.PI * r;
+                const safe = isNaN(pct) ? 0 : Math.max(0, Math.min(1, pct));
+                const ns = 'http://www.w3.org/2000/svg';
+                const svg = document.createElementNS(ns, 'svg');
+                svg.setAttribute('width', size); svg.setAttribute('height', size);
+                svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+                svg.style.flexShrink = '0';
+
+                const track = document.createElementNS(ns, 'circle');
+                track.setAttribute('cx', size / 2); track.setAttribute('cy', size / 2);
+                track.setAttribute('r', r); track.setAttribute('fill', 'none');
+                track.setAttribute('stroke', '#e5e7eb'); track.setAttribute('stroke-width', size * 0.1);
+
+                const fill = document.createElementNS(ns, 'circle');
+                fill.setAttribute('cx', size / 2); fill.setAttribute('cy', size / 2);
+                fill.setAttribute('r', r); fill.setAttribute('fill', 'none');
+                fill.setAttribute('stroke', color); fill.setAttribute('stroke-width', size * 0.1);
+                fill.setAttribute('stroke-dasharray', `${circ * safe} ${circ * (1 - safe)}`);
+                fill.setAttribute('stroke-linecap', 'round');
+                fill.setAttribute('transform', `rotate(-90 ${size / 2} ${size / 2})`);
+
+                const text = document.createElementNS(ns, 'text');
+                text.setAttribute('x', size / 2); text.setAttribute('y', size / 2 + size * 0.07);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('font-size', size * 0.2); text.setAttribute('font-weight', '700');
+                text.setAttribute('font-family', 'Inter,system-ui,sans-serif');
+                text.setAttribute('fill', '#1f2937');
+                text.textContent = `${Math.round(safe * 100)}%`;
+
+                svg.append(track, fill, text);
+                return svg;
+            }
+
+            function el(tag, attrs, children) {
+                const e = document.createElement(tag);
+                for (const [k, v] of Object.entries(attrs || {})) {
+                    if (k === 'className') e.className = v;
+                    else if (k === 'textContent') e.textContent = v;
+                    else e.setAttribute(k, v);
+                }
+                for (const c of (children || [])) {
+                    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+                }
+                return e;
+            }
+
+            function buildFeatured(app, showTag) {
+                const a = el('a', {
+                    href: app.href,
+                    className: `mm-card ${app.cls} mm-featured${showTag ? ' mm-featured-rich' : ''}`
+                });
+
+                if (showTag) {
+                    a.appendChild(el('span', { className: 'mm-lp-tag', textContent: 'Last played' }));
+                }
+
+                const glyph = el('div', { className: 'mm-glyph', textContent: app.glyph });
+                const title = el('h3', { textContent: app.label });
+
+                if (showTag) {
+                    // Header row: glyph + title side-by-side, left-aligned.
+                    a.appendChild(el('div', { className: 'mm-featured-head' }, [glyph, title]));
+
+                    const { practiced, total } = getPracticedStats(app);
+                    const ring = el('div', { className: 'mm-mastery-ring' });
+                    ring.appendChild(makeRingSVG(total > 0 ? practiced / total : 0, 92, app.color));
+                    const label = el('span', { className: 'mm-ring-label' });
+                    const strong = document.createElement('strong');
+                    strong.textContent = `${practiced} / ${total}`;
+                    label.appendChild(strong);
+                    label.appendChild(el('span', { textContent: 'practised' }));
+                    ring.appendChild(label);
+                    a.appendChild(ring);
+                } else {
+                    a.appendChild(glyph);
+                    a.appendChild(title);
+                }
+
+                const start = el('span', { className: 'mm-start' }, ['Start ']);
+                start.appendChild(el('span', { textContent: '→' }));
+                a.appendChild(start);
+                return a;
+            }
+
+            function buildCompact(app) {
+                const a = el('a', { href: app.href, className: `mm-card ${app.cls} mm-compact` });
+                a.appendChild(el('div', { className: 'mm-glyph', textContent: app.glyph }));
+                a.appendChild(el('h3', { textContent: app.label }));
+                const start = el('span', { className: 'mm-start' }, ['Start ']);
+                start.appendChild(el('span', { textContent: '→' }));
+                a.appendChild(start);
+                return a;
+            }
+
+            const container = document.querySelector('.mm-topics');
+            if (!container) return;
+
+            const lastPlayed = findLastPlayed();
+            const featured   = lastPlayed || APPS[0];
+            const rest       = APPS.filter(a => a !== featured);
+
+            container.className = 'mm-topics mm-topics-featured';
+            while (container.firstChild) container.removeChild(container.firstChild);
+
+            container.appendChild(buildFeatured(featured, !!lastPlayed));
+
+            const grid = document.createElement('div');
+            grid.className = 'mm-compact-grid';
+            for (const app of rest) grid.appendChild(buildCompact(app));
+            container.appendChild(grid);
+        })();
+    </script>
 </body>
 </html>

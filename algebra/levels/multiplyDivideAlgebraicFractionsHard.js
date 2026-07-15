@@ -1,14 +1,14 @@
 // levels/multiplyDivideAlgebraicFractionsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyDivideAlgebraicFractionsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplyDivideAlgebraicFractionsHard',
     'Multiply Divide Algebraic Fractions (Hard)',
     [
-
-            // Complex division problems
-            {problem: "\\frac{2y}{x} \\div \\frac{3}{y}", answer: "\\frac{2y^2}{3x}"},
-            {problem: "\\frac{5}{12x} \\div \\frac{7x}{2}", answer: "\\frac{5}{42x^2}"},
-            {problem: "\\frac{4a}{5} \\div \\frac{2b}{7a}", answer: "\\frac{14a^2}{5b}"},
+            {problem: "\\frac{3a^2}{4} \\times \\frac{8}{9a}", answer: "\\frac{2a}{3}"},
+            {problem: "\\frac{5x^2}{6} \\times \\frac{12}{10x}", answer: "x"},
+            {problem: "\\frac{7b^2}{8} \\times \\frac{16}{21b}", answer: "\\frac{2b}{3}"},
+            {problem: "\\frac{9y^2}{10} \\times \\frac{20}{27y}", answer: "\\frac{2y}{3}"},
+            {problem: "\\frac{4a^2}{5} \\times \\frac{15}{8a}", answer: "\\frac{3a}{2}"},
 
             // Multi-step operations
             {problem: "\\frac{7x}{xy} \\times \\frac{6y}{3} \\times \\frac{4y}{14}", answer: "4y"},

@@ -1,3 +1,7 @@
+:root {
+    --app-accent: #3DBD6B; /* Green — matches landing page number card */
+}
+
 /* MathsFacts-specific question sizing */
 .question-text {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -5,18 +9,19 @@
 
 .inline-input {
     display: inline-block;
-    width: 6rem;
+    width: 7rem;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 2rem;
     font-weight: inherit;
-    color: #1d4ed8;
-    background-color: transparent;
-    border: none;
-    border-bottom: 3px solid #1d4ed8;
+    background-color: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
     text-align: center;
-    padding: 0 0.25rem;
+    padding: 10px 12px;
     margin: 0 0.5rem;
-    line-height: 1;
+    min-height: 56px;
+    line-height: normal;
+    box-sizing: border-box;
     -moz-appearance: textfield;
 }
 .inline-input::-webkit-outer-spin-button,
@@ -26,11 +31,12 @@
 }
 .inline-input:focus {
     outline: none;
-    border-bottom-color: #1d4ed8;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
 }
 .inline-input:disabled {
-    background-color: #f9f9ff;
-    border-bottom-color: #d1d5db;
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
 }
 
 /* MathsFacts level-section-title override */
@@ -93,7 +99,6 @@ div[class*="level-btn"] {
 .rating-developing { background: linear-gradient(145deg, #dcfce7, #4ade80); color: #047857; border-color: #6ee7b7; }
 .rating-expert { background: linear-gradient(145deg, #ecfdf5, #34d399); color: #065f46; border-color: #34d399; }
 .rating-mastery { background: linear-gradient(145deg, #fefbeb, #fbbf24); color: #a16207; border-color: #f59e0b; }
-.rating-true-mastery { background: linear-gradient(145deg, #fef7f0, #f9a8d4); color: #9d174d; border-color: #f472b6; }
 
 /* Styles for HTML-based fractions */
 .fraction-container {
@@ -112,15 +117,15 @@ div[class*="level-btn"] {
     line-height: 1;
 }
 .fraction-numerator {
-    border-bottom: 3px solid #1f2937;
+    border-bottom: 3px solid var(--chalk-heading);
 }
 .fraction-container .inline-input {
     width: 5rem;
     margin: 0.1rem;
     padding: 0.2rem;
-    border: 2px solid #1d4ed8;
-    border-radius: 0.3rem;
-    background-color: #f9f9ff;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    background-color: white;
 }
 
 /* Styles for the FDP conversion table */
@@ -161,12 +166,12 @@ div[class*="level-btn"] {
 }
 
 .inline-input.correct {
-    border-bottom-color: #10b981;
+    border-color: #10b981;
     background-color: rgba(16, 185, 129, 0.08);
 }
 
 .inline-input.incorrect {
-    border-bottom-color: #ef4444;
+    border-color: #ef4444;
     background-color: rgba(239, 68, 68, 0.08);
 }
 
@@ -192,47 +197,18 @@ div[class*="level-btn"] {
     background-color: rgba(239, 68, 68, 0.08);
 }
 
-/* MathsFacts skill-path overrides */
-.skill-path-inner {
-    gap: 1rem;
-}
 
-.skill-path-inner::before {
-    right: -10rem;
-}
+/* Success screen: green replay button */
+#success-screen .btn-primary { background: #10b981; }
+#success-screen .btn-primary:hover { background: #059669; }
 
-.skill-path-node.rating-none {
-    background: #f3f4f6;
-    color: #374151;
-    border-color: #d1d5db;
+/* Dark mode */
+[data-theme="dark"] .inline-input {
+    background-color: #374151;
+    color: #f9fafb;
+    border-color: #60a5fa;
 }
-
-.skill-path-node.rating-true-mastery {
-    background: linear-gradient(135deg, #fef7f0, #f9a8d4);
-    color: #9d174d;
-    border-color: #f9a8d4;
-}
-
-.skill-path-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 120px;
-    text-align: center;
-    margin: 0 1rem;
-    position: relative;
-    z-index: 2;
-}
-
-.skill-path-section-title {
-    font-size: 0.8rem;
-    max-width: 150px;
-    word-wrap: break-word;
-    text-align: center;
-    white-space: normal;
-}
-
-.skill-path-label {
-    hyphens: none;
+[data-theme="dark"] .inline-input:disabled {
+    background-color: #1f2937;
+    border-color: #4b5563;
 }

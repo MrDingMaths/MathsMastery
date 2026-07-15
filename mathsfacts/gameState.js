@@ -4,7 +4,6 @@
  */
 import { CONFIG } from './config.js';
 import { RatingUtils } from '../shared/ratingUtils.js';
-import { StorageManager as BaseStorageManager } from '../shared/storageManager.js';
 import { BaseGameState } from '../shared/baseGameState.js';
 export { Timer } from '../shared/timer.js';
 
@@ -25,12 +24,9 @@ export class GameState extends BaseGameState {
 
 /**
  * StorageManager provides localStorage interface for game data persistence.
- * Delegates to shared BaseStorageManager; static API preserved for callers.
+ * Delegates to window.progressTracker; static API preserved for callers.
  */
-const _sm = new BaseStorageManager(CONFIG.STORAGE_PREFIX);
-
 export const StorageManager = {
-    saveBestTime: (levelKey, time) => _sm.saveBestTime(levelKey, time),
-    getBestTime: (levelKey) => _sm.getBestTime(levelKey),
+    getBestTime: (levelKey) => window.progressTracker?.getBestTime(levelKey) ?? null,
     getRating: (time, levelKey = null) => RatingUtils.getRating(time, levelKey, CONFIG.REQUIRED_STREAK, CONFIG)
 };

@@ -1,6 +1,6 @@
 // levels/negativeIndicesMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.negativeIndicesMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'negativeIndicesMedium',
     'Negative Indices (Medium)',
     [
@@ -65,7 +65,6 @@ window.AlgebraLevels.negativeIndicesMedium = new BaseLevel(
             {problem: "xy^{-6}", answer: "\\frac{x}{y^6}"},
             
             // Mixed fractions with negative exponents
-            {problem: "\\frac{a^3}{b^{-2}}", answer: "a^3b^2"},
             {problem: "\\frac{x^2}{y^{-3}}", answer: "x^2y^3"},
             {problem: "\\frac{x^4}{y^{-1}}", answer: "x^4y"},
             {problem: "\\frac{2x^3}{y^{-2}}", answer: "2x^3y^2"},
@@ -95,15 +94,12 @@ window.AlgebraLevels.negativeIndicesMedium = new BaseLevel(
             {problem: "5^{-2} \\times 5^3", answer: "5"},
             {problem: "6^{-3} \\times 6^5", answer: "36"},
             
-            // Review and reinforcement
-            {problem: "x^{-2}", answer: "\\frac{1}{x^2}"},
-            {problem: "x^{-7}", answer: "\\frac{1}{x^7}"},
-            {problem: "x^{-4}", answer: "\\frac{1}{x^4}"},
-            {problem: "6^{-3}", answer: "\\frac{1}{216}"},
-            {problem: "7^{-2}", answer: "\\frac{1}{49}"},
-            {problem: "8x^{-3}", answer: "\\frac{8}{x^3}"},
-            {problem: "9y^{-2}", answer: "\\frac{9}{y^2}"},
-            {problem: "\\frac{8}{x^{-3}}", answer: "8x^3"},
-            {problem: "\\frac{x^4}{y^{-3}}", answer: "x^4y^3"}
+            // Single-step index law with negative indices
+            {problem: "12y^{-3} \\div 4y^2", answer: "\\frac{3}{y^5}"},
+            {problem: "12y^{-3} \\div 4y^{-2}", answer: "\\frac{3}{y}"},
+            {problem: "12y^{-3} \\times 4y^{-2}", answer: "\\frac{48}{y^5}"},
+            {problem: "56x^2y^6 \\div 8xy^8", answer: "\\frac{7x}{y^2}"},
+            {problem: "(x^2y^{-3})^3", answer: "\\frac{x^6}{y^9}"},
+            {problem: "(5x^{-2}y^3)^{-1}", answer: "\\frac{x^2}{5y^3}"}
         ]
 );

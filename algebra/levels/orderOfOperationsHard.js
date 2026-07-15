@@ -1,6 +1,6 @@
 // levels/orderOfOperationsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.orderOfOperationsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'orderOfOperationsHard',
     'Order of Operations (Hard)',
     [

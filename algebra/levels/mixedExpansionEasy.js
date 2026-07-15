@@ -1,6 +1,6 @@
 // levels/mixedExpansionEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedExpansionEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedExpansionEasy',
     'Mixed Expansion (Easy)',
     [
@@ -11,8 +11,7 @@ window.AlgebraLevels.mixedExpansionEasy = new BaseLevel(
             {problem: "-2(3 - x)", answer: "2x - 6"},
             {problem: "-2x(5 - 3x)", answer: "6x^2 - 10x"},
             {problem: "x^2(x - 3)", answer: "x^3 - 3x^2"},
-            {problem: "x^2(x^2 - 3x)", answer: "x^4 - 3x^3"},
-            
+
             // Basic double bracket expansions
             {problem: "(x + 1)(x + 2)", answer: "x^2 + 3x + 2"},
             {problem: "(x - 3)(x + 2)", answer: "x^2 - x - 6"},
@@ -55,9 +54,7 @@ window.AlgebraLevels.mixedExpansionEasy = new BaseLevel(
             // Simple combined operations
             {problem: "(x + 2)^2 - 4", answer: "x^2 + 4x"},
             {problem: "(x + 3)(x - 3) + 6x", answer: "x^2 + 6x - 9"},
-            {problem: "(x^2 + 2)(x^2 - 2)", answer: "x^4 - 4"},
-            {problem: "(x^2 + 5)^2", answer: "x^4 + 10x^2 + 25"},
-            
+
             // Additional basic expansions for variety
             {problem: "2(y + 3)", answer: "2y + 6"},
             {problem: "4(a - 2)", answer: "4a - 8"},

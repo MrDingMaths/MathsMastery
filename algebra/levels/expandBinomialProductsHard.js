@@ -1,6 +1,6 @@
 // levels/expandBinomialProductsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandBinomialProductsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandBinomialProductsHard',
     'Expanding Double Brackets (Hard)',
     [
@@ -57,7 +57,7 @@ window.AlgebraLevels.expandBinomialProductsHard = new BaseLevel(
             {problem: "(4x-y)(x+2y) - (2x-3y)(x+y)", answer: "2x^2 + 8xy + y^2"},
             
             // Very challenging patterns
-            {problem: "x(x+y)(x-y) + y(x+y)(x-y)", answer: "x^3 + x^2y - xy^2 - y^3"},
+            {problem: "2x(x+3y)(x-y)", answer: "2x^3 + 4x^2y - 6xy^2"},
             {problem: "(x^2+1)(x^2-1)", answer: "x^4 - 1"},
         ]
 );

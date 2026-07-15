@@ -46,7 +46,7 @@
 
 .progress-modal-content {
     background: white;
-    border-radius: 20px;
+    border-radius: var(--radius-card);
     width: 90%;
     max-width: 1200px;
     max-height: 90vh;
@@ -160,7 +160,7 @@
 
 .summary-card {
     background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
     text-align: center;
     border: 1px solid #e5e7eb;
@@ -219,7 +219,7 @@
 /* Recent Activity */
 .recent-activity {
     background: #f9fafb;
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
 }
 
@@ -235,7 +235,7 @@
     gap: 10px;
     padding: 10px;
     background: white;
-    border-radius: 8px;
+    border-radius: var(--radius-chip);
     margin-bottom: 10px;
     border: 1px solid #e5e7eb;
 }
@@ -261,7 +261,7 @@
 /* Chart Container */
 .chart-container {
     background: white;
-    border-radius: 15px;
+    border-radius: var(--radius-card-sm);
     padding: 20px;
     border: 1px solid #e5e7eb;
     min-height: 300px;
@@ -328,23 +328,17 @@
     padding-right: 5px;
 }
 
-.drill-selector-grid::-webkit-scrollbar {
-    width: 8px;
+.drill-selector-grid {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,.18) transparent;
 }
-
-.drill-selector-grid::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.drill-selector-grid::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
-}
-
-.drill-selector-grid::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
+.drill-selector-grid::-webkit-scrollbar { width: 4px; }
+.drill-selector-grid::-webkit-scrollbar-track { background: transparent; }
+.drill-selector-grid::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 9999px; }
+.drill-selector-grid::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.32); }
+[data-theme="dark"] .drill-selector-grid { scrollbar-color: rgba(255,255,255,.18) transparent; }
+[data-theme="dark"] .drill-selector-grid::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); }
+[data-theme="dark"] .drill-selector-grid::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.32); }
 
 .drill-sidebar.collapsed {
     width: 0;

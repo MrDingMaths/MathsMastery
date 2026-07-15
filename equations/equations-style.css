@@ -1,0 +1,123 @@
+:root {
+    --app-accent: #3b82f6;
+    --app-accent-dark: #2563eb;
+}
+
+.question-text {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+}
+
+.equations-question {
+    display: block;
+    text-align: center;
+}
+
+.problem-line {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.problem-line + .problem-line {
+    margin-top: -0.25rem;
+}
+
+.answer-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.answer-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.equals-sign {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    color: #4b5563;
+    min-width: 2.6rem;
+    text-align: right;
+}
+
+/* MathLive math-field answer input */
+math-field.math-field-answer {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px 52px 10px 12px;
+    border: 2px solid var(--app-accent);
+    border-radius: 6px;
+    background-color: white;
+    box-sizing: border-box;
+    min-width: 8rem;
+    min-height: 56px;
+    text-align: left;
+    font-size: 2rem;
+    line-height: normal;
+    cursor: text;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    --primary: var(--app-accent);
+    --caret-color: var(--app-accent);
+    --contains-highlight-background-color: rgba(59, 130, 246, 0.08);
+    --selection-background-color: rgba(59, 130, 246, 0.25);
+    --selection-color: #1f2937;
+}
+
+math-field.math-field-answer.equations-multi-input {
+    min-width: 14rem;
+}
+
+math-field.math-field-answer::part(menu-toggle) {
+    display: none;
+}
+
+math-field.math-field-answer::part(virtual-keyboard-toggle) {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+math-field.math-field-answer:focus,
+math-field.math-field-answer:focus-within {
+    border-color: var(--app-accent-dark);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    outline: none;
+}
+
+math-field.math-field-answer.correct {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.08);
+}
+
+math-field.math-field-answer.incorrect {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+.question-hint {
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #6b7280);
+    margin-bottom: 0.5rem;
+}
+
+.equations-input-hint {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+/* Streak / timer accent */
+#streak-counter, #timer {
+    color: var(--app-accent-dark) !important;
+}
+
+[data-theme="dark"] math-field.math-field-answer {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}

@@ -1,6 +1,6 @@
 // levels/factoriseNonMonicQuadraticTrinomialsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseNonMonicQuadraticTrinomialsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseNonMonicQuadraticTrinomialsHard',
     'Factorising Non-monic Quadratic Trinomials (Hard)',
     [
@@ -49,5 +49,8 @@ window.AlgebraLevels.factoriseNonMonicQuadraticTrinomialsHard = new BaseLevel(
             // Mixed signs with common factors
             {problem: "14x^2 - 35x + 21", answer: "7(x - 1)(2x - 3)"},
             {problem: "20x^2 - 50x + 30", answer: "10(x - 1)(2x - 3)"},
+
+            // Negative common factor with non-monic inner (migrated from Medium)
+            {problem: "-8x^2 - 6x + 2", answer: "-2(x + 1)(4x - 1)"},
         ]
 );

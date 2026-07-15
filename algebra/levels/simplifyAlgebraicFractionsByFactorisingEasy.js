@@ -1,6 +1,6 @@
 // levels/simplifyAlgebraicFractionsByFactorisingEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'simplifyAlgebraicFractionsByFactorisingEasy',
     'Simplifying Algebraic Fractions by Factorising (Easy)',
     [
@@ -54,6 +54,8 @@ window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingEasy = new BaseLevel
             {problem: "\\frac{10y}{25y}", answer: "\\frac{2}{5}"},
             {problem: "\\frac{6(x+2)}{9(x+2)}", answer: "\\frac{2}{3}"},
             {problem: "\\frac{4(x-3)}{12(x-3)}", answer: "\\frac{1}{3}"},
-            {problem: "\\frac{15(x+1)}{5(x+1)}", answer: "3"}
+            {problem: "\\frac{15(x+1)}{5(x+1)}", answer: "3"},
+            {problem: "\\frac{3ax+5a}{a+2ab}", answer: "\\frac{3x+5}{1+2b}"},
+            {problem: "\\frac{5y-3xy}{18xy-30y}", answer: "-\\frac{1}{6}"}
         ]
 );

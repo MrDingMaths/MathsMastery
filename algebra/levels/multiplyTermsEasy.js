@@ -1,4 +1,5 @@
 // levels/multiplyTermsEasy.js
+import { BaseLevel } from './BaseLevel.js';
 // Custom generateQuestion: 30% chance to convert \times to implied multiplication
 class MultiplyTermsEasyLevel extends BaseLevel {
     constructor() {
@@ -48,8 +49,7 @@ class MultiplyTermsEasyLevel extends BaseLevel {
             {problem: "2x \\times 4y", answer: "8xy"},
             {problem: "-2a \\times 3x", answer: "-6ax"},
             {problem: "5x \\times (-2y)", answer: "-10xy"},
-            {problem: "-6x \\times (-5y)", answer: "30xy"},
-            {problem: "-5b \\times (-6x)", answer: "30bx"},
+            {problem: "-3x \\times 2y", answer: "-6xy"},
             {problem: "2 \\times 8b", answer: "16b"},
             {problem: "3 \\times (-5x)", answer: "-15x"},
             {problem: "-4x \\times 3y", answer: "-12xy"},
@@ -81,5 +81,4 @@ class MultiplyTermsEasyLevel extends BaseLevel {
     }
 }
 
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyTermsEasy = new MultiplyTermsEasyLevel();
+export default new MultiplyTermsEasyLevel();

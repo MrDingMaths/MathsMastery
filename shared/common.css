@@ -1,26 +1,43 @@
 /* shared/common.css - Common styles across all MathsMastery apps */
 
 :root {
+    --font-display: 'Fredoka', sans-serif;
+    --font-ui: 'Nunito', system-ui, sans-serif;
     --color-primary: #3b82f6;
     --color-primary-hover: #2563eb;
     --color-success: #10b981;
     --color-error: #ef4444;
-    --color-bg: #f3f4f6;
     --color-surface: #ffffff;
     --color-text: #1f2937;
     --color-text-muted: #6b7280;
+    --radius-pill: 9999px;
     --radius-card: 1.25rem;
+    --radius-card-sm: 0.875rem;
     --radius-btn: 0.625rem;
+    --radius-chip: 0.5rem;
     --shadow-card: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.08);
+    /* Whiteboard/blackboard tokens (match landing page) */
+    --chalk-bg: #F7F8FC;
+    --chalk-surface: #ffffff;
+    --chalk-heading: #1e1c2a;
+    --chalk-body: #6b6475;
+    /* Per-app connector line colour; overridden in each app's CSS */
+    --app-accent: #94a3b8;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-bg);
+    font-family: var(--font-ui);
+    background-color: var(--chalk-bg);
+    background-image: radial-gradient(circle, rgba(27, 42, 74, 0.10) 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+h1, h2, h3, h4, .level-section-title {
+    font-family: var(--font-display);
 }
 
 .card {
-    background-color: var(--color-surface);
+    background-color: var(--chalk-surface);
     border-radius: var(--radius-card);
     border: 1px solid rgba(0, 0, 0, 0.06);
     padding: 2rem;
@@ -65,7 +82,7 @@ body {
 
 .question-text {
     font-weight: 700;
-    color: #1f2937;
+    color: var(--chalk-heading);
     letter-spacing: 2px;
     display: flex;
     align-items: center;
@@ -84,21 +101,42 @@ body {
 .feedback-correct { color: #10b981; }
 .feedback-incorrect { color: #ef4444; }
 
-/* Ensure math renderers (KaTeX, MathQuill) inherit feedback colour */
-.feedback .mq-root-block,
-.feedback .mq-math-mode {
+/* Ensure math renderers (MathLive/KaTeX) inherit feedback colour */
+.feedback math-field,
+.feedback .ML__base,
+.feedback .ML__mathit,
+.feedback .ML__cmr {
     color: inherit;
 }
+
+/* Two-line "your answer / correct answer" panel shown on the wrong-twice pause screen.
+   Labels in a right-aligned column, answers tab-aligned in the column beside them. */
+.feedback-answer-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.75rem;
+    row-gap: 0.35rem;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+}
+.feedback-answer-label {
+    text-align: right;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-muted, #6b7280);
+}
+.feedback-answer-grid .feedback-answer-your { color: var(--color-error, #ef4444); }
+.feedback-answer-grid .feedback-answer-correct { color: var(--color-success, #10b981); }
 
 .level-section-title {
     text-align: left;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #374151;
+    color: var(--chalk-heading);
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 3px solid var(--app-accent);
 }
 
 .level-grid {
@@ -137,12 +175,11 @@ body {
 }
 
 /* Rating color system */
-.rating-queen { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; }
-.rating-true-mastery { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; }
-.rating-mastery { background: linear-gradient(135deg, #fefbeb, #fbbf24); color: #a16207; }
-.rating-expert { background: linear-gradient(135deg, #ecfdf5, #34d399); color: #065f46; }
-.rating-developing { background: linear-gradient(135deg, #dcfce7, #4ade80); color: #047857; }
-.rating-beginner { background: linear-gradient(135deg, #f8fafc, #94a3b8); color: #1e293b; }
+.rating-queen { background: linear-gradient(135deg, #fef7f0, #f9a8d4); color: #9d174d; border-color: #f472b6; }
+.rating-mastery { background: linear-gradient(135deg, #fefbeb, #fbbf24); color: #a16207; border-color: #f59e0b; }
+.rating-expert { background: linear-gradient(135deg, #ecfdf5, #34d399); color: #065f46; border-color: #34d399; }
+.rating-developing { background: linear-gradient(135deg, #dcfce7, #4ade80); color: #047857; border-color: #6ee7b7; }
+.rating-beginner { background: linear-gradient(135deg, #f8fafc, #94a3b8); color: #1e293b; border-color: #94a3b8; }
 .rating-none { background: #f3f4f6; color: #374151; }
 
 #confetti-canvas {
@@ -159,84 +196,6 @@ body {
     margin: 0 1px;
 }
 
-/* Skill Path Styles */
-.skill-path-scroll {
-    display: flex;
-    overflow-x: auto;
-    padding: 1rem 0;
-    gap: 0;
-    align-items: center;
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 #f1f5f9;
-    max-width: 100%;
-    scroll-behavior: smooth;
-    position: relative;
-}
-
-.skill-path-scroll::-webkit-scrollbar {
-    height: 8px;
-}
-
-.skill-path-scroll::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-}
-
-.skill-path-scroll::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-}
-
-.skill-path-scroll::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-.skill-path-section {
-    flex-shrink: 0;
-    margin-right: 1rem;
-    position: relative;
-    z-index: 3;
-}
-
-.skill-path-section-title {
-    background: white;
-    padding: 0.5rem 0.75rem;
-    border-radius: 1rem;
-    font-weight: 700;
-    color: #4b5563;
-    border: 2px solid #e5e7eb;
-    display: inline-block;
-    white-space: nowrap;
-    writing-mode: horizontal-tb;
-    transform: rotate(-90deg);
-    transform-origin: center;
-}
-
-.skill-path-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    min-width: 160px;
-    max-width: 200px;
-    min-height: 100px;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: 2px solid #e5e7eb;
-    background: #f9fafb;
-    position: relative;
-    margin: 0 1rem;
-    z-index: 2;
-}
-
-.skill-path-node:hover {
-    transform: translateY(-2px);
-}
-
-.skill-path-node.current,
 .level-btn.current {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -250,82 +209,6 @@ body {
     50% {
         box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.3);
     }
-}
-
-.skill-path-inner {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0;
-    padding: 1rem 2rem;
-    min-width: fit-content;
-}
-
-.skill-path-inner::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(to right, #e5e7eb 0%, #cbd5e1 50%, #e5e7eb 100%);
-    transform: translateY(-50%);
-    z-index: 0;
-}
-
-.skill-path-node.rating-beginner {
-    background: linear-gradient(135deg, #f8fafc, #94a3b8);
-    color: #1e293b;
-    border-color: #94a3b8;
-}
-
-.skill-path-node.rating-developing {
-    background: linear-gradient(135deg, #dcfce7, #4ade80);
-    color: #047857;
-    border-color: #4ade80;
-}
-
-.skill-path-node.rating-expert {
-    background: linear-gradient(135deg, #ecfdf5, #34d399);
-    color: #065f46;
-    border-color: #34d399;
-}
-
-.skill-path-node.rating-mastery {
-    background: linear-gradient(135deg, #fefbeb, #fbbf24);
-    color: #a16207;
-    border-color: #fbbf24;
-}
-
-.skill-path-node.rating-queen {
-    background: linear-gradient(135deg, #fef7f0, #f9a8d4);
-    color: #9d174d;
-    border-color: #f9a8d4;
-}
-
-.skill-path-node.rating-true-mastery {
-    background: linear-gradient(135deg, #fef7f0, #f9a8d4);
-    color: #9d174d;
-    border-color: #f9a8d4;
-}
-
-.skill-path-label {
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-    color: #374151;
-    word-wrap: break-word;
-    max-width: 100%;
-    padding: 0.25rem;
-}
-
-.skill-path-time {
-    font-size: 0.8rem;
-    color: #6b7280;
-    text-align: center;
 }
 
 /* Mastery Progress Bars */
@@ -366,40 +249,126 @@ body {
     letter-spacing: -0.025em;
 }
 
-/* Game screen streak/timer chips */
-div:has(> #streak-counter),
-div:has(> #timer) {
-    background: rgba(59, 130, 246, 0.07);
-    border: 1px solid rgba(59, 130, 246, 0.15);
-    border-radius: 999px;
-    padding: 0.375rem 0.875rem;
-    font-size: 0.875rem;
+/* Wider game screen (scoped — leaves settings/success cards at 700px) */
+#game-screen.card {
+    max-width: 900px;
 }
 
-/* Mobile responsiveness for skill path */
-@media (max-width: 640px) {
-    .skill-path-node {
-        min-width: 140px;
-        max-width: 160px;
-        padding: 0.75rem;
-        margin: 0 0.5rem;
-    }
+/* ── Game screen header: level name + time ───────────────────── */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    margin-bottom: 1rem;
+}
 
-    .skill-path-label {
-        font-size: 0.875rem;
-        line-height: 1.3;
-    }
+.game-level-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--chalk-heading, #1f2937);
+}
 
-    .skill-path-time {
-        font-size: 0.6rem;
-    }
+.game-level-meta {
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #9ca3af);
+}
 
-    .skill-path-section-title {
-        font-size: 0.75rem;
-        padding: 0.75rem 0.375rem;
-        top: 50%;
-        left: -0.75rem;
-    }
+.game-time {
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: var(--color-text-muted, #9ca3af);
+    white-space: nowrap;
+}
+
+.game-time #timer {
+    margin-left: 0.35rem;
+    font-weight: 700;
+    color: var(--color-primary, #3b82f6);
+}
+
+/* ── Streak bar + retry indicator (sits under the header) ────── */
+.streak-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+}
+
+.streak-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.streak-seg {
+    flex: 1;
+    height: 0.5rem;
+    max-width: 2.25rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.streak-seg.filled {
+    background: var(--color-primary, #3b82f6);
+    animation: streak-pop 0.25s ease;
+}
+
+@keyframes streak-pop {
+    0%   { transform: scaleY(0.6); }
+    60%  { transform: scaleY(1.2); }
+    100% { transform: scaleY(1); }
+}
+
+.streak-count {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted, #9ca3af);
+}
+
+/* Retry indicator: a dot + label, green when available, grey when spent */
+.retry-indicator {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--color-success, #10b981);
+    transition: color 0.2s ease;
+}
+
+.retry-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: var(--color-success, #10b981);
+    transition: background-color 0.2s ease;
+}
+
+.retry-indicator.spent {
+    color: var(--color-text-muted, #9ca3af);
+}
+
+.retry-indicator.spent .retry-dot {
+    background: rgba(0, 0, 0, 0.18);
+}
+
+/* Pulse the retry indicator when it refills on a new question */
+.retry-indicator.refill {
+    animation: retry-refill 0.45s ease;
+}
+
+@keyframes retry-refill {
+    0%   { transform: scale(1);   }
+    40%  { transform: scale(1.25); }
+    100% { transform: scale(1);   }
 }
 
 /* Quit confirmation toast */
@@ -421,3 +390,136 @@ div:has(> #timer) {
     opacity: 1;
 }
 
+
+/* ============================
+   Success screen redesign
+   ============================ */
+
+.success-header {
+    display: flex; align-items: center; gap: 1.25rem;
+    margin-bottom: 1.25rem; text-align: left;
+}
+.success-icon-circle {
+    width: 72px; height: 72px; min-width: 72px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: #d1fae5; border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 0 0 4px rgba(16,185,129,0.2);
+}
+.success-icon-emoji { font-size: 2rem; line-height: 1; }
+
+.success-icon-circle.rating-beginner   { background: #f1f5f9; box-shadow: 0 0 0 4px rgba(148,163,184,0.2); }
+.success-icon-circle.rating-developing { background: #dbeafe; box-shadow: 0 0 0 4px rgba(96,165,250,0.2); }
+.success-icon-circle.rating-expert     { background: #d1fae5; box-shadow: 0 0 0 4px rgba(16,185,129,0.2); }
+.success-icon-circle.rating-mastery    { background: #fef3c7; box-shadow: 0 0 0 4px rgba(245,158,11,0.2); }
+.success-icon-circle.rating-queen      { background: #fce7f3; box-shadow: 0 0 0 4px rgba(236,72,153,0.2); }
+
+.success-challenge-label { font-size: 1rem; font-weight: 600; color: #10b981; margin-bottom: 0.1rem; }
+.success-rating-name { font-size: 2rem; font-weight: 800; color: #111827; line-height: 1.15; }
+.success-level-name { font-size: 0.875rem; color: #6b7280; margin-top: 0.1rem; }
+
+.success-time-card {
+    background: #f0fdf4; border-radius: 0.875rem; padding: 1rem 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1.25rem; text-align: left;
+}
+.success-time-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    color: #6b7280; text-transform: uppercase; margin-bottom: 0.25rem;
+    text-align: left;
+}
+.success-time-row { display: flex; align-items: center; gap: 0.625rem; flex-wrap: wrap; }
+.success-time-value {
+    font-size: 2.5rem; font-weight: 800; color: #3b82f6;
+    font-variant-numeric: tabular-nums; line-height: 1;
+}
+.success-new-best {
+    background: white; border: 1.5px solid #e5e7eb; border-radius: 999px;
+    padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600;
+    color: #374151; white-space: nowrap;
+}
+.success-time-right { text-align: right; flex-shrink: 0; }
+.success-prev-label { font-size: 0.7rem; color: #9ca3af; margin-bottom: 0.125rem; }
+.success-prev-time { font-size: 1rem; font-weight: 600; color: #6b7280; font-variant-numeric: tabular-nums; }
+
+.success-timeline { display: flex; align-items: flex-start; margin-bottom: 1.25rem; }
+.success-timeline-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.success-timeline-connector {
+    flex: 1; height: 2px; background: #d1d5db;
+    align-self: center; margin-bottom: 1.75rem;
+}
+.success-timeline-connector.achieved { background: #10b981; }
+.success-timeline-node {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #e5e7eb; border: 2px solid #d1d5db;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; position: relative; z-index: 1;
+}
+.success-timeline-item.achieved .success-timeline-node {
+    background: var(--chalk-surface); border-color: #10b981; border-width: 2.5px;
+}
+.success-timeline-item.current .success-timeline-node {
+    width: 48px; height: 48px; font-size: 1.2rem;
+    background: var(--chalk-surface); border-color: #10b981; border-width: 3px;
+    box-shadow: 0 0 0 4px rgba(16,185,129,0.2);
+}
+.success-timeline-label {
+    font-size: 0.75rem; font-weight: 500; color: #9ca3af;
+    margin-top: 0.375rem; text-align: center; line-height: 1.2;
+}
+.success-timeline-item.achieved .success-timeline-label,
+.success-timeline-item.current .success-timeline-label { color: #6b7280; }
+.success-timeline-item.current .success-timeline-label { font-weight: 700; color: #111827; }
+
+.success-rating-hint {
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 0.75rem;
+    padding: 0.75rem 1rem; display: flex; align-items: center;
+    gap: 0.75rem; margin-bottom: 1.25rem; font-size: 0.875rem; color: #374151; line-height: 1.4;
+}
+.success-hint-icon { font-size: 1.25rem; flex-shrink: 0; }
+.success-hint-time { font-weight: 700; color: #d97706; }
+.success-hint-rating { font-weight: 700; color: #b45309; }
+
+.success-actions { display: flex; flex-direction: column; align-items: center; gap: 0.625rem; }
+.success-actions .btn-primary { width: 100%; }
+.success-actions .btn-secondary { width: 100%; }
+.success-back-btn {
+    display: flex; align-items: center; gap: 0.375rem;
+    color: #6b7280; font-size: 0.8rem; font-weight: 500; cursor: pointer;
+    background: none; border: none; padding: 0.25rem 0.5rem; border-radius: var(--radius-btn);
+    transition: color 0.15s;
+}
+.success-back-btn:hover { color: #374151; }
+
+#success-screen { max-width: 700px; }
+
+
+/* ============================
+   Subtle UI animations
+   ============================ */
+
+/* Answer feedback — shake on incorrect, gentle pop on correct.
+   The .correct/.incorrect classes are removed then re-added on each
+   answer (see app ui.js files), which restarts the animation. */
+@keyframes answer-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+@keyframes answer-pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+math-field.incorrect,
+input.incorrect { animation: answer-shake 0.3s ease; }
+math-field.correct,
+input.correct   { animation: answer-pop 0.25s ease; }
+
+/* Screen transitions — entrance played when a screen becomes visible.
+   BaseUI.showScreen() re-adds the .screen-enter class with a reflow so
+   this restarts on every settings/game/success swap. */
+@keyframes screen-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.screen-enter { animation: screen-fade-in 0.25s ease; }

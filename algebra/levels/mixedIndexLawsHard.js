@@ -1,6 +1,6 @@
 // levels/mixedIndexLawsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedIndexLawsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedIndexLawsHard',
     'Mixed Index Laws (Hard)',
     [

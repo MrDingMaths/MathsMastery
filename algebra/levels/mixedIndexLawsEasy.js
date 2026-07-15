@@ -1,6 +1,6 @@
 // levels/mixedIndexLawsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedIndexLawsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedIndexLawsEasy',
     'Mixed Index Laws (Easy)',
     [
@@ -50,7 +50,7 @@ window.AlgebraLevels.mixedIndexLawsEasy = new BaseLevel(
             {problem: "7^0", answer: "1"},
             {problem: "12^0", answer: "1"},
             {problem: "5.6^0", answer: "1"},
-            {problem: "(\\frac{1}{4})^0", answer: "1"},
+            {problem: "\\left(\\frac{1}{4}\\right)^0", answer: "1"},
             {problem: "(59)^0", answer: "1"},
             {problem: "(136)^0", answer: "1"},
             {problem: "(9^5)^0", answer: "1"},

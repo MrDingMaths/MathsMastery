@@ -1,13 +1,12 @@
 // levels/simplifyAlgebraicFractionsByFactorisingHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'simplifyAlgebraicFractionsByFactorisingHard',
     'Simplifying Algebraic Fractions by Factorising (Hard)',
     [
             {problem: "\\frac{2x^2+14x+24}{x^2-5x-36}", answer: "\\frac{2(x+3)}{x-9}"},
             {problem: "\\frac{2x^2+14x+24}{3x^2-15x-108}", answer: "\\frac{2(x+3)}{3(x-9)}"},
             {problem: "\\frac{2x^2+14x+24}{3x^2+4x-15}", answer: "\\frac{2(x+4)}{3x-5}"},
-            {problem: "\\frac{14x-24-2x^2}{3x^2+4x-15}", answer: "\\frac{14x-24-2x^2}{3x^2+4x-15}"},
             {problem: "\\frac{14x-24-2x^2}{3x^2-4x-15}", answer: "\\frac{-2(x-4)}{3x+5}"},
             {problem: "\\frac{xy-xa+by-ba}{y^2-a^2}", answer: "\\frac{x+b}{y+a}"},
             {problem: "\\frac{x^2+5x-24}{2x^2-18}", answer: "\\frac{x+8}{2(x+3)}"},
@@ -19,10 +18,6 @@ window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingHard = new BaseLevel
             {problem: "\\frac{\\sqrt{3}x-4}{3x^2-16}", answer: "\\frac{1}{\\sqrt{3}x+4}"},
             {problem: "\\frac{(x+1)^2-2}{x+1+\\sqrt{2}}", answer: "x+1-\\sqrt{2}"},
             {problem: "\\frac{(x-3)^2-5}{x-3-\\sqrt{5}}", answer: "x-3+\\sqrt{5}"},
-            {problem: "\\frac{x^3-8}{x^2+2x+4}", answer: "x-2"},
-            {problem: "\\frac{x^3+27}{x^2-3x+9}", answer: "x+3"},
-            {problem: "\\frac{2x^3-16}{x^2+2x+4}", answer: "2(x-2)"},
-            {problem: "\\frac{3x^3+81}{x^2-3x+9}", answer: "3(x+3)"},
             {problem: "\\frac{x^4-1}{x^2+1}", answer: "x^2-1"},
             {problem: "\\frac{x^4-16}{x^2+4}", answer: "x^2-4"},
             {problem: "\\frac{x^3-x^2-12x}{x^2-16}", answer: "\\frac{x(x+3)}{x+4}"},
@@ -37,7 +32,7 @@ window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingHard = new BaseLevel
             {problem: "\\frac{x^3-3x^2-x+3}{x^2-1}", answer: "x-3"},
             {problem: "\\frac{2x^3+4x^2-2x-4}{x^2-1}", answer: "2(x+2)"},
             {problem: "\\frac{3x^3-9x^2-3x+9}{x^2-1}", answer: "3(x-3)"},
-            {problem: "\\frac{x^3-5x^2+8x-4}{x^2-4x+4}", answer: "x-1"},
+            {problem: "\\frac{x^3-2x^2-4x+8}{x^2-4x+4}", answer: "x+2"},
             {problem: "\\frac{x^3+3x^2-4x-12}{x^2+6x+9}", answer: "\\frac{x^2-4}{x+3}"},
             {problem: "\\frac{6x^2-x-35}{3x+7}", answer: "2x-5"},
             {problem: "\\frac{8x^2+10x-3}{2x+3}", answer: "4x-1"},
@@ -50,6 +45,6 @@ window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingHard = new BaseLevel
             {problem: "\\frac{8x^2-2x-15}{16x^2-25}", answer: "\\frac{2x-3}{4x-5}"},
             {problem: "\\frac{25-4a^2}{6a^2-11a-10}", answer: "-\\frac{2a+5}{3a+2}"},
             {problem: "\\frac{40+11b-2b^2}{8b^2+34b+35}", answer: "\\frac{8-b}{4b+7}"},
-            {problem: "\\frac{x^2y^2-4}{xy^2-3axy-2y+6a}", answer: "\\frac{xy+2}{y-3a}"}
+            {problem: "\\frac{6x^2+x-15}{4x^2-9}", answer: "\\frac{3x+5}{2x+3}"}
         ]
 );

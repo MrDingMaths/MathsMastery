@@ -1,6 +1,6 @@
 // levels/powerOfPowerAndZeroPowerMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfPowerAndZeroPowerMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfPowerAndZeroPowerMedium',
     'Power of a Power & Zero Laws (Medium)',
     [
@@ -105,10 +105,10 @@ window.AlgebraLevels.powerOfPowerAndZeroPowerMedium = new BaseLevel(
             {problem: "\\frac{24(x^4)^4}{8(x^4)^2}", answer: "3x^8"},
             
             // Multi-step combinations
-            {problem: "2(a^3)^2 \\times 3(a^2)^4", answer: "6a^{14}"},
             {problem: "5(x^4)^3 \\div (x^6)^2", answer: "5"},
             {problem: "4(y^2)^5 \\times (y^3)^0", answer: "4y^{10}"},
-            {problem: "\\frac{6(x^5)^3}{2(x^3)^5}", answer: "3"},
-            {problem: "8(x^4)^2 \\div 4(x^2)^4", answer: "2"}
+            {problem: "2(xy^2a^3)^0 \\times 3x^2", answer: "6x^2"},
+            {problem: "3(x^3y^2)^0 \\times 4", answer: "12"},
+            {problem: "3a^0 \\times 2b^0", answer: "6"}
         ]
 );

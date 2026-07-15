@@ -6,20 +6,22 @@ class ProgressUI {
         this.progressChart = progressChart;
         this.progressShare = progressShare;
         this.isVisible = false;
-        this.currentView = 'overview';
-        this.MQ = null;
+        this.currentView = 'drills';
         this.init();
     }
 
     init() {
         this.createProgressModal();
-        this.createProgressButton();
         this.attachEventListeners();
-        // Only init MathQuill if mistakes are enabled (needed for rendering LaTeX in mistakes table)
-        if (this.progressTracker.enableMistakes && typeof MathQuill !== 'undefined') {
-            this.MQ = MathQuill.getInterface(2);
-        }
         this.updateContent();
+    }
+
+    _renderStaticLatex(element, latex) {
+        if (window.MathRenderer) {
+            window.MathRenderer.renderStaticLatex(element, latex);
+            return true;
+        }
+        return false;
     }
 
     // Create progress button that appears on the main screen
@@ -145,15 +147,15 @@ class ProgressUI {
                 </div>
 
                 <div class="progress-tabs">
-                    <button class="tab-btn active" data-view="overview">Overview</button>
-                    <button class="tab-btn" data-view="drills">Improvement</button>
+                    <button class="tab-btn" data-view="overview">Overview</button>
+                    <button class="tab-btn active" data-view="drills">Improvement</button>
                     <button class="tab-btn" data-view="history">History</button>
                     ${mistakesTabBtn}
                 </div>
 
                 <div class="progress-content">
                     <!-- Overview Tab -->
-                    <div id="overview-content" class="tab-content active">
+                    <div id="overview-content" class="tab-content">
                         <div class="summary-cards">
                             <div class="summary-card">
                                 <div class="card-icon">📚</div>
@@ -184,7 +186,7 @@ class ProgressUI {
                     </div>
 
                     <!-- Drill Progress Tab -->
-                    <div id="drills-content" class="tab-content">
+                    <div id="drills-content" class="tab-content active">
                         <div class="drill-layout">
                             <div class="drill-sidebar" id="drill-sidebar">
                                 <div class="sidebar-header">
@@ -313,6 +315,7 @@ class ProgressUI {
         this.isVisible = true;
         this.updateContent();
         this.populateSelectors();
+        this.switchTab(this.currentView);
     }
 
     hide() {
@@ -617,7 +620,7 @@ class ProgressUI {
                     `<td class="date-column">${date.toLocaleString()}</td>` +
                     `<td class="drill-column">${this.progressChart.getLevelNameFromKey(session.levelKey)}</td>` +
                     `<td class="time-column">${this.progressShare.formatTime(session.time)}</td>` +
-                    `<td class="performance-column">${isBest ? '⭐ Personal Best!' : `${session.averageTimePerQuestion.toFixed(1)}s/question`}</td>` +
+                    `<td class="performance-column">${isBest ? '⭐ Personal Best!' : `${(session.averageTimePerQuestion / 1000).toFixed(1)}s/question`}</td>` +
                     `</tr>`;
             }).join('');
 
@@ -629,25 +632,11 @@ class ProgressUI {
         if (confirm('Are you sure you want to clear all progress data? This action cannot be undone.')) {
             if (confirm('This will permanently delete all your progress. Are you absolutely sure?')) {
                 this.progressTracker.resetData();
-                this.clearBestTimes();
                 alert('All progress data has been cleared.');
                 this.updateContent();
                 this.populateSelectors();
             }
         }
-    }
-
-    clearBestTimes() {
-        const prefix = window.CONFIG?.STORAGE_PREFIX || '';
-        const keys = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && prefix && key.startsWith(prefix)) {
-                keys.push(key);
-            }
-        }
-        keys.forEach(key => localStorage.removeItem(key));
-        console.log(`Cleared ${keys.length} best time records`);
     }
 
     // --- Mistakes methods (only called when enableMistakes is true) ---
@@ -666,13 +655,22 @@ class ProgressUI {
                 mistakesTable.style.display = 'block';
                 noMistakesMessage.classList.add('hidden');
 
+                const toText = (value) => {
+                    if (Array.isArray(value)) return value.join(', ');
+                    if (value == null) return '';
+                    return String(value);
+                };
+
                 const tableRows = mistakes.map(mistake => {
                     const date = new Date(mistake.timestamp);
+                    const question = toText(mistake.question);
+                    const correctAnswer = toText(mistake.correctAnswer);
+                    const studentAnswer = toText(mistake.studentAnswer);
                     return `<tr data-mistake-id="${mistake.id}">` +
                         `<td class="level-column">${mistake.levelName}</td>` +
-                        `<td class="question-column"><div class="math-display" data-latex="${mistake.question.replace(/"/g, '&quot;')}">${mistake.question}</div></td>` +
-                        `<td class="correct-answer-column"><div class="math-display" data-latex="${mistake.correctAnswer.replace(/"/g, '&quot;')}">${mistake.correctAnswer}</div></td>` +
-                        `<td class="student-answer-column"><div class="math-display" data-latex="${mistake.studentAnswer.replace(/"/g, '&quot;')}">${mistake.studentAnswer}</div></td>` +
+                        `<td class="question-column"><div class="math-display" data-latex="${question.replace(/"/g, '&quot;')}">${question}</div></td>` +
+                        `<td class="correct-answer-column"><div class="math-display" data-latex="${correctAnswer.replace(/"/g, '&quot;')}">${correctAnswer}</div></td>` +
+                        `<td class="student-answer-column"><div class="math-display" data-latex="${studentAnswer.replace(/"/g, '&quot;')}">${studentAnswer}</div></td>` +
                         `<td class="date-column">${date.toLocaleDateString()}</td>` +
                         `<td class="actions-column">
                             <button class="btn btn-small btn-danger delete-mistake-btn" data-mistake-id="${mistake.id}" title="Remove this mistake">
@@ -696,15 +694,11 @@ class ProgressUI {
     }
 
     renderMistakesMath() {
-        if (!this.MQ) return;
-
         document.querySelectorAll('#mistakes-tbody .math-display').forEach(element => {
             try {
                 let latex = element.getAttribute('data-latex');
                 if (!latex) latex = element.textContent.trim();
-                element.textContent = '';
-                const staticMath = this.MQ.StaticMath(element);
-                staticMath.latex(latex);
+                this._renderStaticLatex(element, latex);
             } catch (error) {
                 console.warn('Error rendering math:', error);
             }

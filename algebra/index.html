@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
     <title>Maths Mastery: Algebra</title>
 
     <script src="../shared/darkMode.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../shared/darkMode.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- MathQuill CSS and JS (Desmos fork - local) -->
-    <link rel="stylesheet" href="../shared/lib/mathquill/mathquill.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../shared/lib/mathquill/mathquill.min.js"></script>
+    <!-- MathLive (vendored, v0.109.2) -->
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-static.css">
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-fonts.css">
+    <script defer src="../shared/lib/mathlive/mathlive.min.js"></script>
+    <script defer src="../shared/mathRenderer.js"></script>
 
     <!-- Math.js for algebraic evaluation -->
     <script src="../shared/lib/math.js"></script>
-    
+
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
@@ -27,54 +29,32 @@
     <link rel="stylesheet" href="../shared/progressStyles.css">
     <link rel="stylesheet" href="algebra-style.css">
 
-    <!-- Mobile keyboard styles -->
-    <link rel="stylesheet" href="mobile-keyboard/mobileKeyboard.css">
-
     <!-- Navigation buttons styles -->
     <link rel="stylesheet" href="../shared/navigationButtons.css">
+    <link rel="stylesheet" href="../shared/leaderboard.css">
+    <link rel="stylesheet" href="../shared/levelSelect.css">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="chalkboard flex items-center justify-center min-h-screen p-4">
 
     <canvas id="confetti-canvas"></canvas>
 
     <div class="container mx-auto text-center">
 
-        <div id="settings-screen" class="card mx-auto">
-            <h1 class="text-3xl md:text-3xl font-bold text-gray-800 mb-2">Algebra Skills</h1>
-            <p class="text-gray-600 mb-4">Answer 10 in a row quickly to achieve mastery</p>
-
-            <!-- Topic Mastery Progress Bars -->
-            <div id="mastery-progress-section" class="mb-8">
-                <div id="mastery-progress-bars" class="grid grid-cols-2 gap-4"></div>
-            </div>
-            
-            <!-- Level Selection -->
-            <div id="skill-path-container" class="mb-6">
-                <div id="level-selection-container"></div>
-            </div>
-            <table class="text-gray-600 mb-4 mx-auto text-left w-full max-w-lg">
-                <tr>
-                    <td class="pr-4 py-1 w-1/8"><span class="mathquill-static" id="power-example">a^n</span></td>
-                    <td class="pr-8 py-1 w-3/8"><span class="dcg">^</span> (<span class="dcg">shift</span><span class="dcg">6</span>)</td>
-                    <td class="pr-4 py-1 w-1/8"><span class="mathquill-static" id="fraction-example">\frac{a}{b}</span></td>
-                    <td class="py-1 w-3/8"><span class="dcg">a</span><span class="dcg">/</span><span class="dcg">b</span></td>
-                </tr>
-                <tr>
-                    <td class="pr-4 py-1 w-1/8"><span class="mathquill-static" id="sqrt-example">\sqrt{a}</span></td>
-                    <td class="pr-8 py-1 w-3/8"><span class="dcg">s</span><span class="dcg">q</span><span class="dcg">r</span><span class="dcg">t</span></td>
-                    <td class="pr-4 py-1 w-1/8"><span class="mathquill-static" id="nthroot-example">\sqrt[n]{a}</span></td>
-                    <td class="py-1 w-3/8"><span class="dcg">n</span><span class="dcg">t</span><span class="dcg">h</span><span class="dcg">r</span><span class="dcg">o</span><span class="dcg">o</span><span class="dcg">t</span></td>
-                </tr>
-            </table>
-            <p class="text-xs text-gray-300 mt-6 text-center">Found a bug? Email jding@plc.nsw.edu.au</p>
-        </div>
+        <div id="settings-screen"></div>
 
         <div id="game-screen" class="card mx-auto hidden">
-            <div class="flex justify-between items-center mb-6 text-lg">
-                <div class="font-semibold text-gray-700">Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥</div>
-                <div class="font-semibold text-gray-700">Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span></div>
+            <div class="game-header">
+                <div class="game-header-title">
+                    <div id="level-name" class="game-level-name"></div>
+                    <div id="level-meta" class="game-level-meta"></div>
+                </div>
+                <div class="game-time">Time <span id="timer">0s</span></div>
             </div>
-            <div id="level-name" class="text-center text-gray-700 text-xl mb-2"></div>
+            <div class="streak-row">
+                <div id="streak-counter" class="streak-bar"></div>
+                <span id="streak-count" class="streak-count">0 / 10</span>
+                <span id="second-chance-counter" class="retry-indicator"></span>
+            </div>
             <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
                 Timer will reset
             </span>
@@ -82,179 +62,78 @@
                 <div id="question-text" class="question-text algebra-question"></div>
             </div>
             <div id="feedback-message" class="feedback mb-6"></div>
-            
-            <!-- Testing div - remove for production 
-            <div id="test-answer-display" class="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-2 rounded mb-4">
-                <strong>Test - Correct Answer:</strong> <span id="test-answer-content"></span>
-            </div> -->
-            
+
             <button id="quit-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span> Back to Levels</button>
         </div>
 
-        <div id="success-screen" class="card mx-auto hidden text-center">
-            <h2 class="text-2xl font-bold text-green-500 mb-1">🎉 Challenge Complete!</h2>
-            <p class="text-gray-500 text-base mb-6">
-                <span id="completed-level" class="font-semibold text-gray-700"></span>
-            </p>
+        <div id="success-screen" class="card mx-auto hidden">
 
-            <!-- Rating hero -->
-            <div class="mb-6">
-                <div id="rating-emoji" class="text-5xl mb-2"></div>
-                <p id="final-rating" class="text-3xl font-bold text-yellow-500 mb-3"></p>
-                <p class="text-gray-700 text-lg">
-                    Your time: <span id="final-time" class="font-bold text-blue-600"></span>
-                </p>
-                <p id="best-time-message" class="text-gray-500 text-sm mt-1"></p>
-                <p id="rating-explanation" class="text-xs text-gray-400 mt-2"></p>
+            <!-- Header: icon circle + title/rating/level -->
+            <div class="success-header">
+                <div id="rating-icon-circle" class="success-icon-circle">
+                    <span id="rating-emoji" class="success-icon-emoji"></span>
+                </div>
+                <div class="success-header-text">
+                    <div class="success-challenge-label">🎉 Challenge Complete!</div>
+                    <div id="final-rating" class="success-rating-name"></div>
+                    <div id="completed-level" class="success-level-name"></div>
+                </div>
             </div>
 
-            <button id="replay-level-btn" class="btn btn-primary w-full max-w-xs mx-auto text-base mb-4 flex items-center justify-center gap-2">
-                <span class="dcg">Enter</span><span>Replay Level</span>
-            </button>
-            <div class="flex gap-4 justify-center">
-                <button id="play-again-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-medium text-sm flex items-center gap-1">
-                    <span class="dcg">Esc</span><span>Back to Levels</span>
+            <!-- Time panel -->
+            <div class="success-time-card">
+                <div class="success-time-left">
+                    <div class="success-time-label">YOUR TIME</div>
+                    <div class="success-time-row">
+                        <span id="final-time" class="success-time-value"></span>
+                        <span id="new-best-badge" class="success-new-best hidden">⭐ New best</span>
+                    </div>
+                </div>
+                <div id="previous-best-section" class="success-time-right hidden">
+                    <div class="success-prev-label">Previous best</div>
+                    <div id="previous-best-time" class="success-prev-time"></div>
+                </div>
+            </div>
+
+            <!-- Rating progress timeline (rendered by JS) -->
+            <div id="rating-timeline" class="success-timeline"></div>
+
+            <!-- Next rating hint -->
+            <div id="rating-hint" class="success-rating-hint hidden">
+                <span class="success-hint-icon">🏆</span>
+                <span id="rating-hint-text"></span>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="success-actions">
+                <button id="replay-level-btn" class="btn btn-primary flex items-center justify-center gap-2 flex-1">
+                    <span class="dcg">Enter</span><span>Replay Level</span>
+                </button>
+                <button id="next-level-btn" class="btn btn-secondary flex items-center justify-center gap-2">
+                    <span class="dcg">Tab</span><span>Next Level</span>
+                </button>
+                <button id="play-again-btn" tabindex="-1" class="success-back-btn">
+                    <span class="dcg">Esc</span>
+                    <span>Back to Levels</span>
                 </button>
             </div>
         </div>
 
     </div>
 
-    <!-- Load modular scripts -->
-    <script src="algebra-modules/algebraEngine.js"></script>
-    <script src="mobile-keyboard/mobileKeyboard.js"></script>
-    
-    <!-- Load individual level modules -->
-    <script src="levels/BaseLevel.js"></script>
-    <script src="levels/orderOfOperationsEasy.js"></script>
-    <script src="levels/orderOfOperationsMedium.js"></script>
-    <script src="levels/orderOfOperationsHard.js"></script>
-    <script src="levels/addSubtractTermsEasy.js"></script>
-    <script src="levels/addSubtractTermsMedium.js"></script>
-    <script src="levels/addSubtractTermsHard.js"></script>
-    <script src="levels/multiplyTermsEasy.js"></script>
-    <script src="levels/multiplyTermsMedium.js"></script>
-    <script src="levels/multiplyTermsHard.js"></script>
-    <script src="levels/divideTermsEasy.js"></script>
-    <script src="levels/divideTermsMedium.js"></script>
-    <script src="levels/divideTermsHard.js"></script>
-    <script src="levels/multiplicationIndexLawEasy.js"></script>
-    <script src="levels/multiplicationIndexLawMedium.js"></script>
-    <script src="levels/multiplicationIndexLawHard.js"></script>
-    <script src="levels/divisionIndexLawEasy.js"></script>
-    <script src="levels/divisionIndexLawMedium.js"></script>
-    <script src="levels/divisionIndexLawHard.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerEasy.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerMedium.js"></script>
-    <script src="levels/powerOfPowerAndZeroPowerHard.js"></script>
-    <script src="levels/mixedIndexLawsEasy.js"></script>
-    <script src="levels/mixedIndexLawsMedium.js"></script>
-    <script src="levels/mixedIndexLawsHard.js"></script>
-    <script src="levels/expandSingleBracketsEasy.js"></script>
-    <script src="levels/expandSingleBracketsMedium.js"></script>
-    <script src="levels/expandSingleBracketsHard.js"></script>
-    <script src="levels/expandBinomialProductsEasy.js"></script>
-    <script src="levels/expandBinomialProductsMedium.js"></script>
-    <script src="levels/expandBinomialProductsHard.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsEasy.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsMedium.js"></script>
-    <script src="levels/powerOfProductsAndQuotientsHard.js"></script>
-    <script src="levels/mixedSimplificationEasy.js"></script>
-    <script src="levels/mixedSimplificationMedium.js"></script>
-    <script src="levels/mixedSimplificationHard.js"></script>
-    <script src="levels/expandAndSimplifyEasy.js"></script>
-    <script src="levels/expandAndSimplifyMedium.js"></script>
-    <script src="levels/expandAndSimplifyHard.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsEasy.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsMedium.js"></script>
-    <script src="levels/addSubtractAlgebraicFractionsHard.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsEasy.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsMedium.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsHard.js"></script>
-    <script src="levels/negativeIndicesEasy.js"></script>
-    <script src="levels/negativeIndicesMedium.js"></script>
-    <script src="levels/negativeIndicesHard.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsEasy.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsMedium.js"></script>
-    <script src="levels/factoriseIntoSingleBracketsHard.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsEasy.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsMedium.js"></script>
-    <script src="levels/factoriseMonicQuadraticTrinomialsHard.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorEasy.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorMedium.js"></script>
-    <script src="levels/addSubtractFractionsWithBinomialNumeratorHard.js"></script>
-    <script src="levels/expandPerfectSquaresEasy.js"></script>
-    <script src="levels/expandPerfectSquaresMedium.js"></script>
-    <script src="levels/expandPerfectSquaresHard.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresEasy.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresMedium.js"></script>
-    <script src="levels/expandDifferenceOfTwoSquaresHard.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresEasy.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresMedium.js"></script>
-    <script src="levels/factoriseDifferenceOfTwoSquaresHard.js"></script>
-    <script src="levels/factorisePerfectSquaresEasy.js"></script>
-    <script src="levels/factorisePerfectSquaresMedium.js"></script>
-    <script src="levels/factorisePerfectSquaresHard.js"></script>
-    <script src="levels/mixedExpansionEasy.js"></script>
-    <script src="levels/mixedExpansionMedium.js"></script>
-    <script src="levels/mixedExpansionHard.js"></script>
-    <script src="levels/noticeBinomialFactorsEasy.js"></script>
-    <script src="levels/noticeBinomialFactorsMedium.js"></script>
-    <script src="levels/noticeBinomialFactorsHard.js"></script>
-    <script src="levels/groupInPairsEasy.js"></script>
-    <script src="levels/groupInPairsMedium.js"></script>
-    <script src="levels/groupInPairsHard.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsEasy.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsMedium.js"></script>
-    <script src="levels/factoriseNonMonicQuadraticTrinomialsHard.js"></script>
-    <script src="levels/mixedFactorisationEasy.js"></script>
-    <script src="levels/mixedFactorisationMedium.js"></script>
-    <script src="levels/mixedFactorisationHard.js"></script>
-    <script src="levels/finishFactorisingEasy.js"></script>
-    <script src="levels/finishFactorisingMedium.js"></script>
-    <script src="levels/finishFactorisingHard.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingEasy.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingMedium.js"></script>
-    <script src="levels/simplifyAlgebraicFractionsByFactorisingHard.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingEasy.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingMedium.js"></script>
-    <script src="levels/multiplyDivideAlgebraicFractionsByFactorisingHard.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorEasy.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorMedium.js"></script>
-    <script src="levels/addSubtractFractionsByFactorisingDenominatorHard.js"></script>
-    <script src="levels/compoundFractionsEasy.js"></script>
-    <script src="levels/compoundFractionsMedium.js"></script>
-    <script src="levels/compoundFractionsHard.js"></script>
-    <script src="levels/simplifySurdsEasy.js"></script>
-    <script src="levels/simplifySurdsMedium.js"></script>
-    <script src="levels/simplifySurdsHard.js"></script>
-    <script src="levels/addSubtractSurdsEasy.js"></script>
-    <script src="levels/addSubtractSurdsMedium.js"></script>
-    <script src="levels/addSubtractSurdsHard.js"></script>
-    <script src="levels/multiplyDivideSurdsEasy.js"></script>
-    <script src="levels/multiplyDivideSurdsMedium.js"></script>
-    <script src="levels/multiplyDivideSurdsHard.js"></script>
-    <script src="levels/expandBracketsWithSurdsEasy.js"></script>
-    <script src="levels/expandBracketsWithSurdsMedium.js"></script>
-    <script src="levels/expandBracketsWithSurdsHard.js"></script>
-    <script src="levels/rationaliseTheDenominatorEasy.js"></script>
-    <script src="levels/rationaliseTheDenominatorMedium.js"></script>
-    <script src="levels/rationaliseTheDenominatorHard.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorEasy.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorMedium.js"></script>
-    <script src="levels/rationaliseBinomialDenominatorHard.js"></script>
-    <script src="levels/evaluateFractionalIndicesEasy.js"></script>
-    <script src="levels/evaluateFractionalIndicesMedium.js"></script>
-    <script src="levels/evaluateFractionalIndicesHard.js"></script>
-    <script src="levels/surdFormToIndexFormEasy.js"></script>
-    <script src="levels/surdFormToIndexFormMedium.js"></script>
-    <script src="levels/surdFormToIndexFormHard.js"></script>
-    <script src="levels/indexFormToSurdFormEasy.js"></script>
-    <script src="levels/indexFormToSurdFormMedium.js"></script>
-    <script src="levels/indexFormToSurdFormHard.js"></script>
-    
-    <script type="module" src="algebra-modules/app.js"></script>
-    
+    <!-- Single source of truth for level metadata (consumed by config.js) -->
+    <script src="../shared/levelRegistry.js"></script>
+
+    <!-- Classic-script helpers -->
+    <script src="algebraEngine.js"></script>
+
+    <!-- App entry: imports config.js + levels barrel + game modules -->
+    <script type="module" src="main.js"></script>
+
+
+    <!-- Supabase auth + leaderboard -->
+    <script src="../shared/supabaseClient.js"></script>
+    <script src="../shared/leaderboard.js"></script>
     <!-- Navigation buttons module -->
 	<script src="../shared/navigationButtons.js"></script>
     <!-- Progress tracking modules (shared class + per-app wrapper) -->
@@ -263,5 +142,6 @@
     <script src="../shared/progressChart.js"></script>
     <script src="../shared/progressShare.js"></script>
     <script src="../shared/progressUI.js"></script>
+    <script src="../shared/progressSync.js"></script>
 </body>
 </html>

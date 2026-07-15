@@ -1,6 +1,5 @@
-// progressTracker.js - Trig Facts wrapper
-// Instantiates shared ProgressTracker with TrigFacts-specific config
-window.progressTracker = new ProgressTracker('tf_progress_data_v1', {
+// TrigFacts progress-tracker wrapper — see shared/progressTracker.js for the factory.
+window.initProgressTracker('trigfacts', {
     enableMistakes: false,
-    oldVersionKeys: []
+    oldVersionKeys: ['tf_progress_data_v1']
 });

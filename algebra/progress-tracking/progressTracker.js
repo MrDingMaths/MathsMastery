@@ -1,8 +1,8 @@
-// progressTracker.js - Algebra wrapper
-// Instantiates shared ProgressTracker with Algebra-specific config
-window.progressTracker = new ProgressTracker('algebra_progress_data_v4', {
+// Algebra progress-tracker wrapper — see shared/progressTracker.js for the factory.
+window.initProgressTracker('algebra', {
     enableMistakes: true,
     oldVersionKeys: [
+        'algebra_progress_data_v4',
         'algebra_progress_data_v3',
         'algebra_progress_data_v2',
         'algebra_progress_data_v1',

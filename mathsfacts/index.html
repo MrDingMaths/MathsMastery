@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
     <title>Maths Mastery: Number</title>
     
     <script src="../shared/darkMode.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../shared/darkMode.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
     <!-- Add Chart.js library -->
@@ -21,36 +22,30 @@
     <link rel="stylesheet" href="style.css">
     <!-- Navigation buttons styles -->
     <link rel="stylesheet" href="../shared/navigationButtons.css">
+    <link rel="stylesheet" href="../shared/leaderboard.css">
+    <link rel="stylesheet" href="../shared/levelSelect.css">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="chalkboard flex items-center justify-center min-h-screen p-4">
 
     <canvas id="confetti-canvas"></canvas>
 
     <div class="container mx-auto text-center">
 
-        <div id="settings-screen" class="card mx-auto">
-            <h1 class="text-3xl md:text-3xl font-bold text-gray-800 mb-2">Number Skills</h1>
-            <p class="text-gray-600 mb-4">Answer 10 in a row quickly to achieve mastery</p>
-            
-            <!-- Topic Mastery Progress Bars -->
-            <div id="mastery-progress-section" class="mb-8">
-                <div id="mastery-progress-bars" class="space-y-3"></div>
-            </div>
-            
-            <!-- Level Selection -->
-            <div id="skill-path-container" class="mb-6">
-                <div id="level-selection-container"></div>
-            </div>
-            
-            <p class="text-xs text-gray-300 mt-6 text-center">Found a bug? Email jding@plc.nsw.edu.au</a></p>
-        </div>
+        <div id="settings-screen"></div>
 
         <div id="game-screen" class="card mx-auto hidden">
-            <div class="flex justify-between items-center mb-6 text-lg">
-                <div class="font-semibold text-gray-700">Streak: <span id="streak-counter" class="font-bold text-blue-600 text-xl">0</span>🔥</div>
-                <div class="font-semibold text-gray-700">Time: <span id="timer" class="font-bold text-blue-600 text-xl">00:00</span></div>
+            <div class="game-header">
+                <div class="game-header-title">
+                    <div id="level-name" class="game-level-name"></div>
+                    <div id="level-meta" class="game-level-meta"></div>
+                </div>
+                <div class="game-time">Time <span id="timer">0s</span></div>
             </div>
-            <div id="level-name" class="text-gray-700 text-xl mb-2"></div>
+            <div class="streak-row">
+                <div id="streak-counter" class="streak-bar"></div>
+                <span id="streak-count" class="streak-count">0 / 10</span>
+                <span id="second-chance-counter" class="retry-indicator"></span>
+            </div>
             <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
                 Timer will reset
             </span>
@@ -61,36 +56,67 @@
             <button id="quit-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span> Back to Levels</button>
         </div>
 
-        <div id="success-screen" class="card mx-auto hidden text-center">
-            <h2 class="text-2xl font-bold text-green-500 mb-1">🎉 Challenge Complete!</h2>
-            <p class="text-gray-500 text-base mb-6">
-                <span id="completed-level" class="font-semibold text-gray-700"></span>
-            </p>
+        <div id="success-screen" class="card mx-auto hidden">
 
-            <!-- Rating hero -->
-            <div class="mb-6">
-                <div id="rating-emoji" class="text-5xl mb-2"></div>
-                <p id="final-rating" class="text-3xl font-bold text-yellow-500 mb-3"></p>
-                <p class="text-gray-700 text-lg">
-                    Your time: <span id="final-time" class="font-bold text-blue-600"></span>
-                </p>
-                <p id="best-time-message" class="text-gray-500 text-sm mt-1"></p>
-                <p id="rating-explanation" class="text-xs text-gray-400 mt-2"></p>
+            <!-- Header: icon circle + title/rating/level -->
+            <div class="success-header">
+                <div id="rating-icon-circle" class="success-icon-circle">
+                    <span id="rating-emoji" class="success-icon-emoji"></span>
+                </div>
+                <div class="success-header-text">
+                    <div class="success-challenge-label">🎉 Challenge Complete!</div>
+                    <div id="final-rating" class="success-rating-name"></div>
+                    <div id="completed-level" class="success-level-name"></div>
+                </div>
             </div>
 
-            <button id="replay-level-btn" class="btn btn-primary w-full max-w-xs mx-auto text-base mb-4 flex items-center justify-center gap-2">
-                <span class="dcg">Enter</span><span>Replay Level</span>
-            </button>
-            <div class="flex gap-4 justify-center">
-                <button id="play-again-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-medium text-sm flex items-center gap-1">
-                    <span class="dcg">Esc</span><span>Back to Levels</span>
+            <!-- Time panel -->
+            <div class="success-time-card">
+                <div class="success-time-left">
+                    <div class="success-time-label">YOUR TIME</div>
+                    <div class="success-time-row">
+                        <span id="final-time" class="success-time-value"></span>
+                        <span id="new-best-badge" class="success-new-best hidden">⭐ New best</span>
+                    </div>
+                </div>
+                <div id="previous-best-section" class="success-time-right hidden">
+                    <div class="success-prev-label">Previous best</div>
+                    <div id="previous-best-time" class="success-prev-time"></div>
+                </div>
+            </div>
+
+            <!-- Rating progress timeline (rendered by JS) -->
+            <div id="rating-timeline" class="success-timeline"></div>
+
+            <!-- Next rating hint -->
+            <div id="rating-hint" class="success-rating-hint hidden">
+                <span class="success-hint-icon">🏆</span>
+                <span id="rating-hint-text"></span>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="success-actions">
+                <button id="replay-level-btn" class="btn btn-primary flex items-center justify-center gap-2 flex-1">
+                    <span class="dcg">Enter</span><span>Replay Level</span>
+                </button>
+                <button id="next-level-btn" class="btn btn-secondary flex items-center justify-center gap-2">
+                    <span class="dcg">Tab</span><span>Next Level</span>
+                </button>
+                <button id="play-again-btn" tabindex="-1" class="success-back-btn">
+                    <span class="dcg">Esc</span>
+                    <span>Back to Levels</span>
                 </button>
             </div>
         </div>
 
     </div>
 
+    <!-- Single source of truth for level metadata (must precede config.js) -->
+    <script src="../shared/levelRegistry.js"></script>
     <script type="module" src="main.js"></script>
+	<!-- Supabase auth + leaderboard -->
+	<script src="../shared/supabaseClient.js"></script>
+	<script src="../shared/leaderboard.js"></script>
 	<!-- Navigation buttons module -->
 	<script src="../shared/navigationButtons.js"></script>
 	<!-- Progress tracking modules (shared class + per-app wrapper) -->
@@ -99,7 +125,6 @@
 	<script src="../shared/progressChart.js"></script>
 	<script src="../shared/progressShare.js"></script>
 	<script src="../shared/progressUI.js"></script>
-	<!-- Mastery tracking module -->
-	<script type="module" src="masteryTracker.js"></script>
+	<script src="../shared/progressSync.js"></script>
 </body>
 </html>

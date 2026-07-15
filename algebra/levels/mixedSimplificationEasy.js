@@ -1,6 +1,6 @@
 // levels/mixedSimplificationEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedSimplificationEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedSimplificationEasy',
     'Mixed Algebraic Simplification (Easy)',
     [

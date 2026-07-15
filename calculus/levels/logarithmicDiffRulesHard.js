@@ -1,0 +1,26 @@
+import { BaseLevel } from './BaseLevel.js';
+
+export default new BaseLevel('logarithmicDiffRulesHard', 'Logarithmic with Rules — Hard', [
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(1+x)}{x}\\right)', answer: '\\frac{x-(1+x)\\ln(1+x)}{x^2(1+x)}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(1+x)}{1-x}\\right)', answer: '\\frac{\\frac{1-x}{1+x}+\\ln(1+x)}{(1-x)^2}' },
+  { problem: '\\frac{d}{dx}((3x-1)\\ln(2x+4))', answer: '3\\ln(2x+4)+\\frac{3x-1}{x+2}' },
+  { problem: '\\frac{d}{dx}(x^3\\ln(x+1))', answer: '3x^2\\ln(x+1)+\\frac{x^3}{x+1}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln x}{x-2}\\right)', answer: '\\frac{x-2-x\\ln x}{x(x-2)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(x^2+1)}{x}\\right)', answer: '\\frac{2x^2-(x^2+1)\\ln(x^2+1)}{x^2(x^2+1)}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x^2}{\\ln(x+1)}\\right)', answer: '\\frac{x(2(x+1)\\ln(x+1)-x)}{(x+1)(\\ln(x+1))^2}' },
+  { problem: '\\frac{d}{dx}((x^2-1)\\ln(x+1))', answer: '2x\\ln(x+1)+(x-1)' },
+  { problem: '\\frac{d}{dx}(x^3\\ln(x^2+1))', answer: '3x^2\\ln(x^2+1)+\\frac{2x^4}{x^2+1}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(x^2)}{x^3}\\right)', answer: '\\frac{2-3\\ln(x^2)}{x^4}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln(x+1)}{x^2}\\right)', answer: '\\frac{x-2(x+1)\\ln(x+1)}{x^3(x+1)}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{(x+1)^2}{\\ln x}\\right)', answer: '\\frac{(x+1)(2x\\ln x-x-1)}{x(\\ln x)^2}' },
+  { problem: '\\frac{d}{dx}(x^4\\ln(x+1))', answer: '4x^3\\ln(x+1)+\\frac{x^4}{x+1}' },
+  { problem: '\\frac{d}{dx}((x^2+x+1)\\ln x)', answer: '(2x+1)\\ln x+\\frac{x^2+x+1}{x}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x^3}{\\ln(x^2)}\\right)', answer: '\\frac{x^2(3\\ln(x^2)-2)}{(\\ln(x^2))^2}' },
+  { problem: '\\frac{d}{dx}((x-1)^2\\ln(x+1))', answer: '2(x-1)\\ln(x+1)+\\frac{(x-1)^2}{x+1}' },
+  { problem: '\\frac{d}{dx}(\\ln x\\cdot\\ln(x+1))', answer: '\\frac{\\ln(x+1)}{x}+\\frac{\\ln x}{x+1}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{x^2\\ln x}{x+1}\\right)', answer: '\\frac{x((x+2)\\ln x+(x+1))}{(x+1)^2}' },
+  { problem: '\\frac{d}{dx}\\left(\\frac{\\ln x}{(x+1)^2}\\right)', answer: '\\frac{x+1-2x\\ln x}{x(x+1)^3}' },
+  { problem: '\\frac{d}{dx}((x^2+1)\\ln(x^2+1))', answer: '2x(\\ln(x^2+1)+1)' },
+  { problem: '\\frac{d}{dx}(x^3\\ln(x^2-1))', answer: '3x^2\\ln(x^2-1)+\\frac{2x^4}{x^2-1}' },
+  { problem: '\\frac{d}{dx}((x^2+x)\\ln(x^2+1))', answer: '(2x+1)\\ln(x^2+1)+\\frac{2x^2(x+1)}{x^2+1}' },
+], { mode: 'derivative', toleranceDp: 2 });
