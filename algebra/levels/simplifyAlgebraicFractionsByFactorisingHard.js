@@ -32,7 +32,7 @@ export default new BaseLevel(
             {problem: "\\frac{x^3-3x^2-x+3}{x^2-1}", answer: "x-3"},
             {problem: "\\frac{2x^3+4x^2-2x-4}{x^2-1}", answer: "2(x+2)"},
             {problem: "\\frac{3x^3-9x^2-3x+9}{x^2-1}", answer: "3(x-3)"},
-            {problem: "\\frac{x^3-5x^2+8x-4}{x^2-4x+4}", answer: "x-1"},
+            {problem: "\\frac{x^3-2x^2-4x+8}{x^2-4x+4}", answer: "x+2"},
             {problem: "\\frac{x^3+3x^2-4x-12}{x^2+6x+9}", answer: "\\frac{x^2-4}{x+3}"},
             {problem: "\\frac{6x^2-x-35}{3x+7}", answer: "2x-5"},
             {problem: "\\frac{8x^2+10x-3}{2x+3}", answer: "4x-1"},
