@@ -1,6 +1,6 @@
 // levels/simplifyAlgebraicFractionsByFactorisingMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'simplifyAlgebraicFractionsByFactorisingMedium',
     'Simplifying Algebraic Fractions by Factorising (Medium)',
     [
@@ -20,9 +20,7 @@ window.AlgebraLevels.simplifyAlgebraicFractionsByFactorisingMedium = new BaseLev
             {problem: "\\frac{2(x-20)}{x^2-400}", answer: "\\frac{2}{x+20}"},
             {problem: "\\frac{5(x-6)}{x^2-36}", answer: "\\frac{5}{x+6}"},
             {problem: "\\frac{3x+27}{x^2-81}", answer: "\\frac{3}{x-9}"},
-            {problem: "\\frac{3ax+5a}{a+2ab}", answer: "\\frac{3x+5}{1+2b}"},
             {problem: "\\frac{x^2-9}{3-x}", answer: "-(x+3)"},
-            {problem: "\\frac{5y-3xy}{18xy-30y}", answer: "-\\frac{1}{6}"},
             {problem: "\\frac{x^2-100}{10-x}", answer: "-(x+10)"},
             {problem: "\\frac{x^2-49}{35-5x}", answer: "-\\frac{x+7}{5}"},
             {problem: "\\frac{x^2+5x+6}{x+2}", answer: "x+3"},

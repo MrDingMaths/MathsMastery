@@ -1,6 +1,6 @@
 // levels/factoriseDifferenceOfTwoSquaresEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseDifferenceOfTwoSquaresEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseDifferenceOfTwoSquaresEasy',
     'Difference of Two Squares Factorisation (Easy)',
     [

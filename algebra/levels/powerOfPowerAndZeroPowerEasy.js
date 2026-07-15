@@ -1,6 +1,6 @@
 // levels/powerOfPowerAndZeroPowerEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfPowerAndZeroPowerEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfPowerAndZeroPowerEasy',
     'Power of a Power & Zero Laws (Easy)',
     [
@@ -47,13 +47,13 @@ window.AlgebraLevels.powerOfPowerAndZeroPowerEasy = new BaseLevel(
             {problem: "(2^5)^3", answer: "2^{15}"},
             
             // Cognitive Level 2: Fractional Zero Powers
-            {problem: "(\\frac{3}{4})^0", answer: "1"},
+            {problem: "\\left(\\frac{3}{4}\\right)^0", answer: "1"},
             {problem: "(-\\frac{1}{7})^0", answer: "1"},
-            {problem: "(\\frac{2}{5})^0", answer: "1"},
+            {problem: "\\left(\\frac{2}{5}\\right)^0", answer: "1"},
             {problem: "(-\\frac{4}{9})^0", answer: "1"},
-            {problem: "(\\frac{7}{3})^0", answer: "1"},
+            {problem: "\\left(\\frac{7}{3}\\right)^0", answer: "1"},
             {problem: "(-\\frac{5}{8})^0", answer: "1"},
-            {problem: "(\\frac{1}{2})^0", answer: "1"},
+            {problem: "\\left(\\frac{1}{2}\\right)^0", answer: "1"},
             {problem: "(-\\frac{3}{5})^0", answer: "1"},
             
             // Cognitive Level 3: Expression Zero Powers

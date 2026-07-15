@@ -1,6 +1,6 @@
 // levels/indexFormToSurdFormMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.indexFormToSurdFormMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'indexFormToSurdFormMedium',
     'Index Form to Surd Form (Medium)',
     [

@@ -1,6 +1,6 @@
 // levels/factoriseMonicQuadraticTrinomialsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseMonicQuadraticTrinomialsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseMonicQuadraticTrinomialsHard',
     'Factorising Monic Quadratic Trinomials (Hard)',
     [
@@ -53,7 +53,6 @@ window.AlgebraLevels.factoriseMonicQuadraticTrinomialsHard = new BaseLevel(
             {problem: "4x^2 - 8x - 12", answer: "4(x-3)(x+1)"},
             {problem: "4x^2 - 16x + 12", answer: "4(x-1)(x-3)"},
             {problem: "4x^2 - 20x + 16", answer: "4(x-1)(x-4)"},
-            {problem: "4x^2 + 12x + 4", answer: "4(x^2+3x+1)"},
 
             // Additional generated questions - Factor of 5
             {problem: "5x^2 + 15x + 10", answer: "5(x+1)(x+2)"},

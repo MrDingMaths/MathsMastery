@@ -1,6 +1,6 @@
 // levels/multiplyDivideAlgebraicFractionsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplyDivideAlgebraicFractionsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplyDivideAlgebraicFractionsEasy',
     'Multiply Divide Algebraic Fractions (Easy)',
     [
@@ -61,6 +61,20 @@ window.AlgebraLevels.multiplyDivideAlgebraicFractionsEasy = new BaseLevel(
             {problem: "6 \\div \\frac{y}{2}", answer: "\\frac{12}{y}"},
             {problem: "8 \\div \\frac{3a}{4}", answer: "\\frac{32}{3a}"},
             {problem: "10 \\div \\frac{5b}{6}", answer: "\\frac{12}{b}"},
-            {problem: "12 \\div \\frac{4x}{5}", answer: "\\frac{15}{x}"}
+            {problem: "12 \\div \\frac{4x}{5}", answer: "\\frac{15}{x}"},
+
+            {problem: "\\frac{x}{y} \\times \\frac{3}{6}", answer: "\\frac{x}{2y}"},
+            {problem: "\\frac{6x}{5} \\times \\frac{7y}{6}", answer: "\\frac{7xy}{5}"},
+            {problem: "\\frac{2b}{5} \\times \\frac{7x}{6}", answer: "\\frac{7bx}{15}"},
+            {problem: "\\frac{8a}{5} \\times \\frac{3b}{4x}", answer: "\\frac{6ab}{5x}"},
+            {problem: "\\frac{9x}{2} \\times \\frac{4y}{7}", answer: "\\frac{18xy}{7}"},
+            {problem: "\\frac{4x}{5} \\div 3", answer: "\\frac{4x}{15}"},
+            {problem: "5 \\times \\frac{7}{10x}", answer: "\\frac{7}{2x}"},
+            {problem: "\\frac{9a}{10} \\div \\frac{1}{4}", answer: "\\frac{18a}{5}"},
+            {problem: "\\frac{2}{3} \\div \\frac{4x}{7}", answer: "\\frac{7}{6x}"},
+            {problem: "\\frac{4}{5} \\div \\frac{2y}{3}", answer: "\\frac{6}{5y}"},
+            {problem: "\\frac{4a}{7} \\div \\frac{2}{5}", answer: "\\frac{10a}{7}"},
+            {problem: "\\frac{4b}{7} \\div \\frac{2x}{5}", answer: "\\frac{10b}{7x}"},
+            {problem: "\\frac{2x}{5} \\div \\frac{4y}{3}", answer: "\\frac{3x}{10y}"}
         ]
 );

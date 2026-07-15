@@ -1,6 +1,6 @@
 // levels/addSubtractAlgebraicFractionsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractAlgebraicFractionsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractAlgebraicFractionsEasy',
     'Adding Subtracting Algebraic Fractions (Easy)',
     [

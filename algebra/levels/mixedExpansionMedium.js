@@ -1,6 +1,6 @@
 // levels/mixedExpansionMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'mixedExpansionMedium',
     'Mixed Expansion (Medium)',
     [
@@ -17,7 +17,6 @@ window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
             // Higher order expansions
             {problem: "(x + 3)(x^2 + 3)", answer: "x^3 + 3x^2 + 3x + 9"},
             {problem: "(2x - 3)(x^2 - 3)", answer: "2x^3 - 3x^2 - 6x + 9"},
-            {problem: "-(2x^2 - 3)^2", answer: "-4x^4 + 12x^2 - 9"},
             
             // Coefficient perfect squares
             {problem: "2(x + 3)^2", answer: "2x^2 + 12x + 18"},
@@ -41,7 +40,6 @@ window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
             {problem: "-2(x + 4)(3x - 7)", answer: "-6x^2 - 10x + 56"},
             
             // Multi-term expressions
-            {problem: "3a^2(4a^3 - b^4) + 2a^2(5a^3 + 3b^4)", answer: "22a^5 + 3a^2b^4"},
             {problem: "(x + 4)(x + 3) + x - 4", answer: "x^2 + 8x + 8"},
             {problem: "3x^2 + (2x - 1)(x - 2)", answer: "5x^2 - 5x + 2"},
             {problem: "(2a + 3)(a - 5) - (a + 6)", answer: "2a^2 - 8a - 21"},
@@ -59,7 +57,6 @@ window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
             
             // Two-variable expansions
             {problem: "(3ab - 4x)(3ab + 4x)", answer: "9a^2b^2 - 16x^2"},
-            {problem: "(2a^2 + 5b^3)^2", answer: "4a^4 + 20a^2b^3 + 25b^6"},
             
             // Additional medium complexity questions
             {problem: "3x(2x - 5) + 4x", answer: "6x^2 - 11x"},
@@ -88,6 +85,44 @@ window.AlgebraLevels.mixedExpansionMedium = new BaseLevel(
             // Three-term coefficient expansions
             {problem: "2xy(3x + 4y - 2)", answer: "6x^2y + 8xy^2 - 4xy"},
             {problem: "-3ab(2a - b + 3)", answer: "-6a^2b + 3ab^2 - 9ab"},
-            {problem: "4xy(x - 2y + 1)", answer: "4x^2y - 8xy^2 + 4xy"}
+            {problem: "4xy(x - 2y + 1)", answer: "4x^2y - 8xy^2 + 4xy"},
+
+            // Higher-power single bracket (degree 4)
+            {problem: "x^2(x^2 - 3x)", answer: "x^4 - 3x^3"},
+            {problem: "(x^2 + 2)(x^2 - 2)", answer: "x^4 - 4"},
+            {problem: "(x^2 + 5)^2", answer: "x^4 + 10x^2 + 25"},
+
+            // Two-variable binomial products
+            {problem: "(2x+y)(x-2y)", answer: "2x^2 - 3xy - 2y^2"},
+            {problem: "(2a+b)(a-b)", answer: "2a^2 - ab - b^2"},
+            {problem: "(3x-y)(2x+y)", answer: "6x^2 + xy - y^2"},
+            {problem: "(4x-3y)(3x-4y)", answer: "12x^2 - 25xy + 12y^2"},
+            {problem: "(3a+2b)(2a-3b)", answer: "6a^2 - 5ab - 6b^2"},
+            {problem: "(4x-5y)(2x+3y)", answer: "8x^2 + 2xy - 15y^2"},
+            {problem: "(5x+3y)(x-4y)", answer: "5x^2 - 17xy - 12y^2"},
+            {problem: "(2x-7y)(3x+2y)", answer: "6x^2 - 17xy - 14y^2"},
+            {problem: "(6x+y)(x-2y)", answer: "6x^2 - 11xy - 2y^2"},
+            {problem: "(3x-4y)(5x+y)", answer: "15x^2 - 17xy - 4y^2"},
+
+            // Combined degree-2 bracket expressions
+            {problem: "(2a+3)(a-5) - (a+6)(2a+5)", answer: "-24a - 45"},
+            {problem: "(4b+8)(b+5) - (3b-5)(b-7)", answer: "b^2 + 54b + 5"},
+
+            // Constant minus perfect square
+            {problem: "3 - (2x-9)^2", answer: "-4x^2 + 36x - 78"},
+            {problem: "14 - (5x+3)^2", answer: "-25x^2 - 30x + 5"},
+
+            // Triple products
+            {problem: "-3a(a+2)(a-7)", answer: "-3a^3 + 15a^2 + 42a"},
+            {problem: "-5a(a+2)(a-8)", answer: "-5a^3 + 30a^2 + 80a"},
+            {problem: "x(x+1)(x-2)", answer: "x^3 - x^2 - 2x"},
+            {problem: "2y(y-3)(y+4)", answer: "2y^3 + 2y^2 - 24y"},
+            {problem: "-x(x-5)(x+1)", answer: "-x^3 + 4x^2 + 5x"},
+            {problem: "3x(x+2)(x-6)", answer: "3x^3 - 12x^2 - 36x"},
+
+            // Multi-variable DOTS and FOIL
+            {problem: "(ab+x)(ab-x)", answer: "a^2b^2 - x^2"},
+            {problem: "(2xy+3)(xy-5)", answer: "2x^2y^2 - 7xy - 15"},
+            {problem: "(3xy-2a)(xy+4a)", answer: "3x^2y^2 + 10xya - 8a^2"}
         ]
 );

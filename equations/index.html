@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+    <title>Maths Mastery: Equations</title>
+
+    <script src="../shared/darkMode.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared/darkMode.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- MathLive (vendored, v0.109.2) -->
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-static.css">
+    <link rel="stylesheet" href="../shared/lib/mathlive/mathlive-fonts.css">
+    <script defer src="../shared/lib/mathlive/mathlive.min.js"></script>
+    <script defer src="../shared/mathRenderer.js"></script>
+
+    <!-- Math.js for algebraic evaluation -->
+    <script src="../shared/lib/math.js"></script>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="../shared/common.css">
+    <link rel="stylesheet" href="../shared/progressStyles.css">
+    <link rel="stylesheet" href="equations-style.css">
+
+    <!-- Navigation buttons styles -->
+    <link rel="stylesheet" href="../shared/navigationButtons.css">
+    <link rel="stylesheet" href="../shared/leaderboard.css">
+    <link rel="stylesheet" href="../shared/levelSelect.css">
+</head>
+<body class="chalkboard flex items-center justify-center min-h-screen p-4">
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container mx-auto text-center">
+
+        <div id="settings-screen"></div>
+
+        <div id="game-screen" class="card mx-auto hidden">
+            <div class="game-header">
+                <div class="game-header-title">
+                    <div id="level-name" class="game-level-name"></div>
+                    <div id="level-meta" class="game-level-meta"></div>
+                </div>
+                <div class="game-time">Time <span id="timer">0s</span></div>
+            </div>
+            <div class="streak-row">
+                <div id="streak-counter" class="streak-bar"></div>
+                <span id="streak-count" class="streak-count">0 / 10</span>
+                <span id="second-chance-counter" class="retry-indicator"></span>
+            </div>
+            <span id="timer-paused-message" class="hidden font-semibold text-orange-600">
+                Timer will reset
+            </span>
+            <div id="question-container" class="my-12 min-h-[60px] flex items-center justify-center">
+                <div id="question-text" class="question-text equations-question"></div>
+            </div>
+            <div id="feedback-message" class="feedback mb-6"></div>
+
+            <button id="quit-btn" tabindex="-1" class="text-gray-500 hover:text-gray-700 font-semibold"><span class="dcg">Esc</span> Back to Levels</button>
+        </div>
+
+        <div id="success-screen" class="card mx-auto hidden">
+
+            <div class="success-header">
+                <div id="rating-icon-circle" class="success-icon-circle">
+                    <span id="rating-emoji" class="success-icon-emoji"></span>
+                </div>
+                <div class="success-header-text">
+                    <div class="success-challenge-label">🎉 Challenge Complete!</div>
+                    <div id="final-rating" class="success-rating-name"></div>
+                    <div id="completed-level" class="success-level-name"></div>
+                </div>
+            </div>
+
+            <div class="success-time-card">
+                <div class="success-time-left">
+                    <div class="success-time-label">YOUR TIME</div>
+                    <div class="success-time-row">
+                        <span id="final-time" class="success-time-value"></span>
+                        <span id="new-best-badge" class="success-new-best hidden">⭐ New best</span>
+                    </div>
+                </div>
+                <div id="previous-best-section" class="success-time-right hidden">
+                    <div class="success-prev-label">Previous best</div>
+                    <div id="previous-best-time" class="success-prev-time"></div>
+                </div>
+            </div>
+
+            <div id="rating-timeline" class="success-timeline"></div>
+
+            <div id="rating-hint" class="success-rating-hint hidden">
+                <span class="success-hint-icon">🏆</span>
+                <span id="rating-hint-text"></span>
+            </div>
+
+            <div class="success-actions">
+                <button id="replay-level-btn" class="btn btn-primary flex items-center justify-center gap-2 flex-1">
+                    <span class="dcg">Enter</span><span>Replay Level</span>
+                </button>
+                <button id="next-level-btn" class="btn btn-secondary flex items-center justify-center gap-2">
+                    <span class="dcg">Tab</span><span>Next Level</span>
+                </button>
+                <button id="play-again-btn" tabindex="-1" class="success-back-btn">
+                    <span class="dcg">Esc</span>
+                    <span>Back to Levels</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Single source of truth for level metadata (consumed by config.js) -->
+    <script src="../shared/levelRegistry.js"></script>
+
+    <!-- Algebra engine (reused for scalar expression equivalence) -->
+    <script src="../algebra/algebraEngine.js"></script>
+
+    <!-- App entry: imports config.js + levels barrel + game modules -->
+    <script type="module" src="main.js"></script>
+
+    <!-- Supabase auth + leaderboard -->
+    <script src="../shared/supabaseClient.js"></script>
+    <script src="../shared/leaderboard.js"></script>
+    <!-- Navigation buttons module -->
+    <script src="../shared/navigationButtons.js"></script>
+    <!-- Progress tracking modules (shared class + per-app wrapper) -->
+    <script src="../shared/progressTracker.js"></script>
+    <script src="progress-tracking/progressTracker.js"></script>
+    <script src="../shared/progressChart.js"></script>
+    <script src="../shared/progressShare.js"></script>
+    <script src="../shared/progressUI.js"></script>
+    <script src="../shared/progressSync.js"></script>
+</body>
+</html>

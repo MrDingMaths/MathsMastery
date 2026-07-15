@@ -1,6 +1,6 @@
 // levels/finishFactorisingHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.finishFactorisingHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'finishFactorisingHard',
     'Finish Factorising (Hard)',
     [
@@ -25,7 +25,6 @@ window.AlgebraLevels.finishFactorisingHard = new BaseLevel(
             {problem: "4x(x^2 - 1)(3x + 6)", answer: "12x(x - 1)(x + 1)(x + 2)"},
             {problem: "(36b^2 - 1)(6b - 1)", answer: "(6b - 1)^2(6b + 1)"},
             {problem: "(2x + 6)(4x^2 - 12x + 9)", answer: "2(x + 3)(2x - 3)^2"},
-            {problem: "x^2(x^2 - 4) - 9(x^2 - 4)", answer: "(x - 3)(x + 3)(x - 2)(x + 2)"},
             {problem: "5(x + 1)(25x^2 - 10x + 1)", answer: "5(x + 1)(5x - 1)^2"},
             {problem: "(x^2 - 6x + 9)(x - 3)", answer: "(x - 3)^3"},
             {problem: "2y^2(y^2 - 16)(5y - 10)", answer: "10y^2(y - 4)(y + 4)(y - 2)"},

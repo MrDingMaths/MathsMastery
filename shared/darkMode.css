@@ -11,13 +11,12 @@ html[data-theme="dark"] {
     --color-primary-hover: #93c5fd;
     --color-success: #34d399;
     --color-error: #f87171;
-    --color-bg: #111827;
     --color-surface: #1f2937;
     --color-text: #f9fafb;
     --color-text-muted: #9ca3af;
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.5);
     /* Chalk tokens align with color tokens in dark mode */
-    --chalk-bg: #111827;
+    --chalk-bg: #0C1222;
     --chalk-surface: #1f2937;
     --chalk-heading: #e8e4da;
     --chalk-body: #9ca3af;
@@ -29,6 +28,8 @@ html[data-theme="dark"] {
 html[data-theme="dark"] body {
     background-color: var(--chalk-bg);
     color: var(--color-text);
+    background-image: radial-gradient(circle, rgba(226, 232, 240, 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
 }
 
 /* ----------------------------------------------------------
@@ -72,7 +73,7 @@ html[data-theme="dark"] .border-gray-200 {
    Site header
    ---------------------------------------------------------- */
 html[data-theme="dark"] .site-header {
-    background: #1f2937;
+    background: #000000;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -169,8 +170,7 @@ html[data-theme="dark"] .rating-mastery {
     border-color: #92400e;
 }
 
-html[data-theme="dark"] .rating-queen,
-html[data-theme="dark"] .rating-true-mastery {
+html[data-theme="dark"] .rating-queen {
     background: linear-gradient(135deg, #2d0a1e, #4c0d2e);
     color: #f9a8d4;
     border-color: #9d174d;
@@ -184,16 +184,16 @@ html[data-theme="dark"] .diagram-container {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-html[data-theme="dark"] .mathquill-input,
-html[data-theme="dark"] .mathquill-editable {
+/* MathLive (math-field) dark mode */
+html[data-theme="dark"] math-field.math-field-input,
+html[data-theme="dark"] math-field.math-field-answer {
     background-color: #374151;
     color: #f9fafb;
-}
-
-/* MathQuill inner elements */
-html[data-theme="dark"] .mq-editable-field {
-    background-color: #374151;
-    color: #f9fafb;
+    --primary: #60a5fa;
+    --caret-color: #60a5fa;
+    --selection-background-color: rgba(96, 165, 250, 0.3);
+    --selection-color: #f9fafb;
+    --contains-highlight-background-color: rgba(96, 165, 250, 0.15);
 }
 
 /* ----------------------------------------------------------
@@ -507,8 +507,8 @@ html[data-theme="dark"] .math-display {
     border-color: #4b5563;
     color: #f9fafb;
 }
-html[data-theme="dark"] .math-display .mq-math-mode,
-html[data-theme="dark"] .math-display .mq-root-block {
+html[data-theme="dark"] .math-display math-field,
+html[data-theme="dark"] .math-display .ML__base {
     color: #f9fafb;
 }
 
@@ -550,3 +550,34 @@ html[data-theme="dark"] .mastery-progress-bar {
 html[data-theme="dark"] .mastery-progress-stats {
     color: #9ca3af;
 }
+
+/* === Success screen redesign — dark mode === */
+html[data-theme="dark"] .success-rating-name { color: #f9fafb; }
+html[data-theme="dark"] .success-level-name { color: #9ca3af; }
+html[data-theme="dark"] .success-time-card { background: rgba(16,185,129,0.08); }
+html[data-theme="dark"] .success-new-best { background: var(--color-surface); border-color: rgba(255,255,255,0.1); color: #d1d5db; }
+html[data-theme="dark"] .success-prev-time { color: #9ca3af; }
+html[data-theme="dark"] .success-timeline-node { background: #374151; border-color: #4b5563; }
+html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
+html[data-theme="dark"] .success-timeline-connector { background: #4b5563; }
+html[data-theme="dark"] .success-timeline-connector.achieved { background: #10b981; }
+html[data-theme="dark"] .success-timeline-label { color: #6b7280; }
+html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-label,
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #9ca3af; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #f9fafb; }
+html[data-theme="dark"] .success-rating-hint { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.2); color: #d1d5db; }
+html[data-theme="dark"] .success-back-btn { color: #9ca3af; }
+html[data-theme="dark"] .success-back-btn:hover { color: #d1d5db; }
+html[data-theme="dark"] .success-icon-circle.rating-beginner   { background: rgba(148,163,184,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-developing { background: rgba(96,165,250,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-expert     { background: rgba(16,185,129,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-mastery    { background: rgba(245,158,11,0.15); }
+html[data-theme="dark"] .success-icon-circle.rating-queen      { background: rgba(236,72,153,0.15); }
+
+/* ----------------------------------------------------------
+   Game HUD: header + streak bar + retry indicator
+   ---------------------------------------------------------- */
+html[data-theme="dark"] .game-level-name { color: var(--color-text); }
+html[data-theme="dark"] .streak-seg:not(.filled) { background: rgba(255,255,255,0.12); }
+html[data-theme="dark"] .retry-indicator.spent .retry-dot { background: rgba(255,255,255,0.22); }

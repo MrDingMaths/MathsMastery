@@ -1,6 +1,6 @@
 // levels/addSubtractTermsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractTermsHard',
     'Like Terms (Hard)',
     [
@@ -12,7 +12,7 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "15x + 4y + 8x - 12y", answer: "23x - 8y"},
             {problem: "7x - 9y - 2x + 15y", answer: "5x + 6y"},
             {problem: "11x + 8y + 6x - 14y", answer: "17x - 6y"},
-            
+
             // Mixed powers with same variable
             {problem: "3x^2 + 5x + 2x^2 - 7x", answer: "5x^2 - 2x"},
             {problem: "7a^2 - 4a - (-9a^2) + 8a", answer: "16a^2 + 4a"},
@@ -21,7 +21,7 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "5x^2 + 7x - 8x^2 - 3x", answer: "-3x^2 + 4x"},
             {problem: "12x^2 - 6x + 3x^2 + 15x", answer: "15x^2 + 9x"},
             {problem: "9x² + 14x - 5x² - 8x", answer: "4x² + 6x"},
-            
+
             // Complex expressions with fractional results
             {problem: "5x - 3x + 2x - x", answer: "3x"},
             {problem: "8a + 7a - 9a - 4a", answer: "2a"},
@@ -30,7 +30,7 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "11x + 13x - 16x - 8x", answer: "0"},
             {problem: "17x - 9x + 4x - 12x", answer: "0"},
             {problem: "22x + 8x - 15x - 15x", answer: "0"},
-            
+
             // Negative leading coefficients
             {problem: "-7x + 3y - 4x + 8y", answer: "-11x + 11y"},
             {problem: "-9a - 5b + 12a - 6b", answer: "3a - 11b"},
@@ -39,9 +39,8 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "-12x + 7y + 8x - 11y", answer: "-4x - 4y"},
             {problem: "-8x - 6y - 5x + 14y", answer: "-13x + 8y"},
             {problem: "-18x - 4y + 11x + 13y", answer: "-7x + 9y"},
-                        
+
             // ADD YOUR TEXTBOOK QUESTIONS HERE using the format:
-            {problem: "8a + b - 4b - 7a", answer: "a - 3b"},
             {problem: "2ab^2 - 5ab^2 - 3ab^2", answer: "-6ab^2"},
             {problem: "x^2 - 5x - x + 12", answer: "x^2 - 6x + 12"},
             {problem: "x^2 - 7x + 5x - 6", answer: "x^2 - 2x - 6"},
@@ -52,12 +51,9 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "4x^2y - 7yx^2", answer: "-3x^2y"},
             {problem: "0.3a^2b - ba^2", answer: "-0.7a^2b"},
             {problem: "0.2ab^2 - 2b^2a", answer: "-1.8ab^2"},
-            {problem: "4a + 5b - a + 2b", answer: "3a + 7b"},
             {problem: "3xy - 4x + 5xy - 3x", answer: "8xy - 7x"},
             {problem: "2ab^2 + 5a^2b - ab^2 + 5ba^2", answer: "ab^2 + 10a^2b"},
             {problem: "3xy - 7x^2y + 6yx^2 - xy", answer: "2xy - x^2y"},
-            {problem: "2a + 4b + 3a + 5b", answer: "5a + 9b"},
-            {problem: "4x + 3y + 2x + 2y", answer: "6x + 5y"},
             {problem: "xy + 8x + 4xy - 4x", answer: "5xy + 4x"},
             {problem: "3xy - 4 + 4yx - 5", answer: "7xy - 9"},
             {problem: "4ab + 2a + ab - 3a", answer: "5ab - a"},
@@ -70,25 +66,22 @@ window.AlgebraLevels.addSubtractTermsHard = new BaseLevel(
             {problem: "a^2b - 4ab^2 + 3a^2b + b^2a", answer: "4a^2b - 3ab^2"},
             {problem: "10xy^2 - 2yx - 3xy^2 - 6xy", answer: "7xy^2 - 8xy"},
             {problem: "12x^2y^2 - 2xy^2 - 4x^2y^2 + xy^2", answer: "8x^2y^2 - xy^2"},
-            {problem: "10x + 3x + 5y + 3y", answer: "13x + 8y"},
-            {problem: "2a + 5a + 13b - 2b", answer: "7a + 11b"},
-            {problem: "10a + 5b + 3a + 4b", answer: "13a + 9b"},
             {problem: "10a + 3 + 4b - 2a - b", answer: "8a + 3b + 3"},
             {problem: "10x + 31y - y + 4x", answer: "14x + 30y"},
             {problem: "7x^2y + 5x + 10yx^2", answer: "17x^2y + 5x"},
             {problem: "-2a + 4b - 7ab + 4a", answer: "2a + 4b - 7ab"},
             {problem: "10 + 7x - 3y + 2x - y", answer: "10 + 9x - 4y"},
             {problem: "11b - 3b^2 + 5b^2 - 2b", answer: "9b + 2b^2"},
-            {problem: "2a + a + 4b + b", answer: "3a + 5b"},
-            {problem: "5a + 2a + b + 8b", answer: "7a + 9b"},
-            {problem: "3x - 2x + 2y + 4y", answer: "x + 6y"},
-            {problem: "3x + 7x + 3y - 4x + y", answer: "6x + 4y"},
-            {problem: "10x + 4x + 31y - y", answer: "14x + 30y"},
-            {problem: "10 + 7y + 5x + 5x + 2y", answer: "10x + 9y + 10"},
-            {problem: "3b + 4b + x + 5b - x", answer: "12b"},
             {problem: "9xy + 2x - 3xy + 3x", answer: "6xy + 5x"},
             {problem: "2xy + 5yx - 3y + 2x", answer: "7xy - 3y + 2x"},
             {problem: "5xy + 12y + 4xy - 5y", answer: "9xy + 7y"},
-            {problem: "7xy + 2x + 4yx - y", answer: "11xy + 2x - y"}
+            {problem: "7xy + 2x + 4yx - y", answer: "11xy + 2x - y"},
+
+            // Compound power variables — moved from Medium
+            {problem: "4a^2b - 2a^2b", answer: "2a^2b"},
+            {problem: "5x^2y - 4x^2y", answer: "x^2y"},
+            {problem: "3xy^2 - 4xy^2", answer: "-xy^2"},
+            {problem: "5xy^2 - 4xy^2", answer: "xy^2"},
+            {problem: "3a^2b + 4ba^2", answer: "7a^2b"}
         ]
 );

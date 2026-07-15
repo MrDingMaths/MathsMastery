@@ -1,6 +1,6 @@
 // levels/addSubtractFractionsByFactorisingDenominatorMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractFractionsByFactorisingDenominatorMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractFractionsByFactorisingDenominatorMedium',
     'Adding/Subtracting Fractions by Factorising Denominator (Medium)',
     [

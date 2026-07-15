@@ -17,6 +17,8 @@ export class UI extends BaseUI {
             successScreen: document.getElementById('success-screen'),
             levelSelection: document.getElementById('level-selection-container'),
             streakCounter: document.getElementById('streak-counter'),
+            streakCount: document.getElementById('streak-count'),
+            secondChanceCounter: document.getElementById('second-chance-counter'),
             timer: document.getElementById('timer'),
             timerPausedMessage: document.getElementById('timer-paused-message'),
             questionText: document.getElementById('question-text'),
@@ -27,12 +29,19 @@ export class UI extends BaseUI {
             finalTime: document.getElementById('final-time'),
             ratingEmoji: document.getElementById('rating-emoji'),
             finalRating: document.getElementById('final-rating'),
-            bestTimeMessage: document.getElementById('best-time-message'),
+            ratingIconCircle: document.getElementById('rating-icon-circle'),
+            newBestBadge: document.getElementById('new-best-badge'),
+            previousBestSection: document.getElementById('previous-best-section'),
+            previousBestTime: document.getElementById('previous-best-time'),
+            ratingTimeline: document.getElementById('rating-timeline'),
+            ratingHint: document.getElementById('rating-hint'),
+            ratingHintText: document.getElementById('rating-hint-text'),
             skillPathContainer: document.getElementById('skill-path-container'),
             masteryProgressBars: document.getElementById('mastery-progress-bars'),
             replayLevelBtn: document.getElementById('replay-level-btn'),
-            ratingExplanation: document.getElementById('rating-explanation'),
+            nextLevelBtn: document.getElementById('next-level-btn'),
             levelName: document.getElementById('level-name'),
+            levelMeta: document.getElementById('level-meta'),
         };
         this.storage = StorageManager;
         this.onBackToLevels = null;
@@ -63,24 +72,31 @@ export class UI extends BaseUI {
         const parts = question.format.split('{{INPUT}}');
         const frag = document.createDocumentFragment();
 
-        if (parts[0]) {
-            const part1El = createEl('span');
-            katex.render(parts[0], part1El, { throwOnError: false });
-            frag.append(part1El);
-        }
+        const appendKatexWithBreaks = (latex) => {
+            const lines = latex.split('\n');
+            lines.forEach((line, i) => {
+                if (i > 0) {
+                    // .question-text is a flex-wrap container, so a <br> won't
+                    // force a line break. A full-width zero-height div does.
+                    frag.append(createEl('div', { style: { flexBasis: '100%', height: '0' } }));
+                }
+                if (line === '') return;
+                const el = createEl('span');
+                katex.render(line, el, { throwOnError: false });
+                frag.append(el);
+            });
+        };
+
+        if (parts[0]) appendKatexWithBreaks(parts[0]);
 
         const inputOptions = { type: 'number', className: 'inline-input', step: 'any', autocomplete: 'off' };
-        if (levelKey === 'powersOf10' || levelKey === 'unitConversions' || levelKey === 'multiplyDivideBy100') {
+        if (levelKey === 'powersOf10' || levelKey === 'unitConversions' || levelKey === 'multiplyDivideBy100' || levelKey === 'integerOperations' || levelKey === 'roundingDecimals') {
             inputOptions.style = { width: '12rem' };
         }
         const inputEl = createEl('input', inputOptions);
         frag.append(inputEl);
 
-        if (parts[1]) {
-            const part2El = createEl('span');
-            katex.render(parts[1], part2El, { throwOnError: false });
-            frag.append(part2El);
-        }
+        if (parts[1]) appendKatexWithBreaks(parts[1]);
         this.elements.questionText.append(frag);
     }
 
@@ -291,23 +307,34 @@ export class UI extends BaseUI {
 
     // --- Feedback ---
 
-    showFeedback(isCorrect, message, correctAnswer = null, question = null) {
+    showFeedback(isCorrect, message, correctAnswer = null, question = null, userAnswer = null) {
         this.elements.feedbackMessage.innerHTML = '';
         this.elements.feedbackMessage.className = `feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
 
         if (!isCorrect && correctAnswer) {
-            const answerLine = createEl('div');
+            const grid = createEl('div', { className: 'feedback-answer-grid' });
 
-            const answerSpan = createEl('span', { className: 'inline-block' });
-            answerLine.appendChild(answerSpan);
+            const renderInto = (span, latex) => {
+                try {
+                    katex.render(latex, span, { throwOnError: false });
+                } catch (e) {
+                    span.textContent = latex;
+                }
+            };
 
-            this.elements.feedbackMessage.appendChild(answerLine);
-
-            try {
-                katex.render(correctAnswer, answerSpan, { throwOnError: false });
-            } catch (e) {
-                answerSpan.textContent = correctAnswer;
+            if (userAnswer != null && String(userAnswer).trim() !== '') {
+                grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Your answer:' }));
+                const yourSpan = createEl('span', { className: 'feedback-answer-your inline-block' });
+                grid.appendChild(yourSpan);
+                renderInto(yourSpan, String(userAnswer));
             }
+
+            grid.appendChild(createEl('span', { className: 'feedback-answer-label', textContent: 'Correct answer:' }));
+            const correctSpan = createEl('span', { className: 'feedback-answer-correct inline-block' });
+            grid.appendChild(correctSpan);
+            renderInto(correctSpan, correctAnswer);
+
+            this.elements.feedbackMessage.appendChild(grid);
         } else {
             this.elements.feedbackMessage.textContent = message;
         }
@@ -389,8 +416,6 @@ export class UI extends BaseUI {
     // --- Success screen ---
 
     showSuccess(levelName, time, rating, isNewBest, previousBest, levelKey, questionCount) {
-        this.elements.completedLevel.textContent = levelName;
-        this.elements.finalTime.textContent = new Timer().formatTime(time, 2);
         const ratingEmojis = {
             'true-mastery': '💖',
             'mastery': '🏆',
@@ -398,36 +423,47 @@ export class UI extends BaseUI {
             'developing': '🎯',
             'beginner': '🌱',
         };
-        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
-        this.elements.finalRating.textContent = rating.name;
 
-        if (isNewBest) {
-            this.elements.bestTimeMessage.textContent = previousBest
-                ? `New personal best! Beat your old time of ${new Timer().formatTime(previousBest, 2)}.`
-                : `You've set your first record!`;
+        // Header
+        this.elements.completedLevel.textContent = levelName;
+        this.elements.finalRating.textContent = rating.name;
+        this.elements.ratingEmoji.textContent = ratingEmojis[rating.key] || '🏅';
+        this.elements.ratingIconCircle.className = `success-icon-circle rating-${this._getRatingClass(rating.key)}`;
+
+        // Time
+        const timer = new Timer();
+        this.elements.finalTime.textContent = timer.formatTime(time, 2);
+
+        // New best badge
+        this.elements.newBestBadge.classList.toggle('hidden', !isNewBest);
+
+        // Previous best
+        if (previousBest) {
+            this.elements.previousBestSection.classList.remove('hidden');
+            this.elements.previousBestTime.textContent = timer.formatTime(previousBest, 2);
         } else {
-            this.elements.bestTimeMessage.textContent = `Your best time is still ${new Timer().formatTime(previousBest, 2)}.`;
+            this.elements.previousBestSection.classList.add('hidden');
         }
 
+        // Rating timeline
+        this._renderRatingTimeline(this.elements.ratingTimeline, rating.key);
+
+        // Next rating hint
         try {
             const nextTarget = RatingUtils.getNextRatingTarget(rating, levelKey, questionCount, CONFIG);
-
             if (nextTarget) {
-                const targetTimeFormatted = new Timer().formatTime(nextTarget.targetTime, 2);
-                this.elements.ratingExplanation.textContent =
-                    `Complete in ${targetTimeFormatted} or less for ${nextTarget.nextRating.name}.`;
-            } else if (rating.key === 'true-mastery') {
-                const threshold = 1.5;
-                const difficultyMultiplier = (levelKey && CONFIG && CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS)
-                    ? (CONFIG.LEVEL_DIFFICULTY_MULTIPLIERS[levelKey] || 1.0)
-                    : 1.0;
-                const maxTime = threshold * difficultyMultiplier * questionCount * 1000;
-                const maxTimeFormatted = new Timer().formatTime(maxTime, 2);
-                this.elements.ratingExplanation.textContent =
-                    `You completed this level in under ${maxTimeFormatted}.`;
+                const t = timer.formatTime(nextTarget.targetTime, 2);
+                this.elements.ratingHintText.innerHTML =
+                    `Finish in <strong class="success-hint-time">${t}</strong> or faster to unlock <strong class="success-hint-rating">${nextTarget.nextRating.name}</strong>`;
+                this.elements.ratingHint.querySelector('.success-hint-icon').textContent =
+                    ratingEmojis[nextTarget.nextRating.key] || '🏆';
+                this.elements.ratingHint.classList.remove('hidden');
+            } else {
+                this.elements.ratingHint.classList.add('hidden');
             }
         } catch (error) {
-            console.error('Failed to set rating explanation:', error);
+            console.error('Failed to set rating hint:', error);
+            this.elements.ratingHint.classList.add('hidden');
         }
 
         this.showScreen('success');
@@ -465,5 +501,18 @@ export class UI extends BaseUI {
         } else {
             return String(answer);
         }
+    }
+
+    // Format the student's submitted answer for display. Reuses formatAnswerForDisplay,
+    // adapting the unitConversions input shape ({operation, factor}) to the shape it
+    // expects ({correctOperation, correctFactor}).
+    formatUserAnswerForDisplay(userAnswer, levelKey) {
+        if (levelKey === 'unitConversions' && userAnswer && typeof userAnswer === 'object') {
+            return this.formatAnswerForDisplay(
+                { correctOperation: userAnswer.operation, correctFactor: userAnswer.factor },
+                levelKey
+            );
+        }
+        return this.formatAnswerForDisplay(userAnswer, levelKey);
     }
 }

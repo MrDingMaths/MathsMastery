@@ -1,6 +1,6 @@
 // levels/addSubtractAlgebraicFractionsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.addSubtractAlgebraicFractionsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'addSubtractAlgebraicFractionsHard',
     'Adding Subtracting Algebraic Fractions (Hard)',
     [
@@ -10,7 +10,6 @@ window.AlgebraLevels.addSubtractAlgebraicFractionsHard = new BaseLevel(
             {problem: "\\frac{7y}{10} - \\frac{2x}{5}", answer: "\\frac{7y - 4x}{10}"},
             {problem: "2x + \\frac{7y}{2}", answer: "\\frac{4x + 7y}{2}"},
             {problem: "\\frac{x}{3} - y", answer: "\\frac{x - 3y}{3}"},
-            {problem: "5 - \\frac{2x}{7}", answer: "\\frac{35 - 2x}{7}"},
             {problem: "\\frac{1}{a} + \\frac{1}{2a}", answer: "\\frac{3}{2a}"},
             {problem: "\\frac{1}{2x} - \\frac{1}{3x}", answer: "\\frac{1}{6x}"},
             {problem: "\\frac{3}{4a} + \\frac{4}{3a}", answer: "\\frac{25}{12a}"},
@@ -71,10 +70,5 @@ window.AlgebraLevels.addSubtractAlgebraicFractionsHard = new BaseLevel(
             {problem: "\\frac{7x}{4y} + \\frac{3y}{8x}", answer: "\\frac{14x^{2}+3y^{2}}{8xy}"},
             {problem: "\\frac{5x}{6y} - \\frac{2y}{9x}", answer: "\\frac{15x^{2}-4y^{2}}{18xy}"},
             
-            // Negative coefficients and complex expressions
-            {problem: "-\\frac{2a}{3} + \\frac{5a}{4}", answer: "\\frac{7a}{12}"},
-            {problem: "\\frac{3b}{5} - \\frac{7b}{2}", answer: "-\\frac{29b}{10}"},
-            {problem: "-\\frac{4x}{7} - \\frac{2x}{9}", answer: "-\\frac{50x}{63}"},
-            {problem: "\\frac{6x}{11} + \\frac{3x}{8}", answer: "\\frac{81x}{88}"}
         ]
 );

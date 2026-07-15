@@ -1,6 +1,6 @@
 // levels/orderOfOperationsMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.orderOfOperationsMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'orderOfOperationsMedium',
     'Order of Operations (Medium)',
     [

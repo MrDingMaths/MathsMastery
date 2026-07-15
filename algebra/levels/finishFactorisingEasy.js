@@ -1,6 +1,6 @@
 // levels/finishFactorisingEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.finishFactorisingEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'finishFactorisingEasy',
     'Finish Factorising (Easy)',
     [

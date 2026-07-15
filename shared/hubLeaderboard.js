@@ -1,205 +1,35 @@
 /**
  * Hub Leaderboard — modal for browsing all-levels leaderboards from the main index page.
- * Plain script; depends on window.Leaderboard (shared/leaderboard.js) and window.supabaseUser.
+ * Plain script; depends on window.Leaderboard (shared/leaderboard.js),
+ * window.supabaseUser, and window.LevelRegistry (shared/levelRegistry.js).
  */
 
-const HUB_LEVELS = {
-    mathsfacts: {
-        appLabel: 'Number Skills',
-        groups: {
-            'Number Bonds': [
-                { key: 'bonds10',       name: 'Bonds to 10' },
-                { key: 'bonds20',       name: 'Bonds to 20' },
-                { key: 'mixed10-20',    name: 'Mixed Bonds 10–20' },
-                { key: 'bonds100',      name: 'Bonds to 100' },
-                { key: 'bonds-10',      name: 'Bonds to -10' },
-                { key: 'bonds-20',      name: 'Bonds to -20' },
-            ],
-            'Multiplication & Division': [
-                { key: 'group245',              name: '× 2 4 5 10' },
-                { key: 'group369',              name: '× 3 6 9' },
-                { key: 'multall',               name: '× 2 to 12' },
-                { key: 'mixed-negative-mult',   name: '× Negatives' },
-                { key: 'multiplyDivideBy100',   name: '×÷ 100' },
-                { key: 'powersOf10',            name: '×÷ Powers of 10' },
-                { key: 'double100',             name: 'Doubling' },
-                { key: 'squares',               name: 'Perfect Squares' },
-                { key: 'unitConversions',        name: 'Unit Conversions' },
-            ],
-            'Fractions Decimals Percentages': [
-                { key: 'hcf',                           name: 'HCF' },
-                { key: 'lcm',                           name: 'LCM' },
-                { key: 'equivFractions',                name: 'Equivalent Fractions' },
-                { key: 'simplifyFractions',             name: 'Simplifying Fractions' },
-                { key: 'fdpConversions',                name: 'Common FDP Equivalences' },
-                { key: 'fdpConversionsMultiples',       name: 'FDP Conversions' },
-                { key: 'fractionOfQuantity',            name: 'Fraction of a Quantity' },
-                { key: 'percentageOfQuantity',          name: 'Percentage of a Quantity' },
-                { key: 'increaseDecreasePercentage',    name: 'Increase/Decrease by Percentage' },
-            ],
-        },
-    },
-    algebra: {
-        appLabel: 'Algebra Skills',
-        groups: {
-            'Foundational Skills': [
-                { key: 'addSubtractTermsEasy',              name: 'Add Subtract Terms 🥉' },
-                { key: 'addSubtractTermsMedium',            name: 'Add Subtract Terms 🥈' },
-                { key: 'addSubtractTermsHard',              name: 'Add Subtract Terms 🥇' },
-                { key: 'multiplyTermsEasy',                 name: 'Multiply Terms 🥉' },
-                { key: 'multiplyTermsMedium',               name: 'Multiply Terms 🥈' },
-                { key: 'multiplyTermsHard',                 name: 'Multiply Terms 🥇' },
-                { key: 'divideTermsEasy',                   name: 'Divide Terms 🥉' },
-                { key: 'divideTermsMedium',                 name: 'Divide Terms 🥈' },
-                { key: 'divideTermsHard',                   name: 'Divide Terms 🥇' },
-                { key: 'mixedSimplificationEasy',           name: 'Mixed Simplification 🥉' },
-                { key: 'mixedSimplificationMedium',         name: 'Mixed Simplification 🥈' },
-                { key: 'mixedSimplificationHard',           name: 'Mixed Simplification 🥇' },
-                { key: 'expandSingleBracketsEasy',          name: 'Expand Single Brackets 🥉' },
-                { key: 'expandSingleBracketsMedium',        name: 'Expand Single Brackets 🥈' },
-                { key: 'expandSingleBracketsHard',          name: 'Expand Single Brackets 🥇' },
-                { key: 'multiplicationIndexLawEasy',        name: 'Multiplication Index Law 🥉' },
-                { key: 'multiplicationIndexLawMedium',      name: 'Multiplication Index Law 🥈' },
-                { key: 'multiplicationIndexLawHard',        name: 'Multiplication Index Law 🥇' },
-                { key: 'divisionIndexLawEasy',              name: 'Division Index Law 🥉' },
-                { key: 'divisionIndexLawMedium',            name: 'Division Index Law 🥈' },
-                { key: 'divisionIndexLawHard',              name: 'Division Index Law 🥇' },
-                { key: 'powerOfPowerAndZeroPowerEasy',      name: 'Power of Power & Zero Power 🥉' },
-                { key: 'powerOfPowerAndZeroPowerMedium',    name: 'Power of Power & Zero Power 🥈' },
-                { key: 'powerOfPowerAndZeroPowerHard',      name: 'Power of Power & Zero Power 🥇' },
-                { key: 'mixedIndexLawsEasy',                name: 'Mixed Index Laws 🥉' },
-                { key: 'mixedIndexLawsMedium',              name: 'Mixed Index Laws 🥈' },
-                { key: 'mixedIndexLawsHard',                name: 'Mixed Index Laws 🥇' },
-                { key: 'orderOfOperationsEasy',             name: 'Order of Operations 🥉' },
-                { key: 'orderOfOperationsMedium',           name: 'Order of Operations 🥈' },
-                { key: 'orderOfOperationsHard',             name: 'Order of Operations 🥇' },
-                { key: 'factoriseIntoSingleBracketsEasy',   name: 'Factorise into Single Brackets 🥉' },
-                { key: 'factoriseIntoSingleBracketsMedium', name: 'Factorise into Single Brackets 🥈' },
-                { key: 'factoriseIntoSingleBracketsHard',   name: 'Factorise into Single Brackets 🥇' },
-            ],
-            'Intermediate Skills': [
-                { key: 'expandAndSimplifyEasy',                         name: 'Expand & Simplify 🥉' },
-                { key: 'expandAndSimplifyMedium',                       name: 'Expand & Simplify 🥈' },
-                { key: 'expandAndSimplifyHard',                         name: 'Expand & Simplify 🥇' },
-                { key: 'expandBinomialProductsEasy',                    name: 'Expand Binomial Products 🥉' },
-                { key: 'expandBinomialProductsMedium',                  name: 'Expand Binomial Products 🥈' },
-                { key: 'expandBinomialProductsHard',                    name: 'Expand Binomial Products 🥇' },
-                { key: 'powerOfProductsAndQuotientsEasy',               name: 'Power of Products and Quotients 🥉' },
-                { key: 'powerOfProductsAndQuotientsMedium',             name: 'Power of Products and Quotients 🥈' },
-                { key: 'powerOfProductsAndQuotientsHard',               name: 'Power of Products and Quotients 🥇' },
-                { key: 'addSubtractAlgebraicFractionsEasy',             name: 'Add Subtract Algebraic Fractions 🥉' },
-                { key: 'addSubtractAlgebraicFractionsMedium',           name: 'Add Subtract Algebraic Fractions 🥈' },
-                { key: 'addSubtractAlgebraicFractionsHard',             name: 'Add Subtract Algebraic Fractions 🥇' },
-                { key: 'multiplyDivideAlgebraicFractionsEasy',          name: 'Multiply Divide Algebraic Fractions 🥉' },
-                { key: 'multiplyDivideAlgebraicFractionsMedium',        name: 'Multiply Divide Algebraic Fractions 🥈' },
-                { key: 'multiplyDivideAlgebraicFractionsHard',          name: 'Multiply Divide Algebraic Fractions 🥇' },
-                { key: 'negativeIndicesEasy',                           name: 'Negative Indices 🥉' },
-                { key: 'negativeIndicesMedium',                         name: 'Negative Indices 🥈' },
-                { key: 'negativeIndicesHard',                           name: 'Negative Indices 🥇' },
-                { key: 'factoriseMonicQuadraticTrinomialsEasy',         name: 'Factorise Monic Quadratic Trinomials 🥉' },
-                { key: 'factoriseMonicQuadraticTrinomialsMedium',       name: 'Factorise Monic Quadratic Trinomials 🥈' },
-                { key: 'factoriseMonicQuadraticTrinomialsHard',         name: 'Factorise Monic Quadratic Trinomials 🥇' },
-            ],
-            'Advanced Skills': [
-                { key: 'addSubtractFractionsWithBinomialNumeratorEasy',         name: 'Add Subtract Fractions with Binomial Numerator 🥉' },
-                { key: 'addSubtractFractionsWithBinomialNumeratorMedium',       name: 'Add Subtract Fractions with Binomial Numerator 🥈' },
-                { key: 'addSubtractFractionsWithBinomialNumeratorHard',         name: 'Add Subtract Fractions with Binomial Numerator 🥇' },
-                { key: 'expandPerfectSquaresEasy',                              name: 'Expand Perfect Squares 🥉' },
-                { key: 'expandPerfectSquaresMedium',                            name: 'Expand Perfect Squares 🥈' },
-                { key: 'expandPerfectSquaresHard',                              name: 'Expand Perfect Squares 🥇' },
-                { key: 'expandDifferenceOfTwoSquaresEasy',                      name: 'Expand Difference of Two Squares 🥉' },
-                { key: 'expandDifferenceOfTwoSquaresMedium',                    name: 'Expand Difference of Two Squares 🥈' },
-                { key: 'expandDifferenceOfTwoSquaresHard',                      name: 'Expand Difference of Two Squares 🥇' },
-                { key: 'mixedExpansionEasy',                                    name: 'Mixed Expansion 🥉' },
-                { key: 'mixedExpansionMedium',                                  name: 'Mixed Expansion 🥈' },
-                { key: 'mixedExpansionHard',                                    name: 'Mixed Expansion 🥇' },
-                { key: 'factorisePerfectSquaresEasy',                           name: 'Factorise Perfect Squares 🥉' },
-                { key: 'factorisePerfectSquaresMedium',                         name: 'Factorise Perfect Squares 🥈' },
-                { key: 'factorisePerfectSquaresHard',                           name: 'Factorise Perfect Squares 🥇' },
-                { key: 'factoriseDifferenceOfTwoSquaresEasy',                   name: 'Factorise Difference of Two Squares 🥉' },
-                { key: 'factoriseDifferenceOfTwoSquaresMedium',                 name: 'Factorise Difference of Two Squares 🥈' },
-                { key: 'factoriseDifferenceOfTwoSquaresHard',                   name: 'Factorise Difference of Two Squares 🥇' },
-                { key: 'noticeBinomialFactorsEasy',                             name: 'Notice Binomial Factors 🥉' },
-                { key: 'noticeBinomialFactorsMedium',                           name: 'Notice Binomial Factors 🥈' },
-                { key: 'noticeBinomialFactorsHard',                             name: 'Notice Binomial Factors 🥇' },
-                { key: 'groupInPairsEasy',                                      name: 'Group in Pairs 🥉' },
-                { key: 'groupInPairsMedium',                                    name: 'Group in Pairs 🥈' },
-                { key: 'groupInPairsHard',                                      name: 'Group in Pairs 🥇' },
-                { key: 'factoriseNonMonicQuadraticTrinomialsEasy',              name: 'Factorise Non-monic Quadratic Trinomials 🥉' },
-                { key: 'factoriseNonMonicQuadraticTrinomialsMedium',            name: 'Factorise Non-monic Quadratic Trinomials 🥈' },
-                { key: 'factoriseNonMonicQuadraticTrinomialsHard',              name: 'Factorise Non-monic Quadratic Trinomials 🥇' },
-                { key: 'mixedFactorisationEasy',                                name: 'Mixed Factorisation 🥉' },
-                { key: 'mixedFactorisationMedium',                              name: 'Mixed Factorisation 🥈' },
-                { key: 'mixedFactorisationHard',                                name: 'Mixed Factorisation 🥇' },
-                { key: 'finishFactorisingEasy',                                 name: 'Finish Factorising 🥉' },
-                { key: 'finishFactorisingMedium',                               name: 'Finish Factorising 🥈' },
-                { key: 'finishFactorisingHard',                                 name: 'Finish Factorising 🥇' },
-                { key: 'simplifyAlgebraicFractionsByFactorisingEasy',           name: 'Simplify Algebraic Fractions by Factorising 🥉' },
-                { key: 'simplifyAlgebraicFractionsByFactorisingMedium',         name: 'Simplify Algebraic Fractions by Factorising 🥈' },
-                { key: 'simplifyAlgebraicFractionsByFactorisingHard',           name: 'Simplify Algebraic Fractions by Factorising 🥇' },
-                { key: 'multiplyDivideAlgebraicFractionsByFactorisingEasy',     name: 'Multiply Divide Algebraic Fractions by Factorising 🥉' },
-                { key: 'multiplyDivideAlgebraicFractionsByFactorisingMedium',   name: 'Multiply Divide Algebraic Fractions by Factorising 🥈' },
-                { key: 'multiplyDivideAlgebraicFractionsByFactorisingHard',     name: 'Multiply Divide Algebraic Fractions by Factorising 🥇' },
-                { key: 'addSubtractFractionsByFactorisingDenominatorEasy',      name: 'Add Subtract Fractions by Factorising Denominator 🥉' },
-                { key: 'addSubtractFractionsByFactorisingDenominatorMedium',    name: 'Add Subtract Fractions by Factorising Denominator 🥈' },
-                { key: 'addSubtractFractionsByFactorisingDenominatorHard',      name: 'Add Subtract Fractions by Factorising Denominator 🥇' },
-                { key: 'compoundFractionsEasy',                                 name: 'Compound Fractions 🥉' },
-                { key: 'compoundFractionsMedium',                               name: 'Compound Fractions 🥈' },
-                { key: 'compoundFractionsHard',                                 name: 'Compound Fractions 🥇' },
-                { key: 'simplifySurdsEasy',                                     name: 'Simplify Surds 🥉' },
-                { key: 'simplifySurdsMedium',                                   name: 'Simplify Surds 🥈' },
-                { key: 'simplifySurdsHard',                                     name: 'Simplify Surds 🥇' },
-                { key: 'addSubtractSurdsEasy',                                  name: 'Add Subtract Surds 🥉' },
-                { key: 'addSubtractSurdsMedium',                                name: 'Add Subtract Surds 🥈' },
-                { key: 'addSubtractSurdsHard',                                  name: 'Add Subtract Surds 🥇' },
-                { key: 'multiplyDivideSurdsEasy',                               name: 'Multiply Divide Surds 🥉' },
-                { key: 'multiplyDivideSurdsMedium',                             name: 'Multiply Divide Surds 🥈' },
-                { key: 'multiplyDivideSurdsHard',                               name: 'Multiply Divide Surds 🥇' },
-                { key: 'expandBracketsWithSurdsEasy',                           name: 'Expand Brackets with Surds 🥉' },
-                { key: 'expandBracketsWithSurdsMedium',                         name: 'Expand Brackets with Surds 🥈' },
-                { key: 'expandBracketsWithSurdsHard',                           name: 'Expand Brackets with Surds 🥇' },
-                { key: 'rationaliseTheDenominatorEasy',                         name: 'Rationalise the Denominator 🥉' },
-                { key: 'rationaliseTheDenominatorMedium',                       name: 'Rationalise the Denominator 🥈' },
-                { key: 'rationaliseTheDenominatorHard',                         name: 'Rationalise the Denominator 🥇' },
-                { key: 'rationaliseBinomialDenominatorEasy',                    name: 'Rationalise Binomial Denominator 🥉' },
-                { key: 'rationaliseBinomialDenominatorMedium',                  name: 'Rationalise Binomial Denominator 🥈' },
-                { key: 'rationaliseBinomialDenominatorHard',                    name: 'Rationalise Binomial Denominator 🥇' },
-                { key: 'evaluateFractionalIndicesEasy',                         name: 'Evaluate Fractional Indices 🥉' },
-                { key: 'evaluateFractionalIndicesMedium',                       name: 'Evaluate Fractional Indices 🥈' },
-                { key: 'evaluateFractionalIndicesHard',                         name: 'Evaluate Fractional Indices 🥇' },
-                { key: 'surdFormToIndexFormEasy',                               name: 'Surd Form to Index Form 🥉' },
-                { key: 'surdFormToIndexFormMedium',                             name: 'Surd Form to Index Form 🥈' },
-                { key: 'surdFormToIndexFormHard',                               name: 'Surd Form to Index Form 🥇' },
-                { key: 'indexFormToSurdFormEasy',                               name: 'Index Form to Surd Form 🥉' },
-                { key: 'indexFormToSurdFormMedium',                             name: 'Index Form to Surd Form 🥈' },
-                { key: 'indexFormToSurdFormHard',                               name: 'Index Form to Surd Form 🥇' },
-            ],
-        },
-    },
-    trigfacts: {
-        appLabel: 'Trig Skills',
-        groups: {
-            'Working in Degrees': [
-                { key: 'exact_deg_mixed',   name: 'Exact Values' },
-                { key: 'reference_angles',  name: 'Reference Angles' },
-                { key: 'equiv_deg',         name: 'Equivalent Ratios' },
-                { key: 'quad_deg',          name: 'Exact Values in all Quadrants' },
-            ],
-            'Degree and Radian Conversion': [
-                { key: 'simplify_fractions', name: 'Simplify Fractions over 180' },
-                { key: 'deg_to_rad',         name: 'Degrees to Radians' },
-                { key: 'rad_to_deg',         name: 'Radians to Degrees' },
-                { key: 'conv_mixed',         name: 'Mixed Conversion' },
-            ],
-            'Working in Radians': [
-                { key: 'exact_rad_mixed',       name: 'Exact Values' },
-                { key: 'reference_angles_rad',  name: 'Reference Angles' },
-                { key: 'equiv_rad',             name: 'Equivalent Ratios' },
-                { key: 'quad_rad',              name: 'Exact Values in all Quadrants' },
-            ],
-        },
-    },
-};
+const HUB_LEVELS = (function buildFromRegistry() {
+    const reg = window.LevelRegistry || {};
+    const out = {};
+    for (const [app, data] of Object.entries(reg)) {
+        out[app] = {
+            appLabel: data.appLabel,
+            groups: Object.fromEntries(
+                Object.entries(data.LEVEL_GROUPS).map(([groupName, levels]) => [
+                    groupName,
+                    levels.map(l => ({ key: l.key, name: l.name.replace(/<br>/g, ' '), comingSoon: !!l.comingSoon })),
+                ])
+            ),
+        };
+    }
+    return out;
+})();
+
+const HOF_TOTAL_LEVELS = Object.fromEntries(
+    Object.entries(HUB_LEVELS).map(([app, data]) => [
+        app,
+        Object.values(data.groups).reduce(
+            (sum, levels) => sum + levels.filter(l => !l.comingSoon).length,
+            0
+        ),
+    ])
+);
 
 const RATING_EMOJIS = {
     'true-mastery': '💖',
@@ -420,13 +250,14 @@ class HubPanels {
 
     async _loadRecent() {
         const body = this._recentEl && this._recentEl.querySelector('.panel-body');
-        if (!body || !window.supabaseClient) return;
+        if (!body || !window.supabaseClient || !window.supabaseUser) return;
         body.innerHTML = '<div class="panel-loading">Loading…</div>';
         try {
             const { data, error } = await window.supabaseClient
                 .from('leaderboard_entries')
                 .select('display_name, app, level_key, rating_key, rating_name, updated_at')
                 .in('rating_key', ['mastery', 'true-mastery'])
+                .lte('updated_at', new Date().toISOString())
                 .order('updated_at', { ascending: false })
                 .limit(20);
             if (error || !data) { body.innerHTML = '<div class="panel-empty">Could not load.</div>'; return; }
@@ -438,35 +269,55 @@ class HubPanels {
 
     async _loadHof(app) {
         const body = this._hofEl && this._hofEl.querySelector('.panel-body');
-        if (!body || !window.supabaseClient) return;
+        if (!body || !window.supabaseClient || !window.supabaseUser) return;
         body.innerHTML = '<div class="panel-loading">Loading…</div>';
+        if (!this._hofSeq) this._hofSeq = 0;
+        const seq = ++this._hofSeq;
         try {
-            const { data, error } = await window.supabaseClient
-                .from('leaderboard_entries')
-                .select('user_id, display_name, rating_key, profiles(avatar_url)')
-                .eq('app', app)
-                .limit(500);
-            if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
+            const PAGE = 1000;
+            let allData = [], from = 0;
+            while (true) {
+                const { data, error } = await window.supabaseClient
+                    .from('leaderboard_entries')
+                    .select('user_id, display_name, rating_key, best_time, profiles(avatar_url)')
+                    .eq('app', app)
+                    .order('user_id')
+                    .range(from, from + PAGE - 1);
+                if (seq !== this._hofSeq) return;
+                if (this._hofApp !== app) return;
+                if (error || !data) { body.innerHTML = '<div class="panel-empty">No data yet.</div>'; return; }
+                allData = allData.concat(data);
+                if (data.length < PAGE) break;
+                from += PAGE;
+            }
+            const data = allData;
 
             const map = new Map();
             for (const e of data) {
                 if (!map.has(e.user_id)) {
-                    map.set(e.user_id, { display_name: e.display_name, avatar_url: e.profiles?.avatar_url || null, queen: 0, mastery: 0, expert: 0, developing: 0, beginner: 0, total: 0 });
+                    map.set(e.user_id, { display_name: e.display_name, avatar_url: e.profiles?.avatar_url || null, queen: 0, totalTime: 0, mastery: 0, expert: 0, developing: 0, beginner: 0, total: 0 });
                 }
                 const u = map.get(e.user_id);
                 u.total++;
-                if      (e.rating_key === 'true-mastery') u.queen++;
-                else if (e.rating_key === 'mastery')      u.mastery++;
-                else if (e.rating_key === 'expert')       u.expert++;
-                else if (e.rating_key === 'developing')   u.developing++;
-                else if (e.rating_key === 'beginner')     u.beginner++;
+                if (e.rating_key === 'true-mastery') {
+                    u.queen++;
+                    u.totalTime += e.best_time || 0;
+                } else if (e.rating_key === 'mastery')    u.mastery++;
+                else if   (e.rating_key === 'expert')     u.expert++;
+                else if   (e.rating_key === 'developing') u.developing++;
+                else if   (e.rating_key === 'beginner')   u.beginner++;
             }
 
-            const tally = [...map.values()]
+            const totalLevels = HOF_TOTAL_LEVELS[app] || Infinity;
+            const allQueens = [...map.values()]
+                .filter(u => u.queen >= totalLevels)
+                .sort((a, b) => a.totalTime - b.totalTime);
+            const rest = [...map.values()]
+                .filter(u => u.queen < totalLevels)
                 .sort((a, b) => b.queen - a.queen || b.mastery - a.mastery || b.expert - a.expert || b.total - a.total)
                 .slice(0, 10);
 
-            this._renderHof(tally, body);
+            this._renderHof(allQueens, rest, body);
         } catch (e) {
             body.innerHTML = '<div class="panel-empty">No data yet.</div>';
         }
@@ -476,14 +327,16 @@ class HubPanels {
         if (!entries.length) { body.innerHTML = '<div class="panel-empty">No activity yet.</div>'; return; }
         let html = '';
         for (const e of entries) {
-            const badge     = this._appBadge(e.app);
-            const emoji     = RATING_EMOJIS[e.rating_key] || '';
-            const levelName = _hubEscape(this._lookupLevelName(e.level_key));
+            const badge      = this._appBadge(e.app);
+            const emoji      = RATING_EMOJIS[e.rating_key] || '';
+            const levelName  = _hubEscape(this._lookupLevelName(e.level_key));
+            const difficulty = e.level_key.match(/(Easy|Medium|Hard)$/)?.[1] ?? null;
+            const diffHtml   = difficulty ? ` · <span class="panel-entry-diff">${difficulty}</span>` : '';
             html += `<div class="panel-entry">
                 <span class="panel-badge panel-badge-${_hubEscape(e.app)}">${badge}</span>
                 <div class="panel-entry-body">
                     <span class="panel-entry-name">${_hubAbbreviateName(e.display_name)}</span>
-                    <span class="panel-entry-detail">${emoji} ${levelName}</span>
+                    <span class="panel-entry-detail">${emoji} ${levelName}${diffHtml}</span>
                     <span class="panel-entry-time">${this._timeAgo(e.updated_at)}</span>
                 </div>
             </div>`;
@@ -491,38 +344,59 @@ class HubPanels {
         body.innerHTML = html;
     }
 
-    _renderHof(tally, body) {
-        if (!tally.length) { body.innerHTML = '<div class="panel-empty">No entries yet.</div>'; return; }
-        let html = '';
-        tally.forEach((u, i) => {
-            const rank    = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+    _renderHof(allQueens, rest, body) {
+        if (!allQueens.length && !rest.length) { body.innerHTML = '<div class="panel-empty">No entries yet.</div>'; return; }
+
+        const renderEntry = (u, rank, showTime) => {
+            const rankLabel = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
             const initial = _hubEscape((u.display_name || 'A')[0].toUpperCase());
             const avatarHtml = u.avatar_url
                 ? `<img class="panel-hof-avatar panel-hof-avatar-img" src="${_hubEscape(u.avatar_url)}" alt="" loading="lazy">`
                 : `<span class="panel-hof-avatar">${initial}</span>`;
             let medals = '';
-            if (u.queen)     medals += `<span class="panel-medal">💖${u.queen}</span>`;
-            if (u.mastery)   medals += `<span class="panel-medal">🏆${u.mastery}</span>`;
-            if (u.expert)    medals += `<span class="panel-medal">⭐${u.expert}</span>`;
+            if (u.queen)      medals += `<span class="panel-medal">💖${u.queen}</span>`;
+            if (u.mastery)    medals += `<span class="panel-medal">🏆${u.mastery}</span>`;
+            if (u.expert)     medals += `<span class="panel-medal">⭐${u.expert}</span>`;
             if (u.developing) medals += `<span class="panel-medal">🎯${u.developing}</span>`;
-            if (u.beginner)  medals += `<span class="panel-medal">🌱${u.beginner}</span>`;
-            html += `<div class="panel-hof-entry">
-                <span class="panel-hof-rank">${rank}</span>
+            if (u.beginner)   medals += `<span class="panel-medal">🌱${u.beginner}</span>`;
+            const timeHtml = showTime ? `<span class="panel-hof-total-time">${_hubFormatTime(u.totalTime)}</span>` : '';
+            return `<div class="panel-hof-entry">
+                <span class="panel-hof-rank">${rankLabel}</span>
                 ${avatarHtml}
                 <div class="panel-hof-info">
                     <span class="panel-hof-name">${_hubAbbreviateName(u.display_name)}</span>
                     <span class="panel-hof-medals">${medals}</span>
                 </div>
+                ${timeHtml}
             </div>`;
-        });
-        body.innerHTML = html;
+        };
+
+        const bothCols = allQueens.length > 0 && rest.length > 0;
+
+        if (bothCols) {
+            let leftHtml = '<div class="panel-hof-section-label">💝 Maths Queens</div>';
+            allQueens.forEach((u, i) => { leftHtml += renderEntry(u, i + 1, true); });
+
+            let rightHtml = '<div class="panel-hof-section-label">Leaderboard</div>';
+            rest.forEach((u, i) => { rightHtml += renderEntry(u, i + 1, false); });
+
+            body.innerHTML = `<div class="panel-hof-cols"><div>${leftHtml}</div><div>${rightHtml}</div></div>`;
+        } else if (allQueens.length) {
+            let html = '';
+            allQueens.forEach((u, i) => { html += renderEntry(u, i + 1, true); });
+            body.innerHTML = html;
+        } else {
+            let html = '';
+            rest.forEach((u, i) => { html += renderEntry(u, i + 1, false); });
+            body.innerHTML = html;
+        }
     }
 
     _lookupLevelName(levelKey) {
         for (const app of Object.values(HUB_LEVELS)) {
             for (const levels of Object.values(app.groups)) {
                 const found = levels.find(l => l.key === levelKey);
-                if (found) return found.name.replace(/\s+[🥇🥈🥉]$/, '');
+                if (found) return found.name.replace(/\s+(Easy|Medium|Hard)$/i, '').trim();
             }
         }
         return levelKey;
@@ -531,7 +405,7 @@ class HubPanels {
     _timeAgo(iso) {
         if (!iso) return '';
         const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-        if (mins < 1)  return 'just now';
+        if (mins < 1)  return 'just now';   // includes future timestamps from client clock skew
         if (mins < 60) return `${mins}m ago`;
         const hours = Math.floor(mins / 60);
         if (hours < 24) return `${hours}h ago`;
@@ -539,7 +413,7 @@ class HubPanels {
     }
 
     _appBadge(app) {
-        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ' }[app] || app;
+        return { mathsfacts: '±', algebra: '𝑥', trigfacts: 'θ', equations: '=', calculus: '∫' }[app] || app;
     }
 }
 

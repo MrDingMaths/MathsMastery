@@ -1,6 +1,6 @@
 // levels/expandBinomialProductsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandBinomialProductsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandBinomialProductsEasy',
     'Expanding Double Brackets (Easy)',
     [
@@ -76,5 +76,9 @@ window.AlgebraLevels.expandBinomialProductsEasy = new BaseLevel(
             {problem: "(x-2)(x-4)", answer: "x^2 - 6x + 8"},
             {problem: "(x-2)(x-6)", answer: "x^2 - 8x + 12"},
             {problem: "(x-3)(x-6)", answer: "x^2 - 9x + 18"},
+
+            // Perfect squares with constant adjustment
+            {problem: "(x+5)^2 - 7", answer: "x^2 + 10x + 18"},
+            {problem: "(x-7)^2 - 9", answer: "x^2 - 14x + 40"},
         ]
 );

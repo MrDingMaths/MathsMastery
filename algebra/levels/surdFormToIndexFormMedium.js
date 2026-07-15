@@ -1,6 +1,6 @@
 // levels/surdFormToIndexFormMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.surdFormToIndexFormMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'surdFormToIndexFormMedium',
     'Surd Form to Index Form (Medium)',
     [
@@ -13,14 +13,6 @@ window.AlgebraLevels.surdFormToIndexFormMedium = new BaseLevel(
             {problem: "\\frac{4}{3x^5}", answer: "\\frac{4}{3}x^{-5}"},
             {problem: "\\frac{6}{7x^2}", answer: "\\frac{6}{7}x^{-2}"},
             {problem: "\\frac{8}{9x^3}", answer: "\\frac{8}{9}x^{-3}"},
-            
-            // Coefficients with surds
-            {problem: "5\\sqrt{x^3}", answer: "5x^{\\frac{3}{2}}"},
-            {problem: "3\\sqrt{x^5}", answer: "3x^{\\frac{5}{2}}"},
-            {problem: "4\\sqrt{x^7}", answer: "4x^{\\frac{7}{2}}"},
-            {problem: "2\\sqrt{x^9}", answer: "2x^{\\frac{9}{2}}"},
-            {problem: "6\\sqrt{x^{11}}", answer: "6x^{\\frac{11}{2}}"},
-            {problem: "8\\sqrt{x^{13}}", answer: "8x^{\\frac{13}{2}}"},
             
             // Fractions under square roots
             {problem: "\\frac{1}{\\sqrt{x}}", answer: "x^{-\\frac{1}{2}}"},
@@ -42,25 +34,6 @@ window.AlgebraLevels.surdFormToIndexFormMedium = new BaseLevel(
             {problem: "\\frac{7}{6\\sqrt[3]{x^4}}", answer: "\\frac{7}{6}x^{-\\frac{4}{3}}"},
             {problem: "\\frac{2}{9\\sqrt[5]{x^2}}", answer: "\\frac{2}{9}x^{-\\frac{2}{5}}"},
             
-            // Higher coefficients with surds
-            {problem: "7\\sqrt{x^5}", answer: "7x^{\\frac{5}{2}}"},
-            {problem: "6\\sqrt[3]{x^7}", answer: "6x^{\\frac{7}{3}}"},
-            {problem: "9\\sqrt{x^9}", answer: "9x^{\\frac{9}{2}}"},
-            {problem: "10\\sqrt[4]{x^7}", answer: "10x^{\\frac{7}{4}}"},
-            {problem: "12\\sqrt[5]{x^8}", answer: "12x^{\\frac{8}{5}}"},
-            {problem: "15\\sqrt[3]{x^{10}}", answer: "15x^{\\frac{10}{3}}"},
-            {problem: "8\\sqrt{x^{11}}", answer: "8x^{\\frac{11}{2}}"},
-            
-            // Constants under surds
-            {problem: "6\\sqrt{5}", answer: "6 \\times 5^{\\frac{1}{2}}"},
-            {problem: "7\\sqrt{6}", answer: "7 \\times 6^{\\frac{1}{2}}"},
-            {problem: "5\\sqrt[3]{4}", answer: "5 \\times 4^{\\frac{1}{3}}"},
-            {problem: "8\\sqrt{7}", answer: "8 \\times 7^{\\frac{1}{2}}"},
-            {problem: "9\\sqrt[4]{3}", answer: "3^{\\frac{9}{4}}"},
-            {problem: "4\\sqrt[5]{2}", answer: "2^{\\frac{11}{5}}"},
-            {problem: "11\\sqrt{10}", answer: "11 \\times 10^{\\frac{1}{2}}"},
-            {problem: "13\\sqrt[3]{8}", answer: "26"},
-            
             // Perfect power with fractional indices
             {problem: "(16a^2b^8)^{\\frac{1}{2}}", answer: "4ab^4"},
             {problem: "(32x^{10}y^{15})^{\\frac{1}{5}}", answer: "2x^2y^3"},
@@ -68,7 +41,10 @@ window.AlgebraLevels.surdFormToIndexFormMedium = new BaseLevel(
             {problem: "(81x^8y^{12})^{\\frac{1}{4}}", answer: "3x^2y^3"},
             {problem: "(64x^9y^{12})^{\\frac{1}{3}}", answer: "4x^3y^4"},
             {problem: "(25x^4y^6)^{\\frac{1}{2}}", answer: "5x^2y^3"},
-            
+            {problem: "\\sqrt[3]{125x^6y^9}", answer: "5x^2y^3"},
+            {problem: "\\sqrt[5]{243x^{10}y^{15}}", answer: "3x^2y^3"},
+            {problem: "\\sqrt[6]{64x^{12}y^{18}}", answer: "2x^2y^3"},
+
             // Fraction under surds
             {problem: "\\sqrt[3]{\\frac{8x^3}{27}}", answer: "\\frac{2x}{3}"},
             {problem: "\\sqrt{\\frac{4x^2}{9}}", answer: "\\frac{2x}{3}"},

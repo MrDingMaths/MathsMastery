@@ -1,6 +1,6 @@
 // levels/noticeBinomialFactorsHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.noticeBinomialFactorsHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'noticeBinomialFactorsHard',
     'Noticing Binomial Factors (Hard)',
     [
@@ -32,7 +32,7 @@ window.AlgebraLevels.noticeBinomialFactorsHard = new BaseLevel(
             {problem: "9yx(3x + 1)^3 + 6y(3x + 1)^2", answer: "3y(3x + 1)^2(9x^2 + 3x + 2)"},
             {problem: "7x\\sqrt{x + 5} - 4\\sqrt{x + 5}", answer: "(7x - 4)\\sqrt{x + 5}"},
             {problem: "10x(x - 3)^2 - 8x(3 - x)", answer: "2x(x - 3)(5x - 11)"},
-            {problem: "8x(x + 2)(2x - 1) + 12(x + 2)^2(2x - 1)^2", answer: "4(x + 2)(2x - 1)(6x^2 + 11x - 6)"},
+            {problem: "4x(3x - 2)^2 - 5(3x - 2)", answer: "(3x - 2)(12x^2 - 8x - 5)"},
             {problem: "9x(x + 6)^2 + 4(x + 6)", answer: "(x + 6)(9x^2 + 54x + 4)"},
             {problem: "7x(3x - 5)^2 - 11(3x - 5)", answer: "(3x - 5)(21x^2 - 35x - 11)"},
             {problem: "24x(x + 7)^2 - 16(x + 7)", answer: "8(x + 7)(3x^2 + 21x - 2)"},
@@ -49,8 +49,8 @@ window.AlgebraLevels.noticeBinomialFactorsHard = new BaseLevel(
             {problem: "9x(2x + 1) - 6(2x + 1)^2", answer: "-3(2x + 1)(x + 2)"},
             {problem: "36x(x + 10)^3 + 24(x + 10)^2", answer: "12(x + 10)^2(3x^2 + 30x + 2)"},
             {problem: "13yx(3x - 2)^3 + 9y(3x - 2)^2", answer: "y(3x - 2)^2(39x^2 - 26x + 9)"},
-            {problem: "8x\\sqrt{4x + 3} - 12\\sqrt{4x + 3}", answer: "(8x - 12)\\sqrt{4x + 3}"},
+            {problem: "8x\\sqrt{4x + 3} - 12\\sqrt{4x + 3}", answer: "4(2x - 3)\\sqrt{4x + 3}"},
             {problem: "14x(3x - 4)^2 + 21x(4 - 3x)", answer: "7x(3x - 4)(6x - 11)"},
-            {problem: "16x(2x - 5)(x + 3) + 24(2x - 5)^2(x + 3)^2", answer: "8(2x - 5)(x + 3)(6x^2 + 5x - 45)"}
+            {problem: "6x(4x + 1)^2 + 7(4x + 1)", answer: "(4x + 1)(24x^2 + 6x + 7)"}
         ]
 );

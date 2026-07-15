@@ -1,6 +1,6 @@
 // levels/multiplicationIndexLawHard.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.multiplicationIndexLawHard = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'multiplicationIndexLawHard',
     'Index Law Multiplication (Hard)',
     [
@@ -41,34 +41,6 @@ window.AlgebraLevels.multiplicationIndexLawHard = new BaseLevel(
             {problem: "6x^5y \\times (-xy^2) \\times (-2x^3y^4)", answer: "12x^9y^7"},
             {problem: "-3x^4y^2 \\times 4xy^3 \\times (-2x^2y)", answer: "24x^7y^6"},
             
-            // Moved from Multiply Terms Hard - Advanced exponent operations
-            {problem: "2x^2 \\times 5x", answer: "10x^3"},
-            {problem: "4a^3 \\times 3a^2", answer: "12a^5"},
-            {problem: "-3y \\times 2y^4", answer: "-6y^5"},
-            {problem: "7x^2 \\times (-4x)", answer: "-28x^3"},
-            {problem: "5x^4 \\times 3x^2", answer: "15x^6"},
-            {problem: "(-6x^3) \\times 2x^3", answer: "-12x^6"},
-            {problem: "8x \\times (-3x^5)", answer: "-24x^6"},
-            {problem: "4x^2 \\times 7x^3", answer: "28x^5"},
-            {problem: "(-5x^4) \\times (-2x)", answer: "10x^5"},
-            {problem: "3x^3 \\times 6x^2", answer: "18x^5"},
-            {problem: "(-7x^2) \\times 4x^4", answer: "-28x^6"},
-            {problem: "9x^3 \\times (-x^2)", answer: "-9x^5"},
-            
-            // Complex multi-variable with power operations
-            {problem: "4a^2b \\times 3ab^2", answer: "12a^3b^3"},
-            {problem: "5xy^2 \\times 3x^2y", answer: "15x^3y^3"},
-            {problem: "2a^2b \\times 3a^2b", answer: "6a^4b^2"},
-            {problem: "(-3x^2y) \\times 4xy^3", answer: "-12x^3y^4"},
-            {problem: "6x^3y^2 \\times (-2xy)", answer: "-12x^4y^3"},
-            {problem: "7x^2y \\times 3x^3y^2", answer: "21x^5y^3"},
-            {problem: "(-4x^2y^3) \\times 5xy^2", answer: "-20x^3y^5"},
-            {problem: "8x^3y \\times (-2xy^4)", answer: "-16x^4y^5"},
-            {problem: "3x^4y^2 \\times 7x^2y^3", answer: "21x^6y^5"},
-            {problem: "(-5x^2a^3) \\times (-6xa^2)", answer: "30x^3a^5"},
-            {problem: "4b^3x^2 \\times 9bx^4", answer: "36b^4x^6"},
-            {problem: "(-2x^2y) \\times 8x^3y^5", answer: "-16x^5y^6"},
-            
             // Pattern recognition and reordering with exponents
             {problem: "2ab \\times (-3ba)", answer: "-6a^2b^2"},
             {problem: "5xy \\times (-4yx)", answer: "-20x^2y^2"},
@@ -85,6 +57,31 @@ window.AlgebraLevels.multiplicationIndexLawHard = new BaseLevel(
             
             // Complex multi-factor with exponents
             {problem: "4x^3y^2 \\times (-2x^3y^2)", answer: "-8x^6y^4"},
-            {problem: "8x^2 \\times (-2y) \\times 3a \\times (-b)", answer: "48x^2yab"}
+            {problem: "8x^2 \\times (-2y) \\times 3a \\times (-b)", answer: "48x^2yab"},
+
+            // Three or more factors with multi-variable terms
+            {problem: "x^2 \\times y^3 \\times x^4 \\times y^7", answer: "x^6y^{10}"},
+            {problem: "2a^3 \\times 3b^2 \\times a^4b^3", answer: "6a^7b^5"},
+            {problem: "4x^2y \\times xy^3 \\times 2x^3y^2", answer: "8x^6y^6"},
+            {problem: "3x^4y \\times 2xy^2 \\times x^2y^3", answer: "6x^7y^6"},
+            {problem: "5x^3y^2 \\times xy \\times 2x^2y^4", answer: "10x^6y^7"},
+
+            // Three distinct letter variables
+            {problem: "xy^4a \\times 4xy", answer: "4x^2y^5a"},
+            {problem: "3abx \\times 2a^2bx^3", answer: "6a^3b^2x^4"},
+            {problem: "4x^2ya^3 \\times 3xy^4a", answer: "12x^3y^5a^4"},
+            {problem: "5x^3y^2a \\times 2xy^3a^4", answer: "10x^4y^5a^5"},
+            {problem: "6x^4y^3a^2 \\times xy^2a^5", answer: "6x^5y^5a^7"},
+            {problem: "2x^5y^4a^3 \\times 3x^2ya^2", answer: "6x^7y^5a^5"},
+
+            // Fraction coefficients
+            {problem: "\\frac{1}{5}x^2 \\times x", answer: "\\frac{1}{5}x^3"},
+            {problem: "\\frac{1}{4}x^4 \\times \\frac{2}{3}x^3", answer: "\\frac{1}{6}x^7"},
+            {problem: "\\frac{3}{5}x \\times \\frac{3x}{5}", answer: "\\frac{9}{25}x^2"},
+            {problem: "\\frac{2}{3}a^3 \\times \\frac{3}{4}a^2", answer: "\\frac{1}{2}a^5"},
+            {problem: "\\frac{1}{2}x^4y \\times \\frac{4}{3}xy^2", answer: "\\frac{2}{3}x^5y^3"},
+            {problem: "\\frac{3}{7}x^2y \\times \\frac{7}{6}xy^3", answer: "\\frac{1}{2}x^3y^4"},
+            {problem: "\\frac{5}{8}x^3y^2 \\times \\frac{4}{5}xy^4", answer: "\\frac{1}{2}x^4y^6"},
+            {problem: "\\frac{2}{9}x^5y \\times \\frac{9}{4}x^2y^3", answer: "\\frac{1}{2}x^7y^4"},
         ]
 );

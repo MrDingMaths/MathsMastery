@@ -1,6 +1,8 @@
 // levels/divisionIndexLawMedium.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.divisionIndexLawMedium = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+// Tier principle: coefficient simplifies to a clean integer, and/or two variables each requiring
+// independent index subtraction; inverse cases and simple negatives with clean integer coefficients included.
+export default new BaseLevel(
     'divisionIndexLawMedium',
     'Index Laws Division (Medium)',
     [
@@ -27,8 +29,7 @@ window.AlgebraLevels.divisionIndexLawMedium = new BaseLevel(
             {problem: "\\frac{8xy^4}{2y^3}", answer: "4xy"},
             {problem: "\\frac{x^5y^7}{x^3y^2}", answer: "x^2y^5"},
             {problem: "\\frac{a^{10}b^5}{a^5b^2}", answer: "a^5b^3"},
-            {problem: "\\frac{x^3y^{10}a^5}{x^2y^4a^3}", answer: "xy^6a^2"},
-            {problem: "\\frac{x^4y^7a^3}{x^2y^4}", answer: "x^2y^3a^3"},
+
             {problem: "\\frac{-6x^7y^2}{3x^4y}", answer: "-2x^3y"},
             {problem: "\\frac{9x^3y^5}{3x^2y^2}", answer: "3xy^3"},
             {problem: "\\frac{14y^6x^4}{7y^3x^2}", answer: "2y^3x^2"},
@@ -65,17 +66,18 @@ window.AlgebraLevels.divisionIndexLawMedium = new BaseLevel(
             {problem: "\\frac{x^3y^2}{x^2y}", answer: "xy"},
             {problem: "\\frac{12x^3}{4x^2}", answer: "3x"},
             
-            // Questions moved from cancellingMedium (higher powers)
-            {problem: "\\frac{5xy}{10x^3y}", answer: "\\frac{1}{2x^2}"},
+            // Inverse cases — denominator power exceeds numerator, clean integer coefficient
             {problem: "\\frac{15xya}{5x^2y^3a}", answer: "\\frac{3}{xy^2}"},
             {problem: "\\frac{12x^2y}{6x^4y}", answer: "\\frac{2}{x^2}"},
-            {problem: "\\frac{20x^2y^3}{8x^5y}", answer: "\\frac{5y^2}{2x^3}"},
             {problem: "\\frac{24a^3b^2}{12a^5b^4}", answer: "\\frac{2}{a^2b^2}"},
             {problem: "\\frac{15x^4y^3}{5x^2y}", answer: "3x^2y^2"},
-            {problem: "\\frac{20x^2y}{8x^5y^3}", answer: "\\frac{5}{2x^3y^2}"},
             {problem: "\\frac{24a^2b^3}{6a^4b^5}", answer: "\\frac{4}{a^2b^2}"},
-            {problem: "\\frac{36xya}{9x^3y^2a^4}", answer: "\\frac{4}{x^2ya^3}"},
-            {problem: "\\frac{5ab^2}{9b^4}", answer: "\\frac{5a}{9b^2}"},
-            {problem: "\\frac{10x^3y^2}{2x^5y^4}", answer: "\\frac{5}{x^2y^2}"}
+            {problem: "\\frac{10x^3y^2}{2x^5y^4}", answer: "\\frac{5}{x^2y^2}"},
+
+            // Migrated from Hard (clean integer coefficient, two variables)
+            {problem: "6x^4y^2 \\div (3y^2x^2)", answer: "2x^2"},
+            {problem: "16y^7x^5 \\div (8y^3x^4)", answer: "2y^4x"},
+            {problem: "\\frac{-9x^7}{3x^4}", answer: "-3x^3"},
+            {problem: "\\frac{-12a^2b}{ab}", answer: "-12a"}
         ]
 );

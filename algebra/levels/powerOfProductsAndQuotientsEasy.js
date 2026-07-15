@@ -1,6 +1,6 @@
 // levels/powerOfProductsAndQuotientsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.powerOfProductsAndQuotientsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'powerOfProductsAndQuotientsEasy',
     'Power of a Product and Quotient (Easy)',
     [
@@ -43,29 +43,28 @@ window.AlgebraLevels.powerOfProductsAndQuotientsEasy = new BaseLevel(
             {problem: "(2y)^4", answer: "16y^4"},
             
             // Simple quotients
-            {problem: "(\\frac{x}{y})^3", answer: "\\frac{x^3}{y^3}"},
-            {problem: "(\\frac{x}{y})^4", answer: "\\frac{x^4}{y^4}"},
-            {problem: "(\\frac{a}{b})^2", answer: "\\frac{a^2}{b^2}"},
-            {problem: "(\\frac{x}{y})^2", answer: "\\frac{x^2}{y^2}"},
+            {problem: "\\left(\\frac{x}{y}\\right)^3", answer: "\\frac{x^3}{y^3}"},
+            {problem: "\\left(\\frac{x}{y}\\right)^4", answer: "\\frac{x^4}{y^4}"},
+            {problem: "\\left(\\frac{a}{b}\\right)^2", answer: "\\frac{a^2}{b^2}"},
+            {problem: "\\left(\\frac{x}{y}\\right)^2", answer: "\\frac{x^2}{y^2}"},
             
             // Quotients with coefficients
-            {problem: "(\\frac{4}{y})^3", answer: "\\frac{64}{y^3}"},
-            {problem: "(\\frac{3}{x})^2", answer: "\\frac{9}{x^2}"},
-            {problem: "(\\frac{5}{x})^2", answer: "\\frac{25}{x^2}"},
-            {problem: "(\\frac{2}{a})^4", answer: "\\frac{16}{a^4}"},
-            {problem: "(\\frac{6}{b})^2", answer: "\\frac{36}{b^2}"},
+            {problem: "\\left(\\frac{4}{y}\\right)^3", answer: "\\frac{64}{y^3}"},
+            {problem: "\\left(\\frac{3}{x}\\right)^2", answer: "\\frac{9}{x^2}"},
+            {problem: "\\left(\\frac{5}{x}\\right)^2", answer: "\\frac{25}{x^2}"},
+            {problem: "\\left(\\frac{2}{a}\\right)^4", answer: "\\frac{16}{a^4}"},
+            {problem: "\\left(\\frac{6}{b}\\right)^2", answer: "\\frac{36}{b^2}"},
             
             // Quotients with powers in denominator
-            {problem: "(\\frac{2}{x^3})^2", answer: "\\frac{4}{x^6}"},
-            {problem: "(\\frac{3}{x^2})^3", answer: "\\frac{27}{x^6}"},
-            {problem: "(\\frac{4}{y^4})^2", answer: "\\frac{16}{y^8}"},
-            {problem: "(\\frac{5}{x^2})^2", answer: "\\frac{25}{x^4}"},
+            {problem: "\\left(\\frac{2}{x^3}\\right)^2", answer: "\\frac{4}{x^6}"},
+            {problem: "\\left(\\frac{3}{x^2}\\right)^3", answer: "\\frac{27}{x^6}"},
+            {problem: "\\left(\\frac{4}{y^4}\\right)^2", answer: "\\frac{16}{y^8}"},
+            {problem: "\\left(\\frac{5}{x^2}\\right)^2", answer: "\\frac{25}{x^4}"},
             
             // Variables with powers in quotients
-            {problem: "(\\frac{x^3}{y})^2", answer: "\\frac{x^6}{y^2}"},
-            {problem: "(\\frac{x^2}{y})^3", answer: "\\frac{x^6}{y^3}"},
-            {problem: "(\\frac{a^4}{b})^2", answer: "\\frac{a^8}{b^2}"},
-            {problem: "(\\frac{x^3}{y^2})^2", answer: "\\frac{x^6}{y^4}"},
+            {problem: "\\left(\\frac{x^3}{y}\\right)^2", answer: "\\frac{x^6}{y^2}"},
+            {problem: "\\left(\\frac{x^2}{y}\\right)^3", answer: "\\frac{x^6}{y^3}"},
+            {problem: "\\left(\\frac{a^4}{b}\\right)^2", answer: "\\frac{a^8}{b^2}"},
             
             // More coefficient powers            {problem: "(5a)^3", answer: "125a^3"},
             {problem: "(2x)^6", answer: "64x^6"},
@@ -73,22 +72,22 @@ window.AlgebraLevels.powerOfProductsAndQuotientsEasy = new BaseLevel(
             {problem: "(3y)^4", answer: "81y^4"},
             
             // Unit fractions
-            {problem: "(\\frac{1}{x})^5", answer: "\\frac{1}{x^5}"},
-            {problem: "(\\frac{1}{y})^3", answer: "\\frac{1}{y^3}"},
-            {problem: "(\\frac{1}{x})^4", answer: "\\frac{1}{x^4}"},
-            {problem: "(\\frac{1}{a})^2", answer: "\\frac{1}{a^2}"},
+            {problem: "\\left(\\frac{1}{x}\\right)^5", answer: "\\frac{1}{x^5}"},
+            {problem: "\\left(\\frac{1}{y}\\right)^3", answer: "\\frac{1}{y^3}"},
+            {problem: "\\left(\\frac{1}{x}\\right)^4", answer: "\\frac{1}{x^4}"},
+            {problem: "\\left(\\frac{1}{a}\\right)^2", answer: "\\frac{1}{a^2}"},
             
             // Variable over coefficient
-            {problem: "(\\frac{y}{5})^2", answer: "\\frac{y^2}{25}"},
-            {problem: "(\\frac{x}{3})^3", answer: "\\frac{x^3}{27}"},
-            {problem: "(\\frac{x}{4})^2", answer: "\\frac{x^2}{16}"},
-            {problem: "(\\frac{a}{2})^4", answer: "\\frac{a^4}{16}"},
+            {problem: "\\left(\\frac{y}{5}\\right)^2", answer: "\\frac{y^2}{25}"},
+            {problem: "\\left(\\frac{x}{3}\\right)^3", answer: "\\frac{x^3}{27}"},
+            {problem: "\\left(\\frac{x}{4}\\right)^2", answer: "\\frac{x^2}{16}"},
+            {problem: "\\left(\\frac{a}{2}\\right)^4", answer: "\\frac{a^4}{16}"},
             
             // Variable with coefficient over coefficient
-            {problem: "(\\frac{7a}{5})^2", answer: "\\frac{49a^2}{25}"},
-            {problem: "(\\frac{3x}{4})^2", answer: "\\frac{9x^2}{16}"},
-            {problem: "(\\frac{2y}{3})^3", answer: "\\frac{8y^3}{27}"},
-            {problem: "(\\frac{5x}{2})^2", answer: "\\frac{25x^2}{4}"},
+            {problem: "\\left(\\frac{7a}{5}\\right)^2", answer: "\\frac{49a^2}{25}"},
+            {problem: "\\left(\\frac{3x}{4}\\right)^2", answer: "\\frac{9x^2}{16}"},
+            {problem: "\\left(\\frac{2y}{3}\\right)^3", answer: "\\frac{8y^3}{27}"},
+            {problem: "\\left(\\frac{5x}{2}\\right)^2", answer: "\\frac{25x^2}{4}"},
             
             // Additional simple cases for variety
             {problem: "(xy)^2", answer: "x^2y^2"},

@@ -390,3 +390,26 @@ class ProgressTracker {
         return numbers.reduce((a, b) => a + b, 0) / numbers.length;
     }
 }
+
+// Per-app factory. Constructs window.progressTracker with the canonical
+// storage key for the app and cleans up obsolete bestTime localStorage entries.
+// Per-app wrappers under each app's progress-tracking/progressTracker.js
+// call this with their app name and migration history.
+window.initProgressTracker = function (app, opts) {
+    const APP_STORAGE = {
+        algebra:    { storageKey: 'algebra_progress_data_v5', obsoleteBestTimePrefixes: ['algebra_bestTime_v1_'] },
+        mathsfacts: { storageKey: 'mf_progress_data_v5',      obsoleteBestTimePrefixes: ['mf_bestTime_v1_', 'mf_bestTime_v5_'] },
+        trigfacts:  { storageKey: 'tf_progress_data_v5',      obsoleteBestTimePrefixes: ['tf_bestTime_v5_'] },
+        equations:  { storageKey: 'equations_progress_data_v5', obsoleteBestTimePrefixes: [] },
+        calculus:   { storageKey: 'calculus_progress_data_v5', obsoleteBestTimePrefixes: [] },
+    };
+    const cfg = APP_STORAGE[app];
+    if (!cfg) throw new Error(`initProgressTracker: unknown app "${app}"`);
+    window.progressTracker = new ProgressTracker(cfg.storageKey, opts);
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && cfg.obsoleteBestTimePrefixes.some(p => key.startsWith(p))) {
+            localStorage.removeItem(key);
+        }
+    }
+};

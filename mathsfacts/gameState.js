@@ -24,10 +24,9 @@ export class GameState extends BaseGameState {
 
 /**
  * StorageManager provides localStorage interface for game data persistence.
- * Delegates to shared BaseStorageManager; static API preserved for callers.
+ * Delegates to window.progressTracker; static API preserved for callers.
  */
 export const StorageManager = {
-    saveBestTime: (levelKey, time) => { /* no-op */ },
     getBestTime: (levelKey) => window.progressTracker?.getBestTime(levelKey) ?? null,
     getRating: (time, levelKey = null) => RatingUtils.getRating(time, levelKey, CONFIG.REQUIRED_STREAK, CONFIG)
 };

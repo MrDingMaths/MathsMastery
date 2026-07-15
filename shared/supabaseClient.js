@@ -26,10 +26,8 @@
         }));
     });
 
-    // Check for existing session on page load
+    // Check for existing session on page load (onAuthStateChange above already
+    // emits its own INITIAL_SESSION event — avoid dispatching a duplicate here).
     const { data: { session } } = await supabase.auth.getSession();
     window.supabaseUser = session?.user || null;
-    document.dispatchEvent(new CustomEvent('supabase-auth-change', {
-        detail: { event: 'INITIAL_SESSION', session, user: window.supabaseUser }
-    }));
 })();

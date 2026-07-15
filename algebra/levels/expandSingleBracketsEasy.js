@@ -1,6 +1,6 @@
 // levels/expandSingleBracketsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.expandSingleBracketsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'expandSingleBracketsEasy',
     'Expanding Brackets (Easy)',
     [
@@ -52,17 +52,6 @@ window.AlgebraLevels.expandSingleBracketsEasy = new BaseLevel(
             {problem: "4x(x + 2)", answer: "4x^2 + 8x"},
             {problem: "3x(x - 4)", answer: "3x^2 - 12x"},
             {problem: "6x(x + 1)", answer: "6x^2 + 6x"},
-            
-            // Basic two-term expansions
-            {problem: "x(2 + y)", answer: "2x + xy"},
-            {problem: "a(3 + b)", answer: "3a + ab"},
-            {problem: "x(4 + y)", answer: "4x + xy"},
-            {problem: "x(1 + y)", answer: "x + xy"},
-            {problem: "x(5 - y)", answer: "5x - xy"},
-            {problem: "a(2 - b)", answer: "2a - ab"},
-            {problem: "x(3 - y)", answer: "3x - xy"},
-            {problem: "x(6 - y)", answer: "6x - xy"},
-            {problem: "x(2 - y)", answer: "2x - xy"},
             
             // Simple brackets with different variables
             {problem: "2(3x + 4)", answer: "6x + 8"},
@@ -126,5 +115,36 @@ window.AlgebraLevels.expandSingleBracketsEasy = new BaseLevel(
             {problem: "x(4+x)", answer: "x^2 + 4x"},
             {problem: "x(4-x)", answer: "4x - x^2"},
             {problem: "x(x-4)", answer: "x^2 - 4x"},
+
+            // From Medium: positive coefficient × single-variable binomial
+            {problem: "3(2x - 5)", answer: "6x - 15"},
+            {problem: "4(3a - 2)", answer: "12a - 8"},
+            {problem: "5(2b + 7)", answer: "10b + 35"},
+            {problem: "2(4y - 3)", answer: "8y - 6"},
+            {problem: "6(3x + 1)", answer: "18x + 6"},
+            {problem: "3(5x - 4)", answer: "15x - 12"},
+            {problem: "4(2x + 9)", answer: "8x + 36"},
+            {problem: "7(3x - 2)", answer: "21x - 14"},
+            {problem: "2(6x + 5)", answer: "12x + 10"},
+            {problem: "5(4x - 7)", answer: "20x - 35"},
+            {problem: "5(3a - 2)", answer: "15a - 10"},
+            {problem: "3(4x - 5)", answer: "12x - 15"},
+            {problem: "5(3x + 2)", answer: "15x + 10"},
+            {problem: "7(2x + 1)", answer: "14x + 7"},
+            {problem: "6(3x + 5)", answer: "18x + 30"},
+            {problem: "10(4x + 3)", answer: "40x + 30"},
+            {problem: "5(3x + 4)", answer: "15x + 20"},
+            {problem: "8(2x + 4)", answer: "16x + 32"},
+            {problem: "4(3 - 2x)", answer: "12 - 8x"},
+            {problem: "6(2x - 5)", answer: "12x - 30"},
+            {problem: "4(3x - 1)", answer: "12x - 4"},
+            {problem: "10(6x - 7)", answer: "60x - 70"},
+            {problem: "5(3x + 8)", answer: "15x + 40"},
+            {problem: "5(7x + 10)", answer: "35x + 50"},
+            {problem: "5(2x + 5)", answer: "10x + 25"},
+            {problem: "7(8x - 2)", answer: "56x - 14"},
+            {problem: "3(9x - 4)", answer: "27x - 12"},
+            {problem: "2(2x + 6)", answer: "4x + 12"},
+            {problem: "6(8x + 8)", answer: "48x + 48"},
         ]
 );

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculus License</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+  :root{
+    --ink:#2b2440;
+    --accent:#12b3a6;
+    --accent-soft:rgba(18,179,166,.5);
+    --banner:linear-gradient(135deg,#ff9a3d 0%,#ff5d8f 100%);
+    --scene-bg:radial-gradient(circle at 18% 22%,#fff1dd,transparent 55%),radial-gradient(circle at 82% 78%,#d3f4ef,transparent 55%),#fbe9dc;
+  }
+
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+
+  @keyframes calcfloat{
+    0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform:translateY(-18px) rotate(var(--r,0deg)); }
+  }
+
+  /* ---------- page ---------- */
+  .scene{
+    min-height:100vh; width:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+    padding:40px 24px;
+    background:var(--scene-bg);
+    font-family:'Fredoka',sans-serif;
+    position:relative; overflow:hidden;
+  }
+
+  /* ---------- holographic glyphs — confined to the card, not the page ---------- */
+  .glyphs{ position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .glyph{ position:absolute; color:var(--accent); animation:calcfloat 10s ease-in-out infinite; mix-blend-mode:multiply; }
+  .glyph--integral   { top:4%;  left:4%;   --r:-12deg; font-size:150px; opacity:.08; }
+  .glyph--sigma      { top:56%; left:8%;   --r:8deg;   font-size:96px;  opacity:.07; animation-delay:.8s; }
+  .glyph--pi         { top:8%;  right:6%;  --r:10deg;  font-size:110px; opacity:.07; animation-delay:.4s; }
+  .glyph--sqrt       { bottom:6%; right:8%; --r:-8deg; font-size:130px; opacity:.08; animation-delay:1.2s; }
+  .glyph--partial    { bottom:36%; right:2%; --r:6deg; font-size:80px;  opacity:.06; animation-delay:.6s; }
+
+  /* ---------- editable affordance ---------- */
+  [contenteditable]{ outline:none; border-radius:6px; transition:box-shadow .15s, background .15s; cursor:text; }
+  [contenteditable]:hover{ box-shadow:0 0 0 2px rgba(43,36,64,.14); }
+  [contenteditable]:focus{ box-shadow:0 0 0 2px var(--accent); background:rgba(255,255,255,.55); }
+
+  /* ---------- card — CR80 (85.6 x 54mm, 1.585:1) ---------- */
+  .card{
+    position:relative; z-index:1;
+    width:880px; aspect-ratio:85.6 / 54;
+    display:flex; flex-direction:column;
+    border-radius:24px; overflow:hidden;
+    background:#fff9f0;
+    box-shadow:0 30px 60px -20px rgba(43,36,64,.45), 0 0 0 1px rgba(43,36,64,.06);
+    border:3px solid #fff;
+  }
+  .card-watermark{
+    position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:repeating-linear-gradient(135deg, rgba(43,36,64,.022) 0 2px, transparent 2px 11px);
+  }
+
+  /* ---------- banner ---------- */
+  .banner{
+    position:relative; z-index:2; flex:none; height:108px; padding:0 28px;
+    display:flex; align-items:center; gap:16px; color:#fff; background:var(--banner);
+  }
+  .banner-title{
+    flex:1; min-width:0;
+    font-size:44px; font-weight:600; line-height:1.05; letter-spacing:.5px;
+    text-shadow:0 2px 0 rgba(43,36,64,.12);
+  }
+  .banner-badges{ display:flex; flex:none; gap:10px; }
+  .badge-circle{
+    width:60px; height:60px; flex:none; border-radius:50%;
+    border:3px solid rgba(255,255,255,.85);
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px; font-weight:600; font-family:'Fredoka',monospace;
+    box-shadow:0 2px 8px -2px rgba(43,36,64,.35);
+  }
+
+  /* ---------- body ---------- */
+  .body{ position:relative; z-index:2; flex:1; min-height:0; display:flex; gap:28px; padding:24px 26px 16px; }
+
+  .photo-frame{
+    flex:none; display:flex; padding:6px; align-items:flex-start;
+  }
+  .photo-mount{
+    display:flex; padding:6px; background:#fff; border-radius:14px;
+    box-shadow:0 6px 16px -8px rgba(43,36,64,.4); border:2px solid var(--accent);
+  }
+  .photo-slot{
+    width:192px; height:246px; border-radius:9px; overflow:hidden;
+    position:relative; background:#f3efe6 center/cover no-repeat;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; text-align:center;
+  }
+  .photo-slot img{ display:none; }
+  .photo-slot .placeholder{
+    font-family:'Space Mono',monospace; font-size:13px; font-weight:700;
+    letter-spacing:1px; color:#9a93a8; padding:0 10px;
+  }
+
+  .data-col{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .label{
+    font-family:'Space Mono',monospace; font-size:14px; font-weight:700;
+    letter-spacing:2px; color:#9a93a8;
+  }
+  .holder-role{ flex:none; }
+  .holder-name{ font-size:46px; font-weight:600; color:#2b2440; line-height:1.05; }
+
+  .dates-row{ flex:none; display:flex; gap:18px; margin-top:20px; }
+  .issued-col{ flex:1; }
+  .issued-value{ font-family:'Space Mono',monospace; font-size:25px; font-weight:700; color:#2b2440; }
+  .expires-col{ flex:none; }
+  .expires-value{ font-size:33px; font-weight:600; color:var(--accent); line-height:.95; }
+
+  .authority{ flex:none; margin-top:20px; }
+  .authority-value{ font-size:27px; font-weight:600; color:#2b2440; }
+
+  /* ---------- certification statement ---------- */
+  .cert-wrap{ position:relative; z-index:2; flex:none; padding:0 26px 22px; }
+  .cert-box{
+    padding:14px 20px; border-radius:14px;
+  }
+  .cert-text{ margin:0; font-size:23px; line-height:1.45; color:#2b2440; font-weight:500; }
+
+  /* ---------- palette picker ---------- */
+  .swatches{ position:relative; z-index:1; display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .swatch{
+    width:30px; height:30px; border-radius:50%; border:3px solid #fff;
+    box-shadow:0 2px 8px -2px rgba(43,36,64,.4),0 0 0 1px rgba(43,36,64,.1);
+    cursor:pointer; padding:0; transition:transform .12s;
+  }
+  .swatch:hover{ transform:scale(1.12); }
+  .swatch[aria-pressed="true"]{ box-shadow:0 0 0 3px #fff,0 0 0 6px var(--ink); }
+
+  /* ---------- export button ---------- */
+  .export-btn{
+    position:relative; z-index:1;
+    font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600; color:#fff;
+    background:var(--ink); border:none; border-radius:999px;
+    padding:10px 22px; cursor:pointer; display:flex; align-items:center; gap:8px;
+    box-shadow:0 4px 12px -4px rgba(43,36,64,.5); transition:transform .12s;
+  }
+  .export-btn:hover{ transform:translateY(-1px); }
+  .export-btn:active{ transform:translateY(0); }
+
+  /* ---------- edit hint ---------- */
+  .hint{
+    position:relative; z-index:1; display:flex; align-items:center; gap:8px;
+    font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:1px; color:#8a8298;
+  }
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+
+  <div class="card" id="licenseCard">
+    <div class="card-watermark"></div>
+
+    <div class="glyphs">
+      <span class="glyph glyph--integral">&int;</span>
+      <span class="glyph glyph--sigma">&sum;</span>
+      <span class="glyph glyph--pi">&pi;</span>
+      <span class="glyph glyph--sqrt">&radic;</span>
+      <span class="glyph glyph--partial">&part;</span>
+    </div>
+
+    <div class="banner">
+      <div class="banner-title" contenteditable="true" spellcheck="false">CALCULUS LICENSE</div>
+      <div class="banner-badges">
+        <span class="badge-circle" style="background:#dcfce7;color:#15803d;">&plusmn;</span>
+        <span class="badge-circle" style="background:#dbeafe;color:#1d4ed8;">&#119909;</span>
+        <span class="badge-circle" style="background:#ccfbf1;color:#0f766e;">=</span>
+        <span class="badge-circle" style="background:#fce7f3;color:#be185d;">&theta;</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="photo-frame">
+        <div class="photo-mount">
+          <label class="photo-slot" id="photoSlot">
+            <img id="photoImg" alt="">
+            <span class="placeholder" id="photoPlaceholder">DROP PHOTO<br>(click to choose)<br>3:4 portrait best</span>
+            <input type="file" accept="image/*" id="photoInput" hidden>
+          </label>
+        </div>
+      </div>
+
+      <div class="data-col">
+        <div class="holder-role">
+          <div class="label" contenteditable="true" spellcheck="false">MATHS QUEEN 💖</div>
+          <div class="holder-name" contenteditable="true" spellcheck="false">[your name]</div>
+        </div>
+
+        <div class="dates-row">
+          <div class="issued-col">
+            <div class="label" contenteditable="true" spellcheck="false">ISSUED</div>
+            <div class="issued-value" contenteditable="true" spellcheck="false">06 / 18 / 2026</div>
+          </div>
+          <div class="expires-col">
+            <div class="label" contenteditable="true" spellcheck="false">EXPIRES</div>
+            <div class="expires-value" contenteditable="true" spellcheck="false">&infin;</div>
+          </div>
+        </div>
+
+        <div class="authority">
+          <div class="label" contenteditable="true" spellcheck="false">ISSUED BY</div>
+          <div class="authority-value" contenteditable="true" spellcheck="false">Mr Ding</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-wrap">
+      <div class="cert-box">
+        <p class="cert-text" contenteditable="true" spellcheck="false">This certifies that the holder has demonstrated complete mastery of algebraic techniques and is ready for the calculus-based courses.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatches" id="swatches"></div>
+
+  <button class="export-btn" id="exportBtn"><span>&#11015;</span> Export PNG</button>
+
+  <div class="hint"><span style="font-size:15px;">&#9998;</span> Click any text to edit it &middot; click the photo box to upload a picture &middot; pick a color above</div>
+
+</div>
+
+<script>
+  const PALETTES = [
+    { name:'Citrus',    accent:'#12b3a6', banner:'linear-gradient(135deg,#ff9a3d 0%,#ff5d8f 100%)', bg:'radial-gradient(circle at 18% 22%,#fff1dd,transparent 55%),radial-gradient(circle at 82% 78%,#d3f4ef,transparent 55%),#fbe9dc' },
+    { name:'Bubblegum', accent:'#0bc1a6', banner:'linear-gradient(135deg,#ff6fb5 0%,#9b5de5 100%)', bg:'radial-gradient(circle at 18% 22%,#ffe3f3,transparent 55%),radial-gradient(circle at 82% 78%,#e7defb,transparent 55%),#fbe6f3' },
+    { name:'Cosmic',    accent:'#f72585', banner:'linear-gradient(135deg,#4361ee 0%,#22d3ee 100%)', bg:'radial-gradient(circle at 18% 22%,#dfe7ff,transparent 55%),radial-gradient(circle at 82% 78%,#cff6fb,transparent 55%),#e3ecfb' },
+    { name:'Lime',      accent:'#f5556d', banner:'linear-gradient(135deg,#43c463 0%,#a3e635 100%)', bg:'radial-gradient(circle at 18% 22%,#e6f9d9,transparent 55%),radial-gradient(circle at 82% 78%,#fff3cf,transparent 55%),#eef9df' },
+    { name:'Sunset',    accent:'#2563eb', banner:'linear-gradient(135deg,#fb7185 0%,#fbbf24 100%)', bg:'radial-gradient(circle at 18% 22%,#ffe1e6,transparent 55%),radial-gradient(circle at 82% 78%,#fff0d4,transparent 55%),#ffe8e0' },
+    { name:'Berry',     accent:'#22c55e', banner:'linear-gradient(135deg,#a855f7 0%,#ec4899 100%)', bg:'radial-gradient(circle at 18% 22%,#f1e3ff,transparent 55%),radial-gradient(circle at 82% 78%,#ffe1ef,transparent 55%),#f3e8fb' },
+    { name:'Ocean',     accent:'#fb923c', banner:'linear-gradient(135deg,#0ea5e9 0%,#14b8a6 100%)', bg:'radial-gradient(circle at 18% 22%,#d6f1ff,transparent 55%),radial-gradient(circle at 82% 78%,#d2f5ee,transparent 55%),#deeffb' },
+    { name:'Midnight',  accent:'#fbbf24', banner:'linear-gradient(135deg,#6366f1 0%,#1e293b 100%)', bg:'radial-gradient(circle at 18% 22%,#e2e3f5,transparent 55%),radial-gradient(circle at 82% 78%,#dfe7ef,transparent 55%),#e6e8f2' },
+  ];
+
+  function softFromHex(hex){
+    const n = parseInt(hex.replace('#',''), 16);
+    return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},.5)`;
+  }
+
+  const scene = document.getElementById('scene');
+  function applyPalette(p){
+    scene.style.setProperty('--accent', p.accent);
+    scene.style.setProperty('--accent-soft', softFromHex(p.accent));
+    scene.style.setProperty('--banner', p.banner);
+    scene.style.setProperty('--scene-bg', p.bg);
+    try{ localStorage.setItem('calcLicensePalette', p.name); }catch(e){}
+    document.querySelectorAll('.swatch').forEach(s => s.setAttribute('aria-pressed', String(s.dataset.name === p.name)));
+  }
+
+  const swatchWrap = document.getElementById('swatches');
+  PALETTES.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'swatch';
+    b.dataset.name = p.name;
+    b.title = p.name;
+    b.style.background = p.banner;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', () => applyPalette(p));
+    swatchWrap.appendChild(b);
+  });
+
+  let savedPalette = null;
+  try{ savedPalette = localStorage.getItem('calcLicensePalette'); }catch(e){}
+  applyPalette(PALETTES.find(p => p.name === savedPalette) || PALETTES[0]);
+
+  // ---------- photo upload (persisted in localStorage as a data URL) ----------
+  const photoInput = document.getElementById('photoInput');
+  const photoSlot = document.getElementById('photoSlot');
+  const photoPlaceholder = document.getElementById('photoPlaceholder');
+  const PHOTO_KEY = 'calcLicensePhoto';
+
+  function showPhoto(dataUrl){
+    photoSlot.style.backgroundImage = `url(${dataUrl})`;
+    photoPlaceholder.style.display = 'none';
+  }
+
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files && photoInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      showPhoto(reader.result);
+      try{ localStorage.setItem(PHOTO_KEY, reader.result); }catch(e){}
+    };
+    reader.readAsDataURL(file);
+  });
+
+  let savedPhoto = null;
+  try{ savedPhoto = localStorage.getItem(PHOTO_KEY); }catch(e){}
+  if (savedPhoto) showPhoto(savedPhoto);
+
+  // ---------- export card as PNG ----------
+  const exportBtn = document.getElementById('exportBtn');
+  const licenseCard = document.getElementById('licenseCard');
+  exportBtn.addEventListener('click', async () => {
+    exportBtn.disabled = true;
+    const oldLabel = exportBtn.innerHTML;
+    exportBtn.innerHTML = 'Exporting…';
+    try{
+      const canvas = await html2canvas(licenseCard, { backgroundColor: null, scale: 3, useCORS: true });
+      const link = document.createElement('a');
+      link.download = 'calculus-license.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } finally {
+      exportBtn.disabled = false;
+      exportBtn.innerHTML = oldLabel;
+    }
+  });
+</script>
+
+</body>
+</html>

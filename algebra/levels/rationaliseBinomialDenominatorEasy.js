@@ -1,70 +1,36 @@
 // levels/rationaliseBinomialDenominatorEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.rationaliseBinomialDenominatorEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'rationaliseBinomialDenominatorEasy',
     'Further Rationalising the Denominator (Easy)',
     [
-            // Provided textbook questions
-            {problem: "\\frac{2}{4+\\sqrt{3}}", answer: "\\frac{8-2\\sqrt{3}}{13}"},
-            {problem: "\\frac{1}{5-\\sqrt{7}}", answer: "\\frac{5+\\sqrt{7}}{18}"},
-            {problem: "\\frac{5}{\\sqrt{6}-1}", answer: "\\sqrt{6}+1"},
-            {problem: "\\frac{6}{\\sqrt{2}+\\sqrt{11}}", answer: "\\frac{2\\sqrt{11}-2\\sqrt{2}}{3}"},
-            {problem: "\\frac{2}{\\sqrt{2}+3}", answer: "\\frac{6-2\\sqrt{2}}{7}"},
-            {problem: "\\frac{2}{3+\\sqrt{2}}", answer: "\\frac{6-2\\sqrt{2}}{7}"},
-            {problem: "\\frac{2}{3-\\sqrt{2}}", answer: "\\frac{6+2\\sqrt{2}}{7}"},
-            {problem: "\\frac{7}{3-\\sqrt{2}}", answer: "3+\\sqrt{2}"},
-            {problem: "\\frac{7}{\\sqrt{2}-3}", answer: "-\\sqrt{2}-3"},
-            {problem: "\\frac{7}{\\sqrt{7}-3}", answer: "-\\frac{21+7\\sqrt{7}}{2}"},
-            
-            // Additional easy questions - simple binomial denominators
+            // Unit numerator over a binomial with one variable surd
+            {problem: "\\frac{1}{a+\\sqrt{x}}", answer: "\\frac{a-\\sqrt{x}}{a^2-x}"},
+            {problem: "\\frac{1}{a-\\sqrt{x}}", answer: "\\frac{a+\\sqrt{x}}{a^2-x}"},
+            {problem: "\\frac{1}{2+\\sqrt{x}}", answer: "\\frac{2-\\sqrt{x}}{4-x}"},
+            {problem: "\\frac{1}{3-\\sqrt{x}}", answer: "\\frac{3+\\sqrt{x}}{9-x}"},
+            {problem: "\\frac{1}{5+\\sqrt{x}}", answer: "\\frac{5-\\sqrt{x}}{25-x}"},
+            {problem: "\\frac{1}{\\sqrt{x}+1}", answer: "\\frac{\\sqrt{x}-1}{x-1}"},
+            {problem: "\\frac{1}{\\sqrt{x}-1}", answer: "\\frac{\\sqrt{x}+1}{x-1}"},
+            {problem: "\\frac{1}{\\sqrt{x}+2}", answer: "\\frac{\\sqrt{x}-2}{x-4}"},
+            {problem: "\\frac{1}{\\sqrt{x}-3}", answer: "\\frac{\\sqrt{x}+3}{x-9}"},
+            // Unit numerator over a sum/difference of two variable surds
+            {problem: "\\frac{1}{\\sqrt{x}+\\sqrt{y}}", answer: "\\frac{\\sqrt{x}-\\sqrt{y}}{x-y}"},
+            {problem: "\\frac{1}{\\sqrt{x}-\\sqrt{y}}", answer: "\\frac{\\sqrt{x}+\\sqrt{y}}{x-y}"},
+            // Integer numerator over a binomial with a variable surd
+            {problem: "\\frac{2}{a+\\sqrt{x}}", answer: "\\frac{2a-2\\sqrt{x}}{a^2-x}"},
+            {problem: "\\frac{3}{a-\\sqrt{x}}", answer: "\\frac{3a+3\\sqrt{x}}{a^2-x}"},
+            {problem: "\\frac{2}{\\sqrt{x}+1}", answer: "\\frac{2\\sqrt{x}-2}{x-1}"},
+            {problem: "\\frac{5}{\\sqrt{x}+2}", answer: "\\frac{5\\sqrt{x}-10}{x-4}"},
+            {problem: "\\frac{c}{a+\\sqrt{x}}", answer: "\\frac{ac-c\\sqrt{x}}{a^2-x}"},
+            // A handful of numeric questions for fluency (small conjugates)
             {problem: "\\frac{1}{1+\\sqrt{2}}", answer: "\\sqrt{2}-1"},
-            {problem: "\\frac{1}{1-\\sqrt{2}}", answer: "-1-\\sqrt{2}"},
             {problem: "\\frac{1}{2+\\sqrt{3}}", answer: "2-\\sqrt{3}"},
             {problem: "\\frac{1}{2-\\sqrt{3}}", answer: "2+\\sqrt{3}"},
-            {problem: "\\frac{1}{\\sqrt{3}+1}", answer: "\\frac{\\sqrt{3}-1}{2}"},
-            {problem: "\\frac{1}{\\sqrt{3}-1}", answer: "\\frac{\\sqrt{3}+1}{2}"},
             {problem: "\\frac{1}{\\sqrt{5}+2}", answer: "\\sqrt{5}-2"},
-            {problem: "\\frac{1}{\\sqrt{5}-2}", answer: "\\sqrt{5}+2"},
-            {problem: "\\frac{3}{1+\\sqrt{2}}", answer: "3\\sqrt{2}-3"},
-            {problem: "\\frac{4}{1-\\sqrt{2}}", answer: "-4-4\\sqrt{2}"},
-            
-            // Simple integer over binomial with small surds
+            {problem: "\\frac{1}{\\sqrt{3}+1}", answer: "\\frac{\\sqrt{3}-1}{2}"},
             {problem: "\\frac{2}{1+\\sqrt{3}}", answer: "\\sqrt{3}-1"},
-            {problem: "\\frac{3}{2+\\sqrt{5}}", answer: "3\\sqrt{5}-6"},
-            {problem: "\\frac{4}{3+\\sqrt{2}}", answer: "\\frac{12-4\\sqrt{2}}{7}"},
-            {problem: "\\frac{5}{2-\\sqrt{3}}", answer: "10+5\\sqrt{3}"},
-            {problem: "\\frac{6}{3-\\sqrt{5}}", answer: "\\frac{9+3\\sqrt{5}}{2}"},
-            {problem: "\\frac{1}{4+\\sqrt{2}}", answer: "\\frac{4-\\sqrt{2}}{14}"},
-            {problem: "\\frac{1}{4-\\sqrt{2}}", answer: "\\frac{4+\\sqrt{2}}{14}"},
-            {problem: "\\frac{1}{5+\\sqrt{3}}", answer: "\\frac{5-\\sqrt{3}}{22}"},
-            {problem: "\\frac{1}{5-\\sqrt{3}}", answer: "\\frac{5+\\sqrt{3}}{22}"},
-            {problem: "\\frac{2}{6+\\sqrt{5}}", answer: "\\frac{12-2\\sqrt{5}}{31}"},
-            
-            // Easy level with square roots in numerator and denominator 	
-            {problem: "\\frac{\\sqrt{2}}{1+\\sqrt{3}}", answer: "\\frac{\\sqrt{6}-\\sqrt{2}}{2}"},
-            {problem: "\\frac{\\sqrt{3}}{1+\\sqrt{2}}", answer: "\\sqrt{6}-\\sqrt{3}"},
-            {problem: "\\frac{\\sqrt{5}}{2+\\sqrt{3}}", answer: "2\\sqrt{5}-\\sqrt{15}"},
-            {problem: "\\frac{\\sqrt{2}}{3+\\sqrt{5}}", answer: "\\frac{3\\sqrt{2}-\\sqrt{10}}{4}"},
-            {problem: "\\frac{\\sqrt{3}}{2-\\sqrt{7}}", answer: "-\\frac{2\\sqrt{3}+\\sqrt{21}}{3}"},
-            
-            // Simple combinations with perfect square differences
-            {problem: "\\frac{1}{\\sqrt{2}+1}", answer: "\\sqrt{2}-1"},
-            {problem: "\\frac{1}{\\sqrt{2}-1}", answer: "\\sqrt{2}+1"},
-            {problem: "\\frac{2}{\\sqrt{3}+1}", answer: "\\sqrt{3}-1"},
-            {problem: "\\frac{2}{\\sqrt{3}-1}", answer: "\\sqrt{3}+1"},
-            {problem: "\\frac{3}{\\sqrt{5}+2}", answer: "3\\sqrt{5}-6"},
-            {problem: "\\frac{3}{\\sqrt{5}-2}", answer: "3\\sqrt{5}+6"},
-            {problem: "\\frac{4}{\\sqrt{7}+3}", answer: "6-2\\sqrt{7}"},
-            {problem: "\\frac{4}{\\sqrt{7}-3}", answer: "-2\\sqrt{7}-6"},
-            
-            // More practice with basic patterns
             {problem: "\\frac{1}{3+\\sqrt{5}}", answer: "\\frac{3-\\sqrt{5}}{4}"},
-            {problem: "\\frac{1}{3-\\sqrt{5}}", answer: "\\frac{3+\\sqrt{5}}{4}"},
-            {problem: "\\frac{2}{4+\\sqrt{6}}", answer: "\\frac{4-\\sqrt{6}}{5}"},
-            {problem: "\\frac{2}{4-\\sqrt{6}}", answer: "\\frac{4+\\sqrt{6}}{5}"},
-            {problem: "\\frac{3}{5+\\sqrt{7}}", answer: "\\frac{5-\\sqrt{7}}{6}"},
-            {problem: "\\frac{3}{5-\\sqrt{7}}", answer: "\\frac{5+\\sqrt{7}}{6}"},
-            {problem: "\\frac{5}{2+\\sqrt{2}}", answer: "\\frac{10-5\\sqrt{2}}{2}"},
-            {problem: "\\frac{6}{1+\\sqrt{5}}", answer: "\\frac{3\\sqrt{5}-3}{2}"}
+            {problem: "\\frac{3}{\\sqrt{5}-2}", answer: "3\\sqrt{5}+6"}
         ]
 );

@@ -4,15 +4,19 @@
 
 .container.success-layout {
     display: grid !important;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: minmax(0, 500px) minmax(0, 700px) 360px;
+    max-width: 1760px !important;
+    width: calc(100% - 4rem);
+    margin-left: auto;
+    margin-right: auto;
     align-items: start;
-    justify-items: center;
     gap: 2rem;
 }
 
 .container.success-layout #success-screen {
     grid-column: 2;
-    min-width: 460px;
+    width: 100%;
+    max-width: none;
 }
 
 /* --- Leaderboard card (right column) --- */
@@ -25,7 +29,7 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
     padding: 1.25rem;
     box-shadow: var(--shadow-card);
-    width: 340px;
+    width: 360px;
     text-align: left;
     margin-top: 0;
 }
@@ -58,7 +62,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.375rem 0.625rem;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-chip);
     font-size: 0.875rem;
     background: rgba(0, 0, 0, 0.03);
 }
@@ -152,11 +156,42 @@
     padding: 0;
 }
 
+/* --- Progress chart card (left column) --- */
+
+.success-progress-chart-card {
+    grid-column: 1;
+    justify-self: end;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+    margin-top: 0;
+}
+
+.success-progress-chart-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    color: #374151;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.success-progress-chart-container {
+    position: relative;
+    height: 260px;
+}
+
 /* --- Responsive: stack on narrow screens --- */
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .container.success-layout {
         grid-template-columns: 1fr;
+        max-width: 880px !important;
+        width: 95%;
     }
 
     .container.success-layout #success-screen {
@@ -166,15 +201,27 @@
     .leaderboard-card {
         grid-column: 1;
         justify-self: center;
-        max-width: 700px;
-        width: 95%;
+        max-width: 840px;
+        width: 100%;
+    }
+
+    .success-progress-chart-card {
+        grid-column: 1;
+        justify-self: center;
+        max-width: 840px;
+        width: 100%;
     }
 }
 
 /* --- Dark mode --- */
 
-[data-theme="dark"] .leaderboard-card {
+[data-theme="dark"] .leaderboard-card,
+[data-theme="dark"] .success-progress-chart-card {
     border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .success-progress-chart-title {
+    color: #d1d5db;
 }
 
 [data-theme="dark"] .leaderboard-title {

@@ -1,11 +1,10 @@
 // levels/BaseLevel.js - Shared base class for standard algebra levels
 // Standard levels that just pick from a predefined questions array can use this directly.
-// Levels with custom generateQuestion() logic should extend this class.
-
-class BaseLevel {
-    constructor(key, name, questions) {
+// Levels with custom generateQuestion() logic should extend this class.export class BaseLevel {
+    constructor(key, name, questions, hint = null) {
         this.key = key;
         this.name = name;
+        this.hint = hint;
         this.usedQuestionIndices = new Set();
         this.questions = questions;
     }
@@ -23,10 +22,7 @@ class BaseLevel {
         } while (this.usedQuestionIndices.has(questionIndex));
 
         this.usedQuestionIndices.add(questionIndex);
-        return this.questions[questionIndex];
-    }
-
-    getQuestions() {
-        return this.questions;
+        const question = this.questions[questionIndex];
+        return this.hint ? { ...question, hint: this.hint } : question;
     }
 }

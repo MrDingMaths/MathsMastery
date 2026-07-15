@@ -1,6 +1,6 @@
 // levels/factoriseIntoSingleBracketsEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.factoriseIntoSingleBracketsEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'factoriseIntoSingleBracketsEasy',
     'Factorise into Single Brackets (Easy)',
     [

@@ -4,49 +4,58 @@
 
 Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step. Supabase backend for Google OAuth and leaderboards. Local progress still persisted in browser localStorage; Supabase is additive (app works fully offline).
 
-**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), jQuery (CDN), MathQuill (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
+**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), MathLive v0.109.2 (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
 
 ## Directory Structure
 
 ```
-index.html                  Landing page — links to all three apps
+index.html                  Landing page — links to all three apps, hub leaderboard
+privacy-policy.html         Privacy policy
 algebra/                    Algebra Skills app (expand, simplify, factorise)
 mathsfacts/                 Number Skills app (bonds, multiplication, fractions)
 trigfacts/                  Trig Skills app (exact values, radians/degrees)
-shared/                     Shared base classes, utilities, CSS
+shared/                     Shared base classes, utilities, CSS, level registry
 ```
+
+Each app's modules sit directly at the app root (the old `algebra-modules/` and `trig-modules/` nesting was removed in the standardisation pass).
 
 ## Architecture Pattern (same across all three apps)
 
 ```
-config.js → questionGenerator.js → gameState.js → gameController.js → ui.js
+levelRegistry (global) → config.js → questionGenerator.js → gameState.js → gameController.js → ui.js
 ```
 
 - **Streak-based completion:** 10 consecutive correct answers = level complete
 - **Ratings:** Calculated from average time per question × difficulty multiplier
   - Thresholds: Beginner → Developing → Expert → Mastery → Queen
+- **Level metadata** for all three apps lives in `shared/levelRegistry.js`. Each app's `config.js` reads `window.LevelRegistry[app].LEVEL_GROUPS` instead of duplicating level lists; `shared/hubLeaderboard.js` derives its hub level list from the same registry.
 - **Global window objects used for cross-module access:**
   - `window.gameController`, `window.CONFIG`, `window.StorageManager`
-  - `window.progressTracker`, `window.progressUI`, `window.RatingUtils`
+  - `window.LevelRegistry`, `window.progressTracker`, `window.initProgressTracker`
+  - `window.progressUI`, `window.RatingUtils`, `window.ProgressSync`
   - `window.supabaseClient`, `window.supabaseUser` (auth/leaderboard)
+
+**Removed in the recent standardisation pass:** `topic_groups` tracking, `algebra/algebraMasteryTracker.js`, `mathsfacts/masteryTracker.js`, and the `algebra-modules/` / `trig-modules/` directory nesting. Ratings are still computed by `shared/ratingUtils.js` from session data inside the unified progressTracker — no parallel mastery store.
 
 ## Shared Infrastructure (`shared/`)
 
 | File | Purpose |
 |------|---------|
+| `levelRegistry.js` | Single source of truth for level metadata across all three apps; classic script that sets `window.LevelRegistry` before any `config.js` runs |
 | `baseGameState.js` | Base class: streak, level, answer, questionsAttempted |
 | `baseUI.js` | Base class: level grid rendering, screen transitions |
-| `storageManager.js` | localStorage wrapper with prefix isolation |
-| `progressTracker.js` | v4 schema: session history, drill attempts, migration |
+| `progressTracker.js` | Factory (`window.initProgressTracker(app, opts)`) — v5 schema: sessions, drillHistory, mistakes, best times, migration from older versions |
+| `progressSync.js` | Cloud backup + smart-merge sync for signed-in users; uses `{app}_progress_data_v5` keys (sets `window.ProgressSync`) |
 | `ratingUtils.js` | Authoritative rating calculation (shared across all apps) |
 | `timer.js` | Game timer with pause/resume |
-| `darkMode.js` | Theme toggle; persists to localStorage; `data-theme` attribute |
+| `darkMode.js` | Theme toggle; persists to `mathsmastery-theme` in localStorage; sets `data-theme` attribute on `<html>` |
 | `confetti.js` | Canvas confetti (40 particles correct, 150 level complete) |
-| `navigationButtons.js` | Shared site header: back/home nav + auth button (sign-in/user pill) |
-| `supabaseClient.js` | Supabase init, auth state management, first-sign-in best-time sync |
+| `navigationButtons.js` | Shared site header (`SiteHeader` class): back/home nav + auth button (sign-in/user pill) |
+| `supabaseClient.js` | Supabase init, auth state management, dispatches `supabase-auth-change` custom event |
 | `leaderboard.js` | Leaderboard class: submit scores, fetch top 10, render on success screen |
-| `hubLeaderboard.js` | Hub-page modal: browse leaderboards across all apps/levels |
+| `hubLeaderboard.js` | Hub-page modal: browse leaderboards across all apps/levels (consumes `window.LevelRegistry`) |
 | `leaderboard.css` | Leaderboard component styles (light + dark mode) |
+| `levelSelect.css` | Level grid + tier badge styles |
 | `navigationButtons.css` | Header and auth button styles |
 | `progressChart.js` | Chart.js wrapper for progress visualisation |
 | `progressUI.js` | Progress modal UI components |
@@ -56,7 +65,7 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 | `darkMode.css` | Dark mode styles via `[data-theme="dark"]` selectors |
 | `progressStyles.css` | Progress modal/chart styles |
 | `lib/math.js` | Bundled Math.js library |
-| `lib/mathquill/` | MathQuill library (Desmos fork) |
+| `lib/mathlive/` | MathLive v0.109.2 — `<math-field>` Web Component, fonts, static-render CSS |
 
 **CSS design tokens:**
 ```css
@@ -70,46 +79,84 @@ config.js → questionGenerator.js → gameState.js → gameController.js → ui
 ### Algebra (`algebra/`)
 | File | Purpose |
 |------|---------|
-| `index.html` | Entry HTML; loads KaTeX, MathQuill, jQuery |
-| `algebra-modules/config.js` | 60+ levels in 3 groups (Foundational/Intermediate/Advanced) |
-| `algebra-modules/gameController.js` | Main orchestrator |
-| `algebra-modules/gameState.js` | Extends BaseGameState |
-| `algebra-modules/ui.js` | MathQuill input management |
-| `algebra-modules/questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
-| `algebra-modules/algebraEngine.js` | Expression comparison engine (see below) |
-| `algebra-modules/algebraMasteryTracker.js` | Topic-based mastery tracking |
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
+| `main.js` | ES module entry; wires gameController to UI |
+| `config.js` | Reads `window.LevelRegistry.algebra.LEVEL_GROUPS`; level group config |
+| `gameController.js` | Main orchestrator |
+| `gameState.js` | Extends `BaseGameState`; adds `currentQuestion`, `lastQuestionFormat` |
+| `ui.js` | `<math-field>` input management + level grid rendering |
+| `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
+| `algebraEngine.js` | Expression comparison engine (~92KB, classic script — see below) |
+| `storage.js` | Stub `StorageManager` delegating best-time/rating reads to `window.progressTracker` |
 | `levels/BaseLevel.js` | Level template class |
-| `levels/*.js` | 115+ individual level files |
-| `mobile-keyboard/` | Custom on-screen keyboard for algebra input |
+| `levels/index.js` | Dynamic level loader (injects `<script src="levels/{key}.js">` per registry key) |
+| `levels/*.js` | 128 individual level files |
+| `progress-tracking/progressTracker.js` | Thin wrapper: calls `window.initProgressTracker('algebra', { enableMistakes: true, oldVersionKeys: […] })` |
+| `debug-algebra-engine.html`, `styleguide.md`, `package.json`, `node_modules/` | Dev tooling for the algebra engine (not shipped on the page) |
 
 ### MathsFacts (`mathsfacts/`)
 | File | Purpose |
 |------|---------|
 | `index.html` | Entry HTML |
-| `config.js` | 25+ levels in 3 groups (Number Bonds / Multiplication / FDP) |
-| `main.js` | Entry module |
+| `main.js` | ES module entry |
+| `config.js` | Reads `window.LevelRegistry.mathsfacts.LEVEL_GROUPS`; also exports `LEVEL_ABBREVIATIONS` for compact skill-path labels |
 | `gameController.js` | Main orchestrator |
-| `questionGenerator.js` | Dynamic generation for each level type |
-| `masteryTracker.js` | Skill-group mastery (Number Bonds, Multiplication, Fractions) |
-| `levels/*.js` | Question banks: bonds, multiplication, fractionDecimals, percentages, powers, unitConversions |
+| `gameState.js` | Extends `BaseGameState`; also re-exports `Timer` and a `StorageManager` stub |
+| `ui.js` | Level grid + dynamic FDP-conversion form rendering |
+| `questionGenerator.js` | Dynamic generation per level type |
+| `utils.js` | Small utilities |
+| `levels/numberBonds.js` | Bonds to 10/20/100, negatives |
+| `levels/multiplication.js` | Group facts (2-12), negatives, doubling, perfect squares |
+| `levels/fractionDecimals.js` | FDP conversions, simplifying, equivalent fractions |
+| `levels/percentages.js` | Percentage of quantity, increase/decrease |
+| `levels/powers.js` | Powers of 10, fractional powers |
+| `levels/factors.js` | HCF, LCM |
+| `levels/unitConversions.js` | mm↔cm etc. |
+| `levels/helpers.js` | Shared generator utilities |
+| `levels/index.js` | Re-exports all generator modules |
+| `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('mathsfacts', …)` |
 
 ### TrigFacts (`trigfacts/`)
 | File | Purpose |
 |------|---------|
 | `index.html` | Entry HTML |
-| `trig-modules/config.js` | 12 levels in 3 groups (Degrees / Conversion / Radians) |
-| `trig-modules/trigGameController.js` | Main orchestrator |
-| `trig-modules/trigGameState.js` | Extends BaseGameState |
-| `trig-modules/trigAnswerChecker.js` | Custom trig answer validation |
-| `trig-modules/quadrantDiagramRenderer.js` | SVG unit-circle quadrant diagram |
-| `trig-modules/questions/trigQuestionGenerator.js` | Trig question generation |
+| `main.js` | ES module entry |
+| `config.js` | Reads `window.LevelRegistry.trigfacts.LEVEL_GROUPS` (12 levels in 3 groups: Degrees / Conversion / Radians) |
+| `trigGameController.js` | Main orchestrator |
+| `trigGameState.js` | Extends `BaseGameState`; adds `currentQuestion`, `isAnswering` |
+| `trigUI.js` | Trig-specific UI (quadrant diagrams, degree/radian toggles) |
+| `trigAnswerChecker.js` | Custom trig answer validation |
+| `quadrantDiagramRenderer.js` | SVG unit-circle quadrant diagram |
+| `storageManager.js` | Static API delegating to `window.progressTracker` |
+| `questions/trigQuestionGenerator.js` | Trig question generation (exact values, conversion, quadrants) |
+| `trig-style/trig-style.css` | Trig-specific styles |
+| `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('trigfacts', …)` |
 
-## Algebra Engine (`algebra/algebra-modules/algebraEngine.js`)
+### Equations (`equations/`)
+| File | Purpose |
+|------|---------|
+| `index.html` | Entry HTML; loads KaTeX, MathLive, Chart.js |
+| `main.js` | ES module entry |
+| `config.js` | Reads `window.LevelRegistry.equations.LEVEL_GROUPS` |
+| `gameController.js` | Main orchestrator |
+| `gameState.js` | Extends `BaseGameState` |
+| `ui.js` | `<math-field>` input management; renders variable input rows |
+| `questionGenerator.js` | Pulls from `levels/*.js`, prevents repeats |
+| `equationsAnswerChecker.js` | Answer checker: scalar, multi-root, inequality; delegates to `AlgebraEngine` |
+| `storage.js` | Stub `StorageManager` delegating to `window.progressTracker` |
+| `levels/BaseLevel.js` | Level template class; accepts optional `{ toleranceDp }` option |
+| `levels/index.js` | Dynamic level loader |
+| `levels/*.js` | Individual level files |
+| `progress-tracking/progressTracker.js` | Wrapper: `window.initProgressTracker('equations', …)` |
+
+**Irrational-answer levels** pass `{ toleranceDp: 2 }` as the 4th argument to `BaseLevel`. This causes `generateQuestion()` to stamp `toleranceDp: 2` onto every returned question's answer object, enabling the checker to accept a decimal answer correct to 2dp as an alternative to the exact form (e.g. `1.62` accepted alongside `(1+√5)/2`). Levels that need this flag: `quadraticFormula`, `equationsLogs`, `simpleCubic` (all difficulties). Levels solved by matching bases (`exponentialNoLogs`) always give exact rational answers and do not need the flag.
+
+## Algebra Engine (`algebra/algebraEngine.js`)
 
 The most sophisticated component (~90KB). Compares student LaTeX answers algebraically.
 
 **Pipeline:**
-1. **LaTeX Parser** — MathQuill output → Math.js syntax (handles `\frac`, `\sqrt`, unicode superscripts)
+1. **LaTeX Parser** — MathLive output → Math.js syntax (handles `\frac` braced/shorthand forms, `\sqrt`, `\mleft`/`\mright`, `\placeholder{}` stripping, unicode superscripts)
 2. **AST Utilities** — Math.js expression tree traversal
 3. **Simplification Validator** — Rejects unsimplified forms (e.g. `2+2` instead of `4`)
 4. **Binary Difference Canonicalization** — `(a−x)` ≡ `−(x−a)`
@@ -123,14 +170,17 @@ Handles: commutativity, sign equivalences, surds, algebraic fractions, nested pa
 ## localStorage Key Patterns
 
 ```
-algebra_bestTime_v1_{levelKey}
-mf_bestTime_v5_{levelKey}
-mf_progress_v4                    (MathsFacts full progress, schema v4)
-tf_bestTime_v5_{levelKey}
-mf_darkMode / tf_darkMode / algebra_darkMode
+algebra_progress_data_v5          Algebra full progress (schema v5)
+mf_progress_data_v5               MathsFacts full progress (schema v5)
+tf_progress_data_v5               TrigFacts full progress (schema v5)
+mathsmastery-theme                Global theme ('light' | 'dark')
+leaderboard_synced_{userId}       One-time flag: localStorage uploaded to Supabase
+{STORAGE_KEY}_backup_{timestamp}  Auto-backups taken before migrations
 ```
 
-Progress schema v4 shape: `{ version, sessions[], drillHistory{}, mistakes{} }`
+Progress schema v5 shape: `{ version, sessions[], drillHistory{}, mistakes{}, bestTimes{} }` — best times live inside the progress object (no separate `*_bestTime_*` keys).
+
+Legacy keys still **read** for migration but no longer written: `*_progress_data_v4`/`v3`/`v2`/`v1`, `*_bestTime_v*_{levelKey}`, and the old per-app `*_darkMode` theme keys.
 
 ## Auth & Leaderboard (Supabase)
 
@@ -140,20 +190,29 @@ Progress schema v4 shape: `{ version, sessions[], drillHistory{}, mistakes{} }`
 
 **Offline-first design:** localStorage remains the primary store for all progress/history. Supabase is used only for leaderboards. The app functions identically when signed out or when Supabase is unavailable — all Supabase calls are wrapped in `.catch()` and never block gameplay.
 
-### Script Loading Order (all pages)
+### Script Loading Order
 
+**Landing page (`index.html`):**
 ```
-supabaseClient.js → leaderboard.js → [hubLeaderboard.js on landing page only] → navigationButtons.js → app modules
+darkMode.js (head) → supabaseClient.js → leaderboard.js → levelRegistry.js → hubLeaderboard.js → navigationButtons.js
 ```
 
-All loaded as plain scripts (not ES modules) so they set globals. Order matters: each depends on the previous.
+**Each app page (`{app}/index.html`):**
+```
+darkMode.js (head) → levelRegistry.js → main.js (ES module) →
+supabaseClient.js → leaderboard.js → navigationButtons.js →
+shared/progressTracker.js (factory) → progress-tracking/progressTracker.js (app wrapper) →
+progressChart.js → progressShare.js → progressUI.js → progressSync.js
+```
+
+All non-module files load as plain scripts so they set globals. Order matters: `levelRegistry.js` must run before any `config.js`; the per-app progressTracker wrapper must run after the shared factory; `progressSync.js` loads last so it can attach to an initialised tracker.
 
 ### Auth Flow
 
 1. `supabaseClient.js` initialises the Supabase client and sets `window.supabaseClient` / `window.supabaseUser`
 2. `supabase.auth.onAuthStateChange()` dispatches `supabase-auth-change` custom event with `{ event, session, user }`
 3. `navigationButtons.js` (`SiteHeader` class) listens for this event and toggles between "Sign in" button and avatar pill with sign-out dropdown
-4. On first sign-in per user, `syncBestTimesOnFirstSignIn()` uploads existing localStorage best times to `leaderboard_entries` (one-time, flagged by `leaderboard_synced_{userId}` in localStorage)
+4. On sign-in, `shared/progressSync.js` (`window.ProgressSync`) performs a smart merge between the cloud snapshot and the local v5 progress object, then writes back to both. The first-time merge also seeds `leaderboard_entries` from existing best times.
 
 ### Leaderboard Integration
 
@@ -181,7 +240,7 @@ The landing page (`index.html`) has a hub leaderboard modal (`HubLeaderboard` cl
 |--------|------|-------|
 | `id` | UUID PK | Default `gen_random_uuid()` |
 | `user_id` | UUID | FK → `profiles.user_id` |
-| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, or `trigfacts` |
+| `app` | TEXT | CHECK: `algebra`, `mathsfacts`, `trigfacts`, `equations`, or `calculus` |
 | `level_key` | TEXT | Matches config level keys |
 | `best_time` | INTEGER | Seconds |
 | `rating_key` | TEXT | e.g. `mastery`, `expert` |

@@ -1,6 +1,6 @@
 // levels/indexFormToSurdFormEasy.js
-window.AlgebraLevels = window.AlgebraLevels || {};
-window.AlgebraLevels.indexFormToSurdFormEasy = new BaseLevel(
+import { BaseLevel } from './BaseLevel.js';
+export default new BaseLevel(
     'indexFormToSurdFormEasy',
     'Index Form to Surd Form (Easy)',
     [
