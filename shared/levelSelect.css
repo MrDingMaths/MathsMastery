@@ -3,14 +3,13 @@
    Loaded by all three app index.html files.
 */
 
-/* ── Settings screen: fixed below header ──────────────────────── */
+/* ── Settings screen: fills the viewport below the 60px header, in normal flow
+   so the shared footer sits underneath it (body adds 76px top padding + 1rem sides) ── */
 #settings-screen {
-    position: fixed;
-    top: 56px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #f3f4f6;
+    position: relative;
+    height: calc(100vh - 60px);
+    margin: -16px -1rem 0;
+    background: #F1F3F6;
     z-index: 5;
     display: flex;
     flex-direction: column;
@@ -34,7 +33,7 @@
     width: 192px;
     flex-shrink: 0;
     background: #ffffff;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid #E4E7EC;
     padding: 18px 13px;
     display: flex;
     flex-direction: column;
@@ -70,28 +69,28 @@
 .ls-subject-name {
     font-weight: 500;
     font-size: 14px;
-    color: #1f2937;
+    color: #172033;
     line-height: 1.2;
-    font-family: 'Fredoka', 'Nunito', system-ui, sans-serif;
+    font-family: 'Nunito', system-ui, sans-serif;
 }
 
 .ls-subject-subtitle {
-    font-size: 10px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
     margin-top: 2px;
     line-height: 1.3;
 }
 
 .ls-divider {
     height: 1px;
-    background: #e5e7eb;
+    background: #E4E7EC;
     margin-bottom: 14px;
 }
 
 .ls-section-label {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
+    color: #556070;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     margin-bottom: 8px;
@@ -107,7 +106,7 @@
     padding: 9px 10px;
     border-radius: var(--radius-btn);
     text-align: left;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid #E4E7EC;
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -126,18 +125,18 @@
 .ls-group-btn-name {
     font-size: 13px;
     font-weight: 400;
-    color: #1f2937;
+    color: #172033;
     transition: color 0.15s, font-weight 0.15s;
 }
 
 .ls-group-btn-count {
     font-size: 9.5px;
-    color: #6b7280;
+    color: #556070;
 }
 
 .ls-mini-bar-track {
     height: 3px;
-    background: #e5e7eb;
+    background: #E4E7EC;
     border-radius: 2px;
     overflow: hidden;
 }
@@ -151,8 +150,8 @@
 .ls-footer {
     margin-top: auto;
     padding-top: 20px;
-    font-size: 10px;
-    color: #d1d5db;
+    font-size: 12px;
+    color: #556070;
     line-height: 1.7;
 }
 
@@ -183,7 +182,7 @@
     background: #ffffff;
     border-radius: var(--radius-card-sm);
     box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.09);
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     padding: 13px 16px;
     display: flex;
     align-items: center;
@@ -215,8 +214,8 @@
 }
 
 .ls-quick-label {
-    font-size: 10px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -225,8 +224,8 @@
 .ls-quick-title {
     font-size: 14px;
     font-weight: 500;
-    color: #1f2937;
-    font-family: 'Fredoka', 'Nunito', system-ui, sans-serif;
+    color: #172033;
+    font-family: 'Nunito', system-ui, sans-serif;
     margin-top: 2px;
     white-space: nowrap;
     overflow: hidden;
@@ -258,12 +257,12 @@
 .ls-quick-time-val {
     font-size: 13px;
     font-weight: 600;
-    color: #1f2937;
+    color: #172033;
 }
 
 .ls-quick-time-ago {
-    font-size: 11px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
 }
 
 /* Group sections */
@@ -275,7 +274,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1.5px solid #e5e7eb;
+    border-bottom: 1.5px solid #E4E7EC;
     padding-bottom: 9px;
     margin-bottom: 12px;
 }
@@ -284,13 +283,13 @@
     margin: 0;
     font-size: 15px;
     font-weight: 500;
-    color: #1f2937;
-    font-family: 'Fredoka', 'Nunito', system-ui, sans-serif;
+    color: #172033;
+    font-family: 'Nunito', system-ui, sans-serif;
 }
 
 .ls-group-heading-count {
-    font-size: 11px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
 }
 
 /* ── Hybrid rows (Algebra: topic label + 3 difficulty tiles) ─── */
@@ -300,7 +299,7 @@
     gap: 10px;
     padding: 10px 14px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     border-radius: 10px;
     margin-bottom: 6px;
     box-shadow: 0 1px 2px rgba(0,0,0,.04);
@@ -312,7 +311,7 @@
     flex-shrink: 0;
     font-size: 13px;
     font-weight: 500;
-    color: #1f2937;
+    color: #172033;
     line-height: 1.3;
     text-align: left;
 }
@@ -388,8 +387,8 @@
 /* Locked "coming soon" tile — non-interactive, dimmed */
 .ls-coming-soon {
     cursor: default;
-    background: repeating-linear-gradient(135deg, #f3f4f6, #f3f4f6 8px, #eceef1 8px, #eceef1 16px);
-    border-color: #e5e7eb;
+    background: repeating-linear-gradient(135deg, #F1F3F6, #F1F3F6 8px, #eceef1 8px, #eceef1 16px);
+    border-color: #E4E7EC;
     opacity: 0.85;
 }
 .ls-coming-soon:hover {
@@ -402,12 +401,12 @@
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #9ca3af;
+    color: #556070;
 }
 
 [data-theme="dark"] .ls-coming-soon {
-    background: repeating-linear-gradient(135deg, #1f2937, #1f2937 8px, #243042 8px, #243042 16px);
-    border-color: #374151;
+    background: repeating-linear-gradient(135deg, #171D27, #171D27 8px, #222B3A 8px, #222B3A 16px);
+    border-color: #273041;
 }
 [data-theme="dark"] .ls-coming-soon-label { color: #6b7280; }
 
@@ -448,7 +447,7 @@
 }
 
 .ls-tile-next-badge {
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 600;
     color: #2563eb;
     line-height: 1;
@@ -461,7 +460,7 @@
 }
 
 .ls-tile-time {
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1;
 }
 
@@ -497,7 +496,7 @@
     width: 184px;
     flex-shrink: 0;
     background: #ffffff;
-    border-left: 1px solid #e5e7eb;
+    border-left: 1px solid #E4E7EC;
     padding: 18px 13px;
     display: flex;
     flex-direction: column;
@@ -562,13 +561,13 @@
 }
 
 .ls-sidebar-summary .card-label {
-    font-size: 9px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
 }
 
 .ls-hr {
     height: 1px;
-    background: #e5e7eb;
+    background: #E4E7EC;
     flex-shrink: 0;
     margin: 0;
 }
@@ -581,8 +580,8 @@
 }
 
 .ls-ring-label {
-    font-size: 11px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
     font-weight: 500;
     text-align: center;
     display: flex;
@@ -591,9 +590,9 @@
 }
 
 .ls-section-rings-label {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
+    color: #556070;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     margin-bottom: 10px;
@@ -618,17 +617,17 @@
 }
 
 .ls-section-ring-name {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    color: #1f2937;
+    color: #172033;
     line-height: 1.2;
     word-break: break-word;
     text-align: left;
 }
 
 .ls-section-ring-count {
-    font-size: 10px;
-    color: #6b7280;
+    font-size: 12px;
+    color: #556070;
     margin-top: 1px;
     text-align: left;
 }
@@ -637,12 +636,12 @@
 /* ── Keyboard table (Algebra only) ────────────────────────────── */
 .ls-keyboard-table {
     margin-top: 24px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #E4E7EC;
     padding-top: 16px;
 }
 
 .ls-keyboard-table table {
-    color: #9ca3af;
+    color: #556070;
     text-align: left;
     width: 100%;
     max-width: 500px;
@@ -656,13 +655,13 @@
 
 /* ── Dark mode ────────────────────────────────────────────────── */
 [data-theme="dark"] #settings-screen {
-    background: #111827;
+    background: #1C2330;
 }
 
 [data-theme="dark"] .ls-left,
 [data-theme="dark"] .ls-right {
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-subject-name,
@@ -672,7 +671,7 @@
 [data-theme="dark"] .ls-quick-title,
 [data-theme="dark"] .ls-quick-time-val,
 [data-theme="dark"] .ls-section-ring-name {
-    color: #f9fafb;
+    color: #E8ECF2;
 }
 
 [data-theme="dark"] .ls-subject-subtitle,
@@ -685,44 +684,44 @@
 [data-theme="dark"] .ls-footer,
 [data-theme="dark"] .ls-quick-label,
 [data-theme="dark"] .ls-quick-time-ago {
-    color: #9ca3af;
+    color: #9AA4B4;
 }
 
 [data-theme="dark"] .ls-group-btn {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-divider,
 [data-theme="dark"] .ls-hr {
-    background-color: #374151;
+    background-color: #273041;
 }
 
 [data-theme="dark"] .ls-mini-bar-track {
-    background: #374151;
+    background: #273041;
 }
 
 [data-theme="dark"] .ls-group-heading {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-quick-card {
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-hybrid-row {
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-sidebar-summary .summary-card {
-    background: linear-gradient(135deg, #1f2937, #111827);
-    border-color: #374151;
+    background: linear-gradient(135deg, #171D27, #1C2330);
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-modal-stat-card {
-    background: #374151;
-    border-color: #4b5563;
+    background: #273041;
+    border-color: #364156;
 }
 
 [data-theme="dark"] .ls-modal-rating-col {
@@ -730,11 +729,11 @@
 }
 
 [data-theme="dark"] .ls-modal-ratings {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-keyboard-table {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 [data-theme="dark"] .ls-keyboard-table table {
@@ -757,8 +756,8 @@
 /* Not-attempted tile dark mode */
 [data-theme="dark"] .ls-level-tile.rating-none,
 [data-theme="dark"] .ls-hybrid-tile.rating-none {
-    background: #1f2937 !important;
-    border-color: #374151 !important;
+    background: #171D27 !important;
+    border-color: #273041 !important;
 }
 [data-theme="dark"] .ls-level-tile.rating-none .ls-tile-name { color: #d1d5db; }
 [data-theme="dark"] .ls-level-tile.rating-none .ls-tile-time { color: #6b7280; }
@@ -767,9 +766,9 @@
 /* ── Mobile / tablet (≤ 768px) ────────────────────────────────── */
 @media (max-width: 768px) {
     #settings-screen {
-        position: fixed;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        height: auto;
+        min-height: calc(100vh - 60px);
+        overflow: visible;
     }
 
     .ls-body {
@@ -784,7 +783,7 @@
         width: auto;
         flex-shrink: 1;
         border-right: none;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #E4E7EC;
         padding: 14px 14px 10px;
         overflow-y: visible;
     }
@@ -852,7 +851,7 @@
         width: auto;
         flex-shrink: 1;
         border-left: none;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid #E4E7EC;
         padding: 14px;
         overflow-y: visible;
     }
@@ -864,10 +863,10 @@
 
     /* Dark mode borders on stacked sidebars */
     [data-theme="dark"] .ls-left {
-        border-bottom-color: #374151;
+        border-bottom-color: #273041;
     }
     [data-theme="dark"] .ls-right {
-        border-top-color: #374151;
+        border-top-color: #273041;
     }
 }
 

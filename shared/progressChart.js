@@ -366,7 +366,7 @@ class ProgressChart {
         this.canvas.height = 400;
         
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.font = '20px Inter, sans-serif';
+        this.ctx.font = '20px Nunito, sans-serif';
         this.ctx.fillStyle = '#9ca3af';
         this.ctx.textAlign = 'center';
         this.ctx.fillText('No data available for this drill yet', this.canvas.width / 2, this.canvas.height / 2);

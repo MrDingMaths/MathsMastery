@@ -86,7 +86,7 @@ export class QuadrantDiagramRenderer {
 
     drawQuadrantLabels() {
         this.ctx.fillStyle = '#6b7280';
-        this.ctx.font = '16px Inter, sans-serif';
+        this.ctx.font = '16px Nunito, sans-serif';
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
 

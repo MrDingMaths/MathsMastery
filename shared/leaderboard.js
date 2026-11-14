@@ -117,7 +117,7 @@ class Leaderboard {
                     'beginner': '🌱'
                 };
 
-                let html = '<h3 class="leaderboard-title">🏅 Top 10</h3>';
+                let html = '<h3 class="leaderboard-title">Top 10</h3>';
                 html += '<ol class="leaderboard-list">';
                 entries.forEach((entry, i) => {
                     const isCurrentUser = currentUserId && entry.user_id === currentUserId;

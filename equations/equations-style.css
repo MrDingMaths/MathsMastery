@@ -37,7 +37,7 @@
 
 .equals-sign {
     font-size: clamp(1.6rem, 4.5vw, 2.2rem);
-    color: #4b5563;
+    color: #556070;
     min-width: 2.6rem;
     text-align: right;
 }
@@ -107,7 +107,7 @@ math-field.math-field-answer.incorrect {
 
 .equations-input-hint {
     font-size: 0.85rem;
-    color: #6b7280;
+    color: #556070;
     margin-top: 0.25rem;
     font-style: italic;
 }
@@ -118,6 +118,6 @@ math-field.math-field-answer.incorrect {
 }
 
 [data-theme="dark"] math-field.math-field-answer {
-    background-color: #1f2937;
+    background-color: #171D27;
     color: #f3f4f6;
 }

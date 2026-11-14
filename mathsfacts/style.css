@@ -35,8 +35,8 @@
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
 }
 .inline-input:disabled {
-    background-color: #f3f4f6;
-    border-color: #d1d5db;
+    background-color: #F1F3F6;
+    border-color: #CBD2DC;
 }
 
 /* MathsFacts level-section-title override */
@@ -94,8 +94,8 @@ div[class*="level-btn"] {
 }
 
 /* MathsFacts rating overrides with border-color */
-.rating-none { background-color: #f3f4f6; color: #374151; }
-.rating-beginner { background: linear-gradient(145deg, #f8fafc, #94a3b8); color: #1e293b; border-color: #94a3b8; }
+.rating-none { background-color: #F1F3F6; color: #172033; }
+.rating-beginner { background: linear-gradient(145deg, #F1F3F6, #94a3b8); color: #1e293b; border-color: #94a3b8; }
 .rating-developing { background: linear-gradient(145deg, #dcfce7, #4ade80); color: #047857; border-color: #6ee7b7; }
 .rating-expert { background: linear-gradient(145deg, #ecfdf5, #34d399); color: #065f46; border-color: #34d399; }
 .rating-mastery { background: linear-gradient(145deg, #fefbeb, #fbbf24); color: #a16207; border-color: #f59e0b; }
@@ -143,7 +143,7 @@ div[class*="level-btn"] {
 }
 .fdp-table th {
     font-weight: 600;
-    color: #1f2937;
+    color: #172033;
 }
 .fdp-table td {
     height: 90px;
@@ -204,11 +204,11 @@ div[class*="level-btn"] {
 
 /* Dark mode */
 [data-theme="dark"] .inline-input {
-    background-color: #374151;
-    color: #f9fafb;
-    border-color: #60a5fa;
+    background-color: #273041;
+    color: #E8ECF2;
+    border-color: #6E98FA;
 }
 [data-theme="dark"] .inline-input:disabled {
-    background-color: #1f2937;
-    border-color: #4b5563;
+    background-color: #171D27;
+    border-color: #364156;
 }

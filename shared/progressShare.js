@@ -92,7 +92,7 @@ class ProgressShare {
             <head>
                 <title>${this.appName} Progress Report</title>
                 <style>
-                    body { font-family: 'Inter', Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+                    body { font-family: 'Nunito', Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
                     h1 { color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
                     h2 { color: #374151; margin-top: 30px; }
                     .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0; }

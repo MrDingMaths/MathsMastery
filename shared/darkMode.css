@@ -7,19 +7,26 @@
    CSS variable overrides (app pages use these via common.css)
    ---------------------------------------------------------- */
 html[data-theme="dark"] {
-    --color-primary: #60a5fa;
-    --color-primary-hover: #93c5fd;
-    --color-success: #34d399;
+    color-scheme: dark;
+    --color-primary: #3B82F6;
+    --color-primary-hover: #5B95F8;
+    --color-success: #34D399;
     --color-error: #f87171;
-    --color-surface: #1f2937;
-    --color-text: #f9fafb;
-    --color-text-muted: #9ca3af;
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.5);
+    --color-surface: #171D27;
+    --color-text: #E8ECF2;
+    --color-text-muted: #9AA4B4;
+    --accent: #6E98FA;
+    --surface: #1C2330;
+    --border: #273041;
+    --border-strong: #364156;
+    --shadow-card: none;
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.5);
     /* Chalk tokens align with color tokens in dark mode */
-    --chalk-bg: #0C1222;
-    --chalk-surface: #1f2937;
-    --chalk-heading: #e8e4da;
-    --chalk-body: #9ca3af;
+    --chalk-bg: #0F141C;
+    --chalk-surface: #171D27;
+    --chalk-heading: #E8ECF2;
+    --chalk-body: #9AA4B4;
 }
 
 /* ----------------------------------------------------------
@@ -28,33 +35,33 @@ html[data-theme="dark"] {
 html[data-theme="dark"] body {
     background-color: var(--chalk-bg);
     color: var(--color-text);
-    background-image: radial-gradient(circle, rgba(226, 232, 240, 0.07) 1px, transparent 1px);
+    background-image: radial-gradient(#222A37 1px, transparent 1.2px);
     background-size: 22px 22px;
 }
 
 /* ----------------------------------------------------------
    Tailwind utility class overrides (landing page + app pages)
    ---------------------------------------------------------- */
-html[data-theme="dark"] .bg-gray-100 { background-color: #111827; }
-html[data-theme="dark"] .bg-white    { background-color: #1f2937; }
+html[data-theme="dark"] .bg-gray-100 { background-color: #1C2330; }
+html[data-theme="dark"] .bg-white    { background-color: #171D27; }
 html[data-theme="dark"] .bg-blue-100 { background-color: rgba(59, 130, 246, 0.15); }
 
 html[data-theme="dark"] .text-gray-800,
-html[data-theme="dark"] .text-gray-700 { color: #f9fafb; }
+html[data-theme="dark"] .text-gray-700 { color: #E8ECF2; }
 html[data-theme="dark"] .text-gray-600 { color: #d1d5db; }
 html[data-theme="dark"] .text-gray-500,
 html[data-theme="dark"] .text-gray-400,
-html[data-theme="dark"] .text-gray-300 { color: #9ca3af; }
+html[data-theme="dark"] .text-gray-300 { color: #9AA4B4; }
 
 html[data-theme="dark"] .text-blue-800,
-html[data-theme="dark"] .text-blue-700 { color: #93c5fd; }
-html[data-theme="dark"] .text-blue-600 { color: #60a5fa; }
+html[data-theme="dark"] .text-blue-700 { color: #9DB8FB; }
+html[data-theme="dark"] .text-blue-600 { color: #6E98FA; }
 
 html[data-theme="dark"] .text-yellow-500 { color: #fcd34d; }
 html[data-theme="dark"] .text-green-500  { color: #34d399; }
 html[data-theme="dark"] .text-orange-600 { color: #fb923c; }
 
-html[data-theme="dark"] .border-gray-200 { border-color: #374151; }
+html[data-theme="dark"] .border-gray-200 { border-color: #273041; }
 
 /* Landing page card hover shadow */
 html[data-theme="dark"] .app-card:hover {
@@ -63,30 +70,10 @@ html[data-theme="dark"] .app-card:hover {
 
 /* Canvas element in trigfacts (quadrant diagram) */
 html[data-theme="dark"] canvas.bg-white {
-    background-color: #1f2937 !important;
+    background-color: #171D27 !important;
 }
 html[data-theme="dark"] .border-gray-200 {
-    border-color: #374151;
-}
-
-/* ----------------------------------------------------------
-   Site header
-   ---------------------------------------------------------- */
-html[data-theme="dark"] .site-header {
-    background: #000000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-html[data-theme="dark"] .site-header-brand {
-    color: #f9fafb;
-}
-
-html[data-theme="dark"] .site-header-brand:hover {
-    color: #ffffff;
-}
-
-html[data-theme="dark"] .site-nav-link.active {
-    box-shadow: 0 0 0 2px #1f2937, 0 0 0 4px rgba(255, 255, 255, 0.3);
+    border-color: #273041;
 }
 
 /* ----------------------------------------------------------
@@ -107,30 +94,30 @@ html[data-theme="dark"] .level-section-title {
 }
 
 html[data-theme="dark"] .btn-secondary {
-    color: #d1d5db;
-    background: #374151;
-    border-color: #4b5563;
+    color: #E8ECF2;
+    background: #171D27;
+    border-color: #364156;
 }
 
 html[data-theme="dark"] .btn-secondary:hover {
-    background: #4b5563;
+    border-color: #E8ECF2;
 }
 
 html[data-theme="dark"] .level-btn {
     color: #d1d5db;
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 
 html[data-theme="dark"] .level-btn:hover {
-    background: #263548;
-    border-color: #60a5fa;
+    background: #222B3A;
+    border-color: #6E98FA;
 }
 
 /* Quit / secondary text buttons in game screen */
 html[data-theme="dark"] #quit-btn,
 html[data-theme="dark"] #play-again-btn {
-    color: #9ca3af;
+    color: #9AA4B4;
 }
 html[data-theme="dark"] #quit-btn:hover,
 html[data-theme="dark"] #play-again-btn:hover {
@@ -141,9 +128,9 @@ html[data-theme="dark"] #play-again-btn:hover {
    Rating gradient overrides
    ---------------------------------------------------------- */
 html[data-theme="dark"] .rating-none {
-    background: #1f2937;
+    background: #171D27;
     color: #6b7280;
-    border-color: #374151;
+    border-color: #273041;
 }
 
 html[data-theme="dark"] .rating-beginner {
@@ -180,19 +167,19 @@ html[data-theme="dark"] .rating-queen {
    Trigfacts: diagram container + MathQuill input
    ---------------------------------------------------------- */
 html[data-theme="dark"] .diagram-container {
-    background: linear-gradient(145deg, #1f2937, #111827);
+    background: linear-gradient(145deg, #171D27, #1C2330);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* MathLive (math-field) dark mode */
 html[data-theme="dark"] math-field.math-field-input,
 html[data-theme="dark"] math-field.math-field-answer {
-    background-color: #374151;
-    color: #f9fafb;
-    --primary: #60a5fa;
-    --caret-color: #60a5fa;
+    background-color: #273041;
+    color: #E8ECF2;
+    --primary: #6E98FA;
+    --caret-color: #6E98FA;
     --selection-background-color: rgba(96, 165, 250, 0.3);
-    --selection-color: #f9fafb;
+    --selection-color: #E8ECF2;
     --contains-highlight-background-color: rgba(96, 165, 250, 0.15);
 }
 
@@ -200,44 +187,44 @@ html[data-theme="dark"] math-field.math-field-answer {
    Mathsfacts: inline input, fraction, FDP table
    ---------------------------------------------------------- */
 html[data-theme="dark"] .inline-input {
-    border-bottom-color: #60a5fa;
-    color: #f9fafb;
+    border-bottom-color: #6E98FA;
+    color: #E8ECF2;
     background: transparent;
 }
 
 html[data-theme="dark"] .fraction-numerator {
-    border-bottom-color: #9ca3af;
+    border-bottom-color: #9AA4B4;
 }
 
 html[data-theme="dark"] .fdp-table th {
-    color: #f9fafb;
-    background-color: #374151;
+    color: #E8ECF2;
+    background-color: #273041;
 }
 
 html[data-theme="dark"] .fdp-table td {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 /* ----------------------------------------------------------
    Progress modal (progressStyles.css overrides)
    ---------------------------------------------------------- */
 html[data-theme="dark"] .progress-modal-content {
-    background: #1f2937;
-    color: #f9fafb;
+    background: #171D27;
+    color: #E8ECF2;
 }
 
 html[data-theme="dark"] .progress-tabs {
-    background: #111827;
-    border-bottom-color: #374151;
+    background: #1C2330;
+    border-bottom-color: #273041;
 }
 
 html[data-theme="dark"] .tab-btn {
-    color: #9ca3af;
+    color: #9AA4B4;
 }
 
 html[data-theme="dark"] .tab-btn.active {
-    color: #60a5fa;
-    border-bottom-color: #60a5fa;
+    color: #6E98FA;
+    border-bottom-color: #6E98FA;
 }
 
 html[data-theme="dark"] .tab-btn:hover {
@@ -245,57 +232,57 @@ html[data-theme="dark"] .tab-btn:hover {
 }
 
 html[data-theme="dark"] .summary-card {
-    background: linear-gradient(135deg, #1f2937, #111827);
-    border-color: #374151;
+    background: linear-gradient(135deg, #171D27, #1C2330);
+    border-color: #273041;
 }
 
-html[data-theme="dark"] .card-label { color: #9ca3af; }
-html[data-theme="dark"] .card-value { color: #f9fafb; }
+html[data-theme="dark"] .card-label { color: #9AA4B4; }
+html[data-theme="dark"] .card-value { color: #E8ECF2; }
 
 html[data-theme="dark"] .recent-activity {
-    background: #111827;
+    background: #1C2330;
 }
 
 html[data-theme="dark"] .session-item {
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 
-html[data-theme="dark"] .session-date { color: #9ca3af; }
+html[data-theme="dark"] .session-date { color: #9AA4B4; }
 
 html[data-theme="dark"] .chart-container {
-    background: #1f2937;
+    background: #171D27;
 }
 
 html[data-theme="dark"] .drill-sidebar {
-    background: #111827;
-    border-color: #374151;
+    background: #1C2330;
+    border-color: #273041;
 }
 
 html[data-theme="dark"] .drill-card {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
+    background: #171D27;
+    border-color: #273041;
+    color: #E8ECF2;
 }
 
 html[data-theme="dark"] .drill-card:hover {
-    border-color: #60a5fa;
-    background: #263548;
+    border-color: #6E98FA;
+    background: #222B3A;
 }
 
-html[data-theme="dark"] .drill-card h4 { color: #f9fafb; }
-html[data-theme="dark"] .drill-card p  { color: #9ca3af; }
+html[data-theme="dark"] .drill-card h4 { color: #E8ECF2; }
+html[data-theme="dark"] .drill-card p  { color: #9AA4B4; }
 
 html[data-theme="dark"] .drill-selector-search input {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
+    background: #171D27;
+    border-color: #273041;
+    color: #E8ECF2;
 }
 
 html[data-theme="dark"] .filter-btn {
-    background: #1f2937;
-    border-color: #374151;
-    color: #9ca3af;
+    background: #171D27;
+    border-color: #273041;
+    color: #9AA4B4;
 }
 
 html[data-theme="dark"] .filter-btn.active {
@@ -305,43 +292,42 @@ html[data-theme="dark"] .filter-btn.active {
 }
 
 html[data-theme="dark"] .stat-item {
-    background: linear-gradient(135deg, #1f2937, #111827);
+    background: linear-gradient(135deg, #171D27, #1C2330);
 }
 
-html[data-theme="dark"] .stat-label { color: #9ca3af; }
-html[data-theme="dark"] .stat-value { color: #f9fafb; }
+html[data-theme="dark"] .stat-label { color: #9AA4B4; }
+html[data-theme="dark"] .stat-value { color: #E8ECF2; }
 
 html[data-theme="dark"] .history-table {
-    background: #1f2937;
+    background: #171D27;
 }
 
 html[data-theme="dark"] #history-table thead {
-    background: #111827;
+    background: #1C2330;
 }
 
 html[data-theme="dark"] #history-table th {
-    color: #9ca3af;
-    border-bottom-color: #374151;
+    color: #9AA4B4;
+    border-bottom-color: #273041;
 }
 
 html[data-theme="dark"] #history-table td {
     color: #d1d5db;
-    border-bottom-color: #374151;
+    border-bottom-color: #273041;
 }
 
 html[data-theme="dark"] #history-table tbody tr:hover {
-    background: #263548;
+    background: #222B3A;
 }
 
 html[data-theme="dark"] .btn-secondary {
-    background: #374151;
-    color: #d1d5db;
-    border-color: #4b5563;
+    color: #E8ECF2;
+    background: #171D27;
+    border-color: #364156;
 }
 
 html[data-theme="dark"] .btn-secondary:hover {
-    background: #4b5563;
-    color: #f9fafb;
+    border-color: #E8ECF2;
 }
 
 html[data-theme="dark"] .btn-danger {
@@ -356,12 +342,12 @@ html[data-theme="dark"] .btn-danger:hover {
 }
 
 html[data-theme="dark"] .share-dialog-content {
-    background: #1f2937;
+    background: #171D27;
 }
 
 html[data-theme="dark"] .share-url-container {
-    background: #111827;
-    border-color: #374151;
+    background: #1C2330;
+    border-color: #273041;
 }
 
 html[data-theme="dark"] .share-url-container input {
@@ -370,31 +356,31 @@ html[data-theme="dark"] .share-url-container input {
 }
 
 html[data-theme="dark"] .copy-url-btn {
-    background: #374151;
+    background: #273041;
     color: #d1d5db;
 }
 
 /* Mistakes table */
 html[data-theme="dark"] .mistakes-table {
-    background: #1f2937;
+    background: #171D27;
 }
 
 html[data-theme="dark"] .mistakes-table thead {
-    background: #111827;
+    background: #1C2330;
 }
 
 html[data-theme="dark"] .mistakes-table th {
-    color: #9ca3af;
-    border-bottom-color: #374151;
+    color: #9AA4B4;
+    border-bottom-color: #273041;
 }
 
 html[data-theme="dark"] .mistakes-table td {
     color: #d1d5db;
-    border-bottom-color: #374151;
+    border-bottom-color: #273041;
 }
 
 html[data-theme="dark"] .mistakes-table tbody tr:hover {
-    background: #263548;
+    background: #222B3A;
 }
 
 html[data-theme="dark"] .delete-mistake-btn {
@@ -418,18 +404,18 @@ html[data-theme="dark"] #clear-mistakes:hover {
 
 /* Tooltip */
 html[data-theme="dark"] .tooltip-content {
-    background-color: #374151;
+    background-color: #273041;
     color: white;
 }
 
 html[data-theme="dark"] .tooltip-content::after {
-    border-color: #374151 transparent transparent transparent;
+    border-color: #273041 transparent transparent transparent;
 }
 
 /* Progress section label text */
 html[data-theme="dark"] .section-label,
 html[data-theme="dark"] .mastery-level-label,
-html[data-theme="dark"] .drill-name { color: #f9fafb; }
+html[data-theme="dark"] .drill-name { color: #E8ECF2; }
 
 html[data-theme="dark"] .close-btn {
     color: rgba(255, 255, 255, 0.8);
@@ -448,15 +434,15 @@ html[data-theme="dark"] .close-btn:hover {
 
 /* Progress actions footer bar */
 html[data-theme="dark"] .progress-actions {
-    background: #111827;
-    border-top-color: #374151;
+    background: #1C2330;
+    border-top-color: #273041;
 }
 
 /* Search bar in Improvement tab (#drill-search is inside .search-filter, not .drill-selector-search) */
 html[data-theme="dark"] #drill-search {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
+    background: #171D27;
+    border-color: #273041;
+    color: #E8ECF2;
 }
 html[data-theme="dark"] #drill-search::placeholder {
     color: #6b7280;
@@ -464,27 +450,27 @@ html[data-theme="dark"] #drill-search::placeholder {
 
 /* Drill stats panel (background: white in progressStyles.css) */
 html[data-theme="dark"] .drill-stats {
-    background: #1f2937;
-    border-color: #374151;
+    background: #171D27;
+    border-color: #273041;
 }
 html[data-theme="dark"] .stats-header {
-    border-bottom-color: #374151;
+    border-bottom-color: #273041;
 }
 html[data-theme="dark"] .stats-header h4 {
-    color: #f9fafb;
+    color: #E8ECF2;
 }
 
 /* Progress modal section headings (hardcoded dark colours in progressStyles.css) */
 html[data-theme="dark"] .sidebar-header h3,
 html[data-theme="dark"] .selector-header h3,
 html[data-theme="dark"] .recent-activity h3 {
-    color: #f9fafb;
+    color: #E8ECF2;
 }
 html[data-theme="dark"] .sidebar-header {
-    border-bottom-color: #374151;
+    border-bottom-color: #273041;
 }
 html[data-theme="dark"] .session-drill {
-    color: #f9fafb;
+    color: #E8ECF2;
 }
 
 /* ----------------------------------------------------------
@@ -493,23 +479,23 @@ html[data-theme="dark"] .session-drill {
 
 /* Table outer border */
 html[data-theme="dark"] .mistakes-table {
-    border-color: #374151;
+    border-color: #273041;
 }
 
 /* th has its own gradient background in progressStyles.css — override it */
 html[data-theme="dark"] .mistakes-table th {
-    background: #111827;
+    background: #1C2330;
 }
 
 /* Math display containers rendered by MathQuill in the mistakes tab */
 html[data-theme="dark"] .math-display {
-    background: #374151;
-    border-color: #4b5563;
-    color: #f9fafb;
+    background: #273041;
+    border-color: #364156;
+    color: #E8ECF2;
 }
 html[data-theme="dark"] .math-display math-field,
 html[data-theme="dark"] .math-display .ML__base {
-    color: #f9fafb;
+    color: #E8ECF2;
 }
 
 /* ----------------------------------------------------------
@@ -518,15 +504,15 @@ html[data-theme="dark"] .math-display .ML__base {
 
 /* Level section titles (hardcoded color: #374151 in common.css) */
 html[data-theme="dark"] .level-section-title {
-    color: #f9fafb;
-    border-bottom-color: #374151;
+    color: #E8ECF2;
+    border-bottom-color: #273041;
 }
 
 /* Skill path section title pill (background: white in common.css) */
 html[data-theme="dark"] .skill-path-section-title {
-    background: #1f2937;
+    background: #171D27;
     color: #d1d5db;
-    border-color: #374151;
+    border-color: #273041;
 }
 
 /* Unrated skill path nodes & level buttons inherit color: #6b7280 from .rating-none,
@@ -538,36 +524,36 @@ html[data-theme="dark"] .skill-path-node.rating-none {
 
 /* "Not attempted" / best time subtext in skill path nodes */
 html[data-theme="dark"] .skill-path-time {
-    color: #9ca3af;
+    color: #9AA4B4;
 }
 
 /* Mastery progress bar track (light grey in light mode) */
 html[data-theme="dark"] .mastery-progress-bar {
-    background-color: #374151;
+    background-color: #273041;
 }
 
 /* Mastery progress stats counter text */
 html[data-theme="dark"] .mastery-progress-stats {
-    color: #9ca3af;
+    color: #9AA4B4;
 }
 
 /* === Success screen redesign — dark mode === */
-html[data-theme="dark"] .success-rating-name { color: #f9fafb; }
-html[data-theme="dark"] .success-level-name { color: #9ca3af; }
+html[data-theme="dark"] .success-rating-name { color: #E8ECF2; }
+html[data-theme="dark"] .success-level-name { color: #9AA4B4; }
 html[data-theme="dark"] .success-time-card { background: rgba(16,185,129,0.08); }
 html[data-theme="dark"] .success-new-best { background: var(--color-surface); border-color: rgba(255,255,255,0.1); color: #d1d5db; }
-html[data-theme="dark"] .success-prev-time { color: #9ca3af; }
-html[data-theme="dark"] .success-timeline-node { background: #374151; border-color: #4b5563; }
+html[data-theme="dark"] .success-prev-time { color: #9AA4B4; }
+html[data-theme="dark"] .success-timeline-node { background: #273041; border-color: #364156; }
 html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
 html[data-theme="dark"] .success-timeline-item.current .success-timeline-node { background: var(--color-surface); border-color: #10b981; }
-html[data-theme="dark"] .success-timeline-connector { background: #4b5563; }
+html[data-theme="dark"] .success-timeline-connector { background: #364156; }
 html[data-theme="dark"] .success-timeline-connector.achieved { background: #10b981; }
 html[data-theme="dark"] .success-timeline-label { color: #6b7280; }
 html[data-theme="dark"] .success-timeline-item.achieved .success-timeline-label,
-html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #9ca3af; }
-html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #f9fafb; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #9AA4B4; }
+html[data-theme="dark"] .success-timeline-item.current .success-timeline-label { color: #E8ECF2; }
 html[data-theme="dark"] .success-rating-hint { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.2); color: #d1d5db; }
-html[data-theme="dark"] .success-back-btn { color: #9ca3af; }
+html[data-theme="dark"] .success-back-btn { color: #9AA4B4; }
 html[data-theme="dark"] .success-back-btn:hover { color: #d1d5db; }
 html[data-theme="dark"] .success-icon-circle.rating-beginner   { background: rgba(148,163,184,0.15); }
 html[data-theme="dark"] .success-icon-circle.rating-developing { background: rgba(96,165,250,0.15); }

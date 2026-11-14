@@ -1,24 +1,28 @@
 /**
- * DarkMode - manages dark/light theme toggling, persistence, and system preference detection.
- * Must be loaded in <head> without defer to prevent flash of wrong theme.
+ * DarkMode - manages light/dark theme toggling and persistence.
+ * Light is the default. Dark applies only when the visitor picks it with the header toggle.
+ * Must be loaded in <head> without defer to prevent flash of wrong theme
+ * (each page also sets data-theme from an inline head script before paint).
  */
 const DarkMode = (() => {
     const KEY = 'mathsmastery-theme';
 
-    function getSystemPreference() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+    const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg>';
+
+    function read() {
+        try { return localStorage.getItem(KEY); } catch (e) { return null; }
     }
 
     function apply(theme, persist = false) {
         document.documentElement.setAttribute('data-theme', theme);
-        document.querySelectorAll('.dark-mode-toggle-icon').forEach(el => {
-            el.textContent = theme === 'dark' ? '🌙' : '☀️';
-        });
-        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
-            btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
+        // Header toggle: shows the theme you would switch TO
+        document.querySelectorAll('.theme-toggle').forEach(btn => {
+            btn.innerHTML = theme === 'dark' ? SUN : MOON;
+            btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
         });
         if (persist) {
-            localStorage.setItem(KEY, theme);
+            try { localStorage.setItem(KEY, theme); } catch (e) { /* storage blocked */ }
         }
     }
 
@@ -28,18 +32,10 @@ const DarkMode = (() => {
     }
 
     function init() {
-        const saved = localStorage.getItem(KEY);
-        apply(saved || getSystemPreference(), false);
-
-        // Track system preference changes only when user hasn't set an explicit preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem(KEY)) {
-                apply(e.matches ? 'dark' : 'light', false);
-            }
-        });
+        apply(read() === 'dark' ? 'dark' : 'light', false);
     }
 
-    return { init, toggle };
+    return { init, toggle, apply };
 })();
 
 DarkMode.init();

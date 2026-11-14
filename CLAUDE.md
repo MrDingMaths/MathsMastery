@@ -4,7 +4,7 @@
 
 Educational maths practice web app with three independent sub-apps. Pure vanilla JavaScript (ES6 modules), no framework, no build step. Supabase backend for Google OAuth and leaderboards. Local progress still persisted in browser localStorage; Supabase is additive (app works fully offline).
 
-**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), MathLive v0.109.2 (local), Math.js v15 (local bundle), Inter font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
+**Tech stack:** Tailwind CSS (CDN), KaTeX (CDN), Chart.js (CDN), MathLive v0.109.2 (local), Math.js v15 (local bundle), Nunito font (Google Fonts), Supabase JS v2 (CDN via esm.sh).
 
 ## Directory Structure
 

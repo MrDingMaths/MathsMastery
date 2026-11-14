@@ -594,7 +594,7 @@ export class BaseUI {
         text.setAttribute('x', size/2); text.setAttribute('y', size/2 + size*0.07);
         text.setAttribute('text-anchor', 'middle');
         text.setAttribute('font-size', size*0.2); text.setAttribute('font-weight', '700');
-        text.setAttribute('font-family', 'Inter,system-ui,sans-serif'); text.setAttribute('fill', '#1f2937');
+        text.setAttribute('font-family', 'Nunito,system-ui,sans-serif'); text.setAttribute('fill', '#1f2937');
         text.textContent = `${Math.round(safe*100)}%`;
 
         svg.append(track, fill, text);

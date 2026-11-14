@@ -64,7 +64,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #E4E7EC;
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
     color: white;
 }
@@ -100,7 +100,7 @@
 .progress-tabs {
     display: flex;
     background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #E4E7EC;
     padding: 0 20px;
 }
 
@@ -109,14 +109,14 @@
     border: none;
     padding: 15px 20px;
     font-weight: 600;
-    color: #6b7280;
+    color: #556070;
     cursor: pointer;
     position: relative;
     transition: color 0.3s ease;
 }
 
 .tab-btn:hover {
-    color: #4b5563;
+    color: #556070;
 }
 
 .tab-btn.active {
@@ -159,11 +159,11 @@
 }
 
 .summary-card {
-    background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #F1F3F6 0%, #ffffff 100%);
     border-radius: var(--radius-card-sm);
     padding: 20px;
     text-align: center;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -180,13 +180,13 @@
 .card-value {
     font-size: 28px;
     font-weight: 700;
-    color: #1f2937;
+    color: #172033;
     margin-bottom: 5px;
 }
 
 .card-label {
     font-size: 14px;
-    color: #6b7280;
+    color: #556070;
     text-transform: capitalize;
     letter-spacing: 0.5px;
 }
@@ -226,7 +226,7 @@
 .recent-activity h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    color: #374151;
+    color: #172033;
 }
 
 .session-item {
@@ -237,17 +237,17 @@
     background: white;
     border-radius: var(--radius-chip);
     margin-bottom: 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
 }
 
 .session-date {
-    color: #6b7280;
+    color: #556070;
     font-size: 16px;
 }
 
 .session-drill {
     font-weight: 600;
-    color: #1f2937;
+    color: #172033;
     font-size: 16px;
 }
 
@@ -263,7 +263,7 @@
     background: white;
     border-radius: var(--radius-card-sm);
     padding: 20px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     min-height: 300px;
     height: auto;
     max-height: 50vh;
@@ -313,7 +313,7 @@
     border-radius: 10px;
     padding: 20px;
     transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     height: 100%;
     max-height: 800px;
     display: flex;
@@ -370,13 +370,13 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid #E4E7EC;
     flex-shrink: 0;
 }
 
 .sidebar-header h3 {
     margin: 0;
-    color: #1f2937;
+    color: #172033;
     font-size: 18px;
     font-weight: 600;
 }
@@ -432,7 +432,7 @@
 
 .selector-header h3 {
     margin: 0 0 15px 0;
-    color: #1f2937;
+    color: #172033;
     font-size: 18px;
     font-weight: 600;
 }
@@ -445,7 +445,7 @@
 
 #drill-search {
     padding: 10px 15px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #E4E7EC;
     border-radius: 8px;
     font-size: 16px;
     transition: border-color 0.3s ease;
@@ -464,10 +464,10 @@
 
 .filter-btn {
     padding: 8px 16px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #E4E7EC;
     border-radius: 20px;
     background: white;
-    color: #6b7280;
+    color: #556070;
     font-weight: 500;
     font-size: 13px;
     cursor: pointer;
@@ -494,7 +494,7 @@
 
 .drill-card {
     background: white;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #E4E7EC;
     border-radius: 8px;
     padding: 12px;
     cursor: pointer;
@@ -538,7 +538,7 @@
     margin: 0;
     font-size: 14px;
     font-weight: 600;
-    color: #1f2937;
+    color: #172033;
     line-height: 1.3;
     flex: 1;
     margin-right: 8px;
@@ -559,14 +559,14 @@
 
 .stat-label {
     font-size: 12px;
-    color: #9ca3af;
+    color: #556070;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
 
 .stat-value {
     font-size: 12px;
-    color: #374151;
+    color: #172033;
 }
 
 /* Drill Stats */
@@ -575,7 +575,7 @@
     background: white;
     border-radius: 15px;
     padding: 20px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -585,12 +585,12 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid #E4E7EC;
 }
 
 .stats-header h4 {
     margin: 0;
-    color: #1f2937;
+    color: #172033;
     font-size: 16px;
     font-weight: 600;
 }
@@ -624,7 +624,7 @@
 }
 
 .performance-badge.rating-beginner {
-    background: linear-gradient(135deg, #f8fafc, #94a3b8);
+    background: linear-gradient(135deg, #F1F3F6, #94a3b8);
     color: #1e293b;
 }
 
@@ -635,11 +635,11 @@
 }
 
 .stat-item {
-    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    background: linear-gradient(135deg, #F1F3F6, #ffffff);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -667,14 +667,14 @@
 
 .stat-label {
     font-size: 14px;
-    color: #6b7280;
+    color: #556070;
     text-transform: uppercase;
     margin-bottom: 5px;
 }
 
 .stat-value {
     font-size: 14px;
-    color: #1f2937;
+    color: #172033;
     font-weight: 600;
 }
 
@@ -706,13 +706,13 @@
 #history-table td {
    padding: 12px;
    text-align: left;
-   border-bottom: 1px solid #e5e7eb;
+   border-bottom: 1px solid #E4E7EC;
    font-size: 14px;
 }
 
 #history-table th {
    font-weight: 600;
-   color: #374151;
+   color: #172033;
    text-transform: uppercase;
    font-size: 12px;
    letter-spacing: 0.5px;
@@ -746,7 +746,7 @@
    display: flex;
    gap: 10px;
    padding: 20px 30px;
-   border-top: 1px solid #e5e7eb;
+   border-top: 1px solid #E4E7EC;
    background: #f9fafb;
    justify-content: center;
    flex-wrap: wrap;
@@ -779,14 +779,14 @@
 }
 
 .btn-secondary {
-   background: #f8fafc;
-   color: #64748b;
-   border: 1px solid #e2e8f0;
+   background: #F1F3F6;
+   color: #556070;
+   border: 1px solid #E4E7EC;
 }
 
 .btn-secondary:hover {
-   background: #f1f5f9;
-   color: #475569;
+   background: #F1F3F6;
+   color: #556070;
 }
 
 .btn-danger {
@@ -828,7 +828,7 @@
 .share-dialog-content h3 {
    margin-top: 0;
    margin-bottom: 20px;
-   color: #1f2937;
+   color: #172033;
 }
 
 .share-options {
@@ -841,10 +841,10 @@
 .share-option {
    padding: 15px;
    background: #f9fafb;
-   border: 1px solid #e5e7eb;
+   border: 1px solid #E4E7EC;
    border-radius: 8px;
    font-weight: 600;
-   color: #374151;
+   color: #172033;
    cursor: pointer;
    transition: all 0.3s ease;
    text-align: left;
@@ -859,17 +859,17 @@
 .close-dialog {
    width: 100%;
    padding: 10px;
-   background: #e5e7eb;
+   background: #E4E7EC;
    border: none;
    border-radius: 8px;
    font-weight: 600;
-   color: #374151;
+   color: #172033;
    cursor: pointer;
    transition: background 0.3s ease;
 }
 
 .close-dialog:hover {
-   background: #d1d5db;
+   background: #CBD2DC;
 }
 
 /* Animations */
@@ -991,7 +991,7 @@
        min-width: 100%;
        opacity: 1;
        padding: 20px;
-       border: 1px solid #e5e7eb;
+       border: 1px solid #E4E7EC;
        max-height: 60px;
    }
    
@@ -1056,7 +1056,7 @@
    }
    
    .stat-label {
-       font-size: 10px;
+       font-size: 12px;
    }
    
    .stats-grid {
@@ -1201,7 +1201,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     max-height: 400px;
     overflow-y: auto;
 }
@@ -1213,21 +1213,21 @@
 }
 
 .mistakes-table th {
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    background: linear-gradient(135deg, #f9fafb 0%, #F1F3F6 100%);
     padding: 16px 12px;
     text-align: left;
     font-weight: 600;
-    color: #374151;
-    border-bottom: 2px solid #e5e7eb;
+    color: #172033;
+    border-bottom: 2px solid #E4E7EC;
     font-size: 14px;
     white-space: nowrap;
 }
 
 .mistakes-table td {
     padding: 12px;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid #F1F3F6;
     font-size: 13px;
-    color: #1f2937;
+    color: #172033;
     vertical-align: top;
 }
 
@@ -1236,7 +1236,7 @@
 }
 
 .mistakes-table tbody tr:hover {
-    background: #f8fafc;
+    background: #F1F3F6;
 }
 
 .mistakes-table tbody tr:last-child td {
@@ -1259,7 +1259,7 @@
 }
 
 .date-column {
-    color: #6b7280;
+    color: #556070;
     min-width: 90px;
     white-space: nowrap;
     font-size: 12px;
@@ -1277,7 +1277,7 @@
     background: #f9fafb;
     padding: 6px 8px;
     border-radius: 6px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E4E7EC;
     display: inline-block;
     margin: 2px 0;
 }
@@ -1318,7 +1318,7 @@
 .no-mistakes {
     text-align: center;
     padding: 60px 20px;
-    color: #6b7280;
+    color: #556070;
 }
 
 .no-mistakes.hidden {
@@ -1331,14 +1331,14 @@
 }
 
 .no-mistakes h3 {
-    color: #374151;
+    color: #172033;
     margin: 16px 0 12px 0;
     font-size: 20px;
     font-weight: 600;
 }
 
 .no-mistakes p {
-    color: #6b7280;
+    color: #556070;
     font-size: 16px;
     margin: 0;
     max-width: 400px;
@@ -1359,8 +1359,8 @@
 }
 
 #practice-mistakes:disabled {
-    background: #d1d5db;
-    color: #9ca3af;
+    background: #CBD2DC;
+    color: #556070;
     cursor: not-allowed;
     transform: none;
 }
@@ -1411,7 +1411,7 @@
     }
 
     .date-column {
-        font-size: 11px;
+        font-size: 12px;
         min-width: 80px;
     }
 

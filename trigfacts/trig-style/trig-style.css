@@ -120,7 +120,7 @@ math-field.math-field-input.incorrect {
 
 .diagram-container {
     padding: 1rem;
-    background: linear-gradient(145deg, #f9fafb, #f3f4f6);
+    background: linear-gradient(145deg, #f9fafb, #F1F3F6);
     border-radius: 1rem;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 }
