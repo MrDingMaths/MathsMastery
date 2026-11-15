@@ -12,14 +12,13 @@
     font-family: 'Nunito', ui-rounded, 'Segoe UI', system-ui, sans-serif;
 }
 
+/* Edge to edge like the other suite headers: logo at the left edge, controls at the right. */
 .site-header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
     height: 100%;
     display: flex;
     align-items: center;
     gap: 24px;
-    padding: 0 16px;
+    padding: 0 max(16px, 1.5rem);
 }
 
 .site-header-brand {
@@ -471,6 +470,7 @@ body.chalkboard.has-suite > .site-footer {
 
     .site-header-inner {
         gap: 12px;
+        padding: 0 max(16px, env(safe-area-inset-left));
     }
 
     body.has-suite {
